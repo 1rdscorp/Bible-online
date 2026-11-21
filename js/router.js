@@ -14,6 +14,7 @@
  *   #/psalms/23/1-4  reader  Psalm 23, verses 1–4 highlighted
  *   #/translations  translations  about each translation and its licence
  *   #/search?q=…  search    full-text search (parameters: js/search/params.js)
+ *   #/study       study     My Study: highlights, notes, bookmarks (filters: js/views/study.js)
  *
  * Anything after "?" is parsed into `route.params`. The reader uses ?t= for
  * its translations (#/john/3?t=kjv,asv); see js/translations.js.
@@ -43,7 +44,7 @@ export function chapterHref(book, chapter, verse = null, query = '', verseEnd = 
  * Pages that aren't books. Their names are reserved, so no book alias may
  * use them; tests/router.test.js checks.
  */
-export const PAGES = Object.freeze({ translations: 'translations', search: 'search' });
+export const PAGES = Object.freeze({ translations: 'translations', search: 'search', study: 'study' });
 
 export function pageHref(name) {
   return `#/${name}`;

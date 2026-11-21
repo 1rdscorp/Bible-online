@@ -63,12 +63,18 @@ export const storage = {
     }
   },
 
-  /** Store a JSON-serialisable value. Failures (e.g. quota) are logged, not thrown. */
+  /**
+   * Store a JSON-serialisable value. Resolves true if it was saved; failures
+   * (e.g. storage full) are logged and resolve false, so callers holding
+   * the reader's own work (notes) can say so.
+   */
   async set(key, value) {
     try {
       getBackend().setItem(STORAGE_PREFIX + key, JSON.stringify(value));
+      return true;
     } catch (error) {
       console.warn(`storage: could not save "${key}"`, error);
+      return false;
     }
   },
 
@@ -78,6 +84,25 @@ export const storage = {
     } catch (error) {
       console.warn(`storage: could not remove "${key}"`, error);
     }
+  },
+
+  /**
+   * Call `listener(value)` when another tab of the site changes `key` (the
+   * browser's "storage" event; this tab's own writes don't fire it).
+   * Returns a function that stops listening.
+   */
+  onExternalChange(key, listener) {
+    if (typeof window === 'undefined') return () => {};
+    const handler = (event) => {
+      if (event.key !== STORAGE_PREFIX + key) return;
+      try {
+        listener(event.newValue === null ? null : JSON.parse(event.newValue));
+      } catch {
+        // An unreadable value: ignore it, like get() does.
+      }
+    };
+    window.addEventListener('storage', handler);
+    return () => window.removeEventListener('storage', handler);
   },
 
   /** True when data survives a reload (false = in-memory fallback). */

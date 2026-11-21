@@ -1,9 +1,9 @@
 /**
  * "Translate to Russian" for selected English Bible text.
  *
- * Selecting English text in the reader (single view, or an English column
- * in compare mode) shows a small button under the selection. Clicking it
- * opens a panel with:
+ * The verse action bar (js/ui/verse-actions.js) offers it when English text
+ * is selected, by dragging across words or by tapping verses. It opens a
+ * panel with:
  *   - a machine translation of exactly the selected words, made on the
  *     device where the browser supports it;
  *   - a link to Translate.com's English→Russian translator. It can't take
@@ -11,9 +11,9 @@
  *   - the Russian Synodal text of the same verses, a real Bible translation,
  *     unless that translation is already a column on screen.
  *
- * The selection is read as soon as it changes (on phones, tapping the button
- * can clear it), and only text from one translation is used, so a drag
- * across compare columns doesn't mix KJV and ASV.
+ * For dragged text, readTextSelection() gives exactly the selected words, and
+ * only from one translation, so a drag across compare columns doesn't mix
+ * KJV and ASV.
  */
 import { chapterTitle, t } from '../i18n.js';
 import { copyText } from '../translate/clipboard.js';
@@ -24,7 +24,7 @@ import { el, icon, ICONS } from './dom.js';
 // A verse of English text: a verse in single view, or an English cell in compare view.
 const UNIT_SELECTOR = '.scripture[lang|="en"] .verse, .pcell[lang|="en"]';
 // Text in those units that isn't Bible text: verse numbers, labels, hidden hints.
-const SKIP_SELECTOR = '.vnum, .pnum, .pcell-label, .visually-hidden, [aria-hidden="true"]';
+const SKIP_SELECTOR = '.vnum, .pnum, .pcell-label, .study-marks, .visually-hidden, [aria-hidden="true"]';
 const FROM = 'en';
 const TO = 'ru';
 const MAX_CHARS = 2000;
@@ -72,18 +72,8 @@ function readSelection(root) {
  */
 export function initSelectionTranslate({ root, getRussianVerses }) {
   let context = null; // { book, chapter, shownIds } while a chapter is on screen
-  let pending = null; // the selection the button will translate
-  let pointerOnButton = false;
-  let settleTimer = 0;
   let requestId = 0;
-
-  const buttonLabel = el('span');
-  const button = el(
-    'button',
-    { type: 'button', class: 'translate-button', hidden: true },
-    icon(ICONS.translate, { size: 16 }),
-    buttonLabel,
-  );
+  let returnFocus = null;
 
   const title = el('h2', { class: 'translate-title', id: 'translate-title', tabindex: '-1' });
   const closeButton = el('button', { type: 'button', class: 'icon-button translate-close' }, icon(ICONS.close, { size: 18 }));
@@ -100,53 +90,12 @@ export function initSelectionTranslate({ root, getRussianVerses }) {
     external,
     synodal,
   );
-  document.body.append(button, panel);
+  document.body.append(panel);
 
-  function hideButton() {
-    button.hidden = true;
-  }
-
-  function showButton(selection) {
-    pending = selection;
-    buttonLabel.textContent = t('translate.button');
-    // Below the selection (phones put their own selection menu above it),
-    // kept inside the window.
-    const { rect } = selection;
-    const x = Math.min(Math.max(rect.left + rect.width / 2, 110), window.innerWidth - 110);
-    const y = Math.min(rect.bottom + 10, window.innerHeight - 56);
-    button.style.left = `${x + window.scrollX}px`;
-    button.style.top = `${y + window.scrollY}px`;
-    button.hidden = false;
-  }
-
-  // selectionchange fires continuously while dragging; act once it settles.
-  function onSelectionChange() {
-    clearTimeout(settleTimer);
-    settleTimer = setTimeout(() => {
-      if (!context || pointerOnButton) return;
-      const selection = readSelection(root);
-      if (selection) showButton(selection);
-      else hideButton();
-    }, 150);
-  }
-
-  // Keep the selection when the button is pressed (a mouse press would clear it).
-  button.addEventListener('pointerdown', (event) => {
-    pointerOnButton = true;
-    event.preventDefault();
-  });
-  document.addEventListener('pointerup', () => {
-    setTimeout(() => {
-      pointerOnButton = false;
-    }, 0);
-  });
-  button.addEventListener('click', () => open(pending));
   closeButton.addEventListener('click', () => close());
-  document.addEventListener('selectionchange', onSelectionChange);
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && !panel.hidden) close();
   });
-  window.addEventListener('resize', hideButton);
 
   function label(text) {
     return el('p', { class: 'translate-label' }, text);
@@ -246,7 +195,7 @@ export function initSelectionTranslate({ root, getRussianVerses }) {
   function open(request) {
     if (!request || !context) return;
     const id = ++requestId;
-    hideButton();
+    returnFocus = document.activeElement;
     title.textContent = t('translate.title');
     closeButton.setAttribute('aria-label', t('translate.close'));
     quote.textContent = `“${truncate(request.text, 280)}”`;
@@ -261,15 +210,23 @@ export function initSelectionTranslate({ root, getRussianVerses }) {
     if (panel.hidden) return;
     requestId += 1; // ignore results still on their way
     panel.hidden = true;
+    // Back to where the reader was (a verse number), if focus was in the panel.
+    if (panel.contains(document.activeElement) || document.activeElement === document.body) {
+      if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true });
+    }
   }
 
   return {
     /** The chapter on screen ({ book, chapter, shownIds }), or null off the reader. */
     setContext(next) {
       context = next;
-      pending = null;
-      hideButton();
       close();
     },
+
+    /** Open the panel for { text, verses, translation }. */
+    open,
+
+    /** The exact English words selected in the chapter, as a request for open(), or null. */
+    readTextSelection: () => (context ? readSelection(root) : null),
   };
 }

@@ -6,16 +6,20 @@
  */
 import { booksInTestament, TESTAMENTS } from '../canon.js';
 import { bookName, chapterTitle, t, testamentName } from '../i18n.js';
-import { bookHref, chapterHref } from '../router.js';
+import { bookHref, chapterHref, pageHref, PAGES } from '../router.js';
 import { el } from '../ui/dom.js';
 
-/** @param {{ lastRead?: { book, chapter } | null }} options */
-export function renderBookList({ lastRead = null } = {}) {
+/**
+ * @param {{ lastRead?: { book, chapter } | null, studyCount?: number }} options
+ * studyCount: highlights, notes and bookmarks saved (shows a My Study link)
+ */
+export function renderBookList({ lastRead = null, studyCount = 0 } = {}) {
   return el(
     'section',
     { class: 'picker', 'aria-labelledby': 'view-title' },
     el('h1', { class: 'view-title', id: 'view-title', tabindex: '-1' }, t('books.title')),
-    lastRead && continueLink(lastRead),
+    (lastRead || studyCount > 0) &&
+      el('p', { class: 'continue' }, lastRead && continueLink(lastRead), studyCount > 0 && studyLink(studyCount)),
     TESTAMENTS.map((testament) =>
       el(
         'section',
@@ -51,15 +55,21 @@ export function renderBookList({ lastRead = null } = {}) {
 
 function continueLink({ book, chapter }) {
   return el(
-    'p',
-    { class: 'continue' },
-    el(
-      'a',
-      { class: 'continue-link', href: chapterHref(book, chapter) },
-      el('span', { class: 'continue-label' }, t('books.continue')),
-      el('span', { class: 'visually-hidden' }, ': '),
-      el('span', { class: 'continue-target' }, chapterTitle(book, chapter)),
-    ),
+    'a',
+    { class: 'continue-link', href: chapterHref(book, chapter) },
+    el('span', { class: 'continue-label' }, t('books.continue')),
+    el('span', { class: 'visually-hidden' }, ': '),
+    el('span', { class: 'continue-target' }, chapterTitle(book, chapter)),
+  );
+}
+
+function studyLink(count) {
+  return el(
+    'a',
+    { class: 'continue-link', href: pageHref(PAGES.study) },
+    el('span', { class: 'continue-label' }, t('study.items', { n: count })),
+    el('span', { class: 'visually-hidden' }, ': '),
+    el('span', { class: 'continue-target' }, t('study.myStudy')),
   );
 }
 

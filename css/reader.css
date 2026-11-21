@@ -67,6 +67,22 @@
   user-select: none;
 }
 
+/* Verse numbers are buttons (they select the verse), styled as plain numbers. */
+button.vnum,
+button.pnum {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+}
+
+button.vnum:hover,
+button.pnum:hover {
+  color: var(--color-accent);
+}
+
 /* A verse linked directly (#/john/3/16) */
 .verse.is-target {
   border-radius: 4px;

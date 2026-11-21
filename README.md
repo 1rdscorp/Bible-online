@@ -8,6 +8,8 @@ Seven public-domain translations can be read one at a time or 2–4 side by side
 
 Full-text search covers one translation or all of them, and typing a reference such as "Jn 3:16" opens the passage.
 
+Highlights, notes and bookmarks are saved on the device, listed on a My Study page, and can be backed up to a file.
+
 ## Run it locally
 
 Browsers block JavaScript modules and data loading on `file://` pages, so serve the folder instead of opening `index.html` directly:
@@ -31,7 +33,7 @@ npm test
 ```
 
 This runs two groups of tests:
-- **Unit tests:** canon, router, translation selection, verse alignment, versification remapping, the provider contract, the cache, the registry, interface languages, and search (tokenizing and queries, the index, references, search URLs).
+- **Unit tests:** canon, router, translation selection, verse alignment, versification remapping, the provider contract, the cache, the registry, interface languages, search (tokenizing and queries, the index, references, search URLs), and study tools (verse ranges and highlight splitting, note markup, copy formats, backups, the store).
 - **Data checks:** every translation in `data/translations.json` is validated, version-checked and scanned for leftover markup.
 
 ## Deploy to GitHub Pages
@@ -49,6 +51,7 @@ In the repository, go to **Settings → Pages → Build and deployment**. Set **
 | `#/john/3/16?t=web` | John 3, scrolled to and highlighted at verse 16 |
 | `#/psalms/23/1-4?t=kjv` | Psalm 23 with verses 1–4 highlighted |
 | `#/search?q=faith&t=kjv` | Search results (see below for the other options) |
+| `#/study` | My Study: highlights, notes and bookmarks (filters: `?type=note&color=yellow&book=JHN&tag=prayer&q=…&sort=recent`) |
 | `#/translations` | About each translation: description, copyright, source |
 
 A link without `?t=` opens in the translations you used last. Abbreviations redirect to the canonical URL (`#/jn/3` → `#/john/3?t=…`). Opening the site with no `#…` resumes the last chapter read.
@@ -76,9 +79,42 @@ How it works:
 
 The URL holds the whole search, `#/search?q=…&t=<id or all>&in=<all, OT, NT or a book id>&match=<all, any or phrase>`, so a search can be bookmarked or shared.
 
+## Highlights, notes and bookmarks
+
+Tap or click a verse to select it (tap more to add them, or Shift+click for a range), or drag across text. An action bar appears at the bottom:
+
+| Action | What it does |
+|---|---|
+| Five colours | Highlight the verses (one colour per verse; a new colour replaces the old one there). The eraser removes it, with Undo |
+| Note | Opens the Notes panel to write a note on those verses |
+| Bookmark | Bookmarks them (again to remove, with Undo) |
+| Copy | "Text and reference", or "With translation name" (`… John 3:16 — King James Version`). When comparing, each translation gets a labelled line |
+| Share | The phone's share sheet where there is one; otherwise copies a link to the verses (`#/john/3/16-18?t=kjv`) |
+| Translate | Translate to Russian (English text only; see below) |
+
+**Keyboard:** the verse numbers are buttons with one Tab stop for the chapter. **↑/↓** (Home/End) move between them, **Enter** selects, **Shift+Enter** selects a range, **Tab** reaches the bar, and **Escape** clears the selection.
+
+**Saved by verse, not by text.** Each item is stored as book + chapter + verse range, in the English verse numbering every translation here is converted to. A highlight made in the KJV shows on the same verses in the ASV, in the Synodal, and in compare view.
+
+**Notes:**
+- **The panel** (docked on the right on wide screens, a sheet from the bottom on phones) shows the chapter's notes and searches all of them. It opens from the action bar, from a note's marker after its verse, or from "Notes" under the chapter.
+- **The editor** has bold, italic and bullet lists (also Ctrl/⌘+B and Ctrl/⌘+I), plus tags. **Ctrl/⌘+Enter** saves.
+- **Stored as simple markup** (`**bold**`, `*italic*`, `- item`). Notes are displayed by building the page element by element, never as raw HTML, and pasted text comes in as plain text. So a note, or an imported backup, can't inject anything into the page.
+
+**My Study** (the bookmark icon in the header, "My Study" under each chapter, or the home page) lists everything:
+- **Grouped:** by book in Bible order, or as one list of recent changes.
+- **Filters:** type, colour, book, tag and words. They're kept in the URL.
+- **Each item** shows its verses in the translation you're reading. Notes can be edited in place, and anything can be deleted, with Undo.
+
+**Backup:**
+- **Download:** the My Study page saves everything on the device (study items, settings, translation choices, last chapter read) as one JSON file.
+- **Import:** loads a backup, either merging (for an item on both sides, the more recently changed copy wins) or replacing everything. Each item is checked first; damaged ones are skipped and counted.
+
+Data lives in the browser's storage on this device, through `js/storage.js`, the one module that touches persistence. Items carry random ids and change times, ready for a future cloud sync. Two open tabs keep each other up to date.
+
 ## Translate a selection into Russian
 
-Select English Bible text (in single view, or in an English column when comparing) and a **Translate to Russian** button appears under it. The panel it opens shows:
+Select English Bible text (in single view, or in an English column when comparing), or tap English verses, and choose **Translate** in the action bar. The panel it opens shows:
 - **Machine translation** of exactly the selected words. It's made on the device by the browser's built-in Translator API (desktop Chrome and Edge), so nothing leaves the device. A browser that doesn't answer within a few seconds says so.
 - **Open Translate.com:** a link to [Translate.com](https://www.translate.com/english-russian)'s English→Russian translator, offered in every browser. Translate.com can't receive text through a link, so clicking it also **copies the selected text**; paste it into the box there. Its free translator handles a limited amount of text a day without an account (500 characters when this was written).
 - **The Russian Synodal text of the same verses,** a real Bible translation. It's skipped when the Synodal is already a column on screen.
@@ -101,7 +137,8 @@ To add another interface language:
 
 ```
 index.html            App shell: header, settings panel, <main> where views render
-css/                  themes.css (colour tokens), base, layout, picker, reader, parallel, translate, search
+css/                  themes.css (colour tokens), base, layout, picker, reader, parallel, translate,
+                      search, study
 js/
   main.js             Entry point: routes → views, translation choice, keyboard, last-read
   i18n.js             Interface language: t('key'), book names, RUS | ENG (text in locales/)
@@ -109,6 +146,8 @@ js/
                       link, clipboard, text tidying
   search/             Full-text search: words and queries (text.js), the index (engine.js),
                       the Web Worker and its client, references ("Jn 3:16"), search URLs
+  study/              Highlights, notes, bookmarks: the model (verse ranges, one colour per
+                      verse), the store, note markup, copy formats, backup files
   canon.js            The 66 books: USFM ids, names, URL slugs, chapter counts
   router.js           Hash routing (#/john/3/16?t=kjv) and canonical redirects
   translations.js     Which translations to show: ?t= parsing, preferences, columns
@@ -116,9 +155,10 @@ js/
   settings.js         Theme and text size
   providers/          Translation provider layer: contract, registry, JSON provider,
                       device cache, base for API sources (see its README)
-  ui/                 DOM helper, header, settings panel, translation dropdown + Compare
+  ui/                 DOM helper, header, settings panel, translation dropdown + Compare,
+                      verse actions bar, study marks, Notes panel and editor, toasts
   views/              Book/chapter picker, reader (single + parallel), verse alignment,
-                      search page, Translations page, messages
+                      search page, My Study, Translations page, messages
 data/                 translations.json + one JSON file per translation (see data/README.md)
 tools/                serve, build-data (download → convert → validate), converters, validator
 tests/                node --test suites
@@ -136,4 +176,5 @@ tests/                node --test suites
   - Russian interface with a RUS | ENG switch
   - Translate selected English text into Russian (on-device machine translation, Translate.com link, Synodal verses)
 - [x] **Stage 3:** full-text search in one or all translations (all words, any word, exact phrase, word starts), book/Testament filters, results grouped by book with counts and highlights, jump-and-flash to the verse, reference entry ("Jn 3:16", "Ps 23:1-4", Russian names too), and indexing in a Web Worker
-- [ ] Later: highlights/notes/bookmarks, reading plans, cross-references, Strong's word study, offline support
+- [x] **Stage 4:** personal study tools: tap or select verses for an action bar (5 highlight colours, notes, bookmarks, two copy formats, share), a Notes panel with a rich-ish editor, tags and search, a My Study page with filters, highlights kept by verse reference across translations, and JSON backup export/import
+- [ ] Later: reading plans, cross-references, Strong's word study, offline support, cloud sync

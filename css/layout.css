@@ -400,6 +400,12 @@
   .app-header-inner:has(> .location:not([hidden])) .header-actions .icon-button {
     width: 2.25rem;
   }
+
+  /* My Study is under every chapter and on the home page; here the
+     chapter name needs the room. */
+  .app-header-inner:has(> .location:not([hidden])) #study-link {
+    display: none;
+  }
 }
 
 .icon-button {
