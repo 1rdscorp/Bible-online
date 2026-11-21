@@ -87,3 +87,38 @@ describe("Strong's dictionaries (data/strongs/)", () => {
     assert.deepEqual([...missing], []);
   });
 });
+
+describe('maps (data/geo/)', () => {
+  const placesText = readText(research.geo.places.url);
+  const basemapText = readText(research.geo.basemap.url);
+  const { places } = JSON.parse(placesText);
+  const basemap = JSON.parse(basemapText);
+
+  test('"version" matches each file (run `node tools/build-geo.mjs` after editing)', () => {
+    assert.equal(research.geo.places.version, contentVersion(placesText));
+    assert.equal(research.geo.basemap.version, contentVersion(basemapText));
+  });
+
+  test('places have a location and readable verses', () => {
+    assert.equal(Object.keys(places).length, research.geo.places.count);
+    for (const [id, place] of Object.entries(places)) {
+      assert.match(id, /^a[0-9a-f]{6}$/);
+      assert.ok(place.name && Number.isFinite(place.lon) && Number.isFinite(place.lat), id);
+      for (const ref of place.verses) assert.ok(parseRef(ref), `${id}: ${ref}`);
+    }
+    assert.equal(places.a15257a.name, 'Jerusalem');
+    assert.equal(places.a15257a.ru, 'Иерусалим');
+  });
+
+  test('the basemap stays inside its bounds', () => {
+    const [w, s, e, n] = basemap.bounds;
+    const shapes = [...basemap.land, ...basemap.lakes.flatMap((l) => l.rings), ...basemap.rivers.flatMap((r) => r.lines)];
+    assert.ok(basemap.land.length > 50);
+    for (const flat of shapes) {
+      for (let i = 0; i < flat.length; i += 2) {
+        assert.ok(flat[i] >= w && flat[i] <= e && flat[i + 1] >= s && flat[i + 1] <= n);
+      }
+    }
+    assert.deepEqual(basemap.rivers.map((r) => r.name).sort(), ['Euphrates', 'Jordan', 'Nile', 'Tiber', 'Tigris']);
+  });
+});

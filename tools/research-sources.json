@@ -32,5 +32,51 @@
         "G7343": "H7343"
       }
     }
+  },
+  "geo": {
+    "_comment": "Places: OpenBible.info's Bible Geocoding Data (CC BY 4.0), pinned to a commit. Basemap: Natural Earth 1:10m land, lakes and rivers (public domain), clipped to the Bible lands and simplified.",
+    "places": "https://raw.githubusercontent.com/openbibleinfo/Bible-Geocoding-Data/7eb18a5ee62f27b9b93bd6689ea272d76dd23b8f/data/ancient.jsonl",
+    "land": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/ca96624a56bd078437bca8184e78163e5039ad19/geojson/ne_10m_land.geojson",
+    "lakes": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/ca96624a56bd078437bca8184e78163e5039ad19/geojson/ne_10m_lakes.geojson",
+    "rivers": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/ca96624a56bd078437bca8184e78163e5039ad19/geojson/ne_10m_rivers_lake_centerlines.geojson",
+    "_boundsComment": "West, south, east, north (degrees): Rome to Persia, Asia Minor to Upper Egypt. Every map view must fit inside.",
+    "bounds": [
+      8,
+      23.8,
+      54,
+      46
+    ],
+    "_detailComment": "Simplification tolerance in degrees: finer inside detailBox (Israel and its neighbours), coarser elsewhere.",
+    "tolerance": 0.015,
+    "detailTolerance": 0.003,
+    "detailBox": [
+      33.5,
+      29,
+      37.5,
+      34.2
+    ],
+    "_lakesComment": "Natural lakes only (modern reservoirs such as Lake Nasser are left out).",
+    "lakes_keep": {
+      "Dead Sea": "Dead Sea",
+      "Sea of Galilee": "Sea of Galilee",
+      "Lake Van": "Lake Van",
+      "Lake Urmia": "Lake Urmia",
+      "Lake Tuz": "Lake Tuz",
+      "Great Bitter Lake": "Great Bitter Lake"
+    },
+    "_riversComment": "Natural Earth name → the name shown. Rivers the Bible names, plus the Tiber at Rome.",
+    "rivers_keep": {
+      "Nile": "Nile",
+      "Rosetta Branch": "Nile",
+      "Damietta Branch": "Nile",
+      "Euphrates": "Euphrates",
+      "Firat": "Euphrates",
+      "Al Furat": "Euphrates",
+      "Tigris": "Tigris",
+      "Dicle": "Tigris",
+      "Shatt al Arab": "Tigris",
+      "Jordan": "Jordan",
+      "Tevere": "Tiber"
+    }
   }
 }

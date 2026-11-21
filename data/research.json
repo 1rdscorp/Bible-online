@@ -26,5 +26,25 @@
       "version": "8c332b7399aa",
       "entries": 5523
     }
+  },
+  "geo": {
+    "places": {
+      "url": "data/geo/places.json",
+      "version": "9d2a48b56a38",
+      "count": 1309
+    },
+    "basemap": {
+      "url": "data/geo/basemap.json",
+      "version": "4240be80016d"
+    },
+    "license": "CC BY 4.0 (places); public domain (basemap)",
+    "source": {
+      "name": "OpenBible.info",
+      "url": "https://www.openbible.info/geo/"
+    },
+    "basemapSource": {
+      "name": "Natural Earth",
+      "url": "https://www.naturalearthdata.com/"
+    }
   }
 }
