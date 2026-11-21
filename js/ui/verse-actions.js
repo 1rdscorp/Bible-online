@@ -14,30 +14,29 @@
  * colours and "remove", Note, Bookmark, Copy (text + reference, or with the
  * translation's name), Share, and Translate to Russian when the text is
  * English. Each action applies to the selected verses, then clears the
- * selection. Everything is saved by verse reference (js/study/store.js), so
- * it shows in every translation.
+ * selection. Verse highlights, notes and bookmarks are saved by verse
+ * reference (js/study/store.js), so they show in every translation.
+ *
+ * Selected words (a drag, a double-click, a long press) work at the word
+ * level instead: the colours highlight just those words, in that
+ * translation, and a Search button looks them up (#/search).
  *
  * The bar sits in the page right after the verses (fixed to the bottom of
  * the window by CSS), so Tab from a verse number reaches it next.
  */
 import { chapterTitle, t } from '../i18n.js';
-import { chapterHref } from '../router.js';
+import { chapterHref, navigate } from '../router.js';
+import { searchHref } from '../search/params.js';
 import { formatPassage } from '../study/copy.js';
-import { HIGHLIGHT_COLORS, makeRef, sameRef, verseRuns } from '../study/model.js';
+import { HIGHLIGHT_COLORS, makeRef, marksOverlapping, sameRef, verseRuns } from '../study/model.js';
+import { searchQueryFor } from '../study/words.js';
 import { copyText } from '../translate/clipboard.js';
-import { verseRangeLabel } from '../translate/text.js';
+import { truncate, verseRangeLabel } from '../translate/text.js';
 import { el, icon, ICONS } from './dom.js';
+import { coversText, selectionSpans } from './text-ranges.js';
 
 const VERSE = '[data-verse]';
 const NUMBER = '.vnum, .pnum';
-
-/** Does the selection range cover some of this node's text (not just touch its edge)? */
-function coversText(range, node) {
-  if (!range.intersectsNode(node)) return false;
-  const inner = document.createRange();
-  inner.selectNodeContents(node);
-  return range.compareBoundaryPoints(Range.END_TO_START, inner) < 0 && range.compareBoundaryPoints(Range.START_TO_END, inner) > 0;
-}
 
 /**
  * @param {object} options
@@ -53,6 +52,7 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
   const selected = new Set();
   let anchor = null; // the last verse tapped, for Shift+click ranges
   let source = null; // 'tap' | 'text'
+  let words = null; // with source 'text': the selected words, { translation, spans }
   let settleTimer = 0;
 
   const title = el('p', { class: 'va-title', id: 'va-title' });
@@ -73,6 +73,7 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
   const copy = action(ICONS.copy, () => toggleCopyMenu(), { 'aria-expanded': 'false', 'aria-controls': 'va-copy-menu' });
   const share = action(ICONS.share, () => sharePassage());
   const translate = action(ICONS.translate, () => translateSelection(), { 'data-action': 'translate' });
+  const search = action(ICONS.search, () => searchWords(), { 'data-action': 'search' });
 
   const copyPlain = el('button', { type: 'button', class: 'text-button', onclick: () => copyPassage(false) });
   const copyNamed = el('button', { type: 'button', class: 'text-button', onclick: () => copyPassage(true) });
@@ -82,7 +83,7 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
     'section',
     { class: 'verse-actions', 'aria-labelledby': 'va-title', hidden: true },
     el('div', { class: 'va-head' }, title, closeButton),
-    el('div', { class: 'va-row' }, colorsGroup, el('div', { class: 'va-actions' }, note.button, bookmark.button, copy.button, share.button, translate.button)),
+    el('div', { class: 'va-row' }, colorsGroup, el('div', { class: 'va-actions' }, note.button, bookmark.button, copy.button, share.button, search.button, translate.button)),
     copyMenu,
   );
   // A press on the bar must not clear a text selection (it would deselect).
@@ -133,20 +134,29 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
     );
     const ref = spanRef();
     const bookmarked = chapterItems.some((item) => item.type === 'bookmark' && sameRef(item.ref, ref));
+    // Selected words: the colours and the eraser work on those words.
+    const wordMode = source === 'text' && Boolean(words);
+    const quote = wordMode ? words.spans.map((span) => span.text).join(' ') : '';
+    const query = wordMode ? searchQueryFor(quote) : '';
 
-    title.textContent = reference();
+    title.textContent = wordMode ? `${reference()} · “${truncate(quote, 48)}”` : reference();
     bar.setAttribute('aria-label', t('study.actionsFor', { ref: reference() }));
     closeButton.setAttribute('aria-label', t('study.clearSelection'));
-    colorsGroup.setAttribute('aria-label', t('study.highlight'));
+    colorsGroup.setAttribute('aria-label', wordMode ? t('study.highlightWords') : t('study.highlight'));
     swatches.forEach((swatch) => {
       const color = swatch.dataset.color;
-      swatch.setAttribute('aria-label', t('study.highlightIn', { color: t(`study.colorIn.${color}`) }));
+      const colorIn = t(`study.colorIn.${color}`);
+      swatch.setAttribute('aria-label', wordMode ? t('study.highlightWordsIn', { color: colorIn }) : t('study.highlightIn', { color: colorIn }));
       swatch.title = t(`study.color.${color}`);
-      swatch.setAttribute('aria-pressed', String(colorsHere.size === 1 && colorsHere.has(color)));
+      swatch.setAttribute('aria-pressed', String(!wordMode && colorsHere.size === 1 && colorsHere.has(color)));
     });
-    clearHighlight.hidden = colorsHere.size === 1 && colorsHere.has(null);
-    clearHighlight.setAttribute('aria-label', t('study.removeHighlight'));
-    clearHighlight.title = t('study.removeHighlight');
+    const removeLabel = wordMode ? t('study.removeWordHighlight') : t('study.removeHighlight');
+    clearHighlight.hidden = wordMode ? marksOverlapping(chapterItems, words.translation, wordsRef(), words.spans).length === 0 : colorsHere.size === 1 && colorsHere.has(null);
+    clearHighlight.setAttribute('aria-label', removeLabel);
+    clearHighlight.title = removeLabel;
+    search.label.textContent = t('study.searchSelection');
+    search.button.setAttribute('aria-label', t('study.searchFor', { q: query.replace(/^"|"$/g, '') }));
+    search.button.hidden = !query;
     note.label.textContent = t('study.note');
     bookmark.label.textContent = bookmarked ? t('study.bookmarkedShort') : t('study.bookmark');
     bookmark.button.setAttribute('aria-pressed', String(bookmarked));
@@ -160,9 +170,16 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
     bar.hidden = false;
   }
 
+  /** The verses the selected words are on, as one range. */
+  function wordsRef() {
+    const verses = words.spans.map((span) => span.verse);
+    return makeRef(context.book.id, context.chapter, Math.min(...verses), Math.max(...verses));
+  }
+
   function select(verse, { range = false } = {}) {
     if (source === 'text') {
       selected.clear();
+      words = null;
       document.getSelection()?.removeAllRanges();
     }
     source = 'tap';
@@ -184,6 +201,7 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
     selected.clear();
     anchor = null;
     source = null;
+    words = null;
     if (!keepText && textSelectionInChapter()) document.getSelection().removeAllRanges();
     render();
   }
@@ -233,6 +251,7 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
       selected.clear();
       covered.forEach((verse) => selected.add(verse));
       source = 'text';
+      words = selectionSpans(range, context.view.textRoot);
       anchor = covered[covered.length - 1];
       render();
     }, 150);
@@ -288,6 +307,10 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
   }
 
   async function highlight(color) {
+    if (source === 'text' && words) {
+      await highlightWords(color);
+      return;
+    }
     const before = context.store.inChapter(context.book.id, context.chapter).filter((item) => item.type === 'highlight');
     const runs = verseRuns(verses());
     let result;
@@ -309,6 +332,34 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
         },
       });
     }
+  }
+
+  /** Highlight the selected words in `color`, or (null) remove word highlights there. */
+  async function highlightWords(color) {
+    const { translation, spans } = words;
+    const ref = wordsRef();
+    const verseAfter = anchorOrFirst();
+    if (color) {
+      saved(await context.store.addMark(translation, ref, spans, color));
+      clear();
+      focusIfInBar(verseAfter);
+      return;
+    }
+    const removed = await context.store.removeMarks(translation, ref, spans);
+    clear();
+    focusIfInBar(verseAfter);
+    if (removed.length) {
+      toaster.show(t('study.wordHighlightRemoved'), { action: { label: t('study.undo'), onClick: () => context.store.restore(removed) } });
+    }
+  }
+
+  /** Look the selected words up: one word as it is, several as a phrase, in their translation. */
+  function searchWords() {
+    if (!words) return;
+    const q = searchQueryFor(words.spans.map((span) => span.text).join(' '));
+    const { translation } = words;
+    clear();
+    if (q) navigate(searchHref({ q, t: translation }));
   }
 
   async function toggleBookmark() {
@@ -401,6 +452,7 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
       selected.clear();
       anchor = null;
       source = null;
+      words = null;
       context = next ? { ...next, store } : null;
       if (context) {
         context.view.textRoot.after(bar);

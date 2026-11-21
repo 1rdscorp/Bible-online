@@ -99,7 +99,7 @@ export default {
 
     'settings.tipSearch': 'Клавиша',
     'settings.tipSearchEnd': 'открывает поиск.',
-    'settings.tipVerses': 'Коснитесь стиха, чтобы выделить его цветом, написать заметку, добавить закладку, скопировать или поделиться.',
+    'settings.tipVerses': 'Коснитесь стиха, чтобы выделить его цветом, написать заметку, добавить закладку, скопировать или поделиться. Выделите слова, чтобы отметить только их или найти их в Библии.',
 
     'location.choose': '{title}: выбрать другую главу',
     'translation.label': 'Перевод',
@@ -223,6 +223,15 @@ export default {
     'title.search': 'Поиск',
 
     'study.verse': 'Стих {n}',
+
+    'study.highlightWords': 'Выделить выбранные слова',
+    'study.highlightWordsIn': 'Выделить слова {color}',
+    'study.removeWordHighlight': 'Убрать выделение слов',
+    'study.wordHighlightRemoved': 'Выделение слов убрано',
+    'study.searchSelection': 'Найти',
+    'study.searchFor': 'Искать «{q}»',
+    'study.markKind': 'Слова выделены {color} · {abbr}',
+    'study.markKindShort': 'Выделение слов',
     'study.myStudy': 'Мои записи',
     'study.intro': 'Ваши выделения, заметки и закладки, сохранённые на этом устройстве.',
     'study.items': { one: '{n} запись', few: '{n} записи', many: '{n} записей', other: '{n} записи' },

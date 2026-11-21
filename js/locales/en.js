@@ -34,7 +34,7 @@ export default {
 
     'settings.tipSearch': 'Press',
     'settings.tipSearchEnd': 'to search.',
-    'settings.tipVerses': 'Tap a verse to highlight it, write a note, bookmark, copy or share it.',
+    'settings.tipVerses': 'Tap a verse to highlight it, write a note, bookmark, copy or share it. Select words to highlight just those words or search for them.',
 
     'location.choose': '{title}: choose another chapter',
     'translation.label': 'Translation',
@@ -153,6 +153,15 @@ export default {
     'title.search': 'Search',
 
     'study.verse': 'Verse {n}',
+
+    'study.highlightWords': 'Highlight the selected words',
+    'study.highlightWordsIn': 'Highlight the words {color}',
+    'study.removeWordHighlight': 'Remove word highlight',
+    'study.wordHighlightRemoved': 'Word highlight removed',
+    'study.searchSelection': 'Search',
+    'study.searchFor': 'Search for “{q}”',
+    'study.markKind': 'Words highlighted {color} · {abbr}',
+    'study.markKindShort': 'Word highlight',
     'study.myStudy': 'My Study',
     'study.intro': 'Your highlights, notes and bookmarks, saved on this device.',
     'study.items': { one: '{n} item', other: '{n} items' },

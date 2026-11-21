@@ -79,3 +79,21 @@ test('the store saves through storage, reports failures, and supports undo', asy
   assert.equal((await store.highlight(makeRef('JHN', 3, 1), 'blue')).saved, false, 'a failed save is reported');
   assert.deepEqual(changes.slice(0, 4), ['highlight', 'note', 'bookmark', 'bookmark']);
 });
+
+test('the store adds word highlights (replacing ones inside them) and removes them for Undo', async () => {
+  const saved = new Map();
+  const storage = { get: async (key, fallback) => saved.get(key) ?? fallback, set: async (key, value) => (saved.set(key, JSON.parse(JSON.stringify(value))), true) };
+  const store = createStudyStore({ storage, now: () => at(9) });
+  const ref = makeRef('JHN', 3, 16);
+  await store.addMark('kjv', ref, [{ verse: 16, start: 8, end: 16, text: 'so loved' }], 'yellow');
+  await store.addMark('asv', ref, [{ verse: 16, start: 8, end: 16, text: 'so loved' }], 'blue');
+  await store.addMark('kjv', ref, [{ verse: 16, start: 4, end: 26, text: 'God so loved the world' }], 'green');
+  const marks = () => store.all().filter((i) => i.type === 'mark').map((i) => `${i.translation}:${i.color}:${i.spans[0].text}`).sort();
+  assert.deepEqual(marks(), ['asv:blue:so loved', 'kjv:green:God so loved the world'], 'the yellow one inside was replaced');
+  const removed = await store.removeMarks('kjv', ref, [{ verse: 16, start: 10, end: 12, text: 'lo' }]);
+  assert.equal(removed.length, 1);
+  assert.deepEqual(marks(), ['asv:blue:so loved']);
+  await store.restore(removed);
+  assert.equal(marks().length, 2);
+  assert.equal(saved.get('study').items.filter((i) => i.type === 'mark').length, 2);
+});

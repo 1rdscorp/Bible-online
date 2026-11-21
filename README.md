@@ -86,16 +86,25 @@ Tap or click a verse to select it (tap more to add them, or Shift+click for a ra
 
 | Action | What it does |
 |---|---|
-| Five colours | Highlight the verses (one colour per verse; a new colour replaces the old one there). The eraser removes it, with Undo |
+| Five colours | Highlight the verses (one colour per verse; a new colour replaces the old one there). The eraser removes it, with Undo. With words selected, the colours highlight just those words (below) |
 | Note | Opens the Notes panel to write a note on those verses |
 | Bookmark | Bookmarks them (again to remove, with Undo) |
 | Copy | "Text and reference", or "With translation name" (`… John 3:16 — King James Version`). When comparing, each translation gets a labelled line |
 | Share | The phone's share sheet where there is one; otherwise copies a link to the verses (`#/john/3/16-18?t=kjv`) |
+| Search | With words selected: look them up on the search page. One word is searched as a word, several as an exact phrase, in the translation they were selected from |
 | Translate | Translate to Russian (English text only; see below) |
 
 **Keyboard:** the verse numbers are buttons with one Tab stop for the chapter. **↑/↓** (Home/End) move between them, **Enter** selects, **Shift+Enter** selects a range, **Tab** reaches the bar, and **Escape** clears the selection.
 
 **Saved by verse, not by text.** Each item is stored as book + chapter + verse range, in the English verse numbering every translation here is converted to. A highlight made in the KJV shows on the same verses in the ASV, in the Synodal, and in compare view.
+
+**Word highlights:**
+- **Making one:** select words (drag, double-click, or long-press on a phone) and pick a colour. Only those words are highlighted, not the verse. The selection snaps to whole words, and it can run across verses. The bar's title shows the words ("John 3:16 · “so loved the world”") so it's clear what the colours apply to.
+- **Removing:** the eraser removes word highlights under the selection, with Undo.
+- **One translation each:** the words differ between translations, so a word highlight belongs to the translation it was made in. It shows there, alone or as a compare column, but not in other translations.
+- **Stored with their words:** each one keeps the words it covers, so it can't land on the wrong words if a text is ever corrected.
+- **With verse highlights:** a word highlight can sit on a verse highlight; a thin underline keeps it visible.
+- **In My Study:** word highlights are listed under Highlights, with the verse shown in their translation and the words marked.
 
 **Notes:**
 - **The panel** (docked on the right on wide screens, a sheet from the bottom on phones) shows the chapter's notes and searches all of them. It opens from the action bar, from a note's marker after its verse, or from "Notes" under the chapter.
@@ -179,4 +188,5 @@ tests/                node --test suites
   - The Septuagint (LXX), in Greek, with a polytonic Greek font stack and accent-insensitive search
 - [x] **Stage 3:** full-text search in one or all translations (all words, any word, exact phrase, word starts), book/Testament filters, results grouped by book with counts and highlights, jump-and-flash to the verse, reference entry ("Jn 3:16", "Ps 23:1-4", Russian names too), and indexing in a Web Worker
 - [x] **Stage 4:** personal study tools: tap or select verses for an action bar (5 highlight colours, notes, bookmarks, two copy formats, share), a Notes panel with a rich-ish editor, tags and search, a My Study page with filters, highlights kept by verse reference across translations, and JSON backup export/import
+  - Added later: word-level highlights (in the translation they were made in), and searching for selected words
 - [ ] Later: reading plans, cross-references, Strong's word study, offline support, cloud sync

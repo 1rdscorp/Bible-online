@@ -1,6 +1,8 @@
 /**
  * Paints the reader's study items onto the chapter on screen:
  *   - highlights: data-highlight="yellow" on the verse (css/study.css colours its words)
+ *   - word highlights: <mark class="word-mark"> around the words, in the
+ *     translation they were made in only (text-ranges.js)
  *   - bookmarks: a small ribbon after the verse (the last verse of the range)
  *   - notes: a note button after the verse, which opens the Notes panel
  * and tells screen readers through each verse number's label
@@ -12,6 +14,7 @@
 import { t } from '../i18n.js';
 import { highlightsByVerse } from '../study/model.js';
 import { el, icon, ICONS } from './dom.js';
+import { paintWordMarks } from './text-ranges.js';
 
 const MARKS = 'study-marks';
 
@@ -82,4 +85,6 @@ export function paintStudyMarks(textRoot, items, { book, chapter, onOpenNote }) 
       button.setAttribute('aria-label', parts.join(', '));
     }
   }
+
+  paintWordMarks(textRoot, items.filter((item) => item.type === 'mark'));
 }
