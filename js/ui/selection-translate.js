@@ -6,8 +6,8 @@
  * panel with:
  *   - a machine translation of exactly the selected words, made on the
  *     device where the browser supports it;
- *   - a link to Translate.com's English→Russian translator. It can't take
- *     the text from the link, so clicking it copies the text to paste there;
+ *   - a link that opens Yandex Translate with the text filled in (and
+ *     translated as soon as it opens);
  *   - the Russian Synodal text of the same verses, a real Bible translation,
  *     unless that translation is already a column on screen.
  *
@@ -15,9 +15,8 @@
  * only from one translation, so a drag across compare columns doesn't mix
  * KJV and ASV.
  */
-import { chapterTitle, t } from '../i18n.js';
-import { copyText } from '../translate/clipboard.js';
-import { canTranslateOnDevice, translateComUrl, translateOnDevice } from '../translate/machine.js';
+import { chapterTitle, getLanguage, t } from '../i18n.js';
+import { canTranslateOnDevice, translateOnDevice, yandexTranslateUrl } from '../translate/machine.js';
 import { cleanSelection, truncate, verseRangeLabel } from '../translate/text.js';
 import { el, icon, ICONS } from './dom.js';
 
@@ -112,30 +111,19 @@ export function initSelectionTranslate({ root, getRussianVerses }) {
   }
 
   /**
-   * "Open Translate.com". Its translator can't be given text in a link, so
-   * the click also copies the text, and the note says to paste it there.
-   * Shown the whole time, also while (or after) the device translates.
+   * "Open in Yandex Translate": the selected text goes in the link, so the
+   * page opens with it filled in and translated. Shown the whole time, also
+   * while (or after) the device translates.
    */
-  function renderExternal(request, id) {
-    const note = el('p', { class: 'translate-note', 'aria-live': 'polite' }, t('translate.copyHint'));
+  function renderExternal(request) {
     const link = el(
       'a',
-      {
-        href: translateComUrl(FROM, TO),
-        target: '_blank',
-        rel: 'noopener noreferrer',
-        // Copy without waiting: the link opens its tab as usual.
-        onclick: () => {
-          copyText(request.text).then((copied) => {
-            if (id === requestId) note.textContent = t(copied ? 'translate.copied' : 'translate.copyFailed');
-          });
-        },
-      },
-      t('translate.openTranslateCom'),
+      { href: yandexTranslateUrl(request.text, FROM, TO, { interfaceLanguage: getLanguage() }), target: '_blank', rel: 'noopener noreferrer' },
+      t('translate.openYandex'),
       icon(ICONS.external, { size: 14 }),
       el('span', { class: 'visually-hidden' }, ` ${t('translate.newTab')}`),
     );
-    external.replaceChildren(el('p', { class: 'translate-link' }, link), note);
+    external.replaceChildren(el('p', { class: 'translate-link' }, link), el('p', { class: 'translate-note' }, t('translate.yandexNote')));
   }
 
   async function runMachine(request, id) {
@@ -201,7 +189,7 @@ export function initSelectionTranslate({ root, getRussianVerses }) {
     quote.textContent = `“${truncate(request.text, 280)}”`;
     panel.hidden = false;
     title.focus({ preventScroll: true });
-    renderExternal(request, id);
+    renderExternal(request);
     runMachine(request, id);
     runSynodal(request, id);
   }
