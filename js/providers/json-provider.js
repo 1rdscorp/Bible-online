@@ -65,6 +65,14 @@ export function createJsonProvider(info, { fetchJson = (url, version) => transla
           typeof text === 'string' && text !== '' ? [{ number: index + 1, text }] : [],
         ),
       };
+      // Strong's numbers (KJV+): "7.9.H7225 17.3.H430" per verse, beside the text.
+      const tags = book.tags?.[chapter - 1];
+      if (Array.isArray(tags)) {
+        for (const verse of result.verses) {
+          const words = parseWordTags(tags[verse.number - 1], verse.text.length);
+          if (words.length) verse.words = words;
+        }
+      }
       const native = book.native?.[chapter];
       if (Array.isArray(native)) result.native = native.map(([c, from, to]) => (from === undefined ? { chapter: c } : { chapter: c, from, to }));
       return result;
@@ -79,8 +87,25 @@ function indexBooks(data, info) {
   const byId = new Map();
   for (const book of data.books) {
     if (book && typeof book.id === 'string' && Array.isArray(book.chapters)) {
-      byId.set(book.id.toUpperCase(), { chapters: book.chapters, native: book.native ?? null });
+      byId.set(book.id.toUpperCase(), { chapters: book.chapters, native: book.native ?? null, tags: book.tags ?? null });
     }
   }
   return byId;
+}
+
+/**
+ * "7.9.H7225 17.3.G3056+G5207" → [{ start: 7, end: 16, strongs: ["H7225"] }, …].
+ * Tags that don't fit the verse are skipped rather than trusted.
+ */
+export function parseWordTags(tags, length) {
+  if (typeof tags !== 'string' || tags === '') return [];
+  const words = [];
+  for (const tag of tags.split(' ')) {
+    const [start, size, numbers] = tag.split('.');
+    const from = Number(start);
+    const to = from + Number(size);
+    if (!Number.isInteger(from) || !(to > from) || to > length || !numbers) continue;
+    words.push({ start: from, end: to, strongs: numbers.split('+') });
+  }
+  return words;
 }

@@ -79,6 +79,34 @@ export function validateTranslation(data) {
         }
       }
     }
+    // Optional: Strong's numbers, one string per verse, mirroring "chapters"
+    // ("7.9.H7225 17.3.H430": start.length.number; data/README.md, "KJV+").
+    if (book.tags !== undefined) {
+      const bad = [];
+      const fits = Array.isArray(book.tags) && book.tags.length === book.chapters.length;
+      if (!fits) errors.push(`${id}: "tags" must have one array per chapter.`);
+      else {
+        book.tags.forEach((verses, c) => {
+          const texts = book.chapters[c];
+          if (!Array.isArray(verses) || !Array.isArray(texts) || verses.length !== texts.length) {
+            bad.push(`${c + 1}`);
+            return;
+          }
+          verses.forEach((tags, v) => {
+            if (typeof tags !== 'string') return bad.push(`${c + 1}:${v + 1}`);
+            if (tags === '') return;
+            let previous = 0;
+            for (const tag of tags.split(' ')) {
+              const m = /^(\d+)\.(\d+)\.([HG]\d+(?:\+[HG]\d+)*)$/.exec(tag);
+              const start = Number(m?.[1]);
+              if (!m || start < previous || start + Number(m[2]) > texts[v].length || m[2] === '0') return bad.push(`${c + 1}:${v + 1}`);
+              previous = start;
+            }
+          });
+        });
+        if (bad.length) errors.push(`${id}: unreadable "tags" at ${bad.slice(0, 5).join(', ')}${bad.length > 5 ? '…' : ''}.`);
+      }
+    }
     book.chapters.forEach((verses, c) => {
       if (!Array.isArray(verses)) {
         errors.push(`${id} ${c + 1}: a chapter must be an array of verse strings.`);

@@ -8,6 +8,17 @@
       "typography"
     ]
   },
+  "kjvs": {
+    "format": "usfx-zip",
+    "url": "https://ebible.org/Scriptures/eng-kjv2006_usfx.zip",
+    "entry": "eng-kjv2006_usfx.xml",
+    "_sourceComment": "eBible.org's KJV with Strong's numbers (from CrossWire). eBible.org doesn't version its downloads, so the SHA-256 of the zip used is recorded; build-data warns if it changes.",
+    "sha256": "d3481ff66341ab192314ed8380f62706b5929ec383f64560f9cb2660adb29a57",
+    "wordTags": true,
+    "fixes": [
+      "drop-pilcrows"
+    ]
+  },
   "asv": {
     "format": "scrollmapper",
     "url": "https://raw.githubusercontent.com/scrollmapper/bible_databases/59b18c5af5845728c275d5b7178ad0d024172b1f/formats/json/ASV.json",

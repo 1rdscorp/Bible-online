@@ -38,7 +38,7 @@ test('every translation has Russian metadata for the Russian interface', () => {
 test('the public-domain translations are all present', () => {
   assert.deepEqual(
     manifest.translations.map((t) => t.id),
-    ['kjv', 'asv', 'web', 'ylt', 'darby', 'bbe', 'rst', 'lxx'],
+    ['kjv', 'kjvs', 'asv', 'web', 'ylt', 'darby', 'bbe', 'rst', 'lxx'],
   );
 });
 
@@ -87,6 +87,27 @@ describe('spot checks', () => {
     assert.match(verse(kjv, 'JHN', 3, 16), /^For God so loved the world, that he gave his only begotten Son/);
     // The source's placeholder "[]" for 3 John 1:15 was dropped.
     assert.equal(kjv.books.find((b) => b.id === '3JN').chapters[0].length, 14);
+  });
+
+  test('KJV+ (Strong’s numbers)', () => {
+    const kjvs = load('kjvs');
+    assert.equal(validateTranslation(kjvs).stats.verses, 31102);
+    const book = (id) => kjvs.books.find((b) => b.id === id);
+    const tagged = (id, chapter, number) => {
+      const text = book(id).chapters[chapter - 1][number - 1];
+      return book(id).tags[chapter - 1][number - 1].split(' ').map((tag) => {
+        const [start, length, strongs] = tag.split('.');
+        return `${text.substr(Number(start), Number(length))}=${strongs}`;
+      });
+    };
+    assert.equal(verse(kjvs, 'GEN', 1, 1), 'In the beginning God created the heaven and the earth.');
+    assert.deepEqual(tagged('GEN', 1, 1), ['beginning=H7225', 'God=H430', 'created=H1254', 'heaven=H8064', 'and=H853', 'earth=H776']);
+    assert.deepEqual(tagged('JHN', 3, 16).slice(0, 4), ['For=G1063', 'God=G2316', 'so=G3779', 'loved=G25']);
+    assert.ok(tagged('PSA', 23, 1).includes('LORD=H3068'));
+    let tags = 0;
+    for (const b of kjvs.books) for (const chapter of b.tags) for (const v of chapter) tags += v ? v.split(' ').length : 0;
+    assert.ok(tags > 340000, `${tags} tagged words`);
+    assert.ok(!kjvs.books.some((b) => b.chapters.flat().some((v) => v.includes('¶'))), 'no paragraph marks');
   });
 
   test('ASV', () => {

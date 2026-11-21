@@ -6,6 +6,7 @@ import { createHash } from 'node:crypto';
 import { writeFile } from 'node:fs/promises';
 import { BOOKS } from '../../js/canon.js';
 import { FORMAT_VERSION, printReport, validateTranslation } from '../validate-translation.mjs';
+import { WORD_TAG } from './read-usfx.mjs';
 
 /**
  * Named, opt-in text clean-ups, chosen per source in tools/data-sources.json.
@@ -49,6 +50,9 @@ export const TEXT_FIXES = {
   // Septuagint brackets a few words). The words stay; a bracket pair split
   // across verses by renumbering would otherwise dangle.
   'drop-brackets': [[/\s*\[\s*/g, ' '], [/\s*\]\s*/g, ' '], [/ {2,}/g, ' '], [/^ | $/g, ''], [/ ([,.;:·])/g, '$1']],
+  // Paragraph marks (¶) printed in the text (eBible.org's KJV); the other
+  // translations here don't show them.
+  'drop-pilcrows': [[/¶\s*/g, '']],
   // Some sources start a chapter (often a Psalm title) in lower case.
   // A rule can also be a function of (text, { bookId, chapter, verse }).
   'capitalize-chapter-start': [
@@ -84,6 +88,42 @@ function applyFixes(text, names, counts, ref) {
 
 // Collapse whitespace. A bare "[]" (3 John 1:15 in the legacy KJV) marks a
 // verse that doesn't exist, so bracket-only text counts as empty.
+/**
+ * Take the word markers read-usfx.mjs leaves in a verse (Strong's numbers)
+ * out of its text, and say where each tagged word is:
+ * { text: "In the beginning…", tags: "7.9.H7225 17.3.H430 …" }, each tag
+ * start.length.number (offsets in UTF-16 code units, as in JavaScript), the
+ * number "H7225", or "G3056+G5207" for a word tagged with two. Whitespace and
+ * punctuation at a tag's edges are left outside it.
+ */
+export function extractWordTags(marked) {
+  let text = '';
+  const tags = [];
+  const open = [];
+  for (let i = 0; i < marked.length; i += 1) {
+    const char = marked[i];
+    if (char === WORD_TAG.open) {
+      const mark = marked.indexOf(WORD_TAG.mark, i);
+      open.push({ strongs: marked.slice(i + 1, mark), start: text.length });
+      i = mark;
+    } else if (char === WORD_TAG.close) {
+      const tag = open.pop();
+      if (!tag) continue;
+      let start = tag.start;
+      let end = text.length;
+      while (start < end && /[\s\p{P}]/u.test(text[start])) start += 1;
+      while (end > start && /[\s\p{P}]/u.test(text[end - 1])) end -= 1;
+      if (end > start) tags.push([start, end - start, tag.strongs]);
+    } else if (char !== ' ' || (text !== '' && !text.endsWith(' '))) {
+      // Markers can hide a double space from cleanText ("word \uE002 and").
+      text += char;
+    }
+  }
+  if (text.endsWith(' ')) text = text.slice(0, -1); // no tag ends in whitespace
+  tags.sort((a, b) => a[0] - b[0]);
+  return { text, tags: tags.map(([start, length, strongs]) => `${start}.${length}.${strongs}`).join(' ') };
+}
+
 export function cleanText(text) {
   const clean = String(text ?? '').replace(/\s+/g, ' ').trim();
   return /^[[\]\s]*$/.test(clean) ? '' : clean;
@@ -98,7 +138,7 @@ export function cleanText(text) {
  *
  * @returns {{ books: object[], fixCounts: Record<string, number>, droppedChapters: string[] }}
  */
-export function buildBooks(verses, { fixes = [] } = {}) {
+export function buildBooks(verses, { fixes = [], wordTags = false } = {}) {
   checkFixNames(fixes);
   const canon = new Map(BOOKS.map((book) => [book.id, book]));
   const fixCounts = {};
@@ -120,15 +160,24 @@ export function buildBooks(verses, { fixes = [] } = {}) {
     chapters[chapter - 1][verse - 1] = applyFixes(cleanText(text), fixes, fixCounts, { bookId, chapter, verse });
   }
 
-  const books = BOOKS.filter((book) => byBook.has(book.id)).map((book) => ({
-    id: book.id,
-    name: book.name,
-    chapters: Array.from(byBook.get(book.id), (chapter) => {
+  const books = BOOKS.filter((book) => byBook.has(book.id)).map((book) => {
+    const chapters = Array.from(byBook.get(book.id), (chapter) => {
       const list = Array.from(chapter ?? [], (text) => text ?? '');
       while (list.length > 0 && list[list.length - 1] === '') list.pop();
       return list;
-    }),
-  }));
+    });
+    if (!wordTags) return { id: book.id, name: book.name, chapters };
+    // Strong's numbers: "tags" mirrors "chapters", one string per verse.
+    const tags = chapters.map((list) => list.map(() => ''));
+    chapters.forEach((list, c) =>
+      list.forEach((marked, v) => {
+        const extracted = extractWordTags(marked);
+        list[v] = extracted.text;
+        tags[c][v] = extracted.tags;
+      }),
+    );
+    return { id: book.id, name: book.name, chapters, tags };
+  });
   return { books, fixCounts, droppedChapters: [...dropped] };
 }
 
@@ -216,6 +265,7 @@ export function serialize({ books, ...meta }) {
       `{"id":${JSON.stringify(book.id)},"name":${JSON.stringify(book.name)},"chapters":[\n` +
       book.chapters.map((chapter) => JSON.stringify(chapter)).join(',\n') +
       '\n]' +
+      (book.tags ? `,\n"tags":[\n${book.tags.map((chapter) => JSON.stringify(chapter)).join(',\n')}\n]` : '') +
       (book.native ? `,\n"native":${JSON.stringify(book.native)}` : '') +
       '}',
   );

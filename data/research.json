@@ -1,0 +1,30 @@
+{
+  "formatVersion": 1,
+  "xref": {
+    "url": "data/xref/",
+    "version": "5b75e2ca5109",
+    "references": 341399,
+    "license": "CC BY",
+    "source": {
+      "name": "OpenBible.info",
+      "url": "https://www.openbible.info/labs/cross-references/"
+    }
+  },
+  "strongs": {
+    "license": "CC BY-SA",
+    "source": {
+      "name": "Open Scriptures",
+      "url": "https://github.com/openscriptures/strongs"
+    },
+    "hebrew": {
+      "url": "data/strongs/hebrew.json",
+      "version": "dd3b3ab16d21",
+      "entries": 8674
+    },
+    "greek": {
+      "url": "data/strongs/greek.json",
+      "version": "8c332b7399aa",
+      "entries": 5523
+    }
+  }
+}
