@@ -95,7 +95,15 @@ export function validateTranslation(data) {
     });
   });
 
-  const missing = BOOKS.filter((book) => !seen.has(book.id));
+  // Optional: a translation of one Testament only (the Septuagint is the Old
+  // Testament) says so, and isn't warned about the other one's books.
+  let testaments = ['OT', 'NT'];
+  if (data.testaments !== undefined) {
+    const valid = Array.isArray(data.testaments) && data.testaments.length > 0 && data.testaments.every((t) => t === 'OT' || t === 'NT');
+    if (valid) testaments = data.testaments;
+    else errors.push('"testaments" must be a non-empty list of "OT" and/or "NT".');
+  }
+  const missing = BOOKS.filter((book) => testaments.includes(book.testament) && !seen.has(book.id));
   if (missing.length > 0) warnings.push(`Missing ${missing.length} book(s): ${missing.map((b) => b.id).join(', ')}.`);
 
   return result();

@@ -2,9 +2,10 @@
 
 A calm, fast, distraction-free Bible reader. It is a static site: HTML, CSS and vanilla JavaScript modules with no build step and no backend. It is built to be hosted on GitHub Pages.
 
-Seven public-domain translations can be read one at a time or 2–4 side by side, with verses aligned:
+Eight public-domain translations can be read one at a time or 2–4 side by side, with verses aligned:
 - **English:** KJV, ASV, WEB, YLT, Darby, BBE
 - **Russian:** the Synodal translation (RST), renumbered to English verse numbers so it lines up
+- **Greek:** the Septuagint (LXX), the ancient Greek Old Testament, in Brenton's 1851 text, renumbered the same way
 
 Full-text search covers one translation or all of them, and typing a reference such as "Jn 3:16" opens the passage.
 
@@ -71,11 +72,11 @@ Open it with the magnifier in the header, or press **/**. Type words and press E
 | `Ин 3:16`, `Рим 8`, `1 Кор 13` | the same with Russian book names |
 
 How it works:
-- **Matching:** whole words, ignoring case. In Russian, ё and е match each other.
+- **Matching:** whole words, ignoring case. In Russian, ё and е match each other. In Greek, accents and breathings are ignored, so `λογος` finds λόγος.
 - **Options:** search one translation or all of them, the whole Bible, one Testament or one book.
 - **Results:** grouped by book, with counts. The counts at the top narrow the search to that book, and matching words are highlighted. Clicking a result opens the verse, which flashes briefly. Back returns to the same place in the results.
 - **Psalm numbers:** a Psalm typed with a Russian name ("Пс 22") uses Synodal numbering and opens the matching English-numbered psalm (Psalm 23).
-- **Off the main thread:** the index is built in a Web Worker, so the page never freezes. The first search in a translation downloads it if needed, then indexes it (about 0.3 s each, all seven in about 2 s). After that, searches take milliseconds.
+- **Off the main thread:** the index is built in a Web Worker, so the page never freezes. The first search in a translation downloads it if needed, then indexes it (about 0.3 s each, all eight in about 2–3 s). After that, searches take milliseconds.
 
 The URL holds the whole search, `#/search?q=…&t=<id or all>&in=<all, OT, NT or a book id>&match=<all, any or phrase>`, so a search can be bookmarked or shared.
 
@@ -175,6 +176,7 @@ tests/                node --test suites
   - In compare mode, a translation's own Psalm numbers appear under its column picker ("Псалом 22" beside English Psalm 23)
   - Russian interface with a RUS | ENG switch
   - Translate selected English text into Russian (on-device machine translation, a Yandex Translate link with the text filled in, Synodal verses)
+  - The Septuagint (LXX), in Greek, with a polytonic Greek font stack and accent-insensitive search
 - [x] **Stage 3:** full-text search in one or all translations (all words, any word, exact phrase, word starts), book/Testament filters, results grouped by book with counts and highlights, jump-and-flash to the verse, reference entry ("Jn 3:16", "Ps 23:1-4", Russian names too), and indexing in a Web Worker
 - [x] **Stage 4:** personal study tools: tap or select verses for an action bar (5 highlight colours, notes, bookmarks, two copy formats, share), a Notes panel with a rich-ish editor, tags and search, a My Study page with filters, highlights kept by verse reference across translations, and JSON backup export/import
 - [ ] Later: reading plans, cross-references, Strong's word study, offline support, cloud sync

@@ -67,7 +67,9 @@ function firstWins(pairs) {
  * @returns {(bookId: string, chapter: number, verse: number) => { bookId: string, chapter: number, verse: number }}
  */
 export function createVersificationMapper({ from, to, corrections = {} }) {
-  const toOriginal = firstWins(expandMappings({ ...from.mappedVerses, ...corrections }));
+  // Corrections come first, so for any verse they cover they win over the
+  // file's own entry, even when the two are written as different ranges.
+  const toOriginal = firstWins([...expandMappings(corrections), ...expandMappings(from.mappedVerses)]);
   // The target file maps target → original, so invert it.
   const inverted = expandMappings(to.mappedVerses).map(([target, original]) => [original, target]);
 

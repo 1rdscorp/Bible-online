@@ -38,7 +38,7 @@ test('every translation has Russian metadata for the Russian interface', () => {
 test('the public-domain translations are all present', () => {
   assert.deepEqual(
     manifest.translations.map((t) => t.id),
-    ['kjv', 'asv', 'web', 'ylt', 'darby', 'bbe', 'rst'],
+    ['kjv', 'asv', 'web', 'ylt', 'darby', 'bbe', 'rst', 'lxx'],
   );
 });
 
@@ -50,8 +50,9 @@ for (const entry of jsonTranslations) {
     test('passes validation and matches its translations.json entry', () => {
       const { errors, warnings, stats } = validateTranslation(data);
       assert.deepEqual(errors, []);
-      assert.deepEqual(warnings, [], 'all 66 books, standard chapter counts');
-      assert.ok(stats.verses > 31000);
+      assert.deepEqual(warnings, [], 'all its books (66, or one Testament’s), standard chapter counts');
+      // A one-Testament translation (the Septuagint) says so in "testaments".
+      assert.ok(stats.verses > (data.testaments?.length === 1 ? 22000 : 31000), `${stats.verses} verses`);
       assert.equal(data.id, entry.id);
       assert.equal(data.abbreviation, entry.abbreviation);
     });
@@ -133,6 +134,37 @@ describe('spot checks', () => {
     assert.match(verse(rst, '3JN', 1, 14), /устами к устам\. Мир тебе\./, 'Synodal 1:15 joined to English 1:14');
     assert.match(verse(rst, 'JOS', 4, 7), /им: «в память того/);
     assert.match(verse(rst, 'JHN', 3, 16), /^Ибо так возлюбил Бог мир/);
+  });
+
+  test('LXX: the Greek Old Testament, renumbered to English verse numbers', () => {
+    const lxx = load('lxx');
+    assert.deepEqual(lxx.testaments, ['OT']);
+    assert.equal(lxx.books.length, 39);
+    assert.equal(lxx.books.reduce((n, b) => n + b.chapters.length, 0), 929, 'every Old Testament chapter');
+    assert.match(verse(lxx, 'GEN', 1, 1), /ἀρχῇ ἐποίησεν ὁ Θεὸς τὸν οὐρανὸν καὶ τὴν γῆν\.$/);
+    // Psalms: Greek Psalm 22 is English Psalm 23; 9:22–39 is Psalm 10
+    assert.equal(verse(lxx, 'PSA', 23, 1), 'Ψαλμὸς τῷ Δαυίδ. Κύριος ποιμαίνει με, καὶ οὐδέν με ὑστερήσει.');
+    assert.match(verse(lxx, 'PSA', 10, 1), /^Ἱνατί, Κύριε, ἀφέστηκας μακρόθεν/);
+    assert.equal(lxx.books.find((b) => b.id === 'PSA').chapters.length, 150, 'Psalm 151 left out');
+    // The corrections (tools/data-sources.json)
+    assert.match(verse(lxx, 'DEU', 29, 1), /^Οὗτοι οἱ λόγοι τῆς διαθήκης/, 'Deuteronomy 29 as in English');
+    assert.match(verse(lxx, '1KI', 21, 1), /ἀμπελὼν εἷς ἦν τῷ Ναβουθαὶ/, '3 Kingdoms 20 (Naboth) is 1 Kings 21');
+    assert.match(verse(lxx, '1KI', 20, 1), /συνήθροισεν υἱὸς Ἄδερ/);
+    assert.match(verse(lxx, 'NEH', 4, 1), /ἤκουσε Σαναβαλλὰτ, ὅτι ἡμεῖς οἰκοδομοῦμεν τὸ τεῖχος/, '2 Esdras 13:33');
+    assert.match(verse(lxx, 'NEH', 7, 73), /^Καὶ ἔδωκαν οἱ κατάλοιποι τοῦ λαοῦ/);
+    assert.match(verse(lxx, 'PRO', 30, 1), /^Τοὺς ἐμοὺς λόγους υἱὲ φοβήθητι/, 'Brenton’s 24:22f');
+    assert.match(verse(lxx, 'PRO', 30, 15), /^Τῇ βδέλλῃ τρεῖς θυγατέρες/);
+    assert.match(verse(lxx, 'PRO', 31, 1), /^Οἱ ἐμοὶ λόγοι εἴρηνται ὑπὸ Θεοῦ/);
+    assert.match(verse(lxx, 'PRO', 31, 10), /^Γυναῖκα ἀνδρείαν τίς εὑρήσει/);
+    assert.match(verse(lxx, 'JER', 25, 15), /λάβε τὸ ποτήριον τοῦ οἴνου/, 'Jeremiah in Greek order (32:1)');
+    assert.match(verse(lxx, 'EXO', 20, 13), /^Οὐ φονεύσεις\.$/);
+    // Additions: the Song of the Three stays with Daniel 3:23; 3:24 is Greek 3:91
+    assert.match(verse(lxx, 'DAN', 3, 23), /Καὶ συστὰς Ἀζαρίας προσηύξατο.*Εὐλογεῖτε πάντα τὰ ἔργα Κυρίου τὸν Κύριον/s, 'Prayer of Azariah and Song of the Three');
+    assert.match(verse(lxx, 'DAN', 3, 24), /^Καὶ Ναβουχοδονόσορ ἤκουσεν ὑμνούντων αὐτῶν/);
+    assert.match(verse(lxx, 'EST', 1, 1), /^“ἜΤΟΥΣ δευτέρου βασιλεύοντος Ἀρταξέρξου.*” Καὶ ἐγένετο μετὰ τοὺς λόγους τούτους/s, 'Addition A, then 1:1');
+    assert.deepEqual(lxx.books.find((b) => b.id === 'PSA').native['23'], [[22]]);
+    // No brackets left dangling
+    assert.equal(lxx.books.flatMap((b) => b.chapters.flat()).filter((t) => /[[\]]/.test(t)).length, 0);
   });
 
   test('RST: its own Psalm numbers are recorded (shown in compare mode)', () => {

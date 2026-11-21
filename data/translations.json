@@ -189,6 +189,42 @@
         "name": "scrollmapper/bible_databases",
         "url": "https://github.com/scrollmapper/bible_databases"
       }
+    },
+    {
+      "id": "lxx",
+      "abbreviation": "LXX",
+      "name": "Septuagint",
+      "year": "1851",
+      "language": "grc",
+      "languageName": "Ancient Greek",
+      "direction": "ltr",
+      "provider": "json",
+      "url": "data/lxx.json",
+      "version": "329c4508be63",
+      "license": "Public domain",
+      "copyright": "Public domain: the Greek text as published by Sir Lancelot C. L. Brenton in 1851",
+      "numbering": {
+        "name": "Septuagint numbering",
+        "psalm": "Ψαλμός",
+        "psalms": "Ψαλμοί"
+      },
+      "description": "The Septuagint (LXX), the ancient Greek translation of the Old Testament, quoted by the New Testament writers and read by the Orthodox Church. This is the Greek text published by Lancelot Brenton (1851), from the Vatican manuscript. Old Testament only; verses are renumbered to match English Bibles, so it lines up in compare view.",
+      "i18n": {
+        "ru": {
+          "name": "Септуагинта",
+          "languageName": "Древнегреческий",
+          "license": "Общественное достояние",
+          "copyright": "Общественное достояние: греческий текст в издании сэра Ланселота Брентона 1851 года",
+          "description": "Септуагинта (LXX), древний греческий перевод Ветхого Завета, который цитируют авторы Нового Завета и читает Православная Церковь. Здесь — греческий текст в издании Ланселота Брентона (1851) по Ватиканской рукописи. Только Ветхий Завет; стихи перенумерованы по английским изданиям, чтобы текст совпадал в режиме сравнения.",
+          "numbering": {
+            "name": "Нумерация Септуагинты"
+          }
+        }
+      },
+      "source": {
+        "name": "eBible.org: Brenton Greek Septuagint (grcbrent)",
+        "url": "https://ebible.org/details.php?id=grcbrent"
+      }
     }
   ]
 }

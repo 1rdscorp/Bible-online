@@ -85,7 +85,7 @@ export default {
     'translations.back': 'Back to {title}',
     'translations.title': 'Translations',
     'translations.intro':
-      'Every translation here is in the public domain. Each one downloads the first time you open it (1.2–1.4 MB) and is then kept on this device, so it opens instantly next time.',
+      'Every translation here is in the public domain. Each one downloads the first time you open it (1.2–1.5 MB) and is then kept on this device, so it opens instantly next time.',
     'translations.copyright': 'Copyright',
     'translations.source': 'Text source',
     'translations.device': 'On this device',

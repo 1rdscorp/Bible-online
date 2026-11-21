@@ -57,7 +57,9 @@ function card(info, saved, target) {
     'article',
     { class: 'translation-card', 'aria-labelledby': headingId },
     el('h2', { class: 'translation-name', id: headingId }, info.name, ' ', el('span', { class: 'translation-abbr' }, `(${info.abbreviation})`)),
-    el('p', { class: 'translation-meta' }, [languageName(info.language), info.year, info.license].filter(Boolean).join(' · ')),
+    // A translation can name its language itself ("languageName"), for codes
+    // browsers may not know (Ancient Greek, "grc").
+    el('p', { class: 'translation-meta' }, [info.languageName ?? languageName(info.language), info.year, info.license].filter(Boolean).join(' · ')),
     info.description && el('p', { class: 'translation-description' }, info.description),
     el(
       'dl',

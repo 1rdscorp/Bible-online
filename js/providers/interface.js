@@ -11,7 +11,8 @@
  * @property {string} id               "kjv": lower-case letters, digits and hyphens (it appears in URLs: ?t=kjv)
  * @property {string} abbreviation     "KJV"
  * @property {string} name             "King James Version"
- * @property {string} language         BCP 47 code, e.g. "en"
+ * @property {string} language         BCP 47 code, e.g. "en" ("grc": Ancient Greek)
+ * @property {string} [languageName]   the language's name, for codes browsers may not know
  * @property {string} provider         provider type that serves it: "json" now; later e.g. "api-bible"
  * @property {string} license          short label shown under the text: "Public domain"
  * @property {'ltr'|'rtl'} [direction]
