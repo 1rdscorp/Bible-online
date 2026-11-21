@@ -5,11 +5,109 @@
       "id": "kjv",
       "abbreviation": "KJV",
       "name": "King James Version",
+      "year": "1769",
       "language": "en",
       "direction": "ltr",
-      "license": "Public domain",
       "provider": "json",
-      "url": "data/kjv.json"
+      "url": "data/kjv.json",
+      "version": "5f0fc045c265",
+      "license": "Public domain",
+      "copyright": "Public domain in most of the world. In the United Kingdom, rights in the Authorized Version are vested in the Crown and administered by Cambridge University Press.",
+      "description": "The Authorized Version of 1611, in the 1769 Oxford edition used by most printings today.",
+      "source": {
+        "name": "scrollmapper/bible_databases",
+        "url": "https://github.com/scrollmapper/bible_databases"
+      }
+    },
+    {
+      "id": "asv",
+      "abbreviation": "ASV",
+      "name": "American Standard Version",
+      "year": "1901",
+      "language": "en",
+      "direction": "ltr",
+      "provider": "json",
+      "url": "data/asv.json",
+      "version": "727972703e2a",
+      "license": "Public domain",
+      "copyright": "Public domain. The original 1901 copyright has expired.",
+      "description": "The American edition of the Revised Version (1881–1885). A careful, literal translation that renders God’s name as “Jehovah”. Verses that the 1901 edition moved to the margin, such as Matthew 17:21, are left empty.",
+      "source": {
+        "name": "scrollmapper/bible_databases",
+        "url": "https://github.com/scrollmapper/bible_databases"
+      }
+    },
+    {
+      "id": "web",
+      "abbreviation": "WEB",
+      "name": "World English Bible",
+      "year": "",
+      "language": "en",
+      "direction": "ltr",
+      "provider": "json",
+      "url": "data/web.json",
+      "version": "12b8de134f32",
+      "license": "Public domain",
+      "copyright": "Public domain: it may be freely copied, published and shared without permission. eBible.org asks that a changed text not be called the World English Bible. Footnotes are not shown here.",
+      "description": "A modern-English update of the 1901 ASV, made by volunteers and published by eBible.org. The New Testament follows the Majority Text, and God’s name is rendered “Yahweh”.",
+      "source": {
+        "name": "eBible.org (via seven1m/open-bibles)",
+        "url": "https://ebible.org/"
+      }
+    },
+    {
+      "id": "ylt",
+      "abbreviation": "YLT",
+      "name": "Young’s Literal Translation",
+      "year": "1898",
+      "language": "en",
+      "direction": "ltr",
+      "provider": "json",
+      "url": "data/ylt.json",
+      "version": "b7ac44b87fa8",
+      "license": "Public domain",
+      "copyright": "Public domain.",
+      "description": "Robert Young’s very literal translation (1862, revised 1887 and 1898). It keeps the Hebrew and Greek tenses and word order wherever it can, so it reads unusually but shows the original’s shape.",
+      "source": {
+        "name": "scrollmapper/bible_databases",
+        "url": "https://github.com/scrollmapper/bible_databases"
+      }
+    },
+    {
+      "id": "darby",
+      "abbreviation": "Darby",
+      "name": "Darby Bible",
+      "year": "1890",
+      "language": "en",
+      "direction": "ltr",
+      "provider": "json",
+      "url": "data/darby.json",
+      "version": "bf16be4c6f29",
+      "license": "Public domain",
+      "copyright": "Public domain.",
+      "description": "John Nelson Darby’s literal translation. The New Testament appeared in 1867 (revised 1872 and 1884) and the complete Bible in 1890. Square brackets mark words added for sense.",
+      "source": {
+        "name": "scrollmapper/bible_databases",
+        "url": "https://github.com/scrollmapper/bible_databases"
+      }
+    },
+    {
+      "id": "bbe",
+      "abbreviation": "BBE",
+      "name": "Bible in Basic English",
+      "year": "1949/1964",
+      "language": "en",
+      "direction": "ltr",
+      "provider": "json",
+      "url": "data/bbe.json",
+      "version": "127d763c65a2",
+      "license": "Public domain (US)",
+      "copyright": "In the public domain in the United States, because the 1965 printing carried no copyright notice. Its status may differ in other countries.",
+      "description": "A translation by S. H. Hooke that uses a vocabulary of about 1,000 words: the 850 words of Basic English plus words for poetry and Bible terms. Asterisks (***) mark places the translators left blank, usually where the Hebrew text is uncertain.",
+      "source": {
+        "name": "scrollmapper/bible_databases",
+        "url": "https://github.com/scrollmapper/bible_databases"
+      }
     }
   ]
 }

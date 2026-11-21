@@ -1,24 +1,15 @@
 /**
- * Translation provider layer.
+ * Translation registry: reads data/translations.json and hands out one
+ * provider per translation (created on first use, then reused).
  *
- * Every translation is served by a "provider" with the same small interface,
- * so the reader never needs to know whether text comes from a static JSON
- * file (public-domain translations, now) or a licensed API (NIV, ESV, NASB,
- * NLT, later).
- *
- * Provider interface:
- *   info                          the translation's entry from data/translations.json
- *                                 { id, abbreviation, name, language, direction, license, provider, url }
- *   load(): Promise<void>         optional warm-up (e.g. start a download early)
- *   getChapter(bookId, chapter):  Promise<{ bookId, chapter, verses: [{ number, text }] } | null>
- *                                 bookId is a USFM code ("JHN"); null = not in this translation
- *
- * To add an API source later: write providers/api-provider.js implementing
- * the same interface, register it in PROVIDER_FACTORIES under a new key (say
- * "api"), and list the translation in data/translations.json with
- * "provider": "api". Nothing else changes.
+ * The provider contract is in interface.js. To add a new kind of source (a
+ * licensed API such as API.Bible): implement it, add its factory to
+ * PROVIDER_FACTORIES under a new key, and list translations in
+ * translations.json with that "provider" value. js/providers/README.md walks
+ * through it.
  */
 import { fetchJson } from './fetch-json.js';
+import { assertProvider, checkTranslationInfo } from './interface.js';
 import { createJsonProvider } from './json-provider.js';
 
 const MANIFEST_URL = 'data/translations.json';
@@ -41,33 +32,45 @@ function loadManifest() {
   return manifestPromise;
 }
 
-function checkManifest(manifest) {
-  if (!manifest || !Array.isArray(manifest.translations) || manifest.translations.length === 0) {
-    throw new Error(`${MANIFEST_URL} must list at least one translation.`);
+/** Drop (and log) bad entries rather than breaking the whole site. */
+export function checkManifest(manifest, factories = PROVIDER_FACTORIES) {
+  if (!manifest || !Array.isArray(manifest.translations)) {
+    throw new Error(`${MANIFEST_URL} must contain a "translations" list.`);
   }
-  return manifest;
+  const seen = new Set();
+  const translations = [];
+  for (const info of manifest.translations) {
+    const problems = checkTranslationInfo(info);
+    if (!problems.length && !factories[info.provider]) problems.push(`unknown provider "${info.provider}"`);
+    if (!problems.length && seen.has(info.id)) problems.push('duplicate id');
+    if (problems.length) {
+      console.warn(`${MANIFEST_URL}: skipping ${info?.id ?? 'an entry'}: ${problems.join('; ')}`);
+      continue;
+    }
+    seen.add(info.id);
+    translations.push(Object.freeze({ direction: 'ltr', ...info }));
+  }
+  if (translations.length === 0) throw new Error(`${MANIFEST_URL} has no usable translations.`);
+  const defaultId = seen.has(manifest.default) ? manifest.default : translations[0].id;
+  return { default: defaultId, translations };
 }
 
+/** All translations, in the order of translations.json. */
 export async function listTranslations() {
   return (await loadManifest()).translations;
 }
 
 export async function getDefaultTranslationId() {
-  const manifest = await loadManifest();
-  const hasDefault = manifest.translations.some((t) => t.id === manifest.default);
-  return hasDefault ? manifest.default : manifest.translations[0].id;
+  return (await loadManifest()).default;
 }
 
 /** Get the provider for a translation id (created once, then cached). */
 export async function getProvider(id) {
-  const manifest = await loadManifest();
-  const info = manifest.translations.find((t) => t.id === id);
+  const { translations } = await loadManifest();
+  const info = translations.find((t) => t.id === id);
   if (!info) throw new Error(`Unknown translation "${id}".`);
-
   if (!providers.has(id)) {
-    const factory = PROVIDER_FACTORIES[info.provider];
-    if (!factory) throw new Error(`Translation "${id}" needs a "${info.provider}" provider, which doesn't exist.`);
-    providers.set(id, factory(info));
+    providers.set(id, assertProvider(PROVIDER_FACTORIES[info.provider](info), `${info.provider} provider for ${id}`));
   }
   return providers.get(id);
 }

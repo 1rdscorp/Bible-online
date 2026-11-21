@@ -11,10 +11,10 @@
  *   #/john        chapters  the chapter grid for one book
  *   #/john/3      reader    John 3
  *   #/john/3/16   reader    John 3, scrolled to verse 16
+ *   #/translations  translations  about each translation and its licence
  *
- * Anything after "?" is parsed into `route.params` (e.g. #/john/3?t=asv), so
- * later stages can add options such as translation or compare mode without
- * changing the path scheme.
+ * Anything after "?" is parsed into `route.params`. The reader uses ?t= for
+ * its translations (#/john/3?t=kjv,asv); see js/translations.js.
  *
  * URLs that aren't canonical (#/jn/3, #/John/03, #/jude) resolve with a
  * `redirect` to their canonical form, so every passage has exactly one URL.
@@ -28,8 +28,19 @@ export function bookHref(book) {
   return `#/${book.slug}`;
 }
 
-export function chapterHref(book, chapter, verse = null) {
-  return `#/${book.slug}/${chapter}${verse ? `/${verse}` : ''}`;
+/** `query` is appended after "?" when given, e.g. "t=kjv,asv". */
+export function chapterHref(book, chapter, verse = null, query = '') {
+  return `#/${book.slug}/${chapter}${verse ? `/${verse}` : ''}${query ? `?${query}` : ''}`;
+}
+
+/**
+ * Pages that aren't books. Their names are reserved, so no book alias may
+ * use them; tests/router.test.js checks.
+ */
+export const PAGES = Object.freeze({ translations: 'translations' });
+
+export function pageHref(name) {
+  return `#/${name}`;
 }
 
 /** Split a location.hash into path segments and query parameters. */
@@ -71,6 +82,10 @@ export function resolveRoute(hash) {
   if (segments.length === 0) return withCanonical({ ...base, view: 'books' }, `#/${suffix}`, raw);
 
   const [bookPart, chapterPart, versePart] = segments;
+
+  const page = PAGES[bookPart.toLowerCase()];
+  if (page) return withCanonical({ ...base, view: page }, pageHref(page) + suffix, raw);
+
   const book = findBook(bookPart);
   if (!book) return { ...base, view: 'not-found', reason: 'book', query: bookPart };
 
@@ -140,4 +155,13 @@ export function navigate(href, { replace = false } = {}) {
   } else if (window.location.hash !== href) {
     window.location.hash = href;
   }
+}
+
+/**
+ * Rewrite the current URL without navigating or re-rendering: for when the
+ * page on screen is already right and only its URL needs to say so (e.g. to
+ * add ?t=kjv to a plain #/john/3).
+ */
+export function replaceHash(href) {
+  window.history.replaceState(window.history.state, '', href);
 }

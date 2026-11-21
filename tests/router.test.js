@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { getBook } from '../js/canon.js';
-import { chapterHref, parseHash, resolveRoute } from '../js/router.js';
+import { findBook, getBook } from '../js/canon.js';
+import { chapterHref, PAGES, parseHash, resolveRoute } from '../js/router.js';
 
 const summary = (hash) => {
   const r = resolveRoute(hash);
@@ -75,4 +75,23 @@ test('chapterHref builds canonical links', () => {
   assert.equal(chapterHref(getBook('JHN'), 3), '#/john/3');
   assert.equal(chapterHref(getBook('JHN'), 3, 16), '#/john/3/16');
   assert.equal(chapterHref(getBook('SNG'), 1), '#/song-of-solomon/1');
+  assert.equal(chapterHref(getBook('JHN'), 3, null, 't=kjv,asv'), '#/john/3?t=kjv,asv');
+  assert.equal(chapterHref(getBook('JHN'), 3, 16, 't=web'), '#/john/3/16?t=web');
+});
+
+test('translation lists in ?t= survive canonical redirects', () => {
+  assert.equal(resolveRoute('#/john/3?t=kjv,asv').redirect, undefined);
+  assert.equal(resolveRoute('#/john/3?t=kjv,asv').params.t, 'kjv,asv');
+  assert.equal(resolveRoute('#/jn/3?t=kjv,asv').redirect, '#/john/3?t=kjv,asv');
+  assert.equal(resolveRoute('#/john/3?t=kjv%2Casv').params.t, 'kjv,asv'); // encoded comma
+});
+
+test('#/translations is a page, not a book', () => {
+  assert.equal(resolveRoute('#/translations').view, 'translations');
+  assert.equal(resolveRoute('#/translations').redirect, undefined);
+  assert.equal(resolveRoute('#/Translations/').redirect, '#/translations');
+});
+
+test('page names are not used by any book alias', () => {
+  for (const name of Object.keys(PAGES)) assert.equal(findBook(name), null, `"${name}" must not match a book`);
 });
