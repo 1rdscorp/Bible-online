@@ -158,5 +158,18 @@ export default {
     'translations.downloaded': 'Загружен',
     'translations.notDownloaded': 'Ещё не загружен',
     'translations.read': 'Читать: {title} ({abbr})',
+
+    'translate.button': 'Перевести на русский',
+    'translate.title': 'Перевод на русский',
+    'translate.close': 'Закрыть',
+    'translate.machine': 'Машинный перевод',
+    'translate.machineNote': 'Перевёл браузер на этом устройстве. Возможны неточности, особенно со старым английским.',
+    'translate.translating': 'Перевод…',
+    'translate.downloading': 'Загрузка модели перевода ({percent}%)…',
+    'translate.unavailable': 'Этот браузер не умеет переводить на устройстве (Chrome и Edge на компьютере умеют).',
+    'translate.failed': 'Перевести не удалось.',
+    'translate.openGoogle': 'Открыть в Google Переводчике',
+    'translate.newTab': '(откроется в новой вкладке)',
+    'translate.loadingBible': 'Загрузка русского текста Библии…',
   },
 };

@@ -51,6 +51,14 @@ A link without `?t=` opens in the translations you used last. Abbreviations redi
 
 Keyboard: **←** / **→** go to the previous/next chapter (in the same translations).
 
+## Translate a selection into Russian
+
+Select English Bible text (in single view, or in an English column when comparing) and a **Translate to Russian** button appears under it. The panel it opens shows:
+- **Machine translation** of exactly the selected words. It's made on the device by the browser's built-in Translator API (desktop Chrome and Edge), so nothing leaves the device. Where that isn't available, or while it's still working, an **Open in Google Translate** link has the text filled in. A browser that doesn't answer within a few seconds falls back to the link.
+- **The Russian Synodal text of the same verses,** a real Bible translation. It's skipped when the Synodal is already a column on screen.
+
+No translation service with an API key is used. On a static site the key would be public, and the project has no backend.
+
 ## Interface language
 
 The whole interface is in **English** or **Russian**, switched with the **RUS | ENG** buttons in the top-right corner:
@@ -71,6 +79,7 @@ css/                  themes.css (colour tokens), base, layout, picker, reader, 
 js/
   main.js             Entry point: routes → views, translation choice, keyboard, last-read
   i18n.js             Interface language: t('key'), book names, RUS | ENG (text in locales/)
+  translate/          Translate-selection helpers: on-device machine translation, text tidying
   canon.js            The 66 books: USFM ids, names, URL slugs, chapter counts
   router.js           Hash routing (#/john/3/16?t=kjv) and canonical redirects
   translations.js     Which translations to show: ?t= parsing, preferences, columns
@@ -96,4 +105,5 @@ tests/                node --test suites
   - Added later: the Russian Synodal translation, with build-time verse renumbering (versification) and a Cyrillic font stack
   - In compare mode, a translation's own Psalm numbers appear under its column picker ("Псалом 22" beside English Psalm 23)
   - Russian interface with a RUS | ENG switch
+  - Translate selected English text into Russian (on-device machine translation, Google Translate link, Synodal verses)
 - [ ] Later: search, highlights/notes/bookmarks, reading plans, cross-references, Strong's word study, offline support

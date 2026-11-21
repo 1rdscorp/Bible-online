@@ -62,4 +62,7 @@ export const ICONS = Object.freeze({
   columns: 'M4 5h6v14H4zM14 5h6v14h-6z',
   plus: 'M12 5v14M5 12h14',
   close: 'M6 6l12 12M18 6L6 18',
+  // Two scripts with an arrow between ("translate")
+  translate: 'M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6',
+  external: 'M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5',
 });

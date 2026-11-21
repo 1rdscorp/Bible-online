@@ -88,5 +88,18 @@ export default {
     'translations.downloaded': 'Downloaded',
     'translations.notDownloaded': 'Not downloaded yet',
     'translations.read': 'Read {title} in {abbr}',
+
+    'translate.button': 'Translate to Russian',
+    'translate.title': 'Translation into Russian',
+    'translate.close': 'Close',
+    'translate.machine': 'Machine translation',
+    'translate.machineNote': 'Translated by your browser, on this device. It may be inaccurate, especially with older English.',
+    'translate.translating': 'Translating…',
+    'translate.downloading': 'Downloading the translation model ({percent}%)…',
+    'translate.unavailable': 'This browser can’t translate on the device (Chrome or Edge on a computer can).',
+    'translate.failed': 'The translation didn’t work.',
+    'translate.openGoogle': 'Open in Google Translate',
+    'translate.newTab': '(opens in a new tab)',
+    'translate.loadingBible': 'Loading the Russian Bible text…',
   },
 };
