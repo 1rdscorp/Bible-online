@@ -1,9 +1,10 @@
 /**
- * #/maps: the list of maps. #/maps/<id>: one map (js/geo/map.js), its
- * journeys (shown or hidden), the places on it as a list, and the selected
- * place's details: what kind of place, how sure its location is, and the
- * verses that name it. ?place=<id> selects a place (links from book
- * introductions and the timeline use it).
+ * #/maps: the list of maps. #/maps/<id>: one map (js/geo/map.js: zoom,
+ * pan, full screen, every place on demand), its journeys (shown or hidden),
+ * the places on it as a list, and the selected place's details: what kind
+ * of place, how sure its location is, and the verses that name it.
+ * ?place=<id> selects a place (links from book introductions and the
+ * timeline use it).
  */
 import { getBook } from '../canon.js';
 import { chapterTitle, getLanguage, t } from '../i18n.js';
@@ -73,7 +74,17 @@ export function renderMapPage({ map, maps, basemap, places, placeId = null, onPl
   const shownMap = { ...map, places: ids };
 
   const details = el('div', { class: 'place-details', 'aria-live': 'polite' });
-  const view = createMapView({ map: shownMap, basemap, places, nameOf: placeName, localize, label: t('maps.mapLabel', { title }), onSelect: (id) => select(id, true) });
+  // The details sit under the map, inside its frame's wrapper, so they come along into full screen.
+  const view = createMapView({
+    map: shownMap,
+    basemap,
+    places,
+    nameOf: placeName,
+    localize,
+    label: t('maps.mapLabel', { title }),
+    details,
+    onSelect: (id) => select(id, { fromUser: true }),
+  });
 
   const placeButtons = new Map();
   const placeList = el(
@@ -82,15 +93,16 @@ export function renderMapPage({ map, maps, basemap, places, placeId = null, onPl
     [...ids]
       .sort((a, b) => placeName(places[a]).localeCompare(placeName(places[b]), getLanguage()))
       .map((id) => {
-        const button = el('button', { type: 'button', class: 'place-button', 'aria-pressed': 'false', onclick: () => select(id, true) }, placeName(places[id]));
+        const button = el('button', { type: 'button', class: 'place-button', 'aria-pressed': 'false', onclick: () => select(id, { fromUser: true, reveal: true }) }, placeName(places[id]));
         placeButtons.set(id, button);
         return el('li', {}, button);
       }),
   );
 
-  function select(id, fromUser = false) {
+  /** `reveal`: bring the place into view if the map is zoomed or panned away from it. */
+  function select(id, { fromUser = false, reveal = false } = {}) {
     const place = places[id] ?? null;
-    view.select(place ? id : null);
+    view.select(place ? id : null, { reveal });
     for (const [key, button] of placeButtons) button.setAttribute('aria-pressed', String(key === id));
     details.replaceChildren(...(place ? placeDetails(id, place) : [el('p', { class: 'place-hint' }, t('maps.pickPlace'))]));
     if (fromUser) onPlaceChange(place ? id : null);
@@ -127,7 +139,7 @@ export function renderMapPage({ map, maps, basemap, places, placeId = null, onPl
       {
         id: 'map',
         title: t('maps.mapHeading'),
-        content: [routeControls, view.element, details],
+        content: [routeControls, view.element],
       },
       { id: 'map-places', title: t('maps.placesHeading'), content: [el('p', { class: 'study-note' }, t('maps.placesNote')), placeList] },
       others.length && {

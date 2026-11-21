@@ -152,6 +152,17 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
 - **Book introductions** (`#/<book>/intro`), for all 66 books in English and Russian: a summary, author and date (the traditional view, plus the main scholarly view where it differs), themes, an outline linked into the text, key verses quoted in the translation being read, the book's places on the maps, and its events on the timeline. They're linked from each chapter and from the chapter grid.
 - **Timeline** (`#/timeline`): 50 events in 10 eras, from Abraham to Revelation. Each event has its passages and a link to its place on a map. Where dates are disputed, the usual alternatives are given.
 - **Maps** (`#/maps`): the Ancient Near East, the land of Israel, the land of the Gospels, and Paul's journeys, which can be shown or hidden one by one. Choosing a place, on the map or in the list under it, shows how sure its location is and every verse that names it. The maps are SVG, drawn from the site's own data with no map service or tiles, and follow the theme.
+  - **Zoom and pan:**
+
+    | Input | Pan | Zoom |
+    |---|---|---|
+    | Mouse | drag | Ctrl/⌘ + scroll (or a trackpad pinch); double-click zooms in, Shift + double-click out |
+    | Touch | two fingers (one in full screen) | pinch |
+    | Keyboard (map focused) | arrow keys | **+** / **−**; **0** shows the whole map |
+
+    Outside full screen, plain scrolling and one-finger swipes still scroll the page, and a hint says how to move the map. Buttons zoom in and out, show the whole map, and switch to full screen. Text and dots keep their size, more names appear as you zoom in, and zooming out shows the lands around the map.
+  - **Show all places** adds every place OpenBible.info locates (about 1,300), each selectable.
+  - **Full screen** gives the map the whole window, with the selected place's details underneath; Escape leaves it.
 
 The pages are built from reusable templates (`js/views/templates/study-page.js`: page, facts, tags, outline, quotes, link cards) and data files (`data/study/`), so new pages such as topics or reading plans follow the same pattern.
 

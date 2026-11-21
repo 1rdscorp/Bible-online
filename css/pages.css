@@ -411,14 +411,51 @@
   margin-top: 0.75rem;
 }
 
+.map-options {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.4rem;
+}
+
+.map-options label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.25rem;
+  cursor: pointer;
+}
+
+.map-options input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--color-accent);
+}
+
+/* The map's window. One finger scrolls the page over it (pan-y); two
+   fingers, the mouse and the keyboard move the map (js/geo/map.js). */
 .map-frame {
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 auto;
+  position: relative;
   overflow: hidden;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   background: var(--map-water);
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.map-frame.is-dragging {
+  cursor: grabbing;
+}
+
+.map-frame:focus {
+  outline: none;
+}
+
+.map-frame:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 .map {
@@ -428,8 +465,102 @@
   font-family: var(--font-ui);
 }
 
+.map-controls {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.map-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: 0 2px 6px var(--color-shadow);
+  cursor: pointer;
+}
+
+.map-button:hover:not(:disabled) {
+  background: var(--color-surface-hover);
+}
+
+.map-button:disabled {
+  color: var(--color-text-muted);
+  cursor: default;
+  opacity: 0.55;
+}
+
+.map-button[data-map-action="home"] {
+  margin-top: 0.35rem;
+}
+
+/* "Use Ctrl + scroll to zoom", "Use two fingers…": shown briefly. */
+.map-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 1rem;
+  background: rgb(0 0 0 / 0.45);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-align: center;
+  pointer-events: none;
+}
+
+.map-hint[hidden] {
+  display: none;
+}
+
+/* Full screen: the map has the window; the place details sit underneath. */
+.has-map-fullscreen,
+.has-map-fullscreen body {
+  overflow: hidden;
+}
+
+.map-wrap.is-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0.5rem;
+  padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+  background: var(--color-bg);
+}
+
+.map-wrap.is-fullscreen .map-frame {
+  flex: 1 1 auto;
+  min-height: 0;
+  touch-action: none;
+}
+
+.map-wrap.is-fullscreen .place-details {
+  flex: 0 0 auto;
+  max-height: 35vh;
+  margin-top: 0.5rem;
+  overflow: auto;
+}
+
 .map-water {
   fill: var(--map-water);
+}
+
+/* The coastlines scale with the zoom; their lines keep one width. */
+.map-geo path {
+  vector-effect: non-scaling-stroke;
 }
 
 .map-land {
@@ -451,6 +582,18 @@
   stroke-width: 1.2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+/* "Show all places": every other place OpenBible.info locates. */
+.map-minor {
+  fill: var(--map-land);
+  stroke: var(--map-place);
+  stroke-width: 1.3;
+  pointer-events: none;
+}
+
+.map-name--minor {
+  fill: var(--color-text-muted);
 }
 
 .map-label {
@@ -491,12 +634,8 @@
 .map-route--3 { stroke: var(--route-3); stroke-dasharray: 2 4; }
 .map-route--4 { stroke: var(--route-4); stroke-dasharray: 12 4 2 4; }
 
-.map-place {
-  cursor: pointer;
-}
-
-.map-hit {
-  fill: transparent;
+.map-overlay {
+  pointer-events: none;
 }
 
 .map-dot {
@@ -513,16 +652,11 @@
   stroke-linejoin: round;
 }
 
-.map-name--hidden {
-  display: none;
-}
-
 .map-dot {
   transform-box: fill-box;
   transform-origin: center;
 }
 
-.map-place:hover .map-dot,
 .map-place.is-selected .map-dot {
   transform: scale(1.6);
 }
@@ -530,11 +664,6 @@
 .map-place.is-selected .map-dot {
   stroke: var(--color-text);
   stroke-width: 2;
-}
-
-.map-place:hover .map-name--hidden,
-.map-place.is-selected .map-name--hidden {
-  display: inline;
 }
 
 .map-place.is-selected .map-name {
