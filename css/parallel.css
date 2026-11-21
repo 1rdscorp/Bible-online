@@ -100,6 +100,12 @@
   user-select: none;
 }
 
+/* Each cell resolves the scripture font itself, so a column in another
+   script (Russian) picks up its own font stack from its `lang` (base.css). */
+.pcell {
+  font-family: var(--font-scripture);
+}
+
 .pcell + .pcell {
   margin-top: 0.4em;
 }

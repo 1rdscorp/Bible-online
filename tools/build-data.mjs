@@ -6,9 +6,11 @@
  *   npm run build-data -- asv web   only these
  *
  * For each translation: download the source (cached in .cache/sources/,
- * which git ignores), convert it, apply its text fixes, validate, write the
- * file, and update that translation's "version" in data/translations.json.
- * Display metadata (name, licence…) comes from data/translations.json.
+ * which git ignores), convert it, renumber it to English verse numbers if its
+ * source numbers verses differently ("versification", see
+ * lib/versification.mjs), apply its text fixes, validate, write the file, and
+ * update that translation's "version" in data/translations.json. Display
+ * metadata (name, licence…) comes from data/translations.json.
  */
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { basename, join } from 'node:path';
@@ -16,6 +18,7 @@ import { fileURLToPath } from 'node:url';
 import { readScrollmapper } from './lib/read-scrollmapper.mjs';
 import { readUsfx } from './lib/read-usfx.mjs';
 import { buildBooks, writeTranslationFile } from './lib/translation-file.mjs';
+import { createVersificationMapper, remapVerses } from './lib/versification.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const CACHE_DIR = join(ROOT, '.cache', 'sources');
@@ -66,7 +69,18 @@ for (const id of ids) {
   const read = READERS[source.format];
   if (!read) throw new Error(`${id}: unknown format "${source.format}"`);
 
-  const { books, fixCounts } = buildBooks(read(await download(source.url)), { fixes: source.fixes ?? [] });
+  let verses = read(await download(source.url));
+  if (source.versification) {
+    // e.g. Russian Synodal ("rso") → English numbering, via the original-language numbering.
+    const { scheme, corrections = {} } = source.versification;
+    const [from, to] = await Promise.all(
+      [scheme, 'eng'].map(async (name) => JSON.parse(await download(`${sources._versificationMappings}${name}.json`))),
+    );
+    verses = remapVerses(verses, createVersificationMapper({ from, to, corrections }));
+    console.log(`  renumbered from "${scheme}" to English verse numbers (${Object.keys(corrections).length} corrections)`);
+  }
+
+  const { books, fixCounts } = buildBooks(verses, { fixes: source.fixes ?? [] });
   const result = await writeTranslationFile(join(ROOT, entry.url), {
     id,
     abbreviation: entry.abbreviation,

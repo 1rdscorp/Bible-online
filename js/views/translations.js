@@ -45,7 +45,7 @@ export function renderTranslationsPage({ translations, savedIds = [], lastRead =
       'p',
       { class: 'page-intro' },
       'Every translation here is in the public domain. Each one downloads the first time you open it ' +
-        '(about 1.2 MB) and is then kept on this device, so it opens instantly next time.',
+        '(1.2–1.4 MB) and is then kept on this device, so it opens instantly next time.',
     ),
     el(
       'ul',

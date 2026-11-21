@@ -27,6 +27,29 @@ export const TEXT_FIXES = {
   selah: [[/\[Selah(?!\])/g, 'Selah']],
   // Darby source lost the space before "God"/"Godhead" ("ofGod").
   'darby-god': [[/([a-z])(God)/g, '$1 $2']],
+  // Russian conventions: a spaced hyphen used as a dash → spaced em dash
+  // ("Господь - Пастырь" → "Господь — Пастырь"); straight double quotes →
+  // «guillemets». As above, a quote at the start of a word opens. Many quotes
+  // run across verses, so quotes are judged by position, not by pairing.
+  'russian-typography': [
+    [/(^|\s)-(?=\s|$)/g, '$1—'],
+    // One opening quote was typed as a second colon (Isaiah 44:26:
+    // "Иерусалиму::ты будешь населен"); the other copy checked has ': "'.
+    [/::(?=\p{L})/gu, ': «'],
+    // A quote right before punctuation closes, even after a stray space
+    // (Jeremiah 2:20: «"не буду служить идолам ", а…»).
+    [/\s*"(?=[,.;:!?)\]])/g, '»'],
+    // A quote with space on both sides opens, with a stray space after it
+    // (Joshua 4:7 in the Synodal source: «скажете им: " в память…»).
+    [/(^|\s)"\s+/g, '$1«'],
+    [/(^|[\s(\[—:])"(?=\S)/g, '$1«'],
+    [/"/g, '»'],
+  ],
+  // Some sources start a chapter (often a Psalm title) in lower case.
+  // A rule can also be a function of (text, { bookId, chapter, verse }).
+  'capitalize-chapter-start': [
+    (text, { verse }) => (verse === 1 ? text.replace(/^([[(«]?)(\p{Ll})/u, (_, open, letter) => open + letter.toUpperCase()) : text),
+  ],
 };
 
 export function checkFixNames(names) {
@@ -34,10 +57,17 @@ export function checkFixNames(names) {
   if (unknown.length) throw new Error(`Unknown fix(es): ${unknown.join(', ')}. Known: ${Object.keys(TEXT_FIXES).join(', ')}.`);
 }
 
-function applyFixes(text, names, counts) {
+function applyFixes(text, names, counts, ref) {
   let result = text;
   for (const name of names) {
-    for (const [pattern, replacement] of TEXT_FIXES[name]) {
+    for (const rule of TEXT_FIXES[name]) {
+      if (typeof rule === 'function') {
+        const fixed = rule(result, ref);
+        if (fixed !== result) counts[name] = (counts[name] ?? 0) + 1;
+        result = fixed;
+        continue;
+      }
+      const [pattern, replacement] = rule;
       const matches = result.match(pattern);
       if (matches) {
         counts[name] = (counts[name] ?? 0) + matches.length;
@@ -76,7 +106,7 @@ export function buildBooks(verses, { fixes = [] } = {}) {
     if (!byBook.has(bookId)) byBook.set(bookId, []);
     const chapters = byBook.get(bookId);
     chapters[chapter - 1] ??= [];
-    chapters[chapter - 1][verse - 1] = applyFixes(cleanText(text), fixes, fixCounts);
+    chapters[chapter - 1][verse - 1] = applyFixes(cleanText(text), fixes, fixCounts, { bookId, chapter, verse });
   }
 
   const books = BOOKS.filter((book) => byBook.has(book.id)).map((book) => ({

@@ -2,7 +2,9 @@
 
 A calm, fast, distraction-free Bible reader. It is a static site: HTML, CSS and vanilla JavaScript modules with no build step and no backend. It is built to be hosted on GitHub Pages.
 
-Six public-domain translations (KJV, ASV, WEB, YLT, Darby, BBE) can be read one at a time or 2–4 side by side, with verses aligned.
+Seven public-domain translations can be read one at a time or 2–4 side by side, with verses aligned:
+- **English:** KJV, ASV, WEB, YLT, Darby, BBE
+- **Russian:** the Synodal translation (RST), renumbered to English verse numbers so it lines up
 
 ## Run it locally
 
@@ -26,7 +28,9 @@ To try the site on a phone on the same Wi-Fi, run `HOST=0.0.0.0 npm start` and o
 npm test
 ```
 
-This runs the unit tests (canon, router, translation selection, verse alignment, the provider contract, the cache, the registry) and the data checks (every translation in `data/translations.json` is validated, version-checked and scanned for leftover markup).
+This runs two groups of tests:
+- **Unit tests:** canon, router, translation selection, verse alignment, versification remapping, the provider contract, the cache, the registry.
+- **Data checks:** every translation in `data/translations.json` is validated, version-checked and scanned for leftover markup.
 
 ## Deploy to GitHub Pages
 
@@ -76,4 +80,5 @@ tests/                node --test suites
 
 - [x] **Stage 1:** core reader: book/chapter picker, chapter view, hash URLs, keyboard navigation, last-read memory, light/sepia/dark themes, text size
 - [x] **Stage 2:** six translations, dropdown, parallel view (2–4 columns, aligned, stacks on phones), lazy loading with on-device caching, provider interface ready for API sources, copyright/licence notices and a Translations page
+  - Added later: the Russian Synodal translation, with build-time verse renumbering (versification) and a Cyrillic font stack
 - [ ] Later: search, highlights/notes/bookmarks, reading plans, cross-references, Strong's word study, offline support
