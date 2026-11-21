@@ -1,0 +1,137 @@
+/* Book list (#/) and chapter grid (#/john). */
+
+.picker {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.view-title {
+  font-family: var(--font-scripture);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.view-subtitle {
+  margin-top: 0.25rem;
+  color: var(--color-text-muted);
+}
+
+.back {
+  margin-bottom: 0.75rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* "Continue reading John 3" */
+.continue {
+  margin-top: 1.25rem;
+}
+
+.continue-link {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  text-decoration: none;
+}
+
+.continue-link:hover {
+  background: var(--color-surface-hover);
+}
+
+.continue-label {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+.continue-target {
+  font-family: var(--font-scripture);
+  font-size: 1.2rem;
+}
+
+.testament {
+  margin-top: 2.25rem;
+}
+
+.testament-title {
+  margin-bottom: 0.75rem;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.book-grid,
+.chapter-grid {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.book-grid {
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+}
+
+.chapter-grid {
+  grid-template-columns: repeat(auto-fill, minmax(3.5rem, 1fr));
+  margin-top: 1.5rem;
+}
+
+.book-link,
+.chapter-link {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.book-link {
+  padding: 0.45rem 0.8rem;
+  font-size: 0.95rem;
+  line-height: 1.25;
+}
+
+.chapter-link {
+  justify-content: center;
+  height: 3.25rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.book-link:hover,
+.chapter-link:hover {
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-hover);
+}
+
+/* Last-read book/chapter: an accent edge plus hidden text "(last read)",
+   so colour isn't the only cue. */
+.book-link.is-last-read,
+.chapter-link.is-last-read {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--color-accent);
+}

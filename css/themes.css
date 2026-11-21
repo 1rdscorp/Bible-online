@@ -1,0 +1,87 @@
+/*
+ * Colour tokens for each theme. Components use only these variables, so a
+ * new theme is just a new block here.
+ *
+ * Theme selection (set on <html> by js/settings.js and the inline script in
+ * index.html):
+ *   data-theme="light" | "sepia" | "dark"
+ *   no data-theme      → "auto": light or dark following the device setting
+ *
+ * Every text/background pair meets WCAG AA (4.5:1 for text, 3:1 for focus
+ * rings and control borders). Re-check contrast if you change a colour.
+ */
+
+/* Light (also the default) */
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-bg: #fbfaf7;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f0eee8;
+  --color-text: #1f2023;
+  --color-text-muted: #5a5d63;
+  --color-verse-number: #686b71;
+  --color-border: #e3e0d8;
+  --color-border-strong: #8b8880;
+  --color-accent: #275a8c;
+  --color-accent-soft: #e5edf5;
+  --color-highlight: #faeec4;
+  --color-focus: #275a8c;
+  --color-shadow: rgb(25 25 20 / 0.14);
+}
+
+/* Sepia: warm paper, brown ink */
+:root[data-theme="sepia"] {
+  color-scheme: light;
+  --color-bg: #f5edda;
+  --color-surface: #fbf6ea;
+  --color-surface-hover: #ece1c8;
+  --color-text: #3a2e22;
+  --color-text-muted: #65543f;
+  --color-verse-number: #725f48;
+  --color-border: #e0d2b4;
+  --color-border-strong: #8e7a5a;
+  --color-accent: #8a4513;
+  --color-accent-soft: #efdfc2;
+  --color-highlight: #efd99c;
+  --color-focus: #8a4513;
+  --color-shadow: rgb(60 40 10 / 0.16);
+}
+
+/* Dark: soft, not pure black, to reduce glare and halation */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-bg: #17181b;
+  --color-surface: #202226;
+  --color-surface-hover: #2a2c31;
+  --color-text: #e6e3dd;
+  --color-text-muted: #a4a7ae;
+  --color-verse-number: #91959c;
+  --color-border: #32353b;
+  --color-border-strong: #6f737b;
+  --color-accent: #8db8e6;
+  --color-accent-soft: #233447;
+  --color-highlight: #3d3620;
+  --color-focus: #8db8e6;
+  --color-shadow: rgb(0 0 0 / 0.5);
+}
+
+/* Auto: same values as the dark theme above. Keep the two blocks in sync. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --color-bg: #17181b;
+    --color-surface: #202226;
+    --color-surface-hover: #2a2c31;
+    --color-text: #e6e3dd;
+    --color-text-muted: #a4a7ae;
+    --color-verse-number: #91959c;
+    --color-border: #32353b;
+    --color-border-strong: #6f737b;
+    --color-accent: #8db8e6;
+    --color-accent-soft: #233447;
+    --color-highlight: #3d3620;
+    --color-focus: #8db8e6;
+    --color-shadow: rgb(0 0 0 / 0.5);
+  }
+}

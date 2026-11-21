@@ -1,0 +1,15 @@
+{
+  "default": "kjv",
+  "translations": [
+    {
+      "id": "kjv",
+      "abbreviation": "KJV",
+      "name": "King James Version",
+      "language": "en",
+      "direction": "ltr",
+      "license": "Public domain",
+      "provider": "json",
+      "url": "data/kjv.json"
+    }
+  ]
+}

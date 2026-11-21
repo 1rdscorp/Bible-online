@@ -1,0 +1,61 @@
+/**
+ * A small DOM builder.
+ *
+ * Strings are always inserted as text (never innerHTML), so verse text from a
+ * data file or, later, an API cannot inject markup.
+ *
+ *   el('a', { href: '#/john/3', class: 'link' }, 'John 3')
+ *
+ * Props: `class`, `dataset` (object), `on<event>` functions, `true` for a
+ * boolean attribute; null/false/undefined values are skipped. Children may be
+ * nodes, strings, numbers, arrays, or null/false (skipped).
+ */
+export function el(tag, props = {}, ...children) {
+  const node = document.createElement(tag);
+  for (const [key, value] of Object.entries(props)) {
+    if (value === null || value === undefined || value === false) continue;
+    if (key === 'class') node.className = value;
+    else if (key === 'dataset') Object.assign(node.dataset, value);
+    else if (key.startsWith('on') && typeof value === 'function') node.addEventListener(key.slice(2).toLowerCase(), value);
+    else node.setAttribute(key, value === true ? '' : String(value));
+  }
+  appendChildren(node, children);
+  return node;
+}
+
+function appendChildren(node, children) {
+  for (const child of children.flat(Infinity)) {
+    if (child === null || child === undefined || child === false) continue;
+    node.append(child instanceof Node ? child : String(child));
+  }
+}
+
+const SVG_NS = 'http://www.w3.org/2000/svg';
+
+/** A decorative 24×24 stroke icon (hidden from screen readers). */
+export function icon(pathData, { size = 24, className = 'icon' } = {}) {
+  const svg = document.createElementNS(SVG_NS, 'svg');
+  const attributes = {
+    class: className,
+    viewBox: '0 0 24 24',
+    width: size,
+    height: size,
+    fill: 'none',
+    stroke: 'currentColor',
+    'stroke-width': '1.75',
+    'stroke-linecap': 'round',
+    'stroke-linejoin': 'round',
+    'aria-hidden': 'true',
+    focusable: 'false',
+  };
+  for (const [name, value] of Object.entries(attributes)) svg.setAttribute(name, String(value));
+  const path = document.createElementNS(SVG_NS, 'path');
+  path.setAttribute('d', pathData);
+  svg.append(path);
+  return svg;
+}
+
+export const ICONS = Object.freeze({
+  chevronLeft: 'M15 5l-7 7 7 7',
+  chevronRight: 'M9 5l7 7-7 7',
+});

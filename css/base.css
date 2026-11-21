@@ -1,0 +1,161 @@
+/* Base: reset, type, focus styles and shared utilities. Colours come from themes.css. */
+
+:root {
+  /* System fonts: no downloads (fast, and ready for offline use later).
+     The serif stack picks a screen-friendly book face on each platform:
+     Iowan/Charter (Apple), Sitka (Windows), Noto Serif (Android). */
+  --font-scripture: "Iowan Old Style", Charter, "Bitstream Charter", "Sitka Text", Georgia, Cambria, "Noto Serif", "Droid Serif", serif;
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+
+  /* Scripture size = base × the user's text-size setting (--reader-scale,
+     set by js/settings.js). It's in rem, so it also respects the browser's
+     own default font size. */
+  --reader-base-size: 1.25rem;
+  --reader-scale: 1;
+  --reader-font-size: calc(var(--reader-base-size) * var(--reader-scale));
+  --reader-line-height: 1.8;
+
+  --header-height: 3.5rem;
+  --radius-sm: 8px;
+  --radius: 12px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Leave room for the sticky header when scrolling to a verse. */
+  scroll-padding-top: calc(var(--header-height) + 1rem);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--color-accent);
+  text-underline-offset: 0.15em;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+abbr[title] {
+  text-decoration: none;
+}
+
+/* A clearly visible keyboard focus ring, for keyboard users only. */
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Headings and <main> are focused by script after navigation (for screen
+   readers). They aren't controls, so they get no ring. */
+[tabindex="-1"]:focus {
+  outline: none;
+}
+
+kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0.05em 0.35em;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 4px;
+  background: var(--color-bg);
+  font-family: var(--font-ui);
+  font-size: 0.85em;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* Hidden visually but still read by screen readers. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-accent);
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* A quiet, bordered button (also used on links). */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--color-surface-hover);
+}
+
+.status {
+  padding: 3rem 1rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
