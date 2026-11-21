@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { createJsonProvider } from '../js/providers/json-provider.js';
+import { createJsonProvider, parseWordTags } from '../js/providers/json-provider.js';
 
 const info = { id: 'test', name: 'Test Translation', url: 'data/test.json' };
 const sample = {
@@ -27,6 +27,19 @@ test('a chapter’s own numbering (native) is passed through when the file has i
   const provider = createJsonProvider(info, { fetchJson: async () => data });
   assert.deepEqual((await provider.getChapter('PSA', 2)).native, [{ chapter: 1, from: 5, to: 9 }]);
   assert.equal((await provider.getChapter('PSA', 1)).native, undefined);
+});
+
+test('Strong’s tags become each verse’s words (KJV+)', async () => {
+  const data = { books: [{ id: 'GEN', chapters: [['In the beginning God', 'no tags', 'x']], tags: [['7.9.H7225 17.3.H430', '', '0.1.G1+G2']] }] };
+  const provider = createJsonProvider(info, { fetchJson: async () => data });
+  const { verses } = await provider.getChapter('GEN', 1);
+  assert.deepEqual(verses[0].words, [
+    { start: 7, end: 16, strongs: ['H7225'] },
+    { start: 17, end: 20, strongs: ['H430'] },
+  ]);
+  assert.equal(verses[1].words, undefined);
+  assert.deepEqual(verses[2].words, [{ start: 0, end: 1, strongs: ['G1', 'G2'] }]);
+  assert.deepEqual(parseWordTags('0.50.H1 2.0.H2 bad 1.2.H3', 10), [{ start: 1, end: 3, strongs: ['H3'] }], 'tags that don’t fit are skipped');
 });
 
 test('unknown books or chapters resolve to null', async () => {

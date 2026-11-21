@@ -1,0 +1,34 @@
+{
+  "formatVersion": 1,
+  "book": "REV",
+  "author": {
+    "en": "John, exiled on Patmos, traditionally the apostle John; since ancient times some have thought he was a different John, such as John the Elder.",
+    "ru": "Иоанн, находившийся в ссылке на острове Патмос, по преданию — апостол Иоанн; уже в древности некоторые считали автором другого Иоанна, например Иоанна Пресвитера."
+  },
+  "date": {
+    "en": "Traditionally c. AD 95, late in the reign of Domitian; some scholars prefer the late 60s, under Nero.",
+    "ru": "По традиции — ок. 95 г. н. э., в конце правления императора Домициана; некоторые учёные предпочитают датировку концом 60-х гг. I в. н. э., временем Нерона."
+  },
+  "summary": {
+    "en": "A prophetic vision given to John for seven churches in Asia that faced persecution and the pull to compromise. In vivid symbols of seals, trumpets and bowls, the beast and the Lamb, it shows God’s rule over history, calls for faithful endurance, and ends with evil defeated and a new heaven and earth where God dwells with his people.",
+    "ru": "Пророческое видение, данное Иоанну для семи церквей Асии, которым грозили гонения и соблазн компромисса. В ярких образах печатей, труб и чаш, зверя и Агнца книга открывает власть Бога над историей, призывает к верности и терпению и завершается победой над злом и видением нового неба и новой земли, где Бог обитает со Своим народом."
+  },
+  "themes": [
+    { "en": "Christ, the slain and victorious Lamb", "ru": "Христос — закланный и победивший Агнец" },
+    { "en": "God’s rule over history", "ru": "Власть Бога над историей" },
+    { "en": "Faithful witness and endurance", "ru": "Верное свидетельство и терпение" },
+    { "en": "Judgement on evil", "ru": "Суд над злом" },
+    { "en": "New heaven and new earth", "ru": "Новое небо и новая земля" }
+  ],
+  "outline": [
+    { "ref": "REV 1:1-3:22", "en": "The risen Christ and the seven churches", "ru": "Воскресший Христос и семь церквей" },
+    { "ref": "REV 4:1-5:14", "en": "The throne of God and the Lamb", "ru": "Престол Божий и Агнец" },
+    { "ref": "REV 6:1-11:19", "en": "The seven seals and seven trumpets", "ru": "Семь печатей и семь труб" },
+    { "ref": "REV 12:1-14:20", "en": "The dragon, the beasts and the Lamb", "ru": "Дракон, звери и Агнец" },
+    { "ref": "REV 15:1-18:24", "en": "The seven bowls and the fall of Babylon", "ru": "Семь чаш и падение Вавилона" },
+    { "ref": "REV 19:1-20:15", "en": "Christ’s victory and the last judgement", "ru": "Победа Христа и Страшный суд" },
+    { "ref": "REV 21:1-22:21", "en": "The new heaven and new earth", "ru": "Новое небо и новая земля" }
+  ],
+  "keyVerses": ["REV 1:8", "REV 3:20", "REV 21:3-4", "REV 22:13"],
+  "places": ["a8f60f3", "a5feb15", "a2e65fb", "a75d2c1", "a94b661", "aab4a5f", "a1c7cc1", "a83fb1e"]
+}

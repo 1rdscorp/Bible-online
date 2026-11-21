@@ -1,0 +1,33 @@
+{
+  "formatVersion": 1,
+  "book": "PRO",
+  "author": {
+    "en": "Mainly Solomon, according to its headings, with sayings of the wise and the words of Agur and King Lemuel; one collection was copied out by Hezekiah’s men. Many scholars see it as an anthology gathered over several centuries.",
+    "ru": "По надписаниям — главным образом Соломон; включены также слова мудрых, Агура и царя Лемуила, а одно собрание переписали мужи Езекии. Многие исследователи считают книгу сборником, складывавшимся несколько веков."
+  },
+  "date": {
+    "en": "Sayings from Solomon’s reign (10th century BC) onward; one collection was compiled c. 700 BC under Hezekiah, and many scholars date the final form to after the exile.",
+    "ru": "Изречения создавались начиная со времени Соломона (X в. до н. э.); одно собрание составлено ок. 700 г. до н. э. при Езекии, а окончательную редакцию многие учёные относят ко времени после плена."
+  },
+  "summary": {
+    "en": "Instruction and short sayings on living wisely before God. The book opens with a father’s appeals to choose Wisdom over Folly, turns to practical counsel on speech, work, money, friendship and justice, and ends with a portrait of a woman of strength. Its motto: the fear of the Lord is the beginning of knowledge.",
+    "ru": "Наставления и краткие изречения о мудрой жизни перед Богом. Книга открывается отцовскими увещаниями избрать Премудрость, а не глупость, затем даёт практические советы о речи, труде, богатстве, дружбе и справедливости и завершается образом добродетельной жены. Её девиз: начало мудрости — страх Господень."
+  },
+  "themes": [
+    { "en": "The fear of the Lord", "ru": "Страх Господень" },
+    { "en": "Wisdom and folly", "ru": "Мудрость и глупость" },
+    { "en": "The power of words", "ru": "Сила слова" },
+    { "en": "Work, wealth and generosity", "ru": "Труд, богатство и щедрость" },
+    { "en": "Family and friendship", "ru": "Семья и дружба" }
+  ],
+  "outline": [
+    { "ref": "PRO 1:1-9:18", "en": "Prologue: a father’s call to wisdom", "ru": "Вступление: отец призывает к мудрости" },
+    { "ref": "PRO 10:1-22:16", "en": "The proverbs of Solomon", "ru": "Притчи Соломона" },
+    { "ref": "PRO 22:17-24:34", "en": "Sayings of the wise", "ru": "Слова мудрых" },
+    { "ref": "PRO 25:1-29:27", "en": "Solomon’s proverbs copied by Hezekiah’s men", "ru": "Притчи Соломона, собранные мужами Езекии" },
+    { "ref": "PRO 30:1-33", "en": "The words of Agur", "ru": "Слова Агура" },
+    { "ref": "PRO 31:1-9", "en": "The words of King Lemuel", "ru": "Слова царя Лемуила" },
+    { "ref": "PRO 31:10-31", "en": "The woman of strength", "ru": "Добродетельная жена" }
+  ],
+  "keyVerses": ["PRO 1:7", "PRO 3:5-6", "PRO 4:23", "PRO 31:30"]
+}

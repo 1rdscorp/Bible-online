@@ -1,0 +1,34 @@
+{
+  "formatVersion": 1,
+  "book": "JER",
+  "author": {
+    "en": "Jeremiah son of Hilkiah, of a priestly family in Anathoth, who dictated many of his oracles to the scribe Baruch. Scholars widely see the book as shaped by later editors; its Greek version is shorter and differently arranged.",
+    "ru": "Иеремия, сын Хелкии, из священников в Анафофе; многие свои пророчества он диктовал писцу Варуху. Исследователи обычно считают, что книга прошла позднейшую редакцию; её греческий текст короче и расположен иначе."
+  },
+  "date": {
+    "en": "Jeremiah began to prophesy c. 627 BC, under Josiah, and continued after the fall of Jerusalem in 586 BC; the book took its final form during or after the exile.",
+    "ru": "Иеремия начал пророчествовать ок. 627 г. до н. э., при Иосии, и продолжал после падения Иерусалима в 586 г. до н. э.; окончательный вид книга получила во время плена или после него."
+  },
+  "summary": {
+    "en": "In Judah’s last decades Jeremiah warns that Jerusalem will fall to Babylon unless the people turn back, and he suffers rejection, prison and grief for saying so. When the city falls, he promises that God will bring his people home and make a new covenant, writing his law on their hearts.",
+    "ru": "В последние десятилетия Иудейского царства Иеремия предупреждает, что Иерусалим падёт под ударом Вавилона, если народ не обратится, и за эти слова терпит отвержение, темницу и скорбь. Когда город падает, пророк возвещает, что Бог вернёт Свой народ и заключит с ним новый завет, написав Свой закон на их сердцах."
+  },
+  "themes": [
+    { "en": "Covenant unfaithfulness", "ru": "Нарушение завета" },
+    { "en": "A call to repentance", "ru": "Призыв к покаянию" },
+    { "en": "Judgment through Babylon", "ru": "Суд через Вавилон" },
+    { "en": "The prophet’s suffering", "ru": "Страдания пророка" },
+    { "en": "The promise of a new covenant", "ru": "Обетование нового завета" }
+  ],
+  "outline": [
+    { "ref": "JER 1:1-19", "en": "Jeremiah’s call", "ru": "Призвание Иеремии" },
+    { "ref": "JER 2:1-25:38", "en": "Warnings to Judah and Jerusalem", "ru": "Предостережения Иудее и Иерусалиму" },
+    { "ref": "JER 26:1-29:32", "en": "Conflict with priests and false prophets", "ru": "Противостояние священникам и лжепророкам" },
+    { "ref": "JER 30:1-33:26", "en": "The book of comfort: a new covenant", "ru": "Книга утешения: новый завет" },
+    { "ref": "JER 34:1-45:5", "en": "Siege, fall of Jerusalem and aftermath", "ru": "Осада и падение Иерусалима; после катастрофы" },
+    { "ref": "JER 46:1-51:64", "en": "Oracles against the nations", "ru": "Пророчества о народах" },
+    { "ref": "JER 52:1-34", "en": "Appendix: the fall of Jerusalem", "ru": "Приложение: падение Иерусалима" }
+  ],
+  "keyVerses": ["JER 1:5", "JER 17:9", "JER 29:11", "JER 31:33"],
+  "places": ["a15257a", "a217d18", "af6c730", "aa4680a", "a3cc590", "a8ec269"]
+}

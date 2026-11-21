@@ -1,0 +1,33 @@
+{
+  "formatVersion": 1,
+  "book": "1KI",
+  "author": {
+    "en": "Unknown; Jewish tradition names Jeremiah. The writer cites older records, such as the book of the acts of Solomon (11:41); many scholars see 1 and 2 Kings, originally one book, as the close of a history that begins with Deuteronomy.",
+    "ru": "Автор неизвестен; иудейское предание называет Иеремию. Составитель ссылается на более древние записи, например на «книгу дел Соломоновых» (11:41); многие исследователи считают 3 и 4 Царств (изначально одна книга) завершением исторического труда, начатого Второзаконием."
+  },
+  "date": {
+    "en": "Completed during the Babylonian exile, after 561 BC, the last event recorded in 2 Kings; many scholars think a first edition was made under King Josiah, in the late 7th century BC.",
+    "ru": "Завершена во время вавилонского плена, после 561 г. до н. э. — последнего события, описанного в 4 Царств; многие учёные полагают, что первая редакция появилась при царе Иосии, в конце VII в. до н. э."
+  },
+  "summary": {
+    "en": "Solomon succeeds David, asks God for wisdom, and builds the temple in Jerusalem, but his many foreign wives turn his heart to other gods. After his death the kingdom splits into Israel in the north and Judah in the south. The prophet Elijah confronts King Ahab and the worship of Baal.",
+    "ru": "Соломон наследует Давиду, просит у Бога мудрости и строит храм в Иерусалиме, но многочисленные жёны-иноземки склоняют его сердце к чужим богам. После его смерти царство распадается на северное, Израильское, и южное, Иудейское. Пророк Илия обличает царя Ахава и служение Ваалу."
+  },
+  "themes": [
+    { "en": "Solomon’s wisdom and folly", "ru": "Мудрость и безрассудство Соломона" },
+    { "en": "The temple and God’s presence", "ru": "Храм и присутствие Бога" },
+    { "en": "A kingdom divided", "ru": "Разделение царства" },
+    { "en": "The Lord or Baal", "ru": "Господь или Ваал" },
+    { "en": "Prophets confront kings", "ru": "Пророки обличают царей" }
+  ],
+  "outline": [
+    { "ref": "1KI 1:1-2:46", "en": "Solomon succeeds David", "ru": "Соломон наследует престол Давида" },
+    { "ref": "1KI 3:1-4:34", "en": "Solomon’s wisdom", "ru": "Мудрость Соломона" },
+    { "ref": "1KI 5:1-9:9", "en": "The temple built and dedicated", "ru": "Строительство и освящение храма" },
+    { "ref": "1KI 9:10-11:43", "en": "Solomon’s splendour and decline", "ru": "Слава Соломона и его падение" },
+    { "ref": "1KI 12:1-16:34", "en": "The kingdom divided", "ru": "Разделение царства" },
+    { "ref": "1KI 17:1-22:53", "en": "Elijah and King Ahab", "ru": "Илия и царь Ахав" }
+  ],
+  "keyVerses": ["1KI 3:9", "1KI 8:27", "1KI 18:21", "1KI 19:12"],
+  "places": ["a15257a", "aede336", "adf74d4", "a64f355", "a513646", "a041bb3", "a3e21c6", "ae0bf4a"]
+}

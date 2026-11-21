@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "book": "2SA",
+  "author": {
+    "en": "Traditionally the prophets Nathan and Gad, who completed the work Samuel began (1 Chronicles 29:29). Many scholars see 1 and 2 Samuel, originally one book, as compiled from older sources, including a vivid account of David’s court.",
+    "ru": "По преданию — пророки Нафан и Гад, завершившие труд, начатый Самуилом (1 Пар. 29:29). Многие исследователи считают, что 1 и 2 Царств, изначально одна книга, составлены из более древних источников, в том числе из живого рассказа о дворе Давида."
+  },
+  "date": {
+    "en": "Traditionally the 10th century BC, soon after David’s reign (c. 1010–970 BC); many scholars date its final form, drawing on older sources, to the 7th–6th century BC.",
+    "ru": "По традиции — X в. до н. э., вскоре после царствования Давида (ок. 1010–970 гг. до н. э.); многие учёные относят окончательную редакцию, опирающуюся на древние источники, к VII–VI вв. до н. э."
+  },
+  "summary": {
+    "en": "The reign of David. He becomes king over Judah, then over all Israel, makes Jerusalem his capital, and receives God’s promise of an everlasting dynasty, the root of later messianic hope. But his sin with Bathsheba and the murder of Uriah bring sorrow on his house, above all in Absalom’s revolt.",
+    "ru": "Царствование Давида. Он становится царём сначала над Иудой, затем над всем Израилем, делает Иерусалим своей столицей и получает от Бога обетование вечного царского рода — корень позднейших мессианских надежд. Но грех с Вирсавией и убийство Урии навлекают беды на его дом, тяжелее всего — мятеж Авессалома."
+  },
+  "themes": [
+    { "en": "God’s covenant with David", "ru": "Завет Бога с Давидом" },
+    { "en": "Jerusalem, the city of David", "ru": "Иерусалим — город Давидов" },
+    { "en": "Sin and repentance", "ru": "Грех и покаяние" },
+    { "en": "The lasting cost of sin", "ru": "Горькие плоды греха" },
+    { "en": "Power and its temptations", "ru": "Власть и её искушения" }
+  ],
+  "outline": [
+    { "ref": "2SA 1:1-4:12", "en": "David king at Hebron", "ru": "Давид — царь в Хевроне" },
+    { "ref": "2SA 5:1-10:19", "en": "David’s kingdom established", "ru": "Утверждение царства Давида" },
+    { "ref": "2SA 11:1-12:31", "en": "David and Bathsheba", "ru": "Давид и Вирсавия" },
+    { "ref": "2SA 13:1-20:26", "en": "Trouble in David’s house: Absalom’s revolt", "ru": "Беды в доме Давида; мятеж Авессалома" },
+    { "ref": "2SA 21:1-24:25", "en": "Closing accounts: heroes, songs and the census", "ru": "Заключительные рассказы: герои, песни и перепись" }
+  ],
+  "keyVerses": ["2SA 7:16", "2SA 12:7", "2SA 22:2-3"],
+  "places": ["a85151a", "aede336", "a15257a", "ae067b5", "ac2c4c5", "ae5bfe9", "ae686c9"]
+}

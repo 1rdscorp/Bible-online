@@ -79,4 +79,9 @@ export const ICONS = Object.freeze({
   list: 'M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01',
   download: 'M12 3v12M7 10l5 5 5-5M5 21h14',
   upload: 'M12 15V3M7 8l5-5 5 5M5 21h14',
+  // An open book (Research: cross-references and word study).
+  research: 'M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5C17 4 14 4.5 12 6zM12 6v14.5',
+  map: 'M9 4L3 6v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14',
+  timeline: 'M4 12h16M7 8v8M12 6v12M17 9v6',
+  info: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 11v6M12 7.5h.01',
 });

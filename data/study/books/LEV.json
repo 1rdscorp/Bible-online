@@ -1,0 +1,33 @@
+{
+  "formatVersion": 1,
+  "book": "LEV",
+  "author": {
+    "en": "Traditionally Moses: the book presents its laws as God’s words to Moses at Sinai. Many scholars see it as the work of priestly circles over a long period.",
+    "ru": "По преданию — Моисей: книга передаёт законы как слова Бога, сказанные Моисею на Синае. Многие исследователи видят в ней труд священнических кругов, создававшийся долгое время."
+  },
+  "date": {
+    "en": "Traditionally the 15th–13th century BC, in the time of Moses; many scholars date its final form to the 6th–5th century BC.",
+    "ru": "По традиции — XV–XIII вв. до н. э., время Моисея; многие учёные относят окончательную редакцию к VI–V вв. до н. э."
+  },
+  "summary": {
+    "en": "With the tabernacle built, God instructs Moses on how a sinful people can live with a holy God among them. The book sets out the offerings, the priesthood, the laws of clean and unclean and the Day of Atonement, and calls Israel to be holy, in worship and in daily life, because God is holy.",
+    "ru": "Скиния построена, и Господь наставляет Моисея о том, как грешный народ может жить рядом со святым Богом. Книга излагает законы о жертвах, священстве, чистом и нечистом, о Дне очищения и призывает Израиль быть святым — и в богослужении, и в повседневной жизни, — потому что свят Господь."
+  },
+  "themes": [
+    { "en": "Holiness", "ru": "Святость" },
+    { "en": "Sacrifice and atonement", "ru": "Жертва и очищение" },
+    { "en": "The priesthood", "ru": "Священство" },
+    { "en": "Clean and unclean", "ru": "Чистое и нечистое" },
+    { "en": "Love for one’s neighbour", "ru": "Любовь к ближнему" }
+  ],
+  "outline": [
+    { "ref": "LEV 1:1-7:38", "en": "The offerings", "ru": "Жертвоприношения" },
+    { "ref": "LEV 8:1-10:20", "en": "The priests ordained", "ru": "Посвящение священников" },
+    { "ref": "LEV 11:1-15:33", "en": "Clean and unclean", "ru": "Чистое и нечистое" },
+    { "ref": "LEV 16:1-34", "en": "The Day of Atonement", "ru": "День очищения" },
+    { "ref": "LEV 17:1-26:46", "en": "Holy living; blessings and curses", "ru": "Закон святости; благословения и проклятия" },
+    { "ref": "LEV 27:1-34", "en": "Vows and gifts to the Lord", "ru": "Обеты и посвящения Господу" }
+  ],
+  "keyVerses": ["LEV 16:30", "LEV 17:11", "LEV 19:2", "LEV 19:18"],
+  "places": ["abfba2a"]
+}

@@ -11,9 +11,10 @@ import { adjacentChapter, getBook, isValidChapter } from './canon.js';
 import { bookName, chapterTitle, getLanguage, localizeTranslation, resolveLanguage, setLanguage, t } from './i18n.js';
 import { getDefaultTranslationId, getProvider, listTranslations } from './providers/registry.js';
 import { translationCache } from './providers/translation-cache.js';
-import { bookHref, chapterHref, navigate, pageHref, PAGES, replaceHash, startRouter } from './router.js';
+import { bookHref, chapterHref, introHref, mapHref, navigate, pageHref, PAGES, replaceHash, startRouter } from './router.js';
 import { createSearchClient, isSearchable } from './search/client.js';
 import { ALL_TRANSLATIONS, readSearchParams, searchHref } from './search/params.js';
+import { researchData } from './research/data.js';
 import { bookOnly, parseReference } from './search/reference.js';
 import { parseQuery } from './search/text.js';
 import { studyStore } from './study/store.js';
@@ -33,6 +34,7 @@ import { initHeader } from './ui/header.js';
 import { el, icon, ICONS } from './ui/dom.js';
 import { initLanguageSwitch } from './ui/language-switch.js';
 import { initNotesPanel } from './ui/notes-panel.js';
+import { initResearchPanel } from './ui/research-panel.js';
 import { initSelectionTranslate } from './ui/selection-translate.js';
 import { initSettingsPanel } from './ui/settings-panel.js';
 import { paintStudyMarks } from './ui/study-marks.js';
@@ -44,9 +46,15 @@ import { renderBookList, renderChapterGrid } from './views/picker.js';
 import { createReaderView } from './views/reader.js';
 import { bookSuggestionLink, createSearchView, summaryText } from './views/search.js';
 import { showStudyPage } from './views/study.js';
+import { renderBookIntro } from './views/book-intro.js';
+import { renderMapPage, renderMapsIndex } from './views/maps.js';
+import { renderTimelinePage } from './views/timeline.js';
+import { enableJumpLinks } from './views/templates/study-page.js';
 import { renderTranslationsPage } from './views/translations.js';
 
 const LAST_READ_KEY = 'lastRead';
+const STRONGS_ID = 'kjvs'; // KJV+, opened by "Open in KJV+" in the Research panel
+const TIPS_KEY = 'tipsSeen'; // one-time hints the reader has dismissed: { strongs: true }
 
 const main = document.getElementById('main');
 const appStatus = document.getElementById('app-status');
@@ -55,6 +63,7 @@ let translationControl;
 let selectionTranslate;
 let toaster;
 let notesPanel;
+let researchPanel;
 let verseActions;
 let currentRoute = null;
 
@@ -198,7 +207,43 @@ function updateChapterStudyLinks(view, book, chapter) {
       count ? t('study.chapterNotesCount', { n: count }) : t('study.chapterNotes'),
     ),
     el('a', { class: 'text-button', href: pageHref(PAGES.study) }, icon(ICONS.bookmark, { size: 16 }), t('study.myStudy')),
+    el('a', { class: 'text-button', href: introHref(book) }, icon(ICONS.info, { size: 16 }), t('intro.link', { book: bookName(book) })),
   );
+}
+
+/**
+ * KJV+ on screen for the first time: a one-line hint that its words can be
+ * tapped, until the reader dismisses it.
+ */
+async function showStrongsTip(view, columns) {
+  view.element.querySelector('.reader-tip')?.remove();
+  if (!columns.some((info) => info.strongs)) return;
+  const seen = await storage.get(TIPS_KEY, {});
+  if (seen?.strongs || !main.contains(view.element)) return;
+  const tip = el(
+    'p',
+    { class: 'reader-tip' },
+    icon(ICONS.info, { size: 16 }),
+    el('span', {}, t('reader.strongsTip')),
+    el(
+      'button',
+      {
+        type: 'button',
+        class: 'text-button',
+        onclick: () => {
+          storage.set(TIPS_KEY, { ...seen, strongs: true });
+          tip.remove();
+        },
+      },
+      t('reader.dismissTip'),
+    ),
+  );
+  view.textRoot.before(tip);
+}
+
+/** KJV+'s entry in translations.json (it has Strong's numbers), or null. */
+async function strongsTranslation() {
+  return (await listTranslations()).find((info) => info.strongs) ?? null;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -259,7 +304,15 @@ async function handleRoute(route, { rerender = false } = {}) {
   // sets them again. The Notes panel stays open from chapter to chapter.
   selectionTranslate.setContext(null);
   verseActions.setContext(null);
-  if (route.view !== 'reader') notesPanel.close();
+  researchPanel.setContext(null);
+  if (route.view !== 'reader') {
+    notesPanel.close();
+    researchPanel.close();
+  }
+  if (route.view !== 'maps') {
+    mapPage?.destroy();
+    mapPage = null;
+  }
 
   switch (route.view) {
     case 'start': {
@@ -299,10 +352,140 @@ async function handleRoute(route, { rerender = false } = {}) {
         backupData,
         applyBackupExtras,
       });
+    case 'intro':
+      return showIntroPage(route, isCurrent, rerender);
+    case 'timeline':
+      return showTimelinePage(route, isCurrent, rerender);
+    case 'maps':
+      return showMapsPage(route, isCurrent, rerender);
     default:
       return showNotFound(route, rerender);
   }
 }
+
+/* ---------------------------------------------------------------------- */
+/* Study pages: book introductions, timeline, maps                         */
+/* ---------------------------------------------------------------------- */
+
+let mapPage = null; // the map on screen, so its resize observer can be released
+
+/** A study page's data failed to load: say so, with a way to try again. */
+function showStudyLoadFailure(error, route) {
+  console.error(error);
+  mount(
+    renderMessage({
+      title: t('page.loadFailedTitle'),
+      text: t('page.loadFailed'),
+      links: [{ href: '#/', label: t('notFound.browse') }],
+      actions: [{ label: t('action.retry'), onClick: () => handleRoute(route) }],
+    }),
+    { title: t('title.error') },
+  );
+}
+
+async function showIntroPage(route, isCurrent, rerender) {
+  const { book } = route;
+  let intro;
+  let timeline;
+  let places;
+  let maps;
+  try {
+    [intro, timeline, places, maps] = await Promise.all([researchData.bookIntro(book.id), researchData.timeline(), researchData.places(), researchData.maps()]);
+  } catch (error) {
+    if (isCurrent()) showStudyLoadFailure(error, route);
+    return;
+  }
+  if (!isCurrent()) return;
+  const lastRead = await getLastRead();
+  const backTo = lastRead?.book === book ? lastRead : { book, chapter: 1 };
+  const { element, quotes } = renderBookIntro({
+    book,
+    intro,
+    timeline,
+    places,
+    maps,
+    back: { href: chapterHref(backTo.book, backTo.chapter), label: t('translations.back', { title: chapterTitle(backTo.book, backTo.chapter) }) },
+  });
+  enableJumpLinks(element);
+  mount(element, { title: t('intro.link', { book: bookName(book) }), preserve: rerender });
+  // Key verses, quoted in the translation being read (or the KJV, if that
+  // one lacks the book: the Septuagint has no New Testament).
+  const { prefs } = await translationState();
+  const ids = [...new Set([selectionFromPrefs(prefs)[0], 'kjv'])];
+  for (const quote of quotes) {
+    const { ref } = quote;
+    for (const id of ids) {
+      try {
+        const provider = await getProvider(id);
+        const chapter = await provider.getChapter(ref.book, ref.chapter);
+        const last = ref.endChapter === ref.chapter ? ref.endVerse : Infinity;
+        const verses = chapter?.verses.filter((v) => v.number >= ref.verse && v.number <= last) ?? [];
+        if (!verses.length) continue;
+        if (isCurrent()) quote.fill(verses.map((v) => v.text).join(' '), provider.info.language);
+        break;
+      } catch {
+        // Try the next translation; the reference link is there regardless.
+      }
+    }
+  }
+}
+
+async function showTimelinePage(route, isCurrent, rerender) {
+  let timeline;
+  let places;
+  let maps;
+  try {
+    [timeline, places, maps] = await Promise.all([researchData.timeline(), researchData.places(), researchData.maps()]);
+  } catch (error) {
+    if (isCurrent()) showStudyLoadFailure(error, route);
+    return;
+  }
+  if (!isCurrent()) return;
+  const { element, target } = renderTimelinePage({ timeline, places, maps, eventId: route.params.event ?? null });
+  enableJumpLinks(element);
+  mount(element, { title: t('timeline.title'), preserve: rerender });
+  if (target && !rerender) {
+    target.scrollIntoView({ block: 'center' });
+    target.focus({ preventScroll: true });
+  }
+}
+
+async function showMapsPage(route, isCurrent, rerender) {
+  let maps;
+  let basemap;
+  let places;
+  try {
+    [maps, basemap, places] = await Promise.all([researchData.maps(), researchData.basemap(), researchData.places()]);
+  } catch (error) {
+    if (isCurrent()) showStudyLoadFailure(error, route);
+    return;
+  }
+  if (!isCurrent()) return;
+  mapPage?.destroy();
+  mapPage = null;
+  if (!route.mapId) {
+    mount(renderMapsIndex({ maps }), { title: t('maps.title'), preserve: rerender });
+    return;
+  }
+  const map = maps.find((candidate) => candidate.id === route.mapId);
+  if (!map) {
+    showNotFound({ ...route, reason: 'page' }, rerender);
+    return;
+  }
+  mapPage = renderMapPage({
+    map,
+    maps,
+    basemap,
+    places,
+    placeId: route.params.place ?? null,
+    // Keep the selected place in the URL (for sharing) without a history entry per click.
+    onPlaceChange: (id) => replaceHash(mapHref(map.id, id ? `place=${id}` : '')),
+  });
+  enableJumpLinks(mapPage.element);
+  mount(mapPage.element, { title: localizeText(map.title), preserve: rerender });
+}
+
+const localizeText = (text) => text?.[getLanguage()] ?? text?.en ?? '';
 
 async function showReader(route, isCurrent) {
   const { book, chapter, verse, verseEnd = null } = route;
@@ -353,6 +536,8 @@ async function showReader(route, isCurrent) {
     selectionTranslate.setContext({ book, chapter, shownIds: ids });
     verseActions.setContext({ book, chapter, view, columns, query });
     notesPanel.setContext({ book, chapter, query });
+    researchPanel.setContext({ book, chapter, columns, query });
+    showStrongsTip(view, columns);
     document.title = `${title} (${columns.map((c) => c.abbreviation).join(', ')}) · ${t('app.name')}`;
     if (results.some((r) => r.chapter)) saveLastRead(book, chapter);
   };
@@ -446,7 +631,8 @@ function rememberSearchPlace() {
 }
 
 function selectedTranslations(params, translations) {
-  return params.t === ALL_TRANSLATIONS ? translations : translations.filter((info) => info.id === params.t);
+  // "All translations" skips editions of a translation already searched (KJV+ is the KJV's text).
+  return params.t === ALL_TRANSLATIONS ? translations.filter((info) => !info.basedOn) : translations.filter((info) => info.id === params.t);
 }
 
 async function showSearchPage(route, isCurrent, rerender = false) {
@@ -588,6 +774,13 @@ async function loadMoreResults() {
 }
 
 function showNotFound(route, rerender = false) {
+  if (route.reason === 'page') {
+    mount(
+      renderMessage({ title: t('notFound.pageTitle'), text: t('notFound.pageText'), links: [{ href: '#/', label: t('notFound.browse') }] }),
+      { title: t('title.notFound'), preserve: rerender },
+    );
+    return;
+  }
   if (route.reason === 'chapter') {
     const name = bookName(route.book);
     mount(
@@ -692,6 +885,14 @@ async function boot() {
   selectionTranslate = initSelectionTranslate({ root: main, getRussianVerses });
   toaster = createToaster();
   notesPanel = initNotesPanel({ store: studyStore, toaster });
+  searchClient = createSearchClient();
+  researchPanel = initResearchPanel({
+    data: researchData,
+    getProvider,
+    concordance: (request) => searchClient.concordance(request),
+    strongsTranslation,
+    strongsHref: (book, chapter, verse) => chapterHref(book, chapter, verse, selectionQuery([STRONGS_ID])),
+  });
   verseActions = initVerseActions({
     root: main,
     store: studyStore,
@@ -699,6 +900,8 @@ async function boot() {
     onNote: (ref) => notesPanel.newNote(ref),
     onTranslate: (request) => selectionTranslate.open(request),
     readTextSelection: () => selectionTranslate.readTextSelection(),
+    onResearch: (selection) => researchPanel.showVerses(selection),
+    onWord: (word) => researchPanel.showWord(word),
   });
   // Highlights, notes and bookmarks are painted with the first chapter, so
   // they're read before routing starts (a quick read from this device).
@@ -709,7 +912,6 @@ async function boot() {
     // Another tab changed them while this one shows My Study: show the new list.
     if (change.external && currentRoute?.view === 'study') handleRoute(currentRoute, { rerender: true });
   });
-  searchClient = createSearchClient();
   // Which result was opened, to put focus back on it after Back.
   main.addEventListener('click', (event) => {
     const link = event.target.closest?.('.search-results a[href]');
@@ -731,6 +933,7 @@ async function boot() {
     setLanguage(language);
     languageSwitch.update(language);
     notesPanel.refresh();
+    researchPanel.refresh();
     if (currentRoute) handleRoute(currentRoute, { rerender: true });
   });
 

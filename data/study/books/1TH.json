@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "book": "1TH",
+  "author": {
+    "en": "Paul, writing with Silvanus and Timothy; his authorship is not seriously disputed.",
+    "ru": "Апостол Павел вместе с Силуаном и Тимофеем; авторство Павла практически не оспаривается."
+  },
+  "date": {
+    "en": "c. AD 50–51, from Corinth; probably the earliest of Paul’s surviving letters.",
+    "ru": "Ок. 50–51 гг. н. э., из Коринфа; вероятно, самое раннее из сохранившихся посланий Павла."
+  },
+  "summary": {
+    "en": "Probably the earliest of Paul’s letters, written to a young church in Thessalonica that he had been forced to leave suddenly. Paul thanks God for their faith under persecution, recalls his ministry among them, urges holy living, and comforts them about believers who have died with the hope of the Lord’s coming.",
+    "ru": "Вероятно, самое раннее из посланий Павла, адресованное молодой Церкви в Фессалонике, которую ему пришлось внезапно покинуть. Павел благодарит Бога за веру фессалоникийцев среди гонений, вспоминает о своём служении у них, призывает к святой жизни и утешает их в скорби об умерших надеждой на пришествие Господа."
+  },
+  "themes": [
+    { "en": "Faith, love and hope", "ru": "Вера, любовь и надежда" },
+    { "en": "Steadfastness under persecution", "ru": "Стойкость в гонениях" },
+    { "en": "A life pleasing to God", "ru": "Жизнь, угодная Богу" },
+    { "en": "The Lord’s coming", "ru": "Пришествие Господа" }
+  ],
+  "outline": [
+    { "ref": "1TH 1:1-10", "en": "Greeting and thanksgiving for their faith", "ru": "Приветствие и благодарение за их веру" },
+    { "ref": "1TH 2:1-3:13", "en": "Paul’s ministry and care for the church", "ru": "Служение Павла и его забота о Церкви" },
+    { "ref": "1TH 4:1-12", "en": "Living to please God", "ru": "Жизнь, угодная Богу" },
+    { "ref": "1TH 4:13-5:11", "en": "The Lord’s coming and his day", "ru": "Пришествие Господа и день Господень" },
+    { "ref": "1TH 5:12-28", "en": "Final instructions", "ru": "Последние наставления" }
+  ],
+  "keyVerses": ["1TH 4:16-17", "1TH 5:16-18"],
+  "places": ["afa9d8e", "a49e1d0", "a1fe6e7"]
+}

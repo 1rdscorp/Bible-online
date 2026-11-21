@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "book": "1SA",
+  "author": {
+    "en": "Traditionally Samuel, with the prophets Nathan and Gad completing the work (1 Chronicles 29:29). Many scholars see 1 and 2 Samuel, originally one book, as compiled from older sources and edited over time.",
+    "ru": "По преданию — Самуил, а завершили труд пророки Нафан и Гад (1 Пар. 29:29). Многие исследователи считают, что 1 и 2 Царств (в еврейской Библии — единая книга Самуила) составлены из более древних источников и долго редактировались."
+  },
+  "date": {
+    "en": "Traditionally the 10th century BC, soon after the events; many scholars date its final form, drawing on older sources, to the 7th–6th century BC.",
+    "ru": "По традиции — X в. до н. э., вскоре после описанных событий; многие учёные относят окончательную редакцию, опирающуюся на древние источники, к VII–VI вв. до н. э."
+  },
+  "summary": {
+    "en": "Israel moves from the judges to the kings. Samuel, the last judge and a prophet, anoints Saul as Israel’s first king at the people’s demand, but Saul disobeys and is rejected. God chooses David, a young shepherd, who defeats Goliath, flees Saul’s jealousy, and waits for the throne until Saul dies in battle.",
+    "ru": "Израиль переходит от времени судей к царской власти. Самуил, последний из судей и пророк, по требованию народа помазывает на царство Саула, но Саул нарушает повеление Божье, и Бог отвергает его. Избранником становится юный пастух Давид: он побеждает Голиафа, спасается бегством от ревнивого Саула и ждёт своего часа, пока Саул не гибнет в бою."
+  },
+  "themes": [
+    { "en": "From judges to kings", "ru": "От судей к царям" },
+    { "en": "Prayer answered", "ru": "Услышанная молитва" },
+    { "en": "Obedience over sacrifice", "ru": "Послушание выше жертвы" },
+    { "en": "God looks at the heart", "ru": "Бог смотрит на сердце" },
+    { "en": "Faithful friendship", "ru": "Верная дружба" }
+  ],
+  "outline": [
+    { "ref": "1SA 1:1-3:21", "en": "Samuel’s birth and call", "ru": "Рождение и призвание Самуила" },
+    { "ref": "1SA 4:1-7:17", "en": "The ark captured; Samuel judges Israel", "ru": "Ковчег в плену; Самуил — судья Израиля" },
+    { "ref": "1SA 8:1-15:35", "en": "Saul made king, then rejected", "ru": "Воцарение Саула и его отвержение" },
+    { "ref": "1SA 16:1-20:42", "en": "David anointed and at Saul’s court", "ru": "Помазание Давида; Давид при дворе Саула" },
+    { "ref": "1SA 21:1-31:13", "en": "David the fugitive and Saul’s death", "ru": "Давид в изгнании; гибель Саула" }
+  ],
+  "keyVerses": ["1SA 3:10", "1SA 15:22", "1SA 16:7", "1SA 17:45"],
+  "places": ["aa4680a", "a30c937", "ab94aea", "a112427", "a18873f", "acf57c5", "a2a8df0"]
+}

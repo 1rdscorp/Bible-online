@@ -15,6 +15,10 @@
  *   #/translations  translations  about each translation and its licence
  *   #/search?q=…  search    full-text search (parameters: js/search/params.js)
  *   #/study       study     My Study: highlights, notes, bookmarks (filters: js/views/study.js)
+ *   #/john/intro  intro     an introduction to John: author, date, themes, outline
+ *   #/timeline    timeline  the Bible timeline
+ *   #/maps        maps      the list of maps
+ *   #/maps/paul   maps      one map (route.mapId = "paul")
  *
  * Anything after "?" is parsed into `route.params`. The reader uses ?t= for
  * its translations (#/john/3?t=kjv,asv); see js/translations.js.
@@ -44,10 +48,20 @@ export function chapterHref(book, chapter, verse = null, query = '', verseEnd = 
  * Pages that aren't books. Their names are reserved, so no book alias may
  * use them; tests/router.test.js checks.
  */
-export const PAGES = Object.freeze({ translations: 'translations', search: 'search', study: 'study' });
+export const PAGES = Object.freeze({ translations: 'translations', search: 'search', study: 'study', timeline: 'timeline', maps: 'maps' });
 
 export function pageHref(name) {
   return `#/${name}`;
+}
+
+/** A book's introduction: #/john/intro. */
+export function introHref(book) {
+  return `#/${book.slug}/intro`;
+}
+
+/** One map (#/maps/paul), or the list of maps. `query` e.g. "place=a15257a". */
+export function mapHref(id = null, query = '') {
+  return `${pageHref(PAGES.maps)}${id ? `/${id}` : ''}${query ? `?${query}` : ''}`;
 }
 
 /** Split a location.hash into path segments and query parameters. */
@@ -91,10 +105,20 @@ export function resolveRoute(hash) {
   const [bookPart, chapterPart, versePart] = segments;
 
   const page = PAGES[bookPart.toLowerCase()];
+  if (page === PAGES.maps && chapterPart) {
+    // Map ids are lower-case words; whether one exists is checked when maps load.
+    const mapId = chapterPart.toLowerCase();
+    if (!/^[a-z0-9-]+$/.test(mapId)) return { ...base, view: 'not-found', reason: 'page', query: chapterPart };
+    return withCanonical({ ...base, view: page, mapId }, mapHref(mapId) + suffix, raw);
+  }
   if (page) return withCanonical({ ...base, view: page }, pageHref(page) + suffix, raw);
 
   const book = findBook(bookPart);
   if (!book) return { ...base, view: 'not-found', reason: 'book', query: bookPart };
+
+  if (chapterPart?.toLowerCase() === 'intro' && versePart === undefined) {
+    return withCanonical({ ...base, view: 'intro', book }, introHref(book) + suffix, raw);
+  }
 
   if (chapterPart === undefined) {
     // A single-chapter book (Obadiah, Philemon, 2–3 John, Jude) skips the

@@ -1,0 +1,30 @@
+{
+  "formatVersion": 1,
+  "book": "RUT",
+  "author": {
+    "en": "Traditionally Samuel; the book itself names no author, and most scholars regard it as anonymous.",
+    "ru": "По преданию — Самуил; сама книга автора не называет, и большинство исследователей считают её анонимной."
+  },
+  "date": {
+    "en": "Set in the time of the judges. The closing genealogy of David points to the monarchy, from the 10th century BC on; many scholars date it after the exile, to the 5th–4th century BC.",
+    "ru": "Действие происходит во времена судей. Родословие Давида в конце книги указывает на царскую эпоху, не ранее X в. до н. э.; многие учёные относят книгу ко времени после плена, к V–IV вв. до н. э."
+  },
+  "summary": {
+    "en": "In the days of the judges, Naomi, widowed and bereaved of her sons, returns from Moab to Bethlehem with her Moabite daughter-in-law Ruth, who will not leave her. Boaz, a relative of Naomi’s late husband, shows them kindness, redeems the family land and marries Ruth. Their son Obed becomes the grandfather of King David.",
+    "ru": "Во дни судей Ноеминь, потерявшая мужа и сыновей, возвращается из Моава в Вифлеем вместе со снохой-моавитянкой Руфью, которая не захотела её оставить. Вооз, родственник её покойного мужа, оказывает им милость: он выкупает семейный удел и берёт Руфь в жёны. Их сын Овид становится дедом царя Давида."
+  },
+  "themes": [
+    { "en": "Loyal love and kindness", "ru": "Верность и милосердие" },
+    { "en": "Redemption by a kinsman", "ru": "Искупление через родственника" },
+    { "en": "God’s hidden care", "ru": "Незримая Божья забота" },
+    { "en": "A foreigner welcomed into Israel", "ru": "Чужеземка в народе Божьем" }
+  ],
+  "outline": [
+    { "ref": "RUT 1:1-22", "en": "Naomi and Ruth return to Bethlehem", "ru": "Ноеминь и Руфь возвращаются в Вифлеем" },
+    { "ref": "RUT 2:1-23", "en": "Ruth gleans in Boaz’s field", "ru": "Руфь подбирает колосья на поле Вооза" },
+    { "ref": "RUT 3:1-18", "en": "At the threshing floor", "ru": "На гумне" },
+    { "ref": "RUT 4:1-22", "en": "Boaz redeems; the line of David", "ru": "Вооз выкупает удел; родословие Давида" }
+  ],
+  "keyVerses": ["RUT 1:16-17", "RUT 2:12", "RUT 4:17"],
+  "places": ["a112427"]
+}

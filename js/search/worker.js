@@ -7,6 +7,9 @@
  *
  *   { type: 'prepare', translations }   index these ahead of time (no reply)
  *   { type: 'search', requestId, translations, text, match, scope, offset, limit }
+ *   { type: 'concordance', requestId, translation, number, offset, limit }
+ *       every verse of a Strong's-tagged translation (KJV+) using a Strong's
+ *       number; answered with { type: 'concordance', … } (js/research/concordance.js)
  *
  * where translations = [{ id, abbreviation, url (absolute), version }].
  * Messages out, tagged with the requestId:
@@ -22,6 +25,7 @@
  * nothing. Indexes stay in memory until the page is closed.
  */
 import { createTranslationCache } from '../providers/translation-cache.js';
+import { concordance } from '../research/concordance.js';
 import { buildIndex, keyToPosition, runSearch } from './engine.js';
 import { parseQuery } from './text.js';
 
@@ -88,8 +92,16 @@ async function search({ requestId, translations, text, match, scope, offset = 0,
   post({ type: 'results', requestId, total: result.keys.length, books: result.books, offset, hits });
 }
 
+async function lookUp({ requestId, translation, number, offset = 0, limit = 50 }) {
+  const report = (phase) => post({ type: 'progress', requestId, phase, id: translation.id, step: 1, steps: 1 });
+  const index = await getIndex(translation, report);
+  post({ type: 'concordance', requestId, number, offset, ...concordance(index, number, { offset, limit }) });
+}
+
 self.addEventListener('message', ({ data }) => {
-  if (data?.type === 'search') {
+  if (data?.type === 'concordance') {
+    lookUp(data).catch((error) => post({ type: 'error', requestId: data.requestId, message: error?.message ?? String(error) }));
+  } else if (data?.type === 'search') {
     search(data).catch((error) => post({ type: 'error', requestId: data.requestId, message: error?.message ?? String(error) }));
   } else if (data?.type === 'prepare') {
     // One at a time, in order; failures surface when a search needs them.

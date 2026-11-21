@@ -1,0 +1,33 @@
+{
+  "formatVersion": 1,
+  "book": "EZK",
+  "author": {
+    "en": "Ezekiel son of Buzi, a priest taken to Babylon with King Jehoiachin in 597 BC. Most scholars accept that the book largely comes from him, with some later editing.",
+    "ru": "Иезекииль, сын Вузия, священник, уведённый в Вавилон вместе с царём Иехонией в 597 г. до н. э. Большинство учёных признаёт, что книга в основном восходит к нему, хотя и прошла некоторую редакцию."
+  },
+  "date": {
+    "en": "His visions are dated between 593 and 571 BC, among the exiles by the river Chebar in Babylonia.",
+    "ru": "Видения пророка датированы 593–571 гг. до н. э.; он получал их среди пленников у реки Ховар в Вавилонии."
+  },
+  "summary": {
+    "en": "Among the exiles in Babylon, Ezekiel sees the glory of God leave the defiled temple before Jerusalem falls. After the city’s fall his message turns to hope: God will give his people a new heart, raise the nation like dry bones, and dwell among them in a new temple in a renewed land.",
+    "ru": "Среди пленников в Вавилоне Иезекииль видит, как слава Божья покидает осквернённый храм ещё до падения Иерусалима. После гибели города его весть обращается к надежде: Бог даст Своему народу новое сердце, оживит его, как сухие кости, и поселится среди него в новом храме, посреди обновлённой земли."
+  },
+  "themes": [
+    { "en": "The glory of the Lord", "ru": "Слава Господня" },
+    { "en": "Holiness and defilement", "ru": "Святость и осквернение" },
+    { "en": "Personal responsibility", "ru": "Личная ответственность" },
+    { "en": "A new heart and spirit", "ru": "Новое сердце и новый дух" },
+    { "en": "God dwelling with his people", "ru": "Бог посреди Своего народа" }
+  ],
+  "outline": [
+    { "ref": "EZK 1:1-3:27", "en": "The vision of God’s glory and Ezekiel’s call", "ru": "Видение славы Божьей и призвание Иезекииля" },
+    { "ref": "EZK 4:1-11:25", "en": "Sign-acts; the glory leaves the temple", "ru": "Знамения; слава покидает храм" },
+    { "ref": "EZK 12:1-24:27", "en": "Why Jerusalem must fall", "ru": "Почему Иерусалим должен пасть" },
+    { "ref": "EZK 25:1-32:32", "en": "Oracles against the nations", "ru": "Пророчества о народах" },
+    { "ref": "EZK 33:1-39:29", "en": "Hope after the fall: new heart, living bones", "ru": "Надежда после падения: новое сердце, ожившие кости" },
+    { "ref": "EZK 40:1-48:35", "en": "Vision of the new temple and land", "ru": "Видение нового храма и земли" }
+  ],
+  "keyVerses": ["EZK 33:11", "EZK 36:26", "EZK 37:3", "EZK 48:35"],
+  "places": ["a217d18", "a15257a", "a160272", "a98e4d7", "abed304"]
+}

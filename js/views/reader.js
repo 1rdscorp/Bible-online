@@ -14,8 +14,10 @@
 import { adjacentChapter } from '../canon.js';
 import { chapterTitle, t } from '../i18n.js';
 import { chapterHref, pageHref } from '../router.js';
+import { formatWordTags } from '../providers/json-provider.js';
 import { addColumn, MAX_COLUMNS, removeColumn, replaceColumn } from '../translations.js';
 import { el, icon, ICONS } from '../ui/dom.js';
+import { verseNodes } from '../ui/text-ranges.js';
 import { createTranslationSelect } from '../ui/translation-select.js';
 import { nativePsalmLabel } from './numbering.js';
 import { alignVerses } from './verse-alignment.js';
@@ -178,7 +180,7 @@ export function createReaderView({ book, chapter, columns, translations, query =
           // the space falls at the start of the line and CSS drops it.
           ' ',
           // The words alone, so a highlight paints the text, not the margin.
-          el('span', { class: 'vtext' }, v.text),
+          verseText(v.text, v.words),
         ),
       ),
     );
@@ -204,7 +206,7 @@ export function createReaderView({ book, chapter, columns, translations, query =
         'div',
         { class: 'prow', id: `v${row.number}`, 'data-verse': row.number },
         verseButton('pnum', row.number),
-        row.cells.map((text, index) => cell(results[index].info, text)),
+        row.cells.map((text, index) => cell(results[index].info, text, row.words[index])),
       ),
     );
     content.replaceChildren(...problems, ...rows);
@@ -213,7 +215,7 @@ export function createReaderView({ book, chapter, columns, translations, query =
   // Each cell carries a translation label. It's visible when columns stack
   // (on phones), and visually hidden but still read aloud when they're side
   // by side under the column headings.
-  function cell(info, text) {
+  function cell(info, text, words) {
     const missing = text === null;
     return el(
       'div',
@@ -225,8 +227,16 @@ export function createReaderView({ book, chapter, columns, translations, query =
       },
       el('span', { class: 'pcell-label' }, info.abbreviation),
       ' ',
-      missing ? [el('span', { 'aria-hidden': 'true' }, '—'), el('span', { class: 'visually-hidden' }, t('reader.missingVerse'))] : el('span', { class: 'vtext' }, text),
+      missing ? [el('span', { 'aria-hidden': 'true' }, '—'), el('span', { class: 'visually-hidden' }, t('reader.missingVerse'))] : verseText(text, words),
     );
+  }
+
+  // A verse's words. In KJV+ each tagged word is a <span class="w">, and the
+  // tags stay on the element so highlights can be repainted around them
+  // (js/ui/text-ranges.js).
+  function verseText(text, words) {
+    if (!words?.length) return el('span', { class: 'vtext' }, text);
+    return el('span', { class: 'vtext', 'data-tags': formatWordTags(words) }, verseNodes(text, [], words));
   }
 
   // The verse number is a button: it selects the verse for highlighting,

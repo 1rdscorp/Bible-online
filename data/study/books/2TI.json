@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "book": "2TI",
+  "author": {
+    "en": "Traditionally Paul, writing to Timothy from prison near the end of his life; many scholars think that, like 1 Timothy and Titus, it was written in his name by a later follower.",
+    "ru": "По преданию — апостол Павел, писавший Тимофею из заключения незадолго до смерти; многие исследователи считают, что, как и Первое послание к Тимофею и Послание к Титу, его написал от имени Павла один из позднейших последователей."
+  },
+  "date": {
+    "en": "c. AD 64–67, from prison in Rome, shortly before Paul’s martyrdom; scholars who doubt his authorship date it to the late 1st or early 2nd century.",
+    "ru": "Ок. 64–67 гг. н. э., из римской темницы, незадолго до мученической кончины Павла; учёные, сомневающиеся в его авторстве, относят послание к концу I – началу II в. н. э."
+  },
+  "summary": {
+    "en": "Paul’s farewell letter, written from prison as he expects to die. He urges Timothy, his son in the faith, not to be ashamed of the gospel, to endure hardship as a good soldier of Christ, to hold to the inspired Scriptures and to preach the word, for Paul has finished his course and kept the faith.",
+    "ru": "Прощальное послание Павла, написанное в узах в ожидании скорой смерти. Он призывает Тимофея, своего сына по вере, не стыдиться Евангелия, переносить страдания как добрый воин Иисуса Христа, держаться богодухновенного Писания и проповедовать слово, ведь сам Павел течение совершил и веру сохранил."
+  },
+  "themes": [
+    { "en": "Not ashamed of the gospel", "ru": "Не стыдиться Евангелия" },
+    { "en": "Endurance in suffering", "ru": "Терпение в страданиях" },
+    { "en": "Passing on the faith", "ru": "Передача веры" },
+    { "en": "The inspired Scriptures", "ru": "Богодухновенное Писание" },
+    { "en": "Finishing the race", "ru": "Совершить течение" }
+  ],
+  "outline": [
+    { "ref": "2TI 1:1-18", "en": "Do not be ashamed of the gospel", "ru": "Не стыдись Евангелия" },
+    { "ref": "2TI 2:1-26", "en": "A good soldier and workman", "ru": "Добрый воин и делатель" },
+    { "ref": "2TI 3:1-4:8", "en": "Hard times ahead; preach the word", "ru": "Тяжкие времена; проповедуй слово" },
+    { "ref": "2TI 4:9-22", "en": "Final requests and greetings", "ru": "Последние просьбы и приветствия" }
+  ],
+  "keyVerses": ["2TI 1:7", "2TI 2:15", "2TI 3:16-17", "2TI 4:7"],
+  "places": ["afc8e7a", "a5feb15", "a91c509", "a6f437a", "a55027d"]
+}

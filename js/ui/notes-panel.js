@@ -16,6 +16,7 @@ import { filterItems } from '../study/model.js';
 import { noteToPlainText } from '../study/richtext.js';
 import { el, icon, ICONS } from './dom.js';
 import { createNoteEditor, renderNote } from './note-editor.js';
+import { registerSidePanel } from './side-panels.js';
 
 /** "John 3:16–18" in the interface language. */
 export function refLabel(ref) {
@@ -53,7 +54,7 @@ export function initNotesPanel({ store, toaster }) {
   const empty = el('p', { class: 'notes-empty' });
   const panel = el(
     'div',
-    { class: 'notes-panel', role: 'dialog', 'aria-modal': 'false', 'aria-labelledby': 'notes-title', hidden: true },
+    { class: 'side-panel notes-panel', role: 'dialog', 'aria-modal': 'false', 'aria-labelledby': 'notes-title', hidden: true },
     el('div', { class: 'notes-head' }, heading, closeButton),
     el('div', { class: 'notes-search-row' }, searchLabel, icon(ICONS.search, { size: 18, className: 'icon notes-search-icon' }), searchInput),
     composer,
@@ -62,6 +63,7 @@ export function initNotesPanel({ store, toaster }) {
     empty,
   );
   document.body.append(panel);
+  const dock = registerSidePanel({ isOpen: () => !panel.hidden, close: (options) => close(options) });
 
   searchInput.addEventListener('input', () => {
     clearTimeout(searchTimer);
@@ -218,17 +220,19 @@ export function initNotesPanel({ store, toaster }) {
   function open() {
     if (panel.hidden) returnFocus = document.activeElement;
     renderChrome();
+    dock.opened();
     panel.hidden = false;
-    document.documentElement.classList.add('has-notes-panel');
   }
 
-  function close() {
+  // `handOff`: the Research panel is opening in its place, and takes focus.
+  function close({ handOff = false } = {}) {
     if (panel.hidden) return;
     composing = null;
     editingId = null;
     composer.replaceChildren();
     panel.hidden = true;
-    document.documentElement.classList.remove('has-notes-panel');
+    dock.closed();
+    if (handOff) return;
     if (returnFocus?.isConnected && (panel.contains(document.activeElement) || document.activeElement === document.body)) {
       returnFocus.focus({ preventScroll: true });
     } else if (panel.contains(document.activeElement)) {

@@ -1,0 +1,33 @@
+{
+  "formatVersion": 1,
+  "book": "EPH",
+  "author": {
+    "en": "Traditionally Paul, writing from prison; many scholars think it was written in his name by a later disciple.",
+    "ru": "По преданию — апостол Павел, находившийся в узах; многие исследователи считают, что послание написал от его имени один из его учеников."
+  },
+  "date": {
+    "en": "c. AD 60–62, during Paul’s imprisonment in Rome; scholars who doubt his authorship date it to c. AD 80–90.",
+    "ru": "Ок. 60–62 гг. н. э., во время заключения Павла в Риме; учёные, сомневающиеся в его авторстве, относят послание к 80–90 гг. н. э."
+  },
+  "summary": {
+    "en": "A letter that celebrates God’s plan to unite all things in Christ. Its first half praises the grace that saves Jews and Gentiles alike and joins them into one body, the church; its second half shows how that new life is lived out in unity, holiness, the household and spiritual warfare.",
+    "ru": "Послание, прославляющее Божий замысел соединить всё во Христе. Первая его половина воспевает благодать, которая спасает и иудеев, и язычников и соединяет их в одно тело — Церковь; вторая показывает, как эта новая жизнь проявляется в единстве, святости, семейных отношениях и духовной брани."
+  },
+  "themes": [
+    { "en": "Saved by grace through faith", "ru": "Спасение по благодати через веру" },
+    { "en": "Jews and Gentiles made one", "ru": "Единство иудеев и язычников" },
+    { "en": "The church as Christ’s body", "ru": "Церковь — Тело Христово" },
+    { "en": "Walking in newness of life", "ru": "Новая жизнь во Христе" },
+    { "en": "The armour of God", "ru": "Всеоружие Божье" }
+  ],
+  "outline": [
+    { "ref": "EPH 1:1-23", "en": "Spiritual blessings in Christ", "ru": "Духовные благословения во Христе" },
+    { "ref": "EPH 2:1-22", "en": "Saved by grace and made one in Christ", "ru": "Спасение по благодати и единство во Христе" },
+    { "ref": "EPH 3:1-21", "en": "Paul’s mission and prayer", "ru": "Служение Павла и его молитва" },
+    { "ref": "EPH 4:1-5:20", "en": "Unity and a new way of life", "ru": "Единство и новый образ жизни" },
+    { "ref": "EPH 5:21-6:9", "en": "Christ in the household", "ru": "Христос в семье и доме" },
+    { "ref": "EPH 6:10-24", "en": "The armour of God and farewell", "ru": "Всеоружие Божье и прощание" }
+  ],
+  "keyVerses": ["EPH 2:8-9", "EPH 4:4-6", "EPH 6:11"],
+  "places": ["a5feb15"]
+}

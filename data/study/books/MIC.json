@@ -1,0 +1,30 @@
+{
+  "formatVersion": 1,
+  "book": "MIC",
+  "author": {
+    "en": "Micah of Moresheth, a town in the Judean lowlands. Many scholars think some later oracles, especially promises of hope, were added to his words.",
+    "ru": "Михей Морасфитянин, уроженец городка в Иудейской низменности. Многие исследователи полагают, что к его словам позднее были добавлены некоторые пророчества, особенно обетования надежды."
+  },
+  "date": {
+    "en": "c. 740–700 BC, in the reigns of Jotham, Ahaz and Hezekiah, before and after the fall of Samaria.",
+    "ru": "Ок. 740–700 гг. до н. э., во дни Иоафама, Ахаза и Езекии, до и после падения Самарии."
+  },
+  "summary": {
+    "en": "A contemporary of Isaiah, Micah condemns the rich who seize land, the corrupt leaders and the prophets who preach for pay, and warns that both Samaria and Jerusalem will fall. Between the warnings come promises: a ruler from Bethlehem, nations streaming to Zion, and a God who delights in mercy and pardons sin.",
+    "ru": "Современник Исаии, Михей обличает богачей, захватывающих чужие поля, продажных правителей и пророков, вещающих за плату, и предупреждает, что падут и Самария, и Иерусалим. Среди обличений звучат обетования: Владыка из Вифлеема, народы, стекающиеся к Сиону, и Бог, Который любит миловать и прощает грех."
+  },
+  "themes": [
+    { "en": "Justice, mercy and humility", "ru": "Правосудие, милость и смирение" },
+    { "en": "Corrupt leaders judged", "ru": "Суд над продажными вождями" },
+    { "en": "The ruler from Bethlehem", "ru": "Владыка из Вифлеема" },
+    { "en": "Peace among the nations", "ru": "Мир между народами" },
+    { "en": "A God who pardons sin", "ru": "Бог, прощающий грех" }
+  ],
+  "outline": [
+    { "ref": "MIC 1:1-2:13", "en": "Judgment on Samaria and Judah; a remnant gathered", "ru": "Суд над Самарией и Иудеей; собранный остаток" },
+    { "ref": "MIC 3:1-5:15", "en": "Corrupt leaders, and the ruler from Bethlehem", "ru": "Продажные вожди и Владыка из Вифлеема" },
+    { "ref": "MIC 6:1-7:20", "en": "The Lord’s case, and his mercy", "ru": "Тяжба Господа с народом и Его милость" }
+  ],
+  "keyVerses": ["MIC 4:3", "MIC 5:2", "MIC 6:8", "MIC 7:18"],
+  "places": ["a041bb3", "a15257a", "a112427", "a3cc590", "a18873f"]
+}

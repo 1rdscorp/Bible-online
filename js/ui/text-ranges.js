@@ -6,7 +6,12 @@
  * ([data-verse]) and a translation ([data-translation]: the single view's
  * text, or one compare column's cell). Offsets count the characters of a
  * `.vtext`'s textContent, so they don't depend on the marks painted inside.
+ *
+ * In a translation with Strong's numbers (KJV+), a `.vtext` also carries its
+ * tags (data-tags="7.9.H7225 …"), and each tagged word is a
+ * <span class="w" data-strongs="H7225">. verseNodes() builds both layers.
  */
+import { parseWordTags } from '../providers/json-provider.js';
 import { findSpan } from '../study/model.js';
 import { snapToWords } from '../study/words.js';
 import { el } from './dom.js';
@@ -52,25 +57,51 @@ export function selectionSpans(range, textRoot) {
   return translation && spans.length ? { translation, spans } : null;
 }
 
-/**
- * `text` as nodes, with each range ({ start, end, color }, later ones on
- * top) wrapped in <mark class="word-mark" data-color>.
- */
-export function markedNodes(text, ranges) {
-  const colors = new Array(text.length).fill(null);
-  for (const { start, end, color } of ranges) colors.fill(color, Math.max(0, start), Math.min(text.length, end));
+/** Text from `from` to `to` as nodes, runs of one colour wrapped in <mark>. */
+function colorRuns(text, colors, from, to) {
   const nodes = [];
-  let at = 0;
-  while (at < text.length) {
+  let at = from;
+  while (at < to) {
     const color = colors[at];
     let next = at + 1;
-    while (next < text.length && colors[next] === color) next += 1;
+    while (next < to && colors[next] === color) next += 1;
     const part = text.slice(at, next);
     nodes.push(color ? el('mark', { class: 'word-mark', 'data-color': color }, part) : document.createTextNode(part));
     at = next;
   }
   return nodes;
 }
+
+/**
+ * `text` as nodes: each range ({ start, end, color }, later ones on top)
+ * wrapped in <mark class="word-mark" data-color>, and each Strong's-tagged
+ * word ({ start, end, strongs }) in <span class="w" data-strongs>. A mark
+ * that runs across several words is split at their edges.
+ */
+export function verseNodes(text, ranges = [], words = []) {
+  const colors = new Array(text.length).fill(null);
+  for (const { start, end, color } of ranges) colors.fill(color, Math.max(0, start), Math.min(text.length, end));
+  if (words.length === 0) return colorRuns(text, colors, 0, text.length);
+  const wordAt = new Int32Array(text.length).fill(-1);
+  words.forEach((word, i) => wordAt.fill(i, Math.max(0, word.start), Math.min(text.length, word.end)));
+  const nodes = [];
+  let at = 0;
+  while (at < text.length) {
+    const index = wordAt[at];
+    let next = at + 1;
+    while (next < text.length && wordAt[next] === index) next += 1;
+    const inner = colorRuns(text, colors, at, next);
+    nodes.push(...(index < 0 ? inner : [el('span', { class: 'w', 'data-strongs': words[index].strongs.join(' ') }, inner)]));
+    at = next;
+  }
+  return nodes;
+}
+
+/** `text` with highlight ranges, for previews (no Strong's words). */
+export const markedNodes = (text, ranges) => verseNodes(text, ranges);
+
+/** A `.vtext` element's Strong's-tagged words (KJV+), or []. */
+export const wordsOf = (node) => parseWordTags(node.dataset.tags, node.textContent.length);
 
 /**
  * Paint word highlights (study items of type 'mark') onto the verses in
@@ -94,7 +125,7 @@ export function paintWordMarks(textRoot, marks) {
     }
     const key = JSON.stringify(ranges);
     if (key === (node.dataset.marks ?? '[]')) continue; // unchanged
-    node.replaceChildren(...markedNodes(text, ranges));
+    node.replaceChildren(...verseNodes(text, ranges, wordsOf(node)));
     if (ranges.length) node.dataset.marks = key;
     else delete node.dataset.marks;
   }

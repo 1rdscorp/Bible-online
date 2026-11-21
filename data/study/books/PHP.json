@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "book": "PHP",
+  "author": {
+    "en": "Paul, writing with Timothy from prison; his authorship is accepted almost universally.",
+    "ru": "Апостол Павел вместе с Тимофеем, находясь в узах; авторство Павла признаётся практически всеми."
+  },
+  "date": {
+    "en": "c. AD 60–62, from Rome; some scholars place it earlier, during an imprisonment in Ephesus in the mid-50s.",
+    "ru": "Ок. 60–62 гг. н. э., из Рима; некоторые учёные относят его к более раннему заключению в Ефесе, в середине 50-х гг. I в. н. э."
+  },
+  "summary": {
+    "en": "A warm letter of thanks to the church at Philippi, Paul’s first church in Europe, for their gift and partnership. Though in chains, Paul is full of joy; he holds up Christ, who humbled himself to death on a cross, as the pattern for unity and humility, and urges the church to press on toward the goal.",
+    "ru": "Тёплое благодарственное послание Церкви в Филиппах, первой основанной Павлом в Европе, за её дар и участие в его служении. Находясь в узах, Павел полон радости; он ставит в пример Христа, Который смирил Себя до смерти крестной, призывает к единству и смирению и побуждает Церковь стремиться к цели."
+  },
+  "themes": [
+    { "en": "Joy in every circumstance", "ru": "Радость при любых обстоятельствах" },
+    { "en": "Partnership in the gospel", "ru": "Участие в благовестии" },
+    { "en": "Christ’s humility as our pattern", "ru": "Смирение Христа как образец" },
+    { "en": "Pressing on toward the goal", "ru": "Стремление к цели" },
+    { "en": "Contentment and peace", "ru": "Довольство и мир" }
+  ],
+  "outline": [
+    { "ref": "PHP 1:1-30", "en": "Thanksgiving and Paul’s imprisonment", "ru": "Благодарение и узы Павла" },
+    { "ref": "PHP 2:1-30", "en": "Humility after the pattern of Christ", "ru": "Смирение по образу Христа" },
+    { "ref": "PHP 3:1-4:1", "en": "Knowing Christ and pressing on", "ru": "Познание Христа и стремление к цели" },
+    { "ref": "PHP 4:2-23", "en": "Exhortations, thanks and greetings", "ru": "Наставления, благодарность и приветствия" }
+  ],
+  "keyVerses": ["PHP 1:21", "PHP 2:5-8", "PHP 4:6-7", "PHP 4:13"],
+  "places": ["a49e1d0", "afa9d8e"]
+}

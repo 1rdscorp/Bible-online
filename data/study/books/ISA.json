@@ -1,0 +1,35 @@
+{
+  "formatVersion": 1,
+  "book": "ISA",
+  "author": {
+    "en": "Isaiah son of Amoz, a prophet in Jerusalem, according to its title and tradition. Many scholars assign chapters 40–66 to later prophets of his school, during and after the exile.",
+    "ru": "По надписанию и преданию — Исаия, сын Амосов, пророк в Иерусалиме. Многие исследователи приписывают главы 40–66 позднейшим пророкам его школы, жившим во время плена и после него."
+  },
+  "date": {
+    "en": "Isaiah prophesied c. 740–700 BC; many scholars date chapters 40–55 to c. 540 BC and chapters 56–66 to after the return.",
+    "ru": "Исаия пророчествовал ок. 740–700 гг. до н. э.; многие учёные датируют главы 40–55 ок. 540 г. до н. э., а главы 56–66 — временем после возвращения из плена."
+  },
+  "summary": {
+    "en": "Isaiah confronts Judah’s injustice and its trust in foreign powers, and announces judgment through Assyria and Babylon. Yet the Holy One of Israel promises comfort and return: a royal child of David’s line, a suffering Servant, and at last new heavens and a new earth. The New Testament quotes it more than almost any other book.",
+    "ru": "Исаия обличает неправду Иудеи и её упование на чужие державы и возвещает суд через Ассирию и Вавилон. Но Святой Израилев обещает утешение и возвращение: царственного Младенца из рода Давида, страдающего Раба Господня и, наконец, новое небо и новую землю. Новый Завет цитирует эту книгу чаще почти всех других."
+  },
+  "themes": [
+    { "en": "The Holy One of Israel", "ru": "Святой Израилев" },
+    { "en": "Judgment and a faithful remnant", "ru": "Суд и верный остаток" },
+    { "en": "The coming King of David’s line", "ru": "Грядущий Царь из рода Давида" },
+    { "en": "The suffering Servant", "ru": "Страдающий Раб Господень" },
+    { "en": "Comfort and new creation", "ru": "Утешение и новое творение" },
+    { "en": "Salvation for the nations", "ru": "Спасение для народов" }
+  ],
+  "outline": [
+    { "ref": "ISA 1:1-12:6", "en": "Judgment and hope for Judah and Jerusalem", "ru": "Суд и надежда для Иудеи и Иерусалима" },
+    { "ref": "ISA 13:1-23:18", "en": "Oracles against the nations", "ru": "Пророчества о народах" },
+    { "ref": "ISA 24:1-27:13", "en": "The whole earth judged and renewed", "ru": "Суд над всей землёй и её обновление" },
+    { "ref": "ISA 28:1-35:10", "en": "Woes, and the coming righteous King", "ru": "Горе непокорным и грядущий праведный Царь" },
+    { "ref": "ISA 36:1-39:8", "en": "Hezekiah, Assyria and Babylon", "ru": "Езекия, Ассирия и Вавилон" },
+    { "ref": "ISA 40:1-55:13", "en": "Comfort for exiles; the Lord’s Servant", "ru": "Утешение изгнанникам; Раб Господень" },
+    { "ref": "ISA 56:1-66:24", "en": "Zion’s future glory; new heavens and earth", "ru": "Будущая слава Сиона; новое небо и новая земля" }
+  ],
+  "keyVerses": ["ISA 6:8", "ISA 9:6", "ISA 40:31", "ISA 53:5"],
+  "places": ["a15257a", "a217d18", "a041bb3", "a69c1d4", "a160272", "a3cc590", "a70fd5d"]
+}

@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "book": "JOS",
+  "author": {
+    "en": "Traditionally Joshua, with the account of his death added by others. Many scholars see it as part of a larger history, from Deuteronomy to Kings, compiled centuries later from older sources.",
+    "ru": "По преданию — Иисус Навин; рассказ о его смерти добавлен другими. Многие исследователи считают книгу частью большого исторического труда (от Второзакония до Книг Царств), составленного из древних источников спустя века."
+  },
+  "date": {
+    "en": "Traditionally soon after the conquest, in the 15th–13th century BC; many scholars date its final form to the 7th–6th century BC.",
+    "ru": "По традиции — вскоре после завоевания, в XV–XIII вв. до н. э.; многие учёные относят окончательную редакцию к VII–VI вв. до н. э."
+  },
+  "summary": {
+    "en": "God keeps his promise to the patriarchs. Under Joshua, Moses’ successor, Israel crosses the Jordan, takes Jericho and conquers much of Canaan, which is then divided among the tribes. The book ends with Joshua renewing the covenant at Shechem and calling the people to choose whom they will serve.",
+    "ru": "Бог исполняет обетование, данное праотцам. Под предводительством Иисуса Навина, преемника Моисея, Израиль переходит Иордан, берёт Иерихон и завоёвывает большую часть Ханаана, которую затем делят между коленами. Книга завершается обновлением завета в Сихеме: Иисус Навин призывает народ избрать, кому служить."
+  },
+  "themes": [
+    { "en": "God keeps his promises", "ru": "Бог исполняет обещанное" },
+    { "en": "Courage and obedience", "ru": "Мужество и послушание" },
+    { "en": "Victory comes from the Lord", "ru": "Победа от Господа" },
+    { "en": "The land as God’s gift", "ru": "Земля как Божий дар" },
+    { "en": "Choosing to serve the Lord", "ru": "Выбор служить Господу" }
+  ],
+  "outline": [
+    { "ref": "JOS 1:1-5:15", "en": "Crossing into the land", "ru": "Вход в землю обетованную" },
+    { "ref": "JOS 6:1-12:24", "en": "The conquest of Canaan", "ru": "Завоевание Ханаана" },
+    { "ref": "JOS 13:1-21:45", "en": "The land divided among the tribes", "ru": "Раздел земли между коленами" },
+    { "ref": "JOS 22:1-24:33", "en": "Joshua’s farewell and the covenant renewed", "ru": "Прощание Иисуса Навина и обновление завета" }
+  ],
+  "keyVerses": ["JOS 1:8", "JOS 1:9", "JOS 21:45", "JOS 24:15"],
+  "places": ["ae686c9", "a231f80", "ab94aea", "aede336", "a6f33c5", "a85151a", "aa4680a", "adf74d4"]
+}

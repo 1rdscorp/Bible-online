@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "book": "SNG",
+  "author": {
+    "en": "Traditionally Solomon, named in its title, though the Hebrew can also mean a song dedicated to him or about him. Many scholars see it as a collection of love poems by an unknown poet.",
+    "ru": "По преданию — Соломон, названный в надписании, хотя еврейское выражение может означать и песнь, посвящённую ему или о нём. Многие исследователи считают книгу собранием любовной лирики неизвестного поэта."
+  },
+  "date": {
+    "en": "Traditionally the 10th century BC, in Solomon’s reign; many scholars date its final form after the exile, in the 5th–3rd century BC.",
+    "ru": "По традиции — X в. до н. э., царствование Соломона; многие учёные относят окончательную редакцию ко времени после плена, к V–III вв. до н. э."
+  },
+  "summary": {
+    "en": "A sequence of love poems in which a woman and her beloved delight in each other, long for each other when apart, and are united. It celebrates human love and desire as a good gift. Jewish and Christian readers have also long seen in it the love between God and his people, or Christ and the church.",
+    "ru": "Цикл любовных песен, в которых возлюбленная и её возлюбленный радуются друг другу, тоскуют в разлуке и соединяются. Книга воспевает человеческую любовь и влечение как добрый дар. Иудейские и христианские толкователи издавна видят в ней также образ любви Бога к Своему народу или Христа к Церкви."
+  },
+  "themes": [
+    { "en": "Love and desire as God’s gift", "ru": "Любовь и влечение — Божий дар" },
+    { "en": "Longing and searching", "ru": "Тоска и поиски" },
+    { "en": "Mutual delight", "ru": "Взаимная радость" },
+    { "en": "Love strong as death", "ru": "Любовь, крепкая как смерть" },
+    { "en": "A picture of divine love", "ru": "Образ любви Божьей" }
+  ],
+  "outline": [
+    { "ref": "SNG 1:1-2:7", "en": "Longing and first delight", "ru": "Томление и первая радость" },
+    { "ref": "SNG 2:8-3:5", "en": "A spring invitation and a night search", "ru": "Весенний зов и ночные поиски" },
+    { "ref": "SNG 3:6-5:1", "en": "The royal wedding procession and union", "ru": "Царское свадебное шествие и союз" },
+    { "ref": "SNG 5:2-8:4", "en": "The beloved lost and found again", "ru": "Разлука, поиски и новая встреча" },
+    { "ref": "SNG 8:5-14", "en": "Love strong as death", "ru": "Любовь, крепкая как смерть" }
+  ],
+  "keyVerses": ["SNG 2:4", "SNG 2:16", "SNG 8:6-7"],
+  "places": ["a15257a", "a80d317", "a3e21c6", "a341fe8"]
+}

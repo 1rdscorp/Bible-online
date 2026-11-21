@@ -1,0 +1,34 @@
+{
+  "formatVersion": 1,
+  "book": "EXO",
+  "author": {
+    "en": "Traditionally Moses, who is said to have written down the Lord’s words (24:4). Many scholars see it, like Genesis, as drawn from several older sources and edited over a long period.",
+    "ru": "По преданию — Моисей; в книге сказано, что он записал слова Господа (24:4). Многие исследователи считают, что она, как и Бытие, сложилась из нескольких древних источников и редактировалась долгое время."
+  },
+  "date": {
+    "en": "Traditionally the 15th–13th century BC, in the time of Moses; many scholars date its final form to the 6th–5th century BC. Those who date the exodus itself usually place it c. 1446 BC or in the 13th century BC.",
+    "ru": "По традиции — XV–XIII вв. до н. э., время Моисея; многие учёные относят окончательную редакцию к VI–V вв. до н. э. Сам исход обычно датируют ок. 1446 г. до н. э. или XIII в. до н. э."
+  },
+  "summary": {
+    "en": "Israel, enslaved in Egypt, cries out, and God remembers his covenant with Abraham. Through Moses he breaks Pharaoh’s power and leads his people out; at Mount Sinai he binds them to himself in covenant, gives his law, and comes to dwell among them in the tabernacle. The exodus becomes the Bible’s great pattern of redemption.",
+    "ru": "Израиль томится в египетском рабстве и взывает к Богу, и Бог вспоминает Свой завет с Авраамом. Через Моисея Он сокрушает власть фараона и выводит Свой народ; у горы Синай заключает с ним завет, даёт закон и Сам поселяется среди народа в скинии. Память об исходе проходит через всю Библию как образ Божьего избавления."
+  },
+  "themes": [
+    { "en": "Deliverance from slavery", "ru": "Избавление от рабства" },
+    { "en": "God makes his name known", "ru": "Бог открывает Своё имя" },
+    { "en": "Covenant and law", "ru": "Завет и закон" },
+    { "en": "God’s presence among his people", "ru": "Присутствие Бога среди народа" },
+    { "en": "Rebellion and forgiveness", "ru": "Отступничество и прощение" }
+  ],
+  "outline": [
+    { "ref": "EXO 1:1-7:7", "en": "Slavery in Egypt and the call of Moses", "ru": "Рабство в Египте и призвание Моисея" },
+    { "ref": "EXO 7:8-13:16", "en": "The plagues and the Passover", "ru": "Казни египетские и Пасха" },
+    { "ref": "EXO 13:17-18:27", "en": "Through the sea to Sinai", "ru": "Через море к Синаю" },
+    { "ref": "EXO 19:1-24:18", "en": "The covenant and the law at Sinai", "ru": "Завет и закон у Синая" },
+    { "ref": "EXO 25:1-31:18", "en": "Instructions for the tabernacle", "ru": "Указания о скинии" },
+    { "ref": "EXO 32:1-34:35", "en": "The golden calf and the covenant renewed", "ru": "Золотой телец и обновление завета" },
+    { "ref": "EXO 35:1-40:38", "en": "The tabernacle built and filled with glory", "ru": "Устроение скинии и слава Господня" }
+  ],
+  "keyVerses": ["EXO 3:14", "EXO 12:13", "EXO 20:2-3", "EXO 34:6-7"],
+  "places": ["a60f092", "a079b21", "abfba2a"]
+}

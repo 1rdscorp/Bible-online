@@ -48,7 +48,7 @@ export function createSearchClient({ workerUrl = new URL('./worker.js', import.m
       }
       pending.delete(data.requestId);
       if (data.type === 'error') request.reject(new Error(data.message));
-      else request.resolve(data.type === 'results' ? data : null);
+      else request.resolve(data.type === 'results' || data.type === 'concordance' ? data : null);
     });
     // A worker that fails to load (or crashes) reports here.
     worker.addEventListener('error', (event) => {
@@ -65,6 +65,23 @@ export function createSearchClient({ workerUrl = new URL('./worker.js', import.m
         pending.set(requestId, { resolve, reject, onProgress });
         try {
           start().postMessage({ type: 'search', requestId, translations: translations.map(forWorker), text, match, scope, offset, limit });
+        } catch (error) {
+          pending.delete(requestId);
+          reject(error);
+        }
+      });
+    },
+
+    /**
+     * Every verse of a Strong's-tagged translation (KJV+) that uses a
+     * Strong's number: resolves with js/research/concordance.js's result.
+     */
+    concordance({ translation, number, offset = 0, limit = 50 }, { onProgress } = {}) {
+      return new Promise((resolve, reject) => {
+        const requestId = nextId++;
+        pending.set(requestId, { resolve, reject, onProgress });
+        try {
+          start().postMessage({ type: 'concordance', requestId, translation: forWorker(translation), number, offset, limit });
         } catch (error) {
           pending.delete(requestId);
           reject(error);

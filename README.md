@@ -2,14 +2,16 @@
 
 A calm, fast, distraction-free Bible reader. It is a static site: HTML, CSS and vanilla JavaScript modules with no build step and no backend. It is built to be hosted on GitHub Pages.
 
-Eight public-domain translations can be read one at a time or 2–4 side by side, with verses aligned:
-- **English:** KJV, ASV, WEB, YLT, Darby, BBE
+Nine public-domain translations can be read one at a time or 2–4 side by side, with verses aligned:
+- **English:** KJV, ASV, WEB, YLT, Darby, BBE, and KJV+ (the KJV with Strong's numbers, for word study)
 - **Russian:** the Synodal translation (RST), renumbered to English verse numbers so it lines up
 - **Greek:** the Septuagint (LXX), the ancient Greek Old Testament, in Brenton's 1851 text, renumbered the same way
 
 Full-text search covers one translation or all of them, and typing a reference such as "Jn 3:16" opens the passage.
 
 Highlights, notes and bookmarks are saved on the device, listed on a My Study page, and can be backed up to a file.
+
+For research, a side panel shows each verse's cross-references, and in KJV+ the Hebrew or Greek word behind any English word, with every verse that uses it. Study pages introduce each book of the Bible and include a timeline and maps of Bible places.
 
 ## Run it locally
 
@@ -35,7 +37,7 @@ npm test
 
 This runs two groups of tests:
 - **Unit tests:** canon, router, translation selection, verse alignment, versification remapping, the provider contract, the cache, the registry, interface languages, search (tokenizing and queries, the index, references, search URLs), and study tools (verse ranges and highlight splitting, note markup, copy formats, backups, the store).
-- **Data checks:** every translation in `data/translations.json` is validated, version-checked and scanned for leftover markup.
+- **Data checks:** every translation in `data/translations.json` is validated, version-checked and scanned for leftover markup. The research data (cross-references, Strong's dictionaries, places, basemap) and the study content (introductions, timeline, maps) are checked too: every reference must exist and every outline must cover its book.
 
 ## Deploy to GitHub Pages
 
@@ -54,6 +56,9 @@ In the repository, go to **Settings → Pages → Build and deployment**. Set **
 | `#/search?q=faith&t=kjv` | Search results (see below for the other options) |
 | `#/study` | My Study: highlights, notes and bookmarks (filters: `?type=note&color=yellow&book=JHN&tag=prayer&q=…&sort=recent`) |
 | `#/translations` | About each translation: description, copyright, source |
+| `#/john/intro` | Introduction to John: author, date, themes, outline, key verses, places, timeline events |
+| `#/timeline` | The Bible timeline (`?event=crucifixion` brings one event into view) |
+| `#/maps` | The maps; `#/maps/paul?place=a5feb15` opens one with a place selected |
 
 A link without `?t=` opens in the translations you used last. Abbreviations redirect to the canonical URL (`#/jn/3` → `#/john/3?t=…`). Opening the site with no `#…` resumes the last chapter read.
 
@@ -133,6 +138,23 @@ No paid translation API is used: its key would be public on a static site, and t
 
 **Septuagint Greek:** machine translators know Modern Greek but not ancient Greek. So the Septuagint's text is sent to them as Modern Greek, rewritten in modern spelling: breathings dropped, accents simplified (`ἘΝ ἀρχῇ` → `ΕΝ αρχή`). In tests with Yandex Translate this made the difference between nonsense and a usable rendering (Genesis 1:1: "В начале Бог сотворил небо и Землю"). The panel says it's a rough guide. The Synodal verses below it are the real translation.
 
+## Research: cross-references and word study
+
+Select a verse (tap its number) and choose **Research**. A panel opens on the right (on phones, from the bottom), so the chapter stays in view. It has two tabs:
+
+- **Cross-references:** related passages for each selected verse, best first, with their text quoted. There are 340,000 references from [OpenBible.info](https://www.openbible.info/labs/cross-references/), ranked by readers' votes. Following one opens it in the reader and leaves the panel as it was.
+- **Word study:** in **KJV+**, tap any word, or pick one from the selected verse's list. The panel shows the Hebrew or Greek word, its transliteration and pronunciation, Strong's definition, how the KJV renders it, and its origin, with links to related entries. Below that it shows how often the word is used, the English words it's translated by, and every verse that uses it, with the word marked. In other translations, the tab offers to open the passage in KJV+.
+
+Word highlights work in KJV+ as elsewhere, and the words stay tappable.
+
+## Study pages
+
+- **Book introductions** (`#/<book>/intro`), for all 66 books in English and Russian: a summary, author and date (the traditional view, plus the main scholarly view where it differs), themes, an outline linked into the text, key verses quoted in the translation being read, the book's places on the maps, and its events on the timeline. They're linked from each chapter and from the chapter grid.
+- **Timeline** (`#/timeline`): 50 events in 10 eras, from Abraham to Revelation. Each event has its passages and a link to its place on a map. Where dates are disputed, the usual alternatives are given.
+- **Maps** (`#/maps`): the Ancient Near East, the land of Israel, the land of the Gospels, and Paul's journeys, which can be shown or hidden one by one. Choosing a place, on the map or in the list under it, shows how sure its location is and every verse that names it. The maps are SVG, drawn from the site's own data with no map service or tiles, and follow the theme.
+
+The pages are built from reusable templates (`js/views/templates/study-page.js`: page, facts, tags, outline, quotes, link cards) and data files (`data/study/`), so new pages such as topics or reading plans follow the same pattern.
+
 ## Interface language
 
 The whole interface is in **English** or **Russian**, switched with the **RUS | ENG** buttons in the top-right corner:
@@ -150,7 +172,7 @@ To add another interface language:
 ```
 index.html            App shell: header, settings panel, <main> where views render
 css/                  themes.css (colour tokens), base, layout, picker, reader, parallel, translate,
-                      search, study
+                      search, study, research (the Research panel), pages (study pages, maps)
 js/
   main.js             Entry point: routes → views, translation choice, keyboard, last-read
   i18n.js             Interface language: t('key'), book names, RUS | ENG (text in locales/)
@@ -160,6 +182,9 @@ js/
                       the Web Worker and its client, references ("Jn 3:16"), search URLs
   study/              Highlights, notes, bookmarks: the model (verse ranges, one colour per
                       verse), the store, note markup, copy formats, backup files
+  research/           Research data: loading it (data.js), references ("ROM 5:8"),
+                      Strong's helpers, the concordance (run in the search worker)
+  geo/                Maps: projection and label placement (projection.js), the SVG map (map.js)
   canon.js            The 66 books: USFM ids, names, URL slugs, chapter counts
   router.js           Hash routing (#/john/3/16?t=kjv) and canonical redirects
   translations.js     Which translations to show: ?t= parsing, preferences, columns
@@ -168,11 +193,16 @@ js/
   providers/          Translation provider layer: contract, registry, JSON provider,
                       device cache, base for API sources (see its README)
   ui/                 DOM helper, header, settings panel, translation dropdown + Compare,
-                      verse actions bar, study marks, Notes panel and editor, toasts
+                      verse actions bar, study marks, Notes and Research panels (side-panels.js
+                      docks them), toasts
   views/              Book/chapter picker, reader (single + parallel), verse alignment,
-                      search page, My Study, Translations page, messages
-data/                 translations.json + one JSON file per translation (see data/README.md)
-tools/                serve, build-data (download → convert → validate), converters, validator
+                      search page, My Study, Translations page, book introductions, timeline,
+                      maps, messages; templates/ holds the study-page building blocks
+data/                 translations.json + one JSON file per translation; research.json lists the
+                      research data: xref/ (cross-references), strongs/ (dictionaries), geo/
+                      (places, basemap), study/ (introductions, timeline, maps). See data/README.md
+tools/                serve, build-data (download → convert → validate), build-xref, build-strongs,
+                      build-geo, build-study, converters, validator
 tests/                node --test suites
 ```
 
@@ -191,4 +221,5 @@ tests/                node --test suites
 - [x] **Stage 3:** full-text search in one or all translations (all words, any word, exact phrase, word starts), book/Testament filters, results grouped by book with counts and highlights, jump-and-flash to the verse, reference entry ("Jn 3:16", "Ps 23:1-4", Russian names too), and indexing in a Web Worker
 - [x] **Stage 4:** personal study tools: tap or select verses for an action bar (5 highlight colours, notes, bookmarks, two copy formats, share), a Notes panel with a rich-ish editor, tags and search, a My Study page with filters, highlights kept by verse reference across translations, and JSON backup export/import
   - Added later: word-level highlights (in the translation they were made in), and searching for selected words
-- [ ] Later: reading plans, cross-references, Strong's word study, offline support, cloud sync
+- [x] **Stage 5:** research and study pages: a Research side panel with cross-references (OpenBible.info) and Strong's word study in KJV+ (Hebrew/Greek word, transliteration, definition, every verse using it); book introductions for all 66 books, a timeline and SVG maps of key places, built as reusable page templates; English and Russian
+- [ ] Later: reading plans, topical lookups, offline support, cloud sync

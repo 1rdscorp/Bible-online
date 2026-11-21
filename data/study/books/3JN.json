@@ -1,0 +1,27 @@
+{
+  "formatVersion": 1,
+  "book": "3JN",
+  "author": {
+    "en": "Traditionally the apostle John, writing as the elder; many scholars think the elder was another leader of the churches linked with John.",
+    "ru": "По преданию — апостол Иоанн, называющий себя «старцем»; многие исследователи считают, что это был другой руководитель общин, связанных с Иоанном."
+  },
+  "date": {
+    "en": "c. AD 85–95, around the same time as 1 and 2 John.",
+    "ru": "Ок. 85–95 гг. н. э., примерно в одно время с Первым и Вторым посланиями Иоанна."
+  },
+  "summary": {
+    "en": "A personal letter from the elder to his friend Gaius, praising him for welcoming travelling missionaries. It contrasts Gaius’s faithful hospitality with Diotrephes, who loves to be first and refuses to receive them, and commends Demetrius. It offers a rare glimpse of everyday church life at the end of the apostolic age.",
+    "ru": "Личное письмо старца к его другу Гаию с похвалой за то, что тот принимает странствующих благовестников. Верному гостеприимству Гаия противопоставлен Диотреф, который любит первенствовать и отказывается их принимать, а Димитрий удостоен доброго отзыва. Письмо даёт редкую возможность увидеть повседневную жизнь Церкви в конце апостольского века."
+  },
+  "themes": [
+    { "en": "Walking in the truth", "ru": "Хождение в истине" },
+    { "en": "Hospitality to fellow workers", "ru": "Гостеприимство к соработникам" },
+    { "en": "Imitating what is good", "ru": "Подражание доброму" }
+  ],
+  "outline": [
+    { "ref": "3JN 1:1-8", "en": "Gaius praised for his hospitality", "ru": "Похвала Гаию за гостеприимство" },
+    { "ref": "3JN 1:9-12", "en": "Diotrephes and Demetrius", "ru": "Диотреф и Димитрий" },
+    { "ref": "3JN 1:13-14", "en": "Closing", "ru": "Заключение" }
+  ],
+  "keyVerses": ["3JN 1:4", "3JN 1:11"]
+}

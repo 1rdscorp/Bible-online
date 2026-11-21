@@ -225,6 +225,34 @@
         "name": "eBible.org: Brenton Greek Septuagint (grcbrent)",
         "url": "https://ebible.org/details.php?id=grcbrent"
       }
+    },
+    {
+      "id": "kjvs",
+      "abbreviation": "KJV+",
+      "name": "King James Version with Strong’s Numbers",
+      "year": "1769",
+      "language": "en",
+      "direction": "ltr",
+      "provider": "json",
+      "url": "data/kjvs.json",
+      "version": "11344afa2bb1",
+      "license": "Public domain",
+      "copyright": "Public domain in most of the world. In the United Kingdom, rights in the Authorized Version are vested in the Crown and administered by Cambridge University Press. Strong’s numbers tagging from the CrossWire Bible Society, via eBible.org.",
+      "description": "The 1769 King James text with each word tagged with its Strong’s number. Tap a word to see the Hebrew or Greek behind it, its meaning, and every verse that uses it.",
+      "strongs": true,
+      "basedOn": "kjv",
+      "i18n": {
+        "ru": {
+          "name": "Библия короля Якова с номерами Стронга",
+          "license": "Общественное достояние",
+          "copyright": "Общественное достояние почти во всём мире. В Великобритании права на Авторизованную версию принадлежат Короне; ими распоряжается издательство Кембриджского университета. Разметка номерами Стронга — CrossWire Bible Society, через eBible.org.",
+          "description": "Текст короля Якова 1769 года, где каждое слово помечено номером Стронга. Нажмите на слово, чтобы увидеть еврейское или греческое слово за ним, его значение и все стихи, где оно встречается."
+        }
+      },
+      "source": {
+        "name": "eBible.org",
+        "url": "https://ebible.org/details.php?id=eng-kjv2006"
+      }
     }
   ]
 }

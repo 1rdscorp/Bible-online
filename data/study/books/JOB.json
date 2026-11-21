@@ -1,0 +1,33 @@
+{
+  "formatVersion": 1,
+  "book": "JOB",
+  "author": {
+    "en": "Unknown; the book names no author. The Talmud credits Moses, and others have suggested Solomon or an unnamed later sage.",
+    "ru": "Неизвестен; сама книга автора не называет. Талмуд приписывает её Моисею, другие называли Соломона или безымянного позднейшего мудреца."
+  },
+  "date": {
+    "en": "The story is set in the age of the patriarchs. Tradition dates the writing as early as Moses or Solomon; many scholars place it in the 6th–4th century BC.",
+    "ru": "Действие происходит в эпоху патриархов. Предание относит написание книги ко времени Моисея или Соломона; многие учёные датируют её VI–IV вв. до н. э."
+  },
+  "summary": {
+    "en": "A blameless man loses his wealth, his children and his health, and his friends insist he must be suffering for some sin. Job protests his innocence and demands an answer, until God speaks to him from the whirlwind. One of the Bible’s wisdom books, it faces innocent suffering honestly and refuses easy answers.",
+    "ru": "Непорочный человек теряет имущество, детей и здоровье, а друзья уверяют его, что он страдает за какой-то грех. Иов настаивает на своей невиновности и требует ответа, пока Господь не говорит с ним из бури. Одна из учительных книг Библии, она честно говорит о страдании невинного и не предлагает лёгких ответов."
+  },
+  "themes": [
+    { "en": "Innocent suffering", "ru": "Страдание невинного" },
+    { "en": "God’s justice and sovereignty", "ru": "Божья справедливость и владычество" },
+    { "en": "Honest protest before God", "ru": "Откровенная жалоба перед Богом" },
+    { "en": "The limits of human wisdom", "ru": "Пределы человеческой мудрости" },
+    { "en": "God’s rule over creation", "ru": "Власть Бога над творением" }
+  ],
+  "outline": [
+    { "ref": "JOB 1:1-2:13", "en": "Prologue: Job is tested", "ru": "Пролог: испытание Иова" },
+    { "ref": "JOB 3:1-27:23", "en": "Job’s lament and debates with his friends", "ru": "Плач Иова и споры с друзьями" },
+    { "ref": "JOB 28:1-28", "en": "Where wisdom is found", "ru": "Где обретается премудрость" },
+    { "ref": "JOB 29:1-31:40", "en": "Job’s final defense", "ru": "Последняя речь Иова в свою защиту" },
+    { "ref": "JOB 32:1-37:24", "en": "The speeches of Elihu", "ru": "Речи Елиуя" },
+    { "ref": "JOB 38:1-42:6", "en": "The Lord answers from the whirlwind", "ru": "Господь отвечает из бури" },
+    { "ref": "JOB 42:7-17", "en": "Epilogue: Job restored", "ru": "Эпилог: Бог восстанавливает Иова" }
+  ],
+  "keyVerses": ["JOB 1:21", "JOB 19:25", "JOB 38:4", "JOB 42:5"]
+}

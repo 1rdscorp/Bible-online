@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "book": "1JN",
+  "author": {
+    "en": "Traditionally the apostle John, author of the fourth Gospel; the letter names no author, and many scholars attribute it to a leader in the community shaped by John’s teaching.",
+    "ru": "По преданию — апостол Иоанн, автор четвёртого Евангелия; сам автор себя не называет, и многие исследователи приписывают послание одному из руководителей общины, сложившейся вокруг учения Иоанна."
+  },
+  "date": {
+    "en": "Late 1st century, c. AD 85–95, traditionally from Ephesus, after the Gospel of John.",
+    "ru": "Конец I в. н. э., ок. 85–95 гг., по преданию — в Ефесе, после Евангелия от Иоанна."
+  },
+  "summary": {
+    "en": "Written to assure believers that they have eternal life, after some had left the community denying that Jesus Christ had come in the flesh. John sets out the marks of true fellowship with God: walking in the light, confessing the Son, keeping his commandments and, above all, loving one another, because God is love.",
+    "ru": "Послание написано, чтобы утвердить верующих в том, что они имеют жизнь вечную, после того как некоторые покинули общину, отрицая, что Иисус Христос пришёл во плоти. Иоанн указывает признаки истинного общения с Богом: хождение во свете, исповедание Сына, соблюдение Его заповедей и прежде всего любовь друг к другу, ибо Бог есть любовь."
+  },
+  "themes": [
+    { "en": "Fellowship with God", "ru": "Общение с Богом" },
+    { "en": "Walking in the light", "ru": "Хождение во свете" },
+    { "en": "God is love", "ru": "Бог есть любовь" },
+    { "en": "Assurance of eternal life", "ru": "Уверенность в вечной жизни" },
+    { "en": "Truth and error", "ru": "Истина и заблуждение" }
+  ],
+  "outline": [
+    { "ref": "1JN 1:1-4", "en": "The word of life", "ru": "Слово жизни" },
+    { "ref": "1JN 1:5-2:29", "en": "Walking in the light", "ru": "Хождение во свете" },
+    { "ref": "1JN 3:1-24", "en": "Children of God love one another", "ru": "Дети Божьи любят друг друга" },
+    { "ref": "1JN 4:1-21", "en": "Testing the spirits; God is love", "ru": "Испытание духов; Бог есть любовь" },
+    { "ref": "1JN 5:1-21", "en": "Faith that overcomes, and assurance of life", "ru": "Вера, побеждающая мир, и уверенность в жизни вечной" }
+  ],
+  "keyVerses": ["1JN 1:9", "1JN 3:1", "1JN 4:7-8", "1JN 5:13"]
+}

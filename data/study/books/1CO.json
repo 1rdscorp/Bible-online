@@ -1,0 +1,34 @@
+{
+  "formatVersion": 1,
+  "book": "1CO",
+  "author": {
+    "en": "Paul, writing with Sosthenes; his authorship is not seriously disputed.",
+    "ru": "Апостол Павел вместе с Сосфеном; авторство Павла практически не оспаривается."
+  },
+  "date": {
+    "en": "c. AD 53–55, from Ephesus.",
+    "ru": "Ок. 53–55 гг. н. э., в Ефесе."
+  },
+  "summary": {
+    "en": "Paul writes to a gifted but divided church in Corinth, answering reports about them and questions they had sent him. He deals with factions, sexual immorality, lawsuits, marriage, food offered to idols, worship and spiritual gifts, and roots every answer in the cross, in love and in the hope of the resurrection.",
+    "ru": "Павел пишет одарённой, но разделённой Церкви в Коринфе, отвечая на дошедшие до него вести и на вопросы самих коринфян. Он говорит о разделениях, блуде, судебных тяжбах, браке, идоложертвенном, богослужении и духовных дарах и в каждом ответе исходит из креста, любви и надежды на воскресение."
+  },
+  "themes": [
+    { "en": "Unity in Christ", "ru": "Единство во Христе" },
+    { "en": "The wisdom of the cross", "ru": "Мудрость креста" },
+    { "en": "Holiness in daily life", "ru": "Святость в повседневной жизни" },
+    { "en": "Spiritual gifts and love", "ru": "Духовные дары и любовь" },
+    { "en": "The resurrection of the dead", "ru": "Воскресение мёртвых" }
+  ],
+  "outline": [
+    { "ref": "1CO 1:1-4:21", "en": "Divisions and the wisdom of the cross", "ru": "Разделения и мудрость креста" },
+    { "ref": "1CO 5:1-6:20", "en": "Immorality and lawsuits", "ru": "Блуд и судебные тяжбы" },
+    { "ref": "1CO 7:1-40", "en": "Marriage and singleness", "ru": "Брак и безбрачие" },
+    { "ref": "1CO 8:1-11:1", "en": "Food offered to idols and Christian freedom", "ru": "Идоложертвенное и христианская свобода" },
+    { "ref": "1CO 11:2-14:40", "en": "Worship, the Lord’s Supper and spiritual gifts", "ru": "Богослужение, вечеря Господня и духовные дары" },
+    { "ref": "1CO 15:1-58", "en": "The resurrection of the dead", "ru": "Воскресение мёртвых" },
+    { "ref": "1CO 16:1-24", "en": "The collection, plans and greetings", "ru": "Сбор пожертвований, планы и приветствия" }
+  ],
+  "keyVerses": ["1CO 1:18", "1CO 10:13", "1CO 13:4-7", "1CO 15:3-4"],
+  "places": ["a6f437a", "a5feb15"]
+}

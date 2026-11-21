@@ -12,10 +12,10 @@
  * update that translation's "version" in data/translations.json. Display
  * metadata (name, licence…) comes from data/translations.json.
  */
-import { createHash } from 'node:crypto';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { basename, join } from 'node:path';
+import { readFile, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { checkPinned, download } from './lib/download.mjs';
 import { readScrollmapper } from './lib/read-scrollmapper.mjs';
 import { readUsfx } from './lib/read-usfx.mjs';
 import { buildBooks, relabelVerses, splitVerses, writeTranslationFile } from './lib/translation-file.mjs';
@@ -23,49 +23,15 @@ import { createVersificationMapper, nativeChapterSpans, remapVerses } from './li
 import { readZipEntry } from './lib/zip.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
-const CACHE_DIR = join(ROOT, '.cache', 'sources');
 const MANIFEST = join(ROOT, 'data', 'translations.json');
 
 // Each reader turns the downloaded bytes (a Buffer) into a stream of verses.
 const READERS = {
   scrollmapper: (bytes) => readScrollmapper(JSON.parse(bytes.toString('utf8'))),
-  usfx: (bytes) => readUsfx(bytes.toString('utf8')),
+  usfx: (bytes, source) => readUsfx(bytes.toString('utf8'), { wordTags: Boolean(source.wordTags) }),
   // eBible.org's zipped USFX download; `entry` names the XML file inside.
-  'usfx-zip': (bytes, source) => readUsfx(readZipEntry(bytes, source.entry).toString('utf8')),
+  'usfx-zip': (bytes, source) => readUsfx(readZipEntry(bytes, source.entry).toString('utf8'), { wordTags: Boolean(source.wordTags) }),
 };
-
-/**
- * Download a source (bytes), or read it from the cache. GitHub URLs are
- * pinned to a commit, so a cached copy never goes stale. A source that can't
- * be pinned (eBible.org's zips) records the SHA-256 of what was used instead
- * (`sha256` in data-sources.json; see checkPinned).
- */
-async function download(url) {
-  const file = join(CACHE_DIR, `${url.split('/').at(-2)}-${basename(url)}`.replace(/[^\w.-]/g, '_'));
-  try {
-    return await readFile(file);
-  } catch {
-    process.stdout.write(`  downloading ${url}\n`);
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`);
-    const bytes = Buffer.from(await response.arrayBuffer());
-    await mkdir(CACHE_DIR, { recursive: true });
-    await writeFile(file, bytes);
-    return bytes;
-  }
-}
-
-/** Warn (don't fail) if an unpinned source has changed since the data was built. */
-function checkPinned(id, source, bytes) {
-  if (!source.sha256) return;
-  const actual = createHash('sha256').update(bytes).digest('hex');
-  if (actual !== source.sha256) {
-    console.warn(
-      `  warning: ${id}'s source has changed since this data was built (sha256 ${actual}).\n` +
-        '  Check the text, then put the new hash in tools/data-sources.json.',
-    );
-  }
-}
 
 const sources = JSON.parse(await readFile(join(ROOT, 'tools', 'data-sources.json'), 'utf8'));
 const manifest = JSON.parse(await readFile(MANIFEST, 'utf8'));
@@ -92,7 +58,7 @@ for (const id of ids) {
   if (!read) throw new Error(`${id}: unknown format "${source.format}"`);
 
   const bytes = await download(source.url);
-  checkPinned(id, source, bytes);
+  checkPinned(id, source.sha256, bytes);
   let verses = read(bytes, source);
   // Verses a source ran together, split at the given phrase (source numbering).
   if (source.splitVerses) verses = splitVerses(verses, source.splitVerses);
@@ -114,7 +80,8 @@ for (const id of ids) {
     console.log(`  renumbered from "${scheme}" to English verse numbers (${Object.keys(corrections).length} corrections)`);
   }
 
-  const { books, fixCounts, droppedChapters } = buildBooks(verses, { fixes: source.fixes ?? [] });
+  // "wordTags": keep the source's Strong's numbers as "tags" (KJV+).
+  const { books, fixCounts, droppedChapters } = buildBooks(verses, { fixes: source.fixes ?? [], wordTags: Boolean(source.wordTags) });
   if (droppedChapters.length) console.log(`  left out (past the book's last chapter): ${droppedChapters.join(', ')}`);
   for (const book of books) if (native?.[book.id]) book.native = native[book.id];
 

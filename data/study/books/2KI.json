@@ -1,0 +1,33 @@
+{
+  "formatVersion": 1,
+  "book": "2KI",
+  "author": {
+    "en": "Unknown; Jewish tradition names Jeremiah. The writer cites older records, such as the chronicles of the kings of Israel and of Judah; many scholars see 1 and 2 Kings, originally one book, as the close of a history that begins with Deuteronomy.",
+    "ru": "Автор неизвестен; иудейское предание называет Иеремию. Составитель ссылается на более древние записи — летописи царей Израильских и Иудейских; многие исследователи считают 3 и 4 Царств (изначально одна книга) завершением исторического труда, начатого Второзаконием."
+  },
+  "date": {
+    "en": "Completed during the Babylonian exile, after 561 BC, the last event it records (25:27); many scholars think a first edition was made under King Josiah, in the late 7th century BC.",
+    "ru": "Завершена во время вавилонского плена, после 561 г. до н. э. — последнего описанного в ней события (25:27); многие учёные полагают, что первая редакция появилась при царе Иосии, в конце VII в. до н. э."
+  },
+  "summary": {
+    "en": "Elijah is taken up to heaven and Elisha continues his work. Israel, the northern kingdom, forsakes the covenant and falls to Assyria in 722 BC. Judah lasts longer, renewed under Hezekiah and Josiah, until Babylon destroys Jerusalem and the temple in 586 BC and takes the people into exile.",
+    "ru": "Илия взят на небо, и его служение продолжает Елисей. Северное, Израильское, царство отступает от завета и в 722 г. до н. э. падает под ударами Ассирии. Иудейское царство держится дольше, при Езекии и Иосии в нём проходят реформы, но в 586 г. до н. э. Вавилон разрушает Иерусалим и храм и уводит народ в плен."
+  },
+  "themes": [
+    { "en": "The prophetic word fulfilled", "ru": "Исполнение пророческого слова" },
+    { "en": "Unfaithful kings and God’s patience", "ru": "Неверность царей и долготерпение Бога" },
+    { "en": "Reform and renewal", "ru": "Реформы и обновление" },
+    { "en": "Exile as judgment", "ru": "Плен как Божий суд" },
+    { "en": "Hope for David’s line", "ru": "Надежда для рода Давида" }
+  ],
+  "outline": [
+    { "ref": "2KI 1:1-2:25", "en": "Elijah taken up; Elisha succeeds him", "ru": "Илия взят на небо; Елисей — его преемник" },
+    { "ref": "2KI 3:1-8:29", "en": "The ministry of Elisha", "ru": "Служение Елисея" },
+    { "ref": "2KI 9:1-10:36", "en": "Jehu’s revolt", "ru": "Переворот Ииуя" },
+    { "ref": "2KI 11:1-17:41", "en": "The two kingdoms until Samaria falls", "ru": "Два царства до падения Самарии" },
+    { "ref": "2KI 18:1-23:30", "en": "Judah alone: from Hezekiah to Josiah", "ru": "Иудейское царство от Езекии до Иосии" },
+    { "ref": "2KI 23:31-25:30", "en": "The fall of Jerusalem and the exile", "ru": "Падение Иерусалима и плен" }
+  ],
+  "keyVerses": ["2KI 2:11", "2KI 5:14", "2KI 6:16-17", "2KI 17:13"],
+  "places": ["ae686c9", "ab635e4", "a041bb3", "ae0bf4a", "a15257a", "a3cc590", "a70fd5d", "a217d18"]
+}

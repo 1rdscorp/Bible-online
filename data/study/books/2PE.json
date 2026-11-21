@@ -1,0 +1,28 @@
+{
+  "formatVersion": 1,
+  "book": "2PE",
+  "author": {
+    "en": "Traditionally the apostle Peter, near the end of his life; it was among the debated books in the early church, and most scholars today think it was written in his name by a later follower.",
+    "ru": "По преданию — апостол Пётр незадолго до смерти; в древней Церкви эта книга принадлежала к числу оспариваемых, и большинство современных исследователей считают, что её написал от имени Петра позднейший последователь."
+  },
+  "date": {
+    "en": "c. AD 64–68, shortly before Peter’s death; scholars who see it as later date it to the late 1st or early 2nd century.",
+    "ru": "Ок. 64–68 гг. н. э., незадолго до смерти Петра; сторонники более позднего происхождения относят послание к концу I – началу II в. н. э."
+  },
+  "summary": {
+    "en": "A farewell letter that urges believers to grow in the knowledge of Christ and in godliness. It warns against false teachers who twist the Scriptures and scoff at the promise of Christ’s return, and answers that the Lord is not slow but patient, and that the day of the Lord will surely come.",
+    "ru": "Прощальное послание, призывающее верующих возрастать в познании Христа и в благочестии. Оно предостерегает от лжеучителей, которые искажают Писания и насмехаются над обетованием о пришествии Христа, и отвечает, что Господь не медлит, а долготерпит и что день Господень непременно придёт."
+  },
+  "themes": [
+    { "en": "Growing in godliness", "ru": "Возрастание в благочестии" },
+    { "en": "The sure prophetic word", "ru": "Верное пророческое слово" },
+    { "en": "Warning against false teachers", "ru": "Предостережение от лжеучителей" },
+    { "en": "The promise of Christ’s return", "ru": "Обетование о пришествии Христа" }
+  ],
+  "outline": [
+    { "ref": "2PE 1:1-21", "en": "Growing in grace; the sure prophetic word", "ru": "Возрастание в благодати и верное пророческое слово" },
+    { "ref": "2PE 2:1-22", "en": "False teachers and their judgement", "ru": "Лжеучители и суд над ними" },
+    { "ref": "2PE 3:1-18", "en": "The day of the Lord will come", "ru": "День Господень придёт" }
+  ],
+  "keyVerses": ["2PE 1:20-21", "2PE 3:8-9"]
+}

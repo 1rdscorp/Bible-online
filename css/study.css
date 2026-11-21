@@ -331,9 +331,9 @@
   outline-color: var(--color-bg);
 }
 
-/* ---------- Notes panel ---------- */
+/* ---------- Side panels (Notes, Research) ---------- */
 
-.notes-panel {
+.side-panel {
   position: fixed;
   z-index: 26;
   display: flex;
@@ -348,7 +348,7 @@
 
 /* Wide screens: docked on the right, and the chapter moves over. */
 @media (min-width: 64rem) {
-  .notes-panel {
+  .side-panel {
     top: var(--header-height);
     right: 0;
     bottom: 0;
@@ -358,20 +358,20 @@
   }
 
   /* When the header slides away, the panel takes the whole height. */
-  .app-header.is-hidden:not(:focus-within) ~ .notes-panel {
+  .app-header.is-hidden:not(:focus-within) ~ .side-panel {
     top: 0;
   }
 
-  .has-notes-panel .reader {
+  .has-side-panel .reader {
     padding-right: 25rem;
   }
 
-  .has-notes-panel .side-nav--next {
+  .has-side-panel .side-nav--next {
     display: none;
   }
 
   /* The action bar centres in the space beside the panel. */
-  .has-notes-panel .verse-actions {
+  .has-side-panel .verse-actions {
     left: calc((100vw - 24rem) / 2);
     width: min(44rem, calc(100vw - 25rem));
   }
@@ -379,7 +379,7 @@
 
 /* Narrower: a sheet from the bottom, leaving the top of the chapter visible. */
 @media (max-width: 63.99rem) {
-  .notes-panel {
+  .side-panel {
     right: 0;
     bottom: 0;
     left: 0;

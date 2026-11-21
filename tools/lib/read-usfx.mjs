@@ -16,7 +16,27 @@
  * Psalm titles (<d>) sit before verse 1. They're prefixed to verse 1, as the
  * other sources in this project already do ("A Psalm by David. Yahweh is my
  * shepherd…"). One-word headings such as Psalm 119's "ALEPH" are dropped.
+ *
+ * With { wordTags: true }, words tagged with Strong's numbers
+ * (<w s="H7225">beginning</w>) are kept as invisible markers in the text:
+ * WORD_TAG.open + "H7225" + WORD_TAG.mark + "beginning" + WORD_TAG.close.
+ * Markers survive whitespace clean-up and text fixes, and
+ * translation-file.mjs's extractWordTags() turns them into offsets once the
+ * text is final.
  */
+
+// Private-use characters, which never occur in Bible text.
+export const WORD_TAG = Object.freeze({ open: '\uE000', mark: '\uE001', close: '\uE002' });
+
+/** "H0216" → "H216" (the dictionaries' keys); "G3056 G5207" → "G3056+G5207". */
+export function normalizeStrongs(value) {
+  return String(value ?? '')
+    .split(/[\s,;]+/)
+    .map((part) => /^([HG])0*(\d+)([a-z]?)$/i.exec(part))
+    .filter(Boolean)
+    .map(([, letter, number]) => `${letter.toUpperCase()}${number}`)
+    .join('+');
+}
 
 // Elements whose whole content is skipped.
 const SKIPPED = new Set(['f', 'fe', 'x', 'rem', 'vp', 'toc', 'h', 'id', 'ide', 'ms', 'mr', 'r', 's', 'cl', 'ca', 'cp', 'va']);
@@ -38,8 +58,11 @@ function attribute(attrs, name) {
   return new RegExp(`\\b${name}="([^"]*)"`).exec(attrs)?.[1] ?? null;
 }
 
-/** @param {string} xml */
-export function* readUsfx(xml) {
+/**
+ * @param {string} xml
+ * @param {{ wordTags?: boolean }} [options]
+ */
+export function* readUsfx(xml, { wordTags = false } = {}) {
   const token = /<(\/?)([A-Za-z][\w-]*)([^>]*?)(\/?)>|([^<]+)/g;
   let bookId = null;
   let chapter = null;
@@ -49,6 +72,8 @@ export function* readUsfx(xml) {
   let skipDepth = 0;
   let inTitle = false;
   let pendingTitle = '';
+  // Open <w> elements: true for each one that wrote a marker.
+  const openWords = [];
 
   // Yield the verse collected so far, if any.
   function* flush() {
@@ -76,6 +101,15 @@ export function* readUsfx(xml) {
     }
     if (skipDepth > 0) continue;
 
+    if (name === 'w' && wordTags && !selfClosing) {
+      const strongs = closing ? null : normalizeStrongs(attribute(attrs, 's'));
+      const marker = closing ? (openWords.pop() ? WORD_TAG.close : '') : strongs ? `${WORD_TAG.open}${strongs}${WORD_TAG.mark}` : '';
+      if (!closing) openWords.push(Boolean(strongs));
+      if (verse !== null) text += marker;
+      else if (inTitle) pendingTitle += marker;
+      continue;
+    }
+
     if (name === 'book' && !closing) {
       yield* flush();
       bookId = attribute(attrs, 'id');
@@ -94,7 +128,7 @@ export function* readUsfx(xml) {
       label = attribute(attrs, 'id');
       verse = Number.parseInt(label, 10);
       const title = pendingTitle.replace(/\s+/g, ' ').trim();
-      if (title && !/^[A-Z]+$/.test(title)) text = `${title} `;
+      if (title && !/^[A-Z]+$/.test(title.replace(/\uE000[^\uE001]*\uE001|\uE002/g, ''))) text = `${title} `;
       pendingTitle = '';
     } else if (name === 've') {
       yield* flush();

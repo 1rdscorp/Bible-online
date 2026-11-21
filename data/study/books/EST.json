@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "book": "EST",
+  "author": {
+    "en": "Unknown. Jewish tradition credits the men of the Great Assembly, or Mordecai (compare 9:20); the writer knows the Persian court well.",
+    "ru": "Автор неизвестен. Иудейское предание приписывает книгу мужам Великого собрания или Мардохею (ср. 9:20); автор хорошо знаком с жизнью персидского двора."
+  },
+  "date": {
+    "en": "Set in the reign of Ahasuerus, usually identified with Xerxes I (486–465 BC); probably written in the 5th–4th century BC, though some scholars date it to the 3rd–2nd century BC.",
+    "ru": "Действие происходит при персидском царе, которого Синодальный перевод называет Артаксерксом (в еврейском тексте — Ахашверош); обычно его отождествляют с Ксерксом I (486–465 гг. до н. э.). Книга, вероятно, написана в V–IV вв. до н. э.; некоторые учёные относят её к III–II вв. до н. э."
+  },
+  "summary": {
+    "en": "At the Persian court the Jewish orphan Esther becomes queen. When Haman plots to destroy all the Jews, her cousin Mordecai urges her to plead with the king, and she risks her life to do so. The plot recoils on Haman and Purim celebrates the deliverance; the Hebrew text never names God, yet his hidden care runs through the story.",
+    "ru": "Сирота-иудейка Есфирь становится персидской царицей. Когда Аман замышляет истребить всех иудеев, её двоюродный брат Мардохей убеждает её заступиться за народ, и она идёт к царю, рискуя жизнью. Замысел Амана обращается против него самого, а праздник Пурим напоминает об избавлении; в еврейском тексте Бог ни разу не назван, но Его незримая забота ощущается во всём."
+  },
+  "themes": [
+    { "en": "God’s hidden providence", "ru": "Сокрытый Божий промысел" },
+    { "en": "Courage at the right moment", "ru": "Мужество в решающий час" },
+    { "en": "Reversal of fortunes", "ru": "Перемена участи" },
+    { "en": "The survival of God’s people", "ru": "Сохранение народа Божьего" },
+    { "en": "The feast of Purim", "ru": "Праздник Пурим" }
+  ],
+  "outline": [
+    { "ref": "EST 1:1-2:23", "en": "Esther becomes queen", "ru": "Есфирь становится царицей" },
+    { "ref": "EST 3:1-4:17", "en": "Haman’s plot and Esther’s resolve", "ru": "Замысел Амана и решимость Есфири" },
+    { "ref": "EST 5:1-7:10", "en": "Esther’s banquets and Haman’s fall", "ru": "Пиры Есфири и падение Амана" },
+    { "ref": "EST 8:1-10:3", "en": "The Jews delivered; the feast of Purim", "ru": "Избавление иудеев и праздник Пурим" }
+  ],
+  "keyVerses": ["EST 4:14", "EST 4:16", "EST 9:22"],
+  "places": ["a033b84"]
+}

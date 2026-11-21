@@ -12,6 +12,9 @@
      (Greek Extended): Gentium and SBL Greek where installed, then Noto Serif
      (Android), Palatino Linotype (Windows) and Times New Roman (Apple). */
   --font-scripture-greek: "Gentium Plus", "Gentium Book Plus", "SBL Greek", "Noto Serif", "Palatino Linotype", "Times New Roman", serif;
+  /* Pointed Hebrew (Strong's words in the Research panel): fonts that place
+     the vowel points well, then the systems' own Hebrew serifs. */
+  --font-scripture-hebrew: "SBL Hebrew", "Ezra SIL", "Taamey Frank CLM", "Noto Serif Hebrew", "Times New Roman", "David", serif;
   --font-scripture: var(--font-scripture-latin);
   --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 
@@ -44,6 +47,10 @@
 :lang(grc),
 :lang(el) {
   --font-scripture: var(--font-scripture-greek);
+}
+
+:lang(he) {
+  --font-scripture: var(--font-scripture-hebrew);
 }
 
 :lang(en) {

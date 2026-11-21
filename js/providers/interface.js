@@ -27,12 +27,21 @@
  * @property {Record<string, object>} [i18n]
  *   Interface-language versions of the fields above, e.g. i18n.ru = { name, license, copyright,
  *   description, numbering: { name } }. Applied by i18n.js localizeTranslation().
+ * @property {boolean} [strongs]       its verses carry `words` (Strong's numbers): words can be studied
+ * @property {string} [basedOn]        the id of the translation whose text this one shares (KJV+ → "kjv");
+ *   "All translations" search leaves it out, so the same text isn't listed twice
  * @property {string} [url]            json provider: the data file
  * @property {string} [version]        json provider: content hash, used as the cache key
  *
  * @typedef {object} Verse
  * @property {number} number
  * @property {string} text             plain text, no markup
+ * @property {WordTag[]} [words]       words tagged with Strong's numbers (KJV+), in order
+ *
+ * @typedef {object} WordTag
+ * @property {number} start            offsets into `text` (UTF-16 code units)
+ * @property {number} end
+ * @property {string[]} strongs        ["H7225"]; occasionally two numbers for one word
  *
  * @typedef {object} Chapter
  * @property {string} bookId           USFM code, e.g. "JHN"

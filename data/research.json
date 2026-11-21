@@ -1,0 +1,122 @@
+{
+  "formatVersion": 1,
+  "xref": {
+    "url": "data/xref/",
+    "version": "5b75e2ca5109",
+    "references": 341399,
+    "license": "CC BY",
+    "source": {
+      "name": "OpenBible.info",
+      "url": "https://www.openbible.info/labs/cross-references/"
+    }
+  },
+  "strongs": {
+    "license": "CC BY-SA",
+    "source": {
+      "name": "Open Scriptures",
+      "url": "https://github.com/openscriptures/strongs"
+    },
+    "hebrew": {
+      "url": "data/strongs/hebrew.json",
+      "version": "dd3b3ab16d21",
+      "entries": 8674
+    },
+    "greek": {
+      "url": "data/strongs/greek.json",
+      "version": "8c332b7399aa",
+      "entries": 5523
+    }
+  },
+  "geo": {
+    "places": {
+      "url": "data/geo/places.json",
+      "version": "4f7911d8cd78",
+      "count": 1309
+    },
+    "basemap": {
+      "url": "data/geo/basemap.json",
+      "version": "4240be80016d"
+    },
+    "license": "CC BY 4.0 (places); public domain (basemap)",
+    "source": {
+      "name": "OpenBible.info",
+      "url": "https://www.openbible.info/geo/"
+    },
+    "basemapSource": {
+      "name": "Natural Earth",
+      "url": "https://www.naturalearthdata.com/"
+    }
+  },
+  "study": {
+    "url": "data/study/",
+    "version": "f77419531e4c",
+    "books": [
+      "GEN",
+      "EXO",
+      "LEV",
+      "NUM",
+      "DEU",
+      "JOS",
+      "JDG",
+      "RUT",
+      "1SA",
+      "2SA",
+      "1KI",
+      "2KI",
+      "1CH",
+      "2CH",
+      "EZR",
+      "NEH",
+      "EST",
+      "JOB",
+      "PSA",
+      "PRO",
+      "ECC",
+      "SNG",
+      "ISA",
+      "JER",
+      "LAM",
+      "EZK",
+      "DAN",
+      "HOS",
+      "JOL",
+      "AMO",
+      "OBA",
+      "JON",
+      "MIC",
+      "NAM",
+      "HAB",
+      "ZEP",
+      "HAG",
+      "ZEC",
+      "MAL",
+      "MAT",
+      "MRK",
+      "LUK",
+      "JHN",
+      "ACT",
+      "ROM",
+      "1CO",
+      "2CO",
+      "GAL",
+      "EPH",
+      "PHP",
+      "COL",
+      "1TH",
+      "2TH",
+      "1TI",
+      "2TI",
+      "TIT",
+      "PHM",
+      "HEB",
+      "JAS",
+      "1PE",
+      "2PE",
+      "1JN",
+      "2JN",
+      "3JN",
+      "JUD",
+      "REV"
+    ]
+  }
+}

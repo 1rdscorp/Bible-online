@@ -1,0 +1,29 @@
+{
+  "formatVersion": 1,
+  "book": "HAB",
+  "author": {
+    "en": "Habakkuk the prophet; nothing is known of his life.",
+    "ru": "Пророк Аввакум; о его жизни ничего не известно."
+  },
+  "date": {
+    "en": "Probably c. 605–600 BC, as the Chaldeans (Babylonians) rose to power, in the reign of Jehoiakim.",
+    "ru": "Вероятно, ок. 605–600 гг. до н. э., во время возвышения халдеев (вавилонян), при царе Иоакиме."
+  },
+  "summary": {
+    "en": "Habakkuk asks God why injustice in Judah goes unpunished, and then why God would use the even more ruthless Babylonians to punish it. God answers that the proud will fall and the righteous shall live by faith. The book ends with a prayer of trust: though the harvest fails, the prophet will rejoice in God.",
+    "ru": "Аввакум спрашивает Бога, почему беззаконие в Иудее остаётся безнаказанным, а затем — почему для наказания Он избирает ещё более жестоких вавилонян. Бог отвечает, что надменный падёт, а праведный своею верою жив будет. Книга завершается молитвой упования: даже если не будет урожая, пророк будет радоваться о Господе."
+  },
+  "themes": [
+    { "en": "Honest questions to God", "ru": "Честные вопросы к Богу" },
+    { "en": "Living by faith", "ru": "Жизнь верой" },
+    { "en": "God’s justice in history", "ru": "Божья справедливость в истории" },
+    { "en": "Woe to the proud oppressor", "ru": "Горе надменному угнетателю" },
+    { "en": "Joy in God amid loss", "ru": "Радость о Боге среди утрат" }
+  ],
+  "outline": [
+    { "ref": "HAB 1:1-11", "en": "Why do the wicked go unpunished?", "ru": "Почему нечестие остаётся безнаказанным?" },
+    { "ref": "HAB 1:12-2:20", "en": "Second complaint; the righteous live by faith", "ru": "Вторая жалоба; праведный жив верою" },
+    { "ref": "HAB 3:1-19", "en": "Habakkuk’s prayer of trust", "ru": "Молитва упования Аввакума" }
+  ],
+  "keyVerses": ["HAB 1:2", "HAB 2:4", "HAB 2:14", "HAB 3:17-18"]
+}

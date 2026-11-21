@@ -35,6 +35,9 @@ export function buildIndex(data) {
   const chapterOf = [];
   const verseOf = [];
   const lists = new Map(); // term → verse numbers (plain arrays while building)
+  // KJV+: each verse's Strong's tags ("7.9.H7225 …"), and number → verses.
+  const tags = [];
+  const strongsLists = new Map();
   // bookStart[i] = first verse of canon book i; bookStart[66] = verse count.
   const bookStart = new Uint32Array(BOOKS.length + 1);
 
@@ -57,6 +60,15 @@ export function buildIndex(data) {
           if (!list) lists.set(term, (list = []));
           list.push(id);
         }
+        const verseTags = entry.tags?.[c]?.[v];
+        if (typeof verseTags === 'string' && verseTags !== '') {
+          tags[id] = verseTags;
+          for (const number of new Set(verseTags.split(' ').flatMap((tag) => tag.split('.')[2]?.split('+') ?? []))) {
+            let list = strongsLists.get(number);
+            if (!list) strongsLists.set(number, (list = []));
+            list.push(id);
+          }
+        }
       });
     });
   }
@@ -65,6 +77,8 @@ export function buildIndex(data) {
   // Typed arrays: far smaller than arrays of numbers for ~800,000 entries.
   const postings = new Map();
   for (const [term, list] of lists) postings.set(term, Uint32Array.from(list));
+  const strongs = new Map();
+  for (const [number, list] of strongsLists) strongs.set(number, Uint32Array.from(list));
 
   return {
     texts,
@@ -75,6 +89,9 @@ export function buildIndex(data) {
     terms: [...postings.keys()].sort(), // for prefix lookups
     bookStart,
     size: texts.length,
+    // Present only for a translation with Strong's numbers (KJV+).
+    tags,
+    strongs,
   };
 }
 

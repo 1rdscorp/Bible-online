@@ -1,0 +1,27 @@
+{
+  "formatVersion": 1,
+  "book": "2JN",
+  "author": {
+    "en": "Traditionally the apostle John, who calls himself simply the elder; many scholars think the elder was another leader of the churches linked with John.",
+    "ru": "По преданию — апостол Иоанн, который называет себя просто «старцем»; многие исследователи считают, что это был другой руководитель общин, связанных с Иоанном."
+  },
+  "date": {
+    "en": "c. AD 85–95, around the same time as 1 John.",
+    "ru": "Ок. 85–95 гг. н. э., примерно тогда же, когда и Первое послание Иоанна."
+  },
+  "summary": {
+    "en": "A brief note from the elder to the elect lady and her children, most likely a local church and its members. He urges them to keep walking in truth and love, and not to welcome travelling teachers who deny that Jesus Christ came in the flesh.",
+    "ru": "Краткое письмо старца к «избранной госпоже и детям её» — вероятнее всего, к одной из поместных Церквей и её членам. Он призывает их по-прежнему ходить в истине и любви и не принимать странствующих учителей, отрицающих, что Иисус Христос пришёл во плоти."
+  },
+  "themes": [
+    { "en": "Walking in truth", "ru": "Хождение в истине" },
+    { "en": "Love one another", "ru": "Любовь друг к другу" },
+    { "en": "Guarding against deceivers", "ru": "Бдительность перед обольстителями" }
+  ],
+  "outline": [
+    { "ref": "2JN 1:1-3", "en": "Greeting", "ru": "Приветствие" },
+    { "ref": "2JN 1:4-11", "en": "Truth, love and a warning about deceivers", "ru": "Истина, любовь и предостережение об обольстителях" },
+    { "ref": "2JN 1:12-13", "en": "Closing", "ru": "Заключение" }
+  ],
+  "keyVerses": ["2JN 1:6"]
+}

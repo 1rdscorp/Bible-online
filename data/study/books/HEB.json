@@ -1,0 +1,33 @@
+{
+  "formatVersion": 1,
+  "book": "HEB",
+  "author": {
+    "en": "Unknown; the letter names no author. Early tradition, especially in the East, linked it with Paul, while others suggested Barnabas, Apollos or Luke; most scholars today think Paul did not write it.",
+    "ru": "Неизвестен; автор себя не называет. Древнее предание, особенно на Востоке, связывало послание с Павлом, другие называли Варнаву, Аполлоса или Луку; большинство современных исследователей считают, что Павел его не писал."
+  },
+  "date": {
+    "en": "Probably before AD 70, since the temple sacrifices seem still to be offered; some scholars date it to c. AD 80–90.",
+    "ru": "Вероятно, до 70 г. н. э., поскольку храмовые жертвы, по-видимому, ещё приносятся; некоторые учёные датируют послание ок. 80–90 гг. н. э."
+  },
+  "summary": {
+    "en": "A sermon in the form of a letter, written to believers tempted to drift away from their confession of Christ. It shows that Jesus, the Son of God, is greater than the angels, Moses and the Levitical priesthood, and that his once-for-all sacrifice opens the new covenant, so readers are urged to hold fast in faith and endurance.",
+    "ru": "Проповедь в форме послания, обращённая к верующим, которые готовы были отступить от исповедания Христа. Автор показывает, что Иисус, Сын Божий, выше ангелов, Моисея и левитского священства и что Его единократная жертва открывает Новый Завет; поэтому читатели призваны твёрдо держаться веры и с терпением проходить своё поприще."
+  },
+  "themes": [
+    { "en": "The supremacy of the Son", "ru": "Превосходство Сына" },
+    { "en": "Christ our great high priest", "ru": "Христос — великий Первосвященник" },
+    { "en": "A new and better covenant", "ru": "Новый и лучший Завет" },
+    { "en": "Faith and endurance", "ru": "Вера и терпение" },
+    { "en": "Warnings against falling away", "ru": "Предостережения от отступничества" }
+  ],
+  "outline": [
+    { "ref": "HEB 1:1-2:18", "en": "The Son greater than the angels", "ru": "Сын выше ангелов" },
+    { "ref": "HEB 3:1-4:13", "en": "Greater than Moses; the promised rest", "ru": "Выше Моисея; обетованный покой" },
+    { "ref": "HEB 4:14-7:28", "en": "A high priest after Melchizedek", "ru": "Первосвященник по чину Мелхиседека" },
+    { "ref": "HEB 8:1-10:18", "en": "The new covenant and the perfect sacrifice", "ru": "Новый Завет и совершенная жертва" },
+    { "ref": "HEB 10:19-39", "en": "Draw near and do not draw back", "ru": "Приступать с верой и не отступать" },
+    { "ref": "HEB 11:1-40", "en": "The heroes of faith", "ru": "Свидетели веры" },
+    { "ref": "HEB 12:1-13:25", "en": "Run the race; final exhortations", "ru": "Проходить поприще; последние наставления" }
+  ],
+  "keyVerses": ["HEB 4:12", "HEB 4:15-16", "HEB 11:1", "HEB 12:1-2"]
+}

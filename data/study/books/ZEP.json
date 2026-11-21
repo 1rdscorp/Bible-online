@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "book": "ZEP",
+  "author": {
+    "en": "Zephaniah son of Cushi, a great-great-grandson of Hezekiah, probably the king of Judah.",
+    "ru": "Софония, сын Хусия, праправнук Езекии — по-видимому, царя Иудейского."
+  },
+  "date": {
+    "en": "In the reign of Josiah (640–609 BC), probably before his reforms of 622 BC.",
+    "ru": "В царствование Иосии (640–609 гг. до н. э.), вероятно, до его реформ 622 г. до н. э."
+  },
+  "summary": {
+    "en": "Zephaniah announces the great day of the Lord, a day of wrath against Judah’s idolatry and complacency and against the surrounding nations. He urges the humble to seek the Lord. Beyond the judgment he sees a purified remnant and a God who rejoices over his people with singing.",
+    "ru": "Софония возвещает великий день Господень — день гнева на идолопоклонство и беспечность Иудеи и на окрестные народы. Он призывает смиренных искать Господа. За судом пророк видит очищенный остаток и Бога, Который радуется о Своём народе с ликованием."
+  },
+  "themes": [
+    { "en": "The day of the Lord", "ru": "День Господень" },
+    { "en": "Judgment on complacency", "ru": "Суд над беспечностью" },
+    { "en": "Seek the Lord in humility", "ru": "Ищите Господа в смирении" },
+    { "en": "A purified remnant", "ru": "Очищенный остаток" },
+    { "en": "God’s joy over his people", "ru": "Радость Бога о Своём народе" }
+  ],
+  "outline": [
+    { "ref": "ZEP 1:1-2:3", "en": "The great day of the Lord", "ru": "Великий день Господень" },
+    { "ref": "ZEP 2:4-15", "en": "Judgment on the nations", "ru": "Суд над народами" },
+    { "ref": "ZEP 3:1-8", "en": "Woe to Jerusalem", "ru": "Горе Иерусалиму" },
+    { "ref": "ZEP 3:9-20", "en": "A purified people and the Lord’s joy", "ru": "Очищенный народ и радость Господа" }
+  ],
+  "keyVerses": ["ZEP 1:14", "ZEP 2:3", "ZEP 3:17"],
+  "places": ["a15257a", "a70fd5d", "aa8edd2", "ac87d4c", "a30c937", "a3fc47a"]
+}
