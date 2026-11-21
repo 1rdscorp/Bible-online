@@ -1,0 +1,454 @@
+/* Search page (js/views/search.js). */
+
+.search-page {
+  max-width: 48rem;
+}
+
+/* ---------- The form ---------- */
+
+.search-form {
+  margin-top: 1.25rem;
+}
+
+/* One rounded field: icon, input, button. */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.25rem 0.25rem 0.9rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  background: var(--color-surface);
+}
+
+
+.search-box-icon {
+  flex: none;
+  color: var(--color-text-muted);
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: 0 0.4rem;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-size: 1.1rem;
+}
+
+/* Where :has() works, the whole field shows the focus ring rather than the
+   input inside it. Elsewhere the input keeps its own ring. */
+@supports selector(:has(*)) {
+  .search-box:has(.search-input:focus) {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  .search-input:focus,
+  .search-input:focus-visible {
+    outline: none;
+  }
+}
+
+.search-input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 1;
+}
+
+.search-submit {
+  flex: none;
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.search-submit:hover {
+  background: var(--color-accent);
+  filter: brightness(1.1);
+}
+
+.search-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem 1.25rem;
+  margin-top: 1rem;
+}
+
+.search-option {
+  display: grid;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.search-option-label {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.search-select {
+  max-width: 100%;
+  min-height: 2.75rem;
+  padding: 0 0.6rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.95rem;
+}
+
+/* All words | Any word | Exact phrase */
+.search-match {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.search-match legend {
+  /* A legend can't be a grid item; float takes it out of the fieldset's
+     border slot so it lays out like the other labels. */
+  float: left;
+  margin-bottom: 0.3rem;
+  padding: 0;
+}
+
+.segmented {
+  clear: both;
+  display: inline-flex;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.segment {
+  position: relative;
+  display: grid;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+/* The visible part of a segment: it shows the radio's state, so the
+   selectors below need only "+" (no :has()). */
+.segment span {
+  display: grid;
+  place-items: center;
+  min-height: 2.75rem;
+  padding: 0 0.8rem;
+}
+
+.segment + .segment {
+  border-inline-start: 1px solid var(--color-border-strong);
+}
+
+/* The real radio covers its segment, invisibly, for keyboard and screen
+   readers; the segment shows its state. */
+.segment input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.segment:hover span {
+  background: var(--color-surface-hover);
+}
+
+.segment input:checked + span {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.segment input:focus-visible + span {
+  outline: 3px solid var(--color-focus);
+  outline-offset: -3px;
+}
+
+/* ---------- Status and summary ---------- */
+
+.search-status {
+  min-height: 1.5em;
+  margin-top: 1.5rem;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.search-status:empty {
+  margin-top: 0.5rem;
+}
+
+.search-book-suggestion,
+.search-scope-note {
+  margin-top: 0.75rem;
+  font-weight: 600;
+}
+
+/* Counts per book: each one narrows the search to that book. */
+.search-books ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.search-book {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2.25rem;
+  padding: 0 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-text);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.search-book:hover {
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-hover);
+}
+
+.search-book-count {
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Results ---------- */
+
+.search-group {
+  margin-top: 2rem;
+}
+
+.search-group-title {
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.search-group-count {
+  margin-inline-start: 0.35rem;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.search-hits {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The whole result is clickable (js/views/search.js); the reference is
+   the real link. */
+.search-hit {
+  margin: 0 -0.75rem;
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.search-hit + .search-hit {
+  border-top: 1px solid var(--color-border);
+}
+
+.search-hit:hover {
+  background: var(--color-surface-hover);
+}
+
+.search-ref {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.search-ref:hover {
+  text-decoration: underline;
+}
+
+.search-text {
+  margin-top: 0.25rem;
+  font-family: var(--font-scripture);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* The verse text sits in its translation's language (lang on the span), so
+   that language's font stack applies. */
+.search-text > span {
+  font-family: var(--font-scripture);
+}
+
+.search-text mark {
+  padding: 0 0.08em;
+  border-radius: 3px;
+  background: var(--color-flash);
+  color: inherit;
+}
+
+/* With several translations, "ASV" etc. sit in their own column, so the
+   text of each line wraps under itself, not under the label. */
+.search-text.is-labelled {
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr);
+  align-items: baseline;
+}
+
+.search-badge {
+  justify-self: start;
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+.search-badge:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.search-more-row {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+/* ---------- No results, tips ---------- */
+
+.search-empty {
+  margin-top: 0.5rem;
+}
+
+.search-suggestions {
+  margin: 0.4rem 0 0;
+  padding-inline-start: 1.25rem;
+}
+
+.search-suggestions li {
+  margin-top: 0.25rem;
+}
+
+.search-tips {
+  margin-top: 1.5rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.search-tips-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.search-tips dl {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0.9rem 0 0;
+}
+
+.search-tips dl > div {
+  display: grid;
+  grid-template-columns: minmax(10rem, auto) 1fr;
+  align-items: baseline;
+  gap: 0.25rem 1rem;
+}
+
+.search-tips dt {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.search-tips dd {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.search-example {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0 0.55rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+
+.search-example:hover {
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-hover);
+}
+
+.search-example code {
+  font-family: var(--font-scripture);
+  font-size: 1rem;
+}
+
+.search-tip-key {
+  margin-top: 1rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 40rem) {
+  .search-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* A select is as wide as its longest option unless told otherwise. */
+  .search-select {
+    width: 100%;
+  }
+
+  .search-match {
+    grid-column: 1 / -1;
+  }
+
+  .segmented {
+    display: flex;
+  }
+
+  .segment {
+    flex: 1;
+  }
+
+  .segment span {
+    padding: 0 0.4rem;
+    text-align: center;
+  }
+
+  .search-tips dl > div {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 30rem) {
+  .search-options {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .segment {
+    font-size: 0.9rem;
+    line-height: 1.2;
+  }
+
+  .search-submit {
+    padding-inline: 0.9rem;
+  }
+}

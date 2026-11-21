@@ -46,6 +46,7 @@
   <link rel="stylesheet" href="css/reader.css">
   <link rel="stylesheet" href="css/parallel.css">
   <link rel="stylesheet" href="css/translate.css">
+  <link rel="stylesheet" href="css/search.css">
 
   <script type="module" src="js/main.js"></script>
 </head>
@@ -71,6 +72,11 @@
       </div>
 
       <div class="header-actions">
+        <a class="icon-button" id="search-link" href="#/search">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4"/></svg>
+          <span class="visually-hidden" data-i18n="search.open">Search</span>
+        </a>
+
         <button type="button" class="icon-button" id="settings-button" aria-expanded="false" aria-controls="settings-panel">
           <span class="icon-aa" aria-hidden="true">Aa</span>
           <span class="visually-hidden" data-i18n="settings.open">Reading settings</span>
@@ -138,6 +144,8 @@
           <span data-i18n="settings.tipPress">Tip: press</span> <kbd>←</kbd>
           <span data-i18n="settings.tipAnd">and</span> <kbd>→</kbd>
           <span data-i18n="settings.tipChange">to change chapter.</span>
+          <span data-i18n="settings.tipSearch">Press</span> <kbd>/</kbd>
+          <span data-i18n="settings.tipSearchEnd">to search.</span>
         </p>
       </div>
     </div>

@@ -7,6 +7,9 @@
  *   data-theme="light" | "sepia" | "dark"
  *   no data-theme      → "auto": light or dark following the device setting
  *
+ * --color-highlight marks a linked verse; --color-flash is a stronger shade,
+ * for the brief pulse after a jump from search and for search matches.
+ *
  * Every text/background pair meets WCAG AA (4.5:1 for text, 3:1 for focus
  * rings and control borders). Re-check contrast if you change a colour.
  */
@@ -26,6 +29,7 @@
   --color-accent: #275a8c;
   --color-accent-soft: #e5edf5;
   --color-highlight: #faeec4;
+  --color-flash: #f2d675;
   --color-focus: #275a8c;
   --color-shadow: rgb(25 25 20 / 0.14);
 }
@@ -44,6 +48,7 @@
   --color-accent: #8a4513;
   --color-accent-soft: #efdfc2;
   --color-highlight: #efd99c;
+  --color-flash: #e4c262;
   --color-focus: #8a4513;
   --color-shadow: rgb(60 40 10 / 0.16);
 }
@@ -62,6 +67,7 @@
   --color-accent: #8db8e6;
   --color-accent-soft: #233447;
   --color-highlight: #3d3620;
+  --color-flash: #5e4f1c;
   --color-focus: #8db8e6;
   --color-shadow: rgb(0 0 0 / 0.5);
 }
@@ -81,6 +87,7 @@
     --color-accent: #8db8e6;
     --color-accent-soft: #233447;
     --color-highlight: #3d3620;
+    --color-flash: #5e4f1c;
     --color-focus: #8db8e6;
     --color-shadow: rgb(0 0 0 / 0.5);
   }

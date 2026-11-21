@@ -12,6 +12,10 @@ import { bookName, chapterTitle, getLanguage, localizeTranslation, resolveLangua
 import { getDefaultTranslationId, getProvider, listTranslations } from './providers/registry.js';
 import { translationCache } from './providers/translation-cache.js';
 import { bookHref, chapterHref, navigate, replaceHash, startRouter } from './router.js';
+import { createSearchClient, isSearchable } from './search/client.js';
+import { ALL_TRANSLATIONS, readSearchParams, searchHref } from './search/params.js';
+import { bookOnly, parseReference } from './search/reference.js';
+import { parseQuery } from './search/text.js';
 import { loadSettings, onSettingsChange, updateSettings } from './settings.js';
 import { storage } from './storage.js';
 import {
@@ -32,6 +36,7 @@ import { initTranslationControl } from './ui/translation-control.js';
 import { renderMessage } from './views/message.js';
 import { renderBookList, renderChapterGrid } from './views/picker.js';
 import { createReaderView } from './views/reader.js';
+import { bookSuggestionLink, createSearchView, summaryText } from './views/search.js';
 import { renderTranslationsPage } from './views/translations.js';
 
 const LAST_READ_KEY = 'lastRead';
@@ -47,8 +52,17 @@ let currentRoute = null;
 // before painting, so a slow response never overwrites a newer page.
 let navigationId = 0;
 
-// The chapter on screen: { book, chapter, verse, ids, view }.
+// The chapter on screen: { book, chapter, verse, verseEnd, ids, view }.
 let reader = null;
+
+// Search: the worker client (started on first use), the page on screen, and
+// where the reader was on earlier result pages, so Back returns to the same
+// spot: hash → { y, loaded, focusHref }.
+const SEARCH_PAGE_SIZE = 100;
+let searchClient = null;
+let search = null; // { view, hash, params, query, translations }
+const searchPlaces = new Map();
+let searchClickedHref = null;
 
 // Set just before a translation change, so the next render can put the reader
 // back exactly where they were.
@@ -85,8 +99,8 @@ function loadColumns(columns, bookId, chapter) {
 /** Show different translations of the chapter on screen (dropdown, Compare, columns). */
 function changeTranslations(ids, focusKey = null) {
   if (currentRoute?.view !== 'reader' || ids.length === 0) return;
-  const { book, chapter, verse } = currentRoute;
-  const href = chapterHref(book, chapter, verse, selectionQuery(ids));
+  const { book, chapter, verse, verseEnd } = currentRoute;
+  const href = chapterHref(book, chapter, verse, selectionQuery(ids), verseEnd);
   if (href === window.location.hash) return;
   pendingAnchor = captureAnchor();
   pendingFocusKey = focusKey;
@@ -180,7 +194,11 @@ function saveLastRead(book, chapter) {
 async function handleRoute(route, { rerender = false } = {}) {
   const id = ++navigationId;
   const isCurrent = () => id === navigationId;
+  rememberSearchPlace();
   currentRoute = route;
+  const searchLink = document.getElementById('search-link');
+  if (route.view === 'search') searchLink?.setAttribute('aria-current', 'page');
+  else searchLink?.removeAttribute('aria-current');
   // "Translate selection" works on the chapter on screen; showReader sets it again.
   selectionTranslate.setContext(null);
 
@@ -205,13 +223,15 @@ async function handleRoute(route, { rerender = false } = {}) {
       return showReader(route, isCurrent);
     case 'translations':
       return showTranslationsPage(isCurrent, rerender);
+    case 'search':
+      return showSearchPage(route, isCurrent, rerender);
     default:
       return showNotFound(route, rerender);
   }
 }
 
 async function showReader(route, isCurrent) {
-  const { book, chapter, verse } = route;
+  const { book, chapter, verse, verseEnd = null } = route;
   const title = chapterTitle(book, chapter);
 
   let state;
@@ -230,7 +250,7 @@ async function showReader(route, isCurrent) {
   let ids = parseSelection(route.params.t, knownIds);
   if (ids.length === 0) ids = selectionFromPrefs(prefs);
   const query = selectionQuery(ids);
-  const href = chapterHref(book, chapter, verse, query);
+  const href = chapterHref(book, chapter, verse, query, verseEnd);
   if (window.location.hash !== href) replaceHash(href);
   currentRoute = { ...route, params: { ...route.params, t: ids.join(',') }, ids };
   savePrefs(prefsWithSelection(prefs, ids));
@@ -249,14 +269,19 @@ async function showReader(route, isCurrent) {
     });
 
   const finish = (view, results) => {
-    reader = { book, chapter, verse, ids, view };
+    reader = { book, chapter, verse, verseEnd, ids, view };
     selectionTranslate.setContext({ book, chapter, shownIds: ids });
     document.title = `${title} (${columns.map((c) => c.abbreviation).join(', ')}) · ${t('app.name')}`;
     if (results.some((r) => r.chapter)) saveLastRead(book, chapter);
   };
 
   const sameChapter =
-    reader && reader.book === book && reader.chapter === chapter && reader.verse === verse && main.contains(reader.view.element);
+    reader &&
+    reader.book === book &&
+    reader.chapter === chapter &&
+    reader.verse === verse &&
+    reader.verseEnd === verseEnd &&
+    main.contains(reader.view.element);
 
   if (sameChapter) {
     // Changing translations on the page being read. Keep the current text on
@@ -272,7 +297,7 @@ async function showReader(route, isCurrent) {
     if (!isCurrent()) return;
 
     const view = createView();
-    view.show(results, { verse });
+    view.show(results, { verse, verseEnd });
     main.replaceChildren(view.element);
     header.setLocation({ book, chapter }); // its text follows the interface language
     restoreAnchor(anchor);
@@ -288,9 +313,12 @@ async function showReader(route, isCurrent) {
   const results = await loadColumns(columns, book.id, chapter);
   if (!isCurrent()) return;
 
-  const target = view.show(results, { verse });
+  // A verse jumped to (from a link, a search result or a typed reference)
+  // pulses briefly so the eye finds it.
+  const target = view.show(results, { verse, verseEnd, flash: true });
   if (target) {
-    target.scrollIntoView({ block: 'center' });
+    // A range starts near the top, so as much of it as possible is visible.
+    target.scrollIntoView({ block: verseEnd ? 'start' : 'center' });
     target.focus({ preventScroll: true });
     // This jump is a scroll down, which would hide the header. Keep it
     // visible so someone opening a shared link can see where they are.
@@ -309,6 +337,171 @@ async function showTranslationsPage(isCurrent, rerender = false) {
     mount(renderTranslationsPage({ translations, savedIds, lastRead }), { title: t('title.translations'), preserve: rerender });
   } catch (error) {
     if (isCurrent()) showLoadFailure(error);
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Search                                                                  */
+/* ---------------------------------------------------------------------- */
+
+/**
+ * The reader for a typed reference. It opens in the translation chosen on
+ * the search page, or in the translations last read if that one is among
+ * them (so a comparison stays a comparison) or "All translations" is chosen.
+ */
+function referenceHref(reference, prefs, translationId = null) {
+  const { book, chapter, verse, verseEnd } = reference;
+  const lastRead = selectionFromPrefs(prefs);
+  const ids = !translationId || translationId === ALL_TRANSLATIONS || lastRead.includes(translationId) ? lastRead : [translationId];
+  return chapterHref(book, chapter, verse, selectionQuery(ids), verseEnd);
+}
+
+/** Before leaving a search page: remember the scroll position and results shown. */
+function rememberSearchPlace() {
+  if (currentRoute?.view !== 'search' || !search || !main.contains(search.view.element)) return;
+  searchPlaces.set(search.hash, { y: window.scrollY, loaded: search.view.loadedCount(), focusHref: searchClickedHref });
+  searchClickedHref = null;
+}
+
+function selectedTranslations(params, translations) {
+  return params.t === ALL_TRANSLATIONS ? translations : translations.filter((info) => info.id === params.t);
+}
+
+async function showSearchPage(route, isCurrent, rerender = false) {
+  let state;
+  try {
+    state = await translationState();
+  } catch (error) {
+    if (isCurrent()) showLoadFailure(error);
+    return;
+  }
+  if (!isCurrent()) return;
+  const translations = state.translations.filter(isSearchable);
+  const params = readSearchParams(route.params, translations.map((info) => info.id));
+
+  // "Jn 3:16", "Romans 8": open the passage rather than search for the words.
+  const reference = params.q ? parseReference(params.q) : null;
+  if (reference) {
+    navigate(referenceHref(reference, state.prefs, params.t), { replace: true });
+    return;
+  }
+
+  // No translation named: search the one being read. The URL then says so.
+  params.t ??= selectionFromPrefs(state.prefs).find((id) => translations.some((info) => info.id === id)) ?? translations[0].id;
+  const hash = searchHref(params);
+  if (window.location.hash !== hash) replaceHash(hash);
+  currentRoute = { ...route, params: { ...route.params, t: params.t } };
+
+  const place = searchPlaces.get(hash) ?? null;
+  searchPlaces.delete(hash);
+  const title = params.q ? `${params.q} · ${t('title.search')}` : t('title.search');
+
+  let view;
+  if (search && main.contains(search.view.element) && !rerender) {
+    // Same page, new search (or Back to an earlier one): keep the form.
+    view = search.view;
+    view.setParams(params);
+    document.title = `${title} · ${t('app.name')}`;
+  } else {
+    view = createSearchView({
+      params,
+      translations,
+      onSubmit: submitSearch,
+      // Options change the search on screen; Back goes to the previous search, not each tweak.
+      onChange: (next) => navigate(searchHref(next), { replace: true }),
+      onMore: loadMoreResults,
+    });
+  }
+  // A new object per search: async work started for an older one checks
+  // `search === current` and gives up when it no longer is.
+  search = { view, hash, params, translations, query: parseQuery(params.q, params.match) };
+  if (!main.contains(view.element)) {
+    mount(view.element, { title, preserve: rerender || Boolean(place) });
+    // A new, empty search page: ready to type.
+    if (!params.q && !rerender) view.input.focus({ preventScroll: true });
+  }
+
+  // Index the chosen translation(s) while the reader types.
+  searchClient.prepare(selectedTranslations(params, translations));
+
+  const shown = await runSearch({ limit: Math.max(SEARCH_PAGE_SIZE, place?.loaded ?? 0) });
+  if (shown && place && isCurrent()) {
+    window.scrollTo(0, place.y);
+    const link = place.focusHref && [...main.querySelectorAll('.search-results a')].find((a) => a.getAttribute('href') === place.focusHref);
+    link?.focus({ preventScroll: true });
+  }
+}
+
+function submitSearch(params) {
+  const reference = params.q ? parseReference(params.q) : null;
+  if (reference) {
+    translationState()
+      .then(({ prefs }) => navigate(referenceHref(reference, prefs, params.t)))
+      .catch(() => navigate(chapterHref(reference.book, reference.chapter, reference.verse, '', reference.verseEnd)));
+    return;
+  }
+  navigate(searchHref(params));
+}
+
+/** "Downloading the King James Version… (2 of 7)" */
+function progressText({ phase, id, step, steps }) {
+  const name = search?.translations.find((info) => info.id === id)?.name ?? id;
+  const text = t(phase === 'loading' ? 'search.loading' : 'search.indexing', { name });
+  return steps > 1 ? t('search.step', { text, n: step, total: steps }) : text;
+}
+
+/** Run the search on screen. Resolves true once results are shown. */
+async function runSearch({ limit = SEARCH_PAGE_SIZE } = {}) {
+  const current = search;
+  const { view, params, query, translations } = current;
+  const book = bookOnly(params.q);
+  const bookSuggestion = book ? bookSuggestionLink(book) : null;
+  if (query.clauses.length === 0) {
+    view.setStatus('');
+    view.showTips({ bookSuggestion });
+    return false;
+  }
+
+  // "Searching…" only if it takes a moment (the first search builds the index).
+  const slow = setTimeout(() => view.setStatus(t('search.searching')), 200);
+  try {
+    const page = await searchClient.search(
+      { translations: selectedTranslations(params, translations), text: params.q, match: params.match, scope: params.in, offset: 0, limit },
+      { onProgress: (progress) => search === current && view.setStatus(progressText(progress)) },
+    );
+    if (!page || search !== current) return false; // a newer search took over
+    view.showResults({ params, query, ...page, bookSuggestion });
+    view.setStatus(page.total ? summaryText(page.total, page.books.length) : t('search.none', { q: params.q }));
+    return true;
+  } catch (error) {
+    console.error(error);
+    if (search !== current) return false;
+    view.setStatus('');
+    view.showError(error, () => runSearch({ limit }));
+    return false;
+  } finally {
+    clearTimeout(slow);
+  }
+}
+
+async function loadMoreResults() {
+  const current = search;
+  const { view, params, query, translations } = current;
+  try {
+    const page = await searchClient.search({
+      translations: selectedTranslations(params, translations),
+      text: params.q,
+      match: params.match,
+      scope: params.in,
+      offset: view.loadedCount(),
+      limit: SEARCH_PAGE_SIZE,
+    });
+    if (!page || search !== current) return;
+    // Keyboard users carry on from the first new result.
+    view.showResults({ params, query, ...page })?.focus();
+  } catch (error) {
+    console.error(error);
+    view.setStatus(t('search.failed'));
   }
 }
 
@@ -377,6 +570,17 @@ function isTypingTarget(target) {
 }
 
 function onKeydown(event) {
+  // "/" searches, as on many sites.
+  if (event.key === '/' && !event.defaultPrevented && !event.ctrlKey && !event.metaKey && !event.altKey && !isTypingTarget(event.target)) {
+    event.preventDefault();
+    if (currentRoute?.view === 'search' && search) {
+      search.view.input.focus();
+      search.view.input.select();
+    } else {
+      navigate(searchHref());
+    }
+    return;
+  }
   if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
   // Leave browser shortcuts alone (Alt+← is "Back") and form controls (the
   // translation dropdowns and theme buttons use arrow keys). Ignore
@@ -404,6 +608,12 @@ async function boot() {
   });
   header = initHeader(document.getElementById('app-header'), { isPinned: settingsPanel.isOpen });
   selectionTranslate = initSelectionTranslate({ root: main, getRussianVerses });
+  searchClient = createSearchClient();
+  // Which result was opened, to put focus back on it after Back.
+  main.addEventListener('click', (event) => {
+    const link = event.target.closest?.('.search-results a[href]');
+    if (link) searchClickedHref = link.getAttribute('href');
+  });
   translationControl = initTranslationControl(document.getElementById('translation-control'), {
     onSelect: (id) => changeTranslations([id], 'header-translation'),
     onToggleCompare: toggleCompare,
