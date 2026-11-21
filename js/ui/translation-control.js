@@ -7,6 +7,7 @@
  * hides and the toggle shows as pressed. The decisions about what to show
  * belong to main.js; this module only reports what the reader asked for.
  */
+import { getLanguage, t } from '../i18n.js';
 import { el, icon, ICONS } from './dom.js';
 import { createTranslationSelect } from './translation-select.js';
 
@@ -16,6 +17,7 @@ import { createTranslationSelect } from './translation-select.js';
  */
 export function initTranslationControl(root, { onSelect, onToggleCompare }) {
   const slot = el('span', { class: 'translation-select-slot' });
+  const compareText = el('span', { class: 'compare-text' });
   const toggle = el(
     'button',
     {
@@ -23,11 +25,10 @@ export function initTranslationControl(root, { onSelect, onToggleCompare }) {
       class: 'compare-toggle',
       'aria-pressed': 'false',
       'data-focus-key': 'compare-toggle',
-      title: 'Compare translations side by side',
       onclick: () => onToggleCompare(),
     },
     icon(ICONS.columns, { size: 20 }),
-    el('span', { class: 'compare-text' }, 'Compare'),
+    compareText,
   );
   root.replaceChildren(slot, toggle);
 
@@ -35,17 +36,23 @@ export function initTranslationControl(root, { onSelect, onToggleCompare }) {
   let listKey = '';
 
   return {
-    /** Show the current selection (ids: 1 = single, 2–4 = comparing). */
+    /**
+     * Show the current selection (ids: 1 = single, 2–4 = comparing).
+     * `translations` are already in the interface language (main.js).
+     */
     update({ translations, ids }) {
-      // Rebuild the options only if the list changed, so a focused dropdown
-      // keeps its focus while the page updates.
-      const key = translations.map((t) => t.id).join(',');
+      compareText.textContent = t('compare.button');
+      toggle.title = t('compare.title');
+
+      // Rebuild the options only if the list or the language changed, so a
+      // focused dropdown keeps its focus while the page updates.
+      const key = `${getLanguage()}:${translations.map((info) => info.id).join(',')}`;
       if (key !== listKey) {
         listKey = key;
         select = createTranslationSelect({
           translations,
           value: ids[0],
-          label: 'Translation',
+          label: t('translation.label'),
           focusKey: 'header-translation',
           onChange: onSelect,
         });

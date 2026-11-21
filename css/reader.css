@@ -27,6 +27,9 @@
 }
 
 .scripture {
+  /* Resolved here, not inherited: the verses carry the translation's `lang`,
+     which may differ from the interface's (base.css picks the stack). */
+  font-family: var(--font-scripture);
   line-height: var(--reader-line-height);
   /* Keep long words (and long URLs, later) from overflowing on phones. */
   overflow-wrap: break-word;

@@ -23,6 +23,9 @@
  * @property {{ name: string, psalm: string, psalms: string }} [numbering]
  *   For a translation with its own numbering: what to call it ("Synodal numbering") and the
  *   words for labelling its Psalm numbers ("Псалом", "Псалмы"). See views/numbering.js.
+ * @property {Record<string, object>} [i18n]
+ *   Interface-language versions of the fields above, e.g. i18n.ru = { name, license, copyright,
+ *   description, numbering: { name } }. Applied by i18n.js localizeTranslation().
  * @property {string} [url]            json provider: the data file
  * @property {string} [version]        json provider: content hash, used as the cache key
  *

@@ -25,6 +25,16 @@ test('translations.json is well formed', () => {
   }
 });
 
+test('every translation has Russian metadata for the Russian interface', () => {
+  for (const info of manifest.translations) {
+    const ru = info.i18n?.ru;
+    assert.ok(ru, `${info.id}: needs i18n.ru`);
+    for (const field of ['license', 'copyright', 'description']) {
+      assert.ok(typeof ru[field] === 'string' && /[А-Яа-я]/.test(ru[field]), `${info.id}: i18n.ru.${field} in Russian`);
+    }
+  }
+});
+
 test('the public-domain translations are all present', () => {
   assert.deepEqual(
     manifest.translations.map((t) => t.id),
