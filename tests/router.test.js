@@ -95,3 +95,23 @@ test('#/translations is a page, not a book', () => {
 test('page names are not used by any book alias', () => {
   for (const name of Object.keys(PAGES)) assert.equal(findBook(name), null, `"${name}" must not match a book`);
 });
+
+test('verse ranges: #/psalms/23/1-4', () => {
+  const range = resolveRoute('#/psalms/23/1-4');
+  assert.deepEqual([range.view, range.chapter, range.verse, range.verseEnd, range.redirect], ['reader', 23, 1, 4, undefined]);
+  assert.equal(resolveRoute('#/ps/23/1–4').redirect, '#/psalms/23/1-4'); // en dash, alias
+  assert.equal(resolveRoute('#/john/3/16-12').redirect, '#/john/3/16'); // backwards: just the first verse
+  assert.equal(resolveRoute('#/john/3/16-16').redirect, '#/john/3/16');
+  assert.equal(resolveRoute('#/john/3/16-x').redirect, '#/john/3/16');
+  assert.equal(resolveRoute('#/john/3/16').verseEnd, null);
+  assert.equal(chapterHref(getBook('PSA'), 23, 1, 't=kjv', 4), '#/psalms/23/1-4?t=kjv');
+  assert.equal(chapterHref(getBook('PSA'), 23, 1, '', 1), '#/psalms/23/1');
+  assert.equal(chapterHref(getBook('PSA'), 23, null, '', 4), '#/psalms/23');
+});
+
+test('the search page keeps its query', () => {
+  const route = resolveRoute('#/search?q=in+the+beginning&t=kjv');
+  assert.equal(route.view, 'search');
+  assert.equal(route.params.q, 'in the beginning');
+  assert.equal(resolveRoute('#/Search?q=x').redirect, '#/search?q=x');
+});

@@ -373,7 +373,7 @@
     letter-spacing: 0.02em;
   }
 
-  .icon-button#settings-button {
+  .header-actions .icon-button {
     width: 2.4rem;
   }
 
@@ -386,6 +386,19 @@
 
   .location-chevron {
     display: none;
+  }
+}
+
+/* Phones, on a reader page: the language switch shows only the other
+   language ("ENG" while reading in Russian), a one-tap switch, so the
+   chapter name keeps room next to the search and settings buttons. */
+@media (max-width: 28rem) {
+  .app-header-inner:has(> .location:not([hidden])) .lang-button[aria-pressed="true"] {
+    display: none;
+  }
+
+  .app-header-inner:has(> .location:not([hidden])) .header-actions .icon-button {
+    width: 2.25rem;
   }
 }
 
@@ -403,8 +416,13 @@
 }
 
 .icon-button:hover,
-.icon-button[aria-expanded="true"] {
+.icon-button[aria-expanded="true"],
+.icon-button[aria-current="page"] {
   background: var(--color-surface-hover);
+}
+
+.icon-button[aria-current="page"] {
+  color: var(--color-accent);
 }
 
 .icon-aa {

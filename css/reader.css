@@ -80,6 +80,36 @@
   color: var(--color-text-muted);
 }
 
+/* After a jump from search, the target verse(s) pulse once, then settle on
+   the usual highlight (js/views/reader.js removes the class afterwards).
+   With reduced motion, base.css cuts the animation to nothing, leaving the
+   steady highlight. Also used by .prow in parallel view. */
+@keyframes verse-flash {
+  0% {
+    background-color: var(--color-highlight);
+    box-shadow: 0 0 0 0.3em var(--color-highlight);
+  }
+  15%,
+  45% {
+    background-color: var(--color-flash);
+    box-shadow: 0 0 0 0.3em var(--color-flash);
+  }
+  100% {
+    background-color: var(--color-highlight);
+    box-shadow: 0 0 0 0.3em var(--color-highlight);
+  }
+}
+
+.is-target.is-flash {
+  animation: verse-flash 2s ease-out;
+}
+
+/* Muted numbers fall below AA on the stronger flash colour (sepia, dark), so
+   they take the full text colour while it lasts. */
+:is(.verse, .prow).is-target.is-flash :is(.vnum, .pnum) {
+  color: var(--color-text);
+}
+
 @media (max-width: 30rem) {
   .reader {
     padding: 1.75rem 1rem 4rem;

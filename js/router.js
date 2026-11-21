@@ -11,7 +11,9 @@
  *   #/john        chapters  the chapter grid for one book
  *   #/john/3      reader    John 3
  *   #/john/3/16   reader    John 3, scrolled to verse 16
+ *   #/psalms/23/1-4  reader  Psalm 23, verses 1–4 highlighted
  *   #/translations  translations  about each translation and its licence
+ *   #/search?q=…  search    full-text search (parameters: js/search/params.js)
  *
  * Anything after "?" is parsed into `route.params`. The reader uses ?t= for
  * its translations (#/john/3?t=kjv,asv); see js/translations.js.
@@ -28,16 +30,20 @@ export function bookHref(book) {
   return `#/${book.slug}`;
 }
 
-/** `query` is appended after "?" when given, e.g. "t=kjv,asv". */
-export function chapterHref(book, chapter, verse = null, query = '') {
-  return `#/${book.slug}/${chapter}${verse ? `/${verse}` : ''}${query ? `?${query}` : ''}`;
+/**
+ * `query` is appended after "?" when given, e.g. "t=kjv,asv". `verseEnd`
+ * (after `verse`) makes a verse range: #/psalms/23/1-4.
+ */
+export function chapterHref(book, chapter, verse = null, query = '', verseEnd = null) {
+  const verses = verse ? `/${verse}${verseEnd > verse ? `-${verseEnd}` : ''}` : '';
+  return `#/${book.slug}/${chapter}${verses}${query ? `?${query}` : ''}`;
 }
 
 /**
  * Pages that aren't books. Their names are reserved, so no book alias may
  * use them; tests/router.test.js checks.
  */
-export const PAGES = Object.freeze({ translations: 'translations' });
+export const PAGES = Object.freeze({ translations: 'translations', search: 'search' });
 
 export function pageHref(name) {
   return `#/${name}`;
@@ -102,17 +108,31 @@ export function resolveRoute(hash) {
 
   // "Jude 3" usually means verse 3 of Jude's only chapter.
   if (book.chapters === 1 && number > 1 && versePart === undefined) {
-    return { ...base, view: 'reader', book, chapter: 1, verse: number, redirect: chapterHref(book, 1, number) + suffix };
+    return { ...base, view: 'reader', book, chapter: 1, verse: number, verseEnd: null, redirect: chapterHref(book, 1, number) + suffix };
   }
 
   if (!isValidChapter(book, number)) {
     return { ...base, view: 'not-found', reason: 'chapter', book, query: chapterPart };
   }
 
-  // An unreadable verse ("#/john/3/abc") is dropped by the canonical redirect.
-  // Whether the verse exists is checked by the reader once the text loads.
-  const verse = versePart === undefined ? null : toPositiveInt(versePart);
-  return withCanonical({ ...base, view: 'reader', book, chapter: number, verse }, chapterHref(book, number, verse) + suffix, raw);
+  // An unreadable verse ("#/john/3/abc") is dropped by the canonical redirect,
+  // as is a range that runs backwards ("16-12" → "16"). Whether the verses
+  // exist is checked by the reader once the text loads.
+  const { verse, verseEnd } = parseVerses(versePart);
+  return withCanonical(
+    { ...base, view: 'reader', book, chapter: number, verse, verseEnd },
+    chapterHref(book, number, verse, '', verseEnd) + suffix,
+    raw,
+  );
+}
+
+/** "16" → 16; "1-4" (or "1–4") → 1 to 4. */
+function parseVerses(text) {
+  if (text === undefined) return { verse: null, verseEnd: null };
+  const [first, last] = text.split(/[-–]/);
+  const verse = toPositiveInt(first);
+  const end = last === undefined ? null : toPositiveInt(last);
+  return { verse, verseEnd: verse && end > verse ? end : null };
 }
 
 function withCanonical(route, canonicalHash, raw) {

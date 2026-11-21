@@ -254,10 +254,12 @@ export function createReaderView({ book, chapter, columns, translations, query =
     /**
      * Render the text. `results` has one entry per column:
      * { info, chapter: Chapter|null, error: Error|null }.
-     * Returns the element for `verse` (highlighted) if it exists, so the
-     * caller can scroll to it.
+     * `verse` (to `verseEnd`, for a range) is highlighted; with `flash` it
+     * also pulses briefly, to catch the eye after a jump from search.
+     * Returns the element for `verse` if it exists, so the caller can
+     * scroll to it.
      */
-    show(results, { verse = null } = {}) {
+    show(results, { verse = null, verseEnd = null, flash = false } = {}) {
       if (parallel) {
         fillParallel(results);
         renderNumbering(results);
@@ -267,10 +269,21 @@ export function createReaderView({ book, chapter, columns, translations, query =
       renderNotices(results);
       article.removeAttribute('aria-busy');
 
-      const target = verse ? content.querySelector(`#v${verse}`) : null;
-      if (!target) return null;
-      target.classList.add('is-target');
-      target.tabIndex = -1;
+      if (!verse) return null;
+      const last = verseEnd > verse ? verseEnd : verse;
+      const targets = [...content.querySelectorAll('[data-verse]')].filter((node) => {
+        const number = Number(node.dataset.verse);
+        return number >= verse && number <= last;
+      });
+      for (const node of targets) {
+        node.classList.add('is-target');
+        if (flash) {
+          node.classList.add('is-flash');
+          node.addEventListener('animationend', () => node.classList.remove('is-flash'), { once: true });
+        }
+      }
+      const target = targets[0] ?? null;
+      if (target) target.tabIndex = -1;
       return target;
     },
 
