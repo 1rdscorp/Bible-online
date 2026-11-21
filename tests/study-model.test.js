@@ -4,9 +4,13 @@ import {
   applyHighlight,
   createItem,
   filterItems,
+  findSpan,
   highlightsByVerse,
   isValidRef,
   makeRef,
+  markQuote,
+  marksCoveredBy,
+  marksOverlapping,
   normalizeTags,
   sanitizeItem,
   tagCounts,
@@ -79,4 +83,41 @@ test('My Study filters and sorting', () => {
   assert.deepEqual(refs(filterItems(items, { text: 'work TOGETHER' })), ['note:ROM']);
   assert.deepEqual(refs(filterItems(items, { text: 'елка' })), ['note:JHN'], 'ё = е');
   assert.deepEqual(tagCounts(items), [['love', 1], ['promise', 2]]);
+});
+
+const mark = (spans, color = 'yellow', translation = 'kjv') =>
+  createItem('mark', makeRef('JHN', 3, Math.min(...spans.map((x) => x.verse)), Math.max(...spans.map((x) => x.verse))), { translation, color, spans }, T);
+
+test('word highlights: checked on import, quoted, found again if the text moved', () => {
+  const loved = mark([{ verse: 16, start: 8, end: 26, text: 'so loved the world' }]);
+  assert.deepEqual(sanitizeItem(loved), loved);
+  assert.equal(markQuote(mark([{ verse: 16, start: 0, end: 3, text: 'For' }, { verse: 17, start: 0, end: 3, text: 'For' }])), 'For For');
+  assert.equal(sanitizeItem({ ...loved, translation: 'KJV <x>' }), null, 'translation id');
+  assert.equal(sanitizeItem({ ...loved, spans: [] }), null);
+  assert.equal(sanitizeItem({ ...loved, spans: [{ verse: 16, start: 8, end: 26, text: 'short' }] }), null, 'text must match the span');
+  assert.equal(sanitizeItem({ ...loved, spans: [{ verse: 20, start: 0, end: 3, text: 'For' }] }), null, 'verse outside the ref');
+  assert.equal(sanitizeItem({ ...loved, color: 'red' }), null);
+
+  const text = 'For God so loved the world, that he gave';
+  assert.deepEqual(findSpan(text, loved.spans[0]), { start: 8, end: 26 });
+  assert.deepEqual(findSpan(`Indeed, ${text}`, loved.spans[0]), { start: 16, end: 34 }, 'moved: found again');
+  assert.equal(findSpan('Something else entirely', loved.spans[0]), null);
+});
+
+test('word highlights: overlap and replacement are per translation', () => {
+  const a = mark([{ verse: 16, start: 8, end: 16, text: 'so loved' }]);
+  const b = mark([{ verse: 16, start: 21, end: 26, text: 'world' }], 'green');
+  const other = mark([{ verse: 16, start: 8, end: 16, text: 'so loved' }], 'blue', 'asv');
+  const selection = [{ verse: 16, start: 0, end: 20, text: 'For God so loved the' }];
+  assert.deepEqual(marksOverlapping([a, b, other], 'kjv', makeRef('JHN', 3, 16), selection).map((m) => m.id), [a.id]);
+  assert.deepEqual(marksCoveredBy([a, b, other], 'kjv', makeRef('JHN', 3, 16), selection).map((m) => m.id), [a.id]);
+  assert.deepEqual(marksCoveredBy([b], 'kjv', makeRef('JHN', 3, 16), [{ verse: 16, start: 22, end: 30, text: 'orld, th' }]), [], 'partly covered: kept');
+});
+
+test('My Study counts word highlights as highlights, by colour and words', () => {
+  const words = mark([{ verse: 16, start: 8, end: 26, text: 'so loved the world' }], 'pink');
+  const items = [words, hl(1, 1, 'pink'), createItem('note', makeRef('JHN', 3, 2), { text: 'x' }, T)];
+  assert.deepEqual(filterItems(items, { type: 'highlight' }).map((i) => i.type), ['highlight', 'mark']);
+  assert.deepEqual(filterItems(items, { color: 'pink' }).map((i) => i.type), ['highlight', 'mark']);
+  assert.deepEqual(filterItems(items, { text: 'loved' }).map((i) => i.type), ['mark']);
 });

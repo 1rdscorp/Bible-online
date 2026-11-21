@@ -12,21 +12,25 @@ import { getBook } from '../canon.js';
 import { bookName, t } from '../i18n.js';
 import { chapterHref, navigate, pageHref, PAGES, replaceHash } from '../router.js';
 import { backupFileName, makeBackup, readBackup } from '../study/backup.js';
-import { booksWithItems, filterItems, HIGHLIGHT_COLORS, ITEM_TYPES, tagCounts } from '../study/model.js';
+import { booksWithItems, filterItems, findSpan, HIGHLIGHT_COLORS, tagCounts } from '../study/model.js';
 import { noteToPlainText } from '../study/richtext.js';
 import { selectionFromPrefs, selectionQuery } from '../translations.js';
 import { truncate } from '../translate/text.js';
 import { el, icon, ICONS } from '../ui/dom.js';
 import { createNoteEditor, renderNote } from '../ui/note-editor.js';
+import { markedNodes } from '../ui/text-ranges.js';
 import { formatDate, refLabel } from '../ui/notes-panel.js';
 
+// The filter's kinds; "Highlights" covers verse and word highlights alike.
+const TYPES = ['highlight', 'note', 'bookmark'];
 const TYPE_LABELS = { highlight: 'study.typeHighlights', note: 'study.typeNotes', bookmark: 'study.typeBookmarks' };
+const isHighlight = (item) => item.type === 'highlight' || item.type === 'mark';
 const PREVIEW_CHARS = 320;
 
 /** Read the filters from the URL; unknown values are dropped. */
 export function readStudyParams(params = {}) {
   return {
-    type: ITEM_TYPES.includes(params.type) ? params.type : '',
+    type: TYPES.includes(params.type) ? params.type : '',
     color: HIGHLIGHT_COLORS.includes(params.color) ? params.color : '',
     book: getBook(params.book)?.id ?? '',
     tag: typeof params.tag === 'string' ? params.tag.trim().toLowerCase().slice(0, 40) : '',
@@ -75,7 +79,6 @@ function createStudyPage({ filters: initial, store, toaster, state, getProvider,
   const ids = selectionFromPrefs(state.prefs);
   const previewInfo = state.translations.find((info) => info.id === ids[0]) ?? state.translations[0];
   const linkQuery = selectionQuery(ids);
-  const previews = new Map(); // "JHN 3 16-18" → text
   let editingId = null;
 
   const heading = el('h1', { class: 'view-title', id: 'view-title', tabindex: '-1' }, t('study.myStudy'));
@@ -118,7 +121,7 @@ function createStudyPage({ filters: initial, store, toaster, state, getProvider,
       el(
         'div',
         { class: 'segmented' },
-        ['', ...ITEM_TYPES].map((type) =>
+        ['', ...TYPES].map((type) =>
           el(
             'label',
             { class: 'segment' },
@@ -185,30 +188,47 @@ function createStudyPage({ filters: initial, store, toaster, state, getProvider,
 
   /* -------- the list -------- */
 
-  function previewKey(ref) {
-    return `${ref.book} ${ref.chapter} ${ref.start}-${ref.end}`;
-  }
+  const infoFor = (id) => state.translations.find((info) => info.id === id) ?? previewInfo;
 
-  async function loadPreview(ref, target) {
-    const key = previewKey(ref);
-    if (previews.has(key)) {
-      target.textContent = previews.get(key);
-      return;
-    }
+  /**
+   * The verses' text, in the translation being read, or for a word
+   * highlight in its own translation, with its words marked.
+   */
+  async function loadPreview(item, target) {
+    const info = item.type === 'mark' ? infoFor(item.translation) : previewInfo;
+    const { ref } = item;
     try {
-      const data = await (await getProvider(previewInfo.id)).getChapter(ref.book, ref.chapter);
-      const text = (data?.verses ?? [])
-        .filter((verse) => verse.number >= ref.start && verse.number <= ref.end)
-        .map((verse) => (ref.end > ref.start ? `${verse.number} ${verse.text}` : verse.text))
-        .join(' ');
-      previews.set(key, truncate(text, PREVIEW_CHARS));
-      target.textContent = previews.get(key);
+      const data = await (await getProvider(info.id)).getChapter(ref.book, ref.chapter);
+      const verses = (data?.verses ?? []).filter((verse) => verse.number >= ref.start && verse.number <= ref.end);
+      if (item.type !== 'mark') {
+        const text = verses.map((verse) => (ref.end > ref.start ? `${verse.number} ${verse.text}` : verse.text)).join(' ');
+        target.textContent = truncate(text, PREVIEW_CHARS);
+        return;
+      }
+      // Each verse with its marked words (not shortened, so they stay visible).
+      target.replaceChildren(
+        ...verses.flatMap((verse, i) => {
+          const ranges = item.spans.filter((span) => span.verse === verse.number).flatMap((span) => {
+            const found = findSpan(verse.text, span);
+            return found ? [{ ...found, color: item.color }] : [];
+          });
+          return [i ? ' ' : '', ref.end > ref.start ? `${verse.number} ` : '', ...markedNodes(verse.text, ranges)];
+        }),
+      );
     } catch {
       target.remove();
     }
   }
 
   function kindLabel(item) {
+    if (item.type === 'mark') {
+      return el(
+        'span',
+        { class: `study-kind study-kind--${item.color}` },
+        el('span', { class: 'study-dot', 'aria-hidden': 'true' }),
+        t('study.markKind', { color: t(`study.colorIn.${item.color}`), abbr: infoFor(item.translation).abbreviation }),
+      );
+    }
     if (item.type === 'highlight') {
       return el('span', { class: `study-kind study-kind--${item.color}` }, el('span', { class: 'study-dot', 'aria-hidden': 'true' }), t('study.highlightedKind', { color: t(`study.colorIn.${item.color}`) }));
     }
@@ -219,8 +239,11 @@ function createStudyPage({ filters: initial, store, toaster, state, getProvider,
   function itemRow(item) {
     const book = getBook(item.ref.book);
     const label = refLabel(item.ref);
-    const preview = el('blockquote', { class: 'study-verse', lang: previewInfo.language || null }, '…');
-    loadPreview(item.ref, preview);
+    const previewLanguage = (item.type === 'mark' ? infoFor(item.translation) : previewInfo).language;
+    const preview = el('blockquote', { class: 'study-verse', lang: previewLanguage || null }, '…');
+    loadPreview(item, preview);
+    // A word highlight opens in its own translation.
+    const query = item.type === 'mark' ? `t=${item.translation}` : linkQuery;
     const body = item.type === 'note' ? el('div', { class: 'note-body' }, renderNote(item.text)) : null;
     const tags = item.tags?.length
       ? el('p', { class: 'note-tags' }, item.tags.map((tag) => el('a', { class: 'note-tag', href: studyHref({ ...filters, tag }) }, `#${tag}`)))
@@ -231,7 +254,7 @@ function createStudyPage({ filters: initial, store, toaster, state, getProvider,
       el(
         'div',
         { class: 'study-item-head' },
-        el('a', { class: 'study-ref', href: chapterHref(book, item.ref.chapter, item.ref.start, linkQuery, item.ref.end) }, label),
+        el('a', { class: 'study-ref', href: chapterHref(book, item.ref.chapter, item.ref.start, query, item.ref.end) }, label),
         kindLabel(item),
       ),
       preview,
@@ -259,6 +282,7 @@ function createStudyPage({ filters: initial, store, toaster, state, getProvider,
   }
 
   function kindText(item) {
+    if (item.type === 'mark') return t('study.markKindShort');
     return item.type === 'highlight' ? t('study.highlightKind') : item.type === 'note' ? t('study.noteKind') : t('study.bookmarkKind');
   }
 
@@ -310,7 +334,7 @@ function createStudyPage({ filters: initial, store, toaster, state, getProvider,
 
   function renderSummary() {
     const items = store.all();
-    const n = (type) => items.filter((item) => item.type === type).length;
+    const n = (type) => items.filter((item) => (type === 'highlight' ? isHighlight(item) : item.type === type)).length;
     summary.textContent = items.length
       ? [t('study.countHighlights', { n: n('highlight') }), t('study.countNotes', { n: n('note') }), t('study.countBookmarks', { n: n('bookmark') })].join(' · ')
       : t('study.intro');
@@ -395,7 +419,7 @@ function createStudyPage({ filters: initial, store, toaster, state, getProvider,
     });
 
     function showConfirm(result) {
-      const n = (type) => result.items.filter((item) => item.type === type).length;
+      const n = (type) => result.items.filter((item) => (type === 'highlight' ? isHighlight(item) : item.type === type)).length;
       const mode = el('fieldset', { class: 'study-backup-mode' },
         el('legend', { class: 'search-option-label' }, t('backup.how')),
         el('label', {}, el('input', { type: 'radio', name: 'backup-mode', value: 'merge', checked: true }), ' ', t('backup.merge')),

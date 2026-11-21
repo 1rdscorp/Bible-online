@@ -18,6 +18,28 @@
 :is(.verse, .prow)[data-highlight="pink"] .vtext { background: var(--hl-pink); }
 :is(.verse, .prow)[data-highlight="orange"] .vtext { background: var(--hl-orange); }
 
+/* Word highlights: just the words, in the translation they were made in
+   (js/ui/text-ranges.js). They sit on top of a verse highlight. */
+.word-mark {
+  padding: 0.06em 0;
+  border-radius: 3px;
+  color: inherit;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.word-mark[data-color="yellow"] { background: var(--hl-yellow); }
+.word-mark[data-color="green"] { background: var(--hl-green); }
+.word-mark[data-color="blue"] { background: var(--hl-blue); }
+.word-mark[data-color="pink"] { background: var(--hl-pink); }
+.word-mark[data-color="orange"] { background: var(--hl-orange); }
+
+/* Over a verse highlight, a thin underline keeps the marked words visible
+   even in the same colour. */
+:is(.verse, .prow)[data-highlight] .word-mark {
+  box-shadow: inset 0 -2px 0 var(--color-border-strong);
+}
+
 /* Selected verses: a dotted underline (works on top of a highlight too),
    and the number in the accent colour. */
 :is(.verse, .prow).is-selected .vtext {

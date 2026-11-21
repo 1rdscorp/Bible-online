@@ -12,7 +12,7 @@
  */
 import { storage as defaultStorage } from '../storage.js';
 import { mergeItems } from './backup.js';
-import { applyHighlight, createItem, normalizeTags, sameRef, sanitizeItem } from './model.js';
+import { applyHighlight, createItem, marksCoveredBy, marksOverlapping, normalizeTags, sameRef, sanitizeItem } from './model.js';
 
 export const STUDY_KEY = 'study';
 const STUDY_VERSION = 1;
@@ -80,6 +80,24 @@ export function createStudyStore({ storage = defaultStorage, now = () => new Dat
     highlight(ref, color) {
       const { remove, add } = applyHighlight(items, ref, color, now());
       return commit({ remove, put: add }, { type: 'highlight', ref });
+    },
+
+    /**
+     * Highlight particular words in one translation. Word highlights wholly
+     * inside the new one are replaced; others that overlap stay underneath.
+     */
+    addMark(translation, ref, spans, color) {
+      const replaced = marksCoveredBy(items, translation, ref, spans).map((item) => item.id);
+      const item = createItem('mark', ref, { translation, spans, color }, now());
+      return commit({ remove: replaced, put: [item] }, { type: 'mark', ref }).then((result) => ({ ...result, item }));
+    },
+
+    /** Remove the word highlights touching `spans`; resolves them (for Undo). */
+    async removeMarks(translation, ref, spans) {
+      await load();
+      const removed = marksOverlapping(items, translation, ref, spans);
+      if (removed.length) await commit({ remove: removed.map((item) => item.id) }, { type: 'mark', ref });
+      return removed;
     },
 
     addNote(ref, { text = '', tags = [] } = {}) {

@@ -2,14 +2,21 @@
  * Study data model: highlights, notes and bookmarks, and the verse
  * references they are attached to.
  *
- * Every item points at verses, not at text: { book, chapter, start, end },
- * in the English verse numbering that every translation on the site is
- * converted to (see data/README.md). So an item shows on the same verses in
- * any translation, alone or side by side.
+ * Every item points at verses: { book, chapter, start, end }, in the
+ * English verse numbering that every translation on the site is converted
+ * to (see data/README.md). So a verse highlight, note or bookmark shows on
+ * the same verses in any translation, alone or side by side.
  *
- *   { id, type: 'highlight', ref, color,               created, updated }
- *   { id, type: 'note',      ref, text, tags: [],      created, updated }
- *   { id, type: 'bookmark',  ref,                      created, updated }
+ *   { id, type: 'highlight', ref, color,                      created, updated }
+ *   { id, type: 'mark',      ref, color, translation, spans,  created, updated }
+ *   { id, type: 'note',      ref, text, tags: [],             created, updated }
+ *   { id, type: 'bookmark',  ref,                             created, updated }
+ *
+ * A 'mark' highlights particular words, so it belongs to one translation
+ * (the words differ between translations): `spans` lists, per verse, the
+ * characters it covers in that translation's verse text, with the words
+ * themselves ([{ verse, start, end, text }]) so a mark never lands on the
+ * wrong words if the text is ever corrected (see findSpan).
  *
  * `text` is a note in the simple markup of richtext.js. Times are ISO
  * strings. Ids are random, so items made on different devices never
@@ -24,7 +31,7 @@
 import { BOOKS, getBook } from '../canon.js';
 
 export const HIGHLIGHT_COLORS = Object.freeze(['yellow', 'green', 'blue', 'pink', 'orange']);
-export const ITEM_TYPES = Object.freeze(['highlight', 'note', 'bookmark']);
+export const ITEM_TYPES = Object.freeze(['highlight', 'mark', 'note', 'bookmark']);
 
 // Limits for imported data: generous for real use, small enough that a bad
 // file can't fill the device's storage.
@@ -32,6 +39,8 @@ export const MAX_NOTE_LENGTH = 20000;
 export const MAX_TAGS = 20;
 export const MAX_TAG_LENGTH = 40;
 const MAX_VERSE = 200; // Psalm 119 has 176
+const MAX_SPANS = 200;
+const MAX_VERSE_LENGTH = 10000; // characters; the longest verse here is ~6,800 (Greek Daniel 3:23)
 
 /* ---------------------------------------------------------------------- */
 /* References                                                              */
@@ -124,7 +133,13 @@ export function createItem(type, ref, fields = {}, now = new Date().toISOString(
   const base = { id: newId(), type, ref: { ...ref }, created: now, updated: now };
   if (type === 'highlight') return { ...base, color: fields.color };
   if (type === 'note') return { ...base, text: String(fields.text ?? ''), tags: normalizeTags(fields.tags) };
+  if (type === 'mark') return { ...base, color: fields.color, translation: fields.translation, spans: fields.spans.map((span) => ({ ...span })) };
   return base;
+}
+
+/** The words a mark covers, as one string ("so loved the world"). */
+export function markQuote(item) {
+  return (item.spans ?? []).map((span) => span.text).join(' ');
 }
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?Z$/;
@@ -149,8 +164,67 @@ export function sanitizeItem(item) {
     if (typeof item.text !== 'string' || item.text.length > MAX_NOTE_LENGTH) return null;
     clean.text = item.text;
     clean.tags = normalizeTags(Array.isArray(item.tags) ? item.tags : []);
+  } else if (item.type === 'mark') {
+    if (!HIGHLIGHT_COLORS.includes(item.color)) return null;
+    if (typeof item.translation !== 'string' || !/^[a-z0-9-]{1,30}$/.test(item.translation)) return null;
+    if (!Array.isArray(item.spans) || item.spans.length === 0 || item.spans.length > MAX_SPANS) return null;
+    const spans = [];
+    for (const span of item.spans) {
+      const ok =
+        span &&
+        Number.isInteger(span.verse) &&
+        span.verse >= ref.start &&
+        span.verse <= ref.end &&
+        Number.isInteger(span.start) &&
+        Number.isInteger(span.end) &&
+        span.start >= 0 &&
+        span.end > span.start &&
+        span.end <= MAX_VERSE_LENGTH &&
+        typeof span.text === 'string' &&
+        span.text.length === span.end - span.start;
+      if (!ok) return null;
+      spans.push({ verse: span.verse, start: span.start, end: span.end, text: span.text });
+    }
+    clean.color = item.color;
+    clean.translation = item.translation;
+    clean.spans = spans;
   }
   return clean;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Word highlights ('mark')                                                */
+/* ---------------------------------------------------------------------- */
+
+/**
+ * Where a span's words are in `verseText`: at the recorded place if they're
+ * still there, otherwise the nearest place they occur (if the text was
+ * corrected since), otherwise null (the mark isn't shown on that verse).
+ */
+export function findSpan(verseText, span) {
+  if (verseText.slice(span.start, span.end) === span.text) return { start: span.start, end: span.end };
+  let best = -1;
+  for (let at = verseText.indexOf(span.text); at !== -1; at = verseText.indexOf(span.text, at + 1)) {
+    if (best === -1 || Math.abs(at - span.start) < Math.abs(best - span.start)) best = at;
+  }
+  return best === -1 ? null : { start: best, end: best + span.text.length };
+}
+
+const spanOverlaps = (a, b) => a.verse === b.verse && a.start < b.end && b.start < a.end;
+const spanWithin = (inner, outer) => inner.verse === outer.verse && inner.start >= outer.start && inner.end <= outer.end;
+
+/** Marks in `translation` that share any characters with `spans`. */
+export function marksOverlapping(items, translation, ref, spans) {
+  return items.filter(
+    (item) => item.type === 'mark' && item.translation === translation && sameChapter(item.ref, ref) && item.spans.some((s) => spans.some((t) => spanOverlaps(s, t))),
+  );
+}
+
+/** Marks in `translation` lying wholly inside `spans` (a new mark there replaces them). */
+export function marksCoveredBy(items, translation, ref, spans) {
+  return items.filter(
+    (item) => item.type === 'mark' && item.translation === translation && sameChapter(item.ref, ref) && item.spans.every((s) => spans.some((t) => spanWithin(s, t))),
+  );
 }
 
 /* ---------------------------------------------------------------------- */
@@ -215,12 +289,15 @@ export function filterItems(items, filters = {}, noteText = (item) => item.text 
     .split(/\s+/)
     .filter(Boolean);
   const result = items.filter((item) => {
-    if (filters.type && item.type !== filters.type) return false;
-    if (filters.color && !(item.type === 'highlight' && item.color === filters.color)) return false;
+    // "Highlights" covers whole verses and words alike.
+    const kind = item.type === 'mark' ? 'highlight' : item.type;
+    if (filters.type && kind !== filters.type) return false;
+    if (filters.color && !(kind === 'highlight' && item.color === filters.color)) return false;
     if (filters.book && item.ref.book !== filters.book) return false;
     if (filters.tag && !(item.tags ?? []).includes(filters.tag)) return false;
     if (words.length) {
-      const haystack = `${item.type === 'note' ? noteText(item) : ''} ${(item.tags ?? []).join(' ')}`.toLowerCase().replace(/ё/g, 'е');
+      const own = item.type === 'note' ? noteText(item) : item.type === 'mark' ? markQuote(item) : '';
+      const haystack = `${own} ${(item.tags ?? []).join(' ')}`.toLowerCase().replace(/ё/g, 'е');
       if (!words.every((word) => haystack.includes(word))) return false;
     }
     return true;
