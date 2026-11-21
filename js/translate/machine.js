@@ -5,14 +5,13 @@
  *    Edge on desktop): free and private, since the text never leaves the
  *    device. The first use may download a language model (~tens of MB),
  *    which the browser does once.
- * 2. A link to Translate.com's English→Russian translator. Translate.com
- *    can't take text from a link, so clicking it also copies the text, for
- *    the reader to paste there (js/translate/clipboard.js). Nothing is sent
- *    until the reader does. Its free translator allows a limited number of
- *    characters a day without an account.
+ * 2. A link that opens Yandex Translate with the text already filled in;
+ *    it translates as soon as the page opens. Nothing is sent until the
+ *    reader clicks it.
  *
- * Translate.com's API isn't used: it is paid, per word, and on a static site
- * its key would be public; the project has no backend (see CLAUDE.md).
+ * A paid translation API isn't used: on a static site its key would be
+ * public, and the project has no backend (see CLAUDE.md). (Translate.com,
+ * tried before, can't receive text through a link at all.)
  *
  * The built-in API can stall (e.g. when the model download is blocked), so
  * every step has a time limit; the caller then falls back to the link.
@@ -99,13 +98,20 @@ export async function translateOnDevice(text, { from, to, onProgress } = {}) {
   return withTimeout(translator.translate(text), TIMEOUTS.translate, 'translate');
 }
 
-// Translate.com names its translator pages after the two languages
-// (https://www.translate.com/english-russian). Add a language here to offer
-// its page; other pairs get the home page.
-const TRANSLATE_COM_NAMES = { en: 'english', ru: 'russian' };
+// Yandex Translate's page accepts up to 10,000 characters; a link that long
+// is still fine for browsers, but keep it well inside common URL limits.
+const URL_TEXT_LIMIT = 2000;
 
-/** Translate.com's translator page for this pair of languages. */
-export function translateComUrl(from, to) {
-  const [source, target] = [TRANSLATE_COM_NAMES[from], TRANSLATE_COM_NAMES[to]];
-  return source && target && source !== target ? `https://www.translate.com/${source}-${target}` : 'https://www.translate.com/';
+/**
+ * A link that opens Yandex Translate with `text` filled in, translating
+ * from → to. With a Russian interface it opens the Russian site
+ * (translate.yandex.ru), otherwise the international one.
+ */
+export function yandexTranslateUrl(text, from, to, { interfaceLanguage = 'en' } = {}) {
+  const host = interfaceLanguage === 'ru' ? 'translate.yandex.ru' : 'translate.yandex.com';
+  // encodeURIComponent (not URLSearchParams): spaces as %20, which the page reads reliably.
+  const query = [['source_lang', from], ['target_lang', to], ['text', String(text ?? '').slice(0, URL_TEXT_LIMIT)]]
+    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+    .join('&');
+  return `https://${host}/?${query}`;
 }

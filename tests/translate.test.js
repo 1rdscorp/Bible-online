@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { afterEach, test } from 'node:test';
 import { copyText } from '../js/translate/clipboard.js';
-import { canTranslateOnDevice, TIMEOUTS, translateComUrl, translateOnDevice } from '../js/translate/machine.js';
+import { canTranslateOnDevice, TIMEOUTS, translateOnDevice, yandexTranslateUrl } from '../js/translate/machine.js';
 import { cleanSelection, truncate, verseRangeLabel } from '../js/translate/text.js';
 
 afterEach(() => {
@@ -24,11 +24,16 @@ test('verse ranges read naturally', () => {
   assert.equal(verseRangeLabel([4, 1, 3, 3]), '1, 3–4');
 });
 
-test('Translate.com link goes to its page for the language pair', () => {
-  assert.equal(translateComUrl('en', 'ru'), 'https://www.translate.com/english-russian');
-  assert.equal(translateComUrl('ru', 'en'), 'https://www.translate.com/russian-english');
-  assert.equal(translateComUrl('en', 'xx'), 'https://www.translate.com/', 'unknown pairs: the home page');
-  assert.equal(translateComUrl('en', 'en'), 'https://www.translate.com/');
+test('Yandex Translate link carries the text and languages', () => {
+  const url = new URL(yandexTranslateUrl('For God so loved the world', 'en', 'ru'));
+  assert.equal(url.origin, 'https://translate.yandex.com');
+  assert.equal(url.searchParams.get('source_lang'), 'en');
+  assert.equal(url.searchParams.get('target_lang'), 'ru');
+  assert.equal(url.searchParams.get('text'), 'For God so loved the world');
+  assert.match(url.search, /text=For%20God%20so/, 'spaces as %20');
+  assert.equal(new URL(yandexTranslateUrl('x', 'en', 'ru', { interfaceLanguage: 'ru' })).origin, 'https://translate.yandex.ru');
+  assert.equal(new URL(yandexTranslateUrl('x'.repeat(5000), 'en', 'ru')).searchParams.get('text').length, 2000);
+  assert.equal(new URL(yandexTranslateUrl('a & b #c', 'en', 'ru')).searchParams.get('text'), 'a & b #c', 'special characters survive');
 });
 
 test('copying uses the Clipboard API, then the old copy command', async () => {

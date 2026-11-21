@@ -116,10 +116,10 @@ Data lives in the browser's storage on this device, through `js/storage.js`, the
 
 Select English Bible text (in single view, or in an English column when comparing), or tap English verses, and choose **Translate** in the action bar. The panel it opens shows:
 - **Machine translation** of exactly the selected words. It's made on the device by the browser's built-in Translator API (desktop Chrome and Edge), so nothing leaves the device. A browser that doesn't answer within a few seconds says so.
-- **Open Translate.com:** a link to [Translate.com](https://www.translate.com/english-russian)'s English→Russian translator, offered in every browser. Translate.com can't receive text through a link, so clicking it also **copies the selected text**; paste it into the box there. Its free translator handles a limited amount of text a day without an account (500 characters when this was written).
+- **Open in Yandex Translate:** opens Yandex Translate with the selected text already filled in, and translated straight away (no account, nothing to paste). It's offered in every browser. With the Russian interface it opens the Russian site, translate.yandex.ru. The text goes to Yandex only when you click the link.
 - **The Russian Synodal text of the same verses,** a real Bible translation. It's skipped when the Synodal is already a column on screen.
 
-Translate.com's API isn't used: it's paid per word and needs a key, which would be public on a static site, and the project has no backend.
+No paid translation API is used: its key would be public on a static site, and the project has no backend. Translate.com, used for a while, can't receive text through a link, so readers had to paste it themselves.
 
 ## Interface language
 
@@ -142,8 +142,8 @@ css/                  themes.css (colour tokens), base, layout, picker, reader, 
 js/
   main.js             Entry point: routes → views, translation choice, keyboard, last-read
   i18n.js             Interface language: t('key'), book names, RUS | ENG (text in locales/)
-  translate/          Translate-selection helpers: on-device machine translation, Translate.com
-                      link, clipboard, text tidying
+  translate/          Translate-selection helpers: on-device machine translation, Yandex
+                      Translate link, clipboard, text tidying
   search/             Full-text search: words and queries (text.js), the index (engine.js),
                       the Web Worker and its client, references ("Jn 3:16"), search URLs
   study/              Highlights, notes, bookmarks: the model (verse ranges, one colour per
@@ -174,7 +174,7 @@ tests/                node --test suites
   - Added later: the Russian Synodal translation, with build-time verse renumbering (versification) and a Cyrillic font stack
   - In compare mode, a translation's own Psalm numbers appear under its column picker ("Псалом 22" beside English Psalm 23)
   - Russian interface with a RUS | ENG switch
-  - Translate selected English text into Russian (on-device machine translation, Translate.com link, Synodal verses)
+  - Translate selected English text into Russian (on-device machine translation, a Yandex Translate link with the text filled in, Synodal verses)
 - [x] **Stage 3:** full-text search in one or all translations (all words, any word, exact phrase, word starts), book/Testament filters, results grouped by book with counts and highlights, jump-and-flash to the verse, reference entry ("Jn 3:16", "Ps 23:1-4", Russian names too), and indexing in a Web Worker
 - [x] **Stage 4:** personal study tools: tap or select verses for an action bar (5 highlight colours, notes, bookmarks, two copy formats, share), a Notes panel with a rich-ish editor, tags and search, a My Study page with filters, highlights kept by verse reference across translations, and JSON backup export/import
 - [ ] Later: reading plans, cross-references, Strong's word study, offline support, cloud sync
