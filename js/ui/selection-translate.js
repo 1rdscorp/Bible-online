@@ -1,5 +1,5 @@
 /**
- * "Translate to Russian" for selected English Bible text.
+ * "Translate to Russian" for selected English or Greek (Septuagint) Bible text.
  *
  * The verse action bar (js/ui/verse-actions.js) offers it when English text
  * is selected, by dragging across words or by tapping verses. It opens a
@@ -16,16 +16,22 @@
  * KJV and ASV.
  */
 import { chapterTitle, getLanguage, t } from '../i18n.js';
-import { canTranslateOnDevice, translateOnDevice, yandexTranslateUrl } from '../translate/machine.js';
-import { cleanSelection, truncate, verseRangeLabel } from '../translate/text.js';
+import { canTranslateOnDevice, TRANSLATABLE, translatableLanguage, translateOnDevice, yandexTranslateUrl } from '../translate/machine.js';
+import { cleanSelection, toMonotonic, truncate, verseRangeLabel } from '../translate/text.js';
 import { el, icon, ICONS } from './dom.js';
 
-// A verse of English text: a verse in single view, or an English cell in compare view.
-const UNIT_SELECTOR = '.scripture[lang|="en"] .verse, .pcell[lang|="en"]';
+// A verse of English or Greek text: a verse in single view, or a cell in compare view.
+const UNIT_SELECTOR = ['en', 'grc'].map((lang) => `.scripture[lang|="${lang}"] .verse, .pcell[lang|="${lang}"]`).join(', ');
 // Text in those units that isn't Bible text: verse numbers, labels, hidden hints.
 const SKIP_SELECTOR = '.vnum, .pnum, .pcell-label, .study-marks, .visually-hidden, [aria-hidden="true"]';
-const FROM = 'en';
 const TO = 'ru';
+
+/** How a machine translator gets a request's text: { from, text, greek }. */
+function machineInput(request) {
+  const language = translatableLanguage(request.language) ?? 'en';
+  const { machineLanguage, modernSpelling } = TRANSLATABLE[language];
+  return { from: machineLanguage, text: modernSpelling ? toMonotonic(request.text) : request.text, greek: language === 'grc' };
+}
 const MAX_CHARS = 2000;
 
 /** The part of `unit`'s Bible text that lies inside `range`. */
@@ -61,7 +67,8 @@ function readSelection(root) {
     verses.push(Number(unit.closest('[data-verse]').dataset.verse));
   }
   if (!parts.length) return null;
-  return { text: parts.join(' ').slice(0, MAX_CHARS), verses, translation, rect: range.getBoundingClientRect() };
+  const language = units.find((unit) => translationOf(unit) === translation)?.closest('[lang]')?.lang ?? 'en';
+  return { text: parts.join(' ').slice(0, MAX_CHARS), verses, translation, language, rect: range.getBoundingClientRect() };
 }
 
 /**
@@ -76,7 +83,7 @@ export function initSelectionTranslate({ root, getRussianVerses }) {
 
   const title = el('h2', { class: 'translate-title', id: 'translate-title', tabindex: '-1' });
   const closeButton = el('button', { type: 'button', class: 'icon-button translate-close' }, icon(ICONS.close, { size: 18 }));
-  const quote = el('blockquote', { class: 'translate-quote', lang: FROM });
+  const quote = el('blockquote', { class: 'translate-quote' });
   const machine = el('section', { class: 'translate-section', 'aria-live': 'polite' });
   const external = el('div', { class: 'translate-external' });
   const synodal = el('section', { class: 'translate-section', 'aria-live': 'polite' });
@@ -103,7 +110,7 @@ export function initSelectionTranslate({ root, getRussianVerses }) {
   function renderMachine(state) {
     const parts = [label(t('translate.machine'))];
     if (state.result) {
-      parts.push(el('p', { class: 'translate-result', lang: TO }, state.result), el('p', { class: 'translate-note' }, t('translate.machineNote')));
+      parts.push(el('p', { class: 'translate-result', lang: TO }, state.result), el('p', { class: 'translate-note' }, t(state.greek ? 'translate.greekNote' : 'translate.machineNote')));
     } else if (state.status) {
       parts.push(el('p', { class: 'translate-status' }, state.status));
     }
@@ -118,29 +125,33 @@ export function initSelectionTranslate({ root, getRussianVerses }) {
   function renderExternal(request) {
     const link = el(
       'a',
-      { href: yandexTranslateUrl(request.text, FROM, TO, { interfaceLanguage: getLanguage() }), target: '_blank', rel: 'noopener noreferrer' },
+      { href: yandexTranslateUrl(machineInput(request).text, machineInput(request).from, TO, { interfaceLanguage: getLanguage() }), target: '_blank', rel: 'noopener noreferrer' },
       t('translate.openYandex'),
       icon(ICONS.external, { size: 14 }),
       el('span', { class: 'visually-hidden' }, ` ${t('translate.newTab')}`),
     );
-    external.replaceChildren(el('p', { class: 'translate-link' }, link), el('p', { class: 'translate-note' }, t('translate.yandexNote')));
+    external.replaceChildren(
+      el('p', { class: 'translate-link' }, link),
+      el('p', { class: 'translate-note' }, t(machineInput(request).greek ? 'translate.yandexNoteGreek' : 'translate.yandexNote')),
+    );
   }
 
   async function runMachine(request, id) {
     renderMachine({ status: t('translate.translating') });
-    if (!(await canTranslateOnDevice(FROM, TO))) {
-      if (id === requestId) renderMachine({ status: t('translate.unavailable') });
+    const { from, text, greek } = machineInput(request);
+    if (!(await canTranslateOnDevice(from, TO))) {
+      if (id === requestId) renderMachine({ status: t(greek ? 'translate.unavailableGreek' : 'translate.unavailable') });
       return;
     }
     try {
-      const result = await translateOnDevice(request.text, {
-        from: FROM,
+      const result = await translateOnDevice(text, {
+        from,
         to: TO,
         onProgress: (fraction) => {
           if (id === requestId) renderMachine({ status: t('translate.downloading', { percent: Math.round(fraction * 100) }) });
         },
       });
-      if (id === requestId) renderMachine({ result });
+      if (id === requestId) renderMachine({ result, greek });
     } catch (error) {
       console.warn('On-device translation failed', error);
       if (id === requestId) renderMachine({ status: t('translate.failed') });
@@ -186,6 +197,7 @@ export function initSelectionTranslate({ root, getRussianVerses }) {
     returnFocus = document.activeElement;
     title.textContent = t('translate.title');
     closeButton.setAttribute('aria-label', t('translate.close'));
+    quote.lang = request.language ?? 'en';
     quote.textContent = `“${truncate(request.text, 280)}”`;
     panel.hidden = false;
     title.focus({ preventScroll: true });

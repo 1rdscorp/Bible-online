@@ -31,6 +31,7 @@ import { formatPassage } from '../study/copy.js';
 import { HIGHLIGHT_COLORS, makeRef, marksOverlapping, sameRef, verseRuns } from '../study/model.js';
 import { searchQueryFor } from '../study/words.js';
 import { copyText } from '../translate/clipboard.js';
+import { translatableLanguage } from '../translate/machine.js';
 import { truncate, verseRangeLabel } from '../translate/text.js';
 import { el, icon, ICONS } from './dom.js';
 import { coversText, selectionSpans } from './text-ranges.js';
@@ -163,7 +164,7 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
     copy.label.textContent = t('study.copy');
     share.label.textContent = t('study.share');
     translate.label.textContent = t('study.translate');
-    translate.button.hidden = !context.columns.some((info) => /^en\b/.test(info.language ?? ''));
+    translate.button.hidden = !context.columns.some((info) => translatableLanguage(info.language));
     translate.button.setAttribute('aria-label', t('translate.button'));
     copyPlain.textContent = t('study.copyPlain');
     copyNamed.textContent = t('study.copyNamed');
@@ -423,12 +424,12 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
 
   function translateSelection() {
     // Dragged text: exactly those words. Tapped verses: their whole text,
-    // from the first English translation shown.
+    // from the first English or Greek translation shown.
     let request = source === 'text' ? readTextSelection() : null;
     if (!request) {
-      const english = columnsText().find((column) => /^en\b/.test(column.language ?? '') && column.verses.length);
-      if (!english) return;
-      request = { text: english.verses.map((verse) => verse.text).join(' '), verses: english.verses.map((verse) => verse.number), translation: english.id };
+      const column = columnsText().find((c) => translatableLanguage(c.language) && c.verses.length);
+      if (!column) return;
+      request = { text: column.verses.map((verse) => verse.text).join(' '), verses: column.verses.map((verse) => verse.number), translation: column.id, language: column.language };
     }
     clear({ keepText: true });
     onTranslate(request);

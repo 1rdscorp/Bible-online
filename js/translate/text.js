@@ -26,3 +26,27 @@ export function verseRangeLabel(verses) {
   }
   return runs.map(([from, to]) => (from === to ? String(from) : `${from}–${to}`)).join(', ');
 }
+
+/**
+ * Ancient (polytonic) Greek → modern (monotonic) spelling, for machine
+ * translators, which know Modern Greek: breathings and the iota subscript
+ * go, grave and circumflex accents become the single modern accent, and
+ * short words (articles, particles: "καί", "τόν", "φῶς") lose it, as in
+ * modern spelling. The ano teleia (·) becomes a semicolon. Words stay the
+ * same, so a translator can follow; it reads them much better this way
+ * (tests in Yandex Translate: Genesis 1:1, Isaiah 7:14).
+ */
+export function toMonotonic(text) {
+  const accented = String(text ?? '')
+    .normalize('NFD')
+    .replace(/[̓̔̄̆ͅ]/g, '') // breathings, iota subscript, macron, breve
+    .replace(/[̀͂]/g, '́') // grave, circumflex → acute
+    .normalize('NFC');
+  return accented
+    .replace(/[\p{L}\p{M}]+/gu, (word) => {
+      const letters = word.normalize('NFD').replace(/\p{M}/gu, '');
+      return letters.length <= 3 ? word.normalize('NFD').replace(/́/g, '').normalize('NFC') : word;
+    })
+    .replace(/[··]/g, ';')
+    .replace(/ʼ/g, '’');
+}

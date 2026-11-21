@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { afterEach, test } from 'node:test';
 import { copyText } from '../js/translate/clipboard.js';
-import { canTranslateOnDevice, TIMEOUTS, translateOnDevice, yandexTranslateUrl } from '../js/translate/machine.js';
-import { cleanSelection, truncate, verseRangeLabel } from '../js/translate/text.js';
+import { canTranslateOnDevice, TIMEOUTS, translatableLanguage, translateOnDevice, yandexTranslateUrl } from '../js/translate/machine.js';
+import { cleanSelection, toMonotonic, truncate, verseRangeLabel } from '../js/translate/text.js';
 
 afterEach(() => {
   delete globalThis.Translator;
@@ -97,4 +97,21 @@ test('a stalled browser translator times out instead of hanging', async () => {
   } finally {
     Object.assign(TIMEOUTS, saved);
   }
+});
+
+test('Septuagint Greek is spelled the modern way for machine translators', () => {
+  assert.equal(toMonotonic('ἘΝ ἀρχῇ ἐποίησεν ὁ Θεὸς τὸν οὐρανὸν καὶ τὴν γῆν.'), 'ΕΝ αρχή εποίησεν ο Θεός τον ουρανόν και την γην.');
+  assert.equal(toMonotonic('Καὶ εἶπεν ὁ Θεός, γενηθήτω φῶς· καὶ ἐγένετο φῶς.'), 'Και είπεν ο Θεός, γενηθήτω φως; και εγένετο φως.');
+  assert.equal(toMonotonic('ἰδοὺ ἡ παρθένος ἐν γαστρὶ λήψεται'), 'ιδού η παρθένος εν γαστρί λήψεται');
+  assert.equal(toMonotonic('Ἀλληλούϊα'), 'Αλληλούϊα', 'the diaeresis stays (modern Greek uses it)');
+  assert.equal(toMonotonic('μετʼ αὐτοῦ'), 'μετ’ αυτού');
+  assert.equal(toMonotonic('For God'), 'For God', 'other scripts untouched');
+});
+
+test('English and the Septuagint’s Greek can be translated; other languages can’t', () => {
+  assert.equal(translatableLanguage('en'), 'en');
+  assert.equal(translatableLanguage('en-GB'), 'en');
+  assert.equal(translatableLanguage('grc'), 'grc');
+  assert.equal(translatableLanguage('ru'), null, 'already Russian');
+  assert.equal(translatableLanguage(undefined), null);
 });
