@@ -37,6 +37,9 @@
 
 /* "Continue reading John 3" */
 .continue {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   margin-top: 1.25rem;
 }
 

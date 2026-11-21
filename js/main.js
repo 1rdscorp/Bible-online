@@ -11,12 +11,13 @@ import { adjacentChapter, getBook, isValidChapter } from './canon.js';
 import { bookName, chapterTitle, getLanguage, localizeTranslation, resolveLanguage, setLanguage, t } from './i18n.js';
 import { getDefaultTranslationId, getProvider, listTranslations } from './providers/registry.js';
 import { translationCache } from './providers/translation-cache.js';
-import { bookHref, chapterHref, navigate, replaceHash, startRouter } from './router.js';
+import { bookHref, chapterHref, navigate, pageHref, PAGES, replaceHash, startRouter } from './router.js';
 import { createSearchClient, isSearchable } from './search/client.js';
 import { ALL_TRANSLATIONS, readSearchParams, searchHref } from './search/params.js';
 import { bookOnly, parseReference } from './search/reference.js';
 import { parseQuery } from './search/text.js';
-import { loadSettings, onSettingsChange, updateSettings } from './settings.js';
+import { studyStore } from './study/store.js';
+import { getSettings, loadSettings, onSettingsChange, updateSettings } from './settings.js';
 import { storage } from './storage.js';
 import {
   loadPrefs,
@@ -29,14 +30,20 @@ import {
   stopComparing,
 } from './translations.js';
 import { initHeader } from './ui/header.js';
+import { el, icon, ICONS } from './ui/dom.js';
 import { initLanguageSwitch } from './ui/language-switch.js';
+import { initNotesPanel } from './ui/notes-panel.js';
 import { initSelectionTranslate } from './ui/selection-translate.js';
 import { initSettingsPanel } from './ui/settings-panel.js';
+import { paintStudyMarks } from './ui/study-marks.js';
+import { createToaster } from './ui/toast.js';
 import { initTranslationControl } from './ui/translation-control.js';
+import { initVerseActions } from './ui/verse-actions.js';
 import { renderMessage } from './views/message.js';
 import { renderBookList, renderChapterGrid } from './views/picker.js';
 import { createReaderView } from './views/reader.js';
 import { bookSuggestionLink, createSearchView, summaryText } from './views/search.js';
+import { showStudyPage } from './views/study.js';
 import { renderTranslationsPage } from './views/translations.js';
 
 const LAST_READ_KEY = 'lastRead';
@@ -46,13 +53,16 @@ const appStatus = document.getElementById('app-status');
 let header;
 let translationControl;
 let selectionTranslate;
+let toaster;
+let notesPanel;
+let verseActions;
 let currentRoute = null;
 
 // Incremented on every navigation. Async work (loading a chapter) checks it
 // before painting, so a slow response never overwrites a newer page.
 let navigationId = 0;
 
-// The chapter on screen: { book, chapter, verse, verseEnd, ids, view }.
+// The chapter on screen: { book, chapter, verse, verseEnd, ids, view, paint }.
 let reader = null;
 
 // Search: the worker client (started on first use), the page on screen, and
@@ -169,6 +179,50 @@ async function getRussianVerses(book, chapter, verses, shownIds) {
   return { info: localizeTranslation(info), verses: (data?.verses ?? []).filter((v) => verses.includes(v.number)) };
 }
 
+/**
+ * Under the chapter text: "Notes (2)" (opens the Notes panel) and "My Study".
+ * Quiet UI text, so it doesn't compete with the scripture.
+ */
+function updateChapterStudyLinks(view, book, chapter) {
+  let links = view.element.querySelector('.chapter-study');
+  if (!links) {
+    links = el('p', { class: 'chapter-study' });
+    view.actionsSlot.before(links);
+  }
+  const count = studyStore.inChapter(book.id, chapter).filter((item) => item.type === 'note').length;
+  links.replaceChildren(
+    el(
+      'button',
+      { type: 'button', class: 'text-button', onclick: () => notesPanel.show() },
+      icon(ICONS.note, { size: 16 }),
+      count ? t('study.chapterNotesCount', { n: count }) : t('study.chapterNotes'),
+    ),
+    el('a', { class: 'text-button', href: pageHref(PAGES.study) }, icon(ICONS.bookmark, { size: 16 }), t('study.myStudy')),
+  );
+}
+
+/* ---------------------------------------------------------------------- */
+/* Backup: the rest of what's saved on this device                         */
+/* ---------------------------------------------------------------------- */
+
+/** For the backup file, besides the study items (js/study/backup.js). */
+async function backupData() {
+  const { prefs } = await translationState();
+  return { settings: getSettings(), translations: prefs, lastRead: await storage.get(LAST_READ_KEY, null) };
+}
+
+/**
+ * Apply a backup's settings, translation choices and last chapter. Each is
+ * cleaned by its own module (settings.js sanitizes, translations.js
+ * normalizes on load); an unknown book or chapter is ignored.
+ */
+async function applyBackupExtras({ settings, translations, lastRead }) {
+  if (translations) await savePrefs(translations);
+  const book = lastRead && getBook(lastRead.bookId);
+  if (book && isValidChapter(book, lastRead.chapter)) saveLastRead(book, lastRead.chapter);
+  if (settings) updateSettings({ theme: settings.theme, fontScale: settings.fontScale, language: settings.language ?? null });
+}
+
 /* ---------------------------------------------------------------------- */
 /* Last chapter read                                                       */
 /* ---------------------------------------------------------------------- */
@@ -196,11 +250,16 @@ async function handleRoute(route, { rerender = false } = {}) {
   const isCurrent = () => id === navigationId;
   rememberSearchPlace();
   currentRoute = route;
-  const searchLink = document.getElementById('search-link');
-  if (route.view === 'search') searchLink?.setAttribute('aria-current', 'page');
-  else searchLink?.removeAttribute('aria-current');
-  // "Translate selection" works on the chapter on screen; showReader sets it again.
+  for (const [id, view] of [['search-link', 'search'], ['study-link', 'study']]) {
+    const link = document.getElementById(id);
+    if (route.view === view) link?.setAttribute('aria-current', 'page');
+    else link?.removeAttribute('aria-current');
+  }
+  // Verse actions and "translate" work on the chapter on screen; showReader
+  // sets them again. The Notes panel stays open from chapter to chapter.
   selectionTranslate.setContext(null);
+  verseActions.setContext(null);
+  if (route.view !== 'reader') notesPanel.close();
 
   switch (route.view) {
     case 'start': {
@@ -211,7 +270,7 @@ async function handleRoute(route, { rerender = false } = {}) {
     }
     case 'books': {
       const lastRead = await getLastRead();
-      if (isCurrent()) mount(renderBookList({ lastRead }), { title: null, preserve: rerender });
+      if (isCurrent()) mount(renderBookList({ lastRead, studyCount: studyStore.all().length }), { title: null, preserve: rerender });
       return;
     }
     case 'chapters': {
@@ -225,6 +284,21 @@ async function handleRoute(route, { rerender = false } = {}) {
       return showTranslationsPage(isCurrent, rerender);
     case 'search':
       return showSearchPage(route, isCurrent, rerender);
+    case 'study':
+      return showStudyPage({
+        route,
+        isCurrent,
+        rerender,
+        mount,
+        main,
+        store: studyStore,
+        toaster,
+        translationState,
+        getProvider,
+        showLoadFailure,
+        backupData,
+        applyBackupExtras,
+      });
     default:
       return showNotFound(route, rerender);
   }
@@ -269,8 +343,16 @@ async function showReader(route, isCurrent) {
     });
 
   const finish = (view, results) => {
-    reader = { book, chapter, verse, verseEnd, ids, view };
+    // Highlights, bookmarks and notes, painted onto the text; again whenever they change.
+    const paint = () => {
+      paintStudyMarks(view.textRoot, studyStore.inChapter(book.id, chapter), { book, chapter, onOpenNote: (id) => notesPanel.openNote(id) });
+      updateChapterStudyLinks(view, book, chapter);
+    };
+    reader = { book, chapter, verse, verseEnd, ids, view, paint };
+    paint();
     selectionTranslate.setContext({ book, chapter, shownIds: ids });
+    verseActions.setContext({ book, chapter, view, columns, query });
+    notesPanel.setContext({ book, chapter, query });
     document.title = `${title} (${columns.map((c) => c.abbreviation).join(', ')}) · ${t('app.name')}`;
     if (results.some((r) => r.chapter)) saveLastRead(book, chapter);
   };
@@ -608,6 +690,25 @@ async function boot() {
   });
   header = initHeader(document.getElementById('app-header'), { isPinned: settingsPanel.isOpen });
   selectionTranslate = initSelectionTranslate({ root: main, getRussianVerses });
+  toaster = createToaster();
+  notesPanel = initNotesPanel({ store: studyStore, toaster });
+  verseActions = initVerseActions({
+    root: main,
+    store: studyStore,
+    toaster,
+    onNote: (ref) => notesPanel.newNote(ref),
+    onTranslate: (request) => selectionTranslate.open(request),
+    readTextSelection: () => selectionTranslate.readTextSelection(),
+  });
+  // Highlights, notes and bookmarks are painted with the first chapter, so
+  // they're read before routing starts (a quick read from this device).
+  await studyStore.load();
+  studyStore.subscribe((items, change) => {
+    if (reader && main.contains(reader.view.element)) reader.paint();
+    verseActions.refresh();
+    // Another tab changed them while this one shows My Study: show the new list.
+    if (change.external && currentRoute?.view === 'study') handleRoute(currentRoute, { rerender: true });
+  });
   searchClient = createSearchClient();
   // Which result was opened, to put focus back on it after Back.
   main.addEventListener('click', (event) => {
@@ -629,6 +730,7 @@ async function boot() {
     if (language === getLanguage()) return;
     setLanguage(language);
     languageSwitch.update(language);
+    notesPanel.refresh();
     if (currentRoute) handleRoute(currentRoute, { rerender: true });
   });
 

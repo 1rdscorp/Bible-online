@@ -172,12 +172,13 @@ export function createReaderView({ book, chapter, columns, translations, query =
         el(
           'p',
           { class: 'verse', id: `v${v.number}`, 'data-verse': v.number },
-          el('span', { class: 'vnum' }, String(v.number)),
+          verseButton('vnum', v.number),
           // This space separates number and text for screen readers and
           // copy/paste. The number is absolutely positioned in the margin, so
           // the space falls at the start of the line and CSS drops it.
           ' ',
-          v.text,
+          // The words alone, so a highlight paints the text, not the margin.
+          el('span', { class: 'vtext' }, v.text),
         ),
       ),
     );
@@ -202,7 +203,7 @@ export function createReaderView({ book, chapter, columns, translations, query =
       el(
         'div',
         { class: 'prow', id: `v${row.number}`, 'data-verse': row.number },
-        el('span', { class: 'pnum' }, String(row.number)),
+        verseButton('pnum', row.number),
         row.cells.map((text, index) => cell(results[index].info, text)),
       ),
     );
@@ -224,8 +225,15 @@ export function createReaderView({ book, chapter, columns, translations, query =
       },
       el('span', { class: 'pcell-label' }, info.abbreviation),
       ' ',
-      missing ? [el('span', { 'aria-hidden': 'true' }, '—'), el('span', { class: 'visually-hidden' }, t('reader.missingVerse'))] : text,
+      missing ? [el('span', { 'aria-hidden': 'true' }, '—'), el('span', { class: 'visually-hidden' }, t('reader.missingVerse'))] : el('span', { class: 'vtext' }, text),
     );
+  }
+
+  // The verse number is a button: it selects the verse for highlighting,
+  // notes and the rest (js/ui/verse-actions.js, which also manages which
+  // number is in the Tab order).
+  function verseButton(className, number) {
+    return el('button', { type: 'button', class: className, tabindex: '-1', 'aria-label': t('study.verse', { n: number }), 'aria-pressed': 'false' }, String(number));
   }
 
   function renderNotices(results) {
@@ -250,6 +258,10 @@ export function createReaderView({ book, chapter, columns, translations, query =
   return {
     element,
     heading,
+    // The verses (.verse or .prow rows live inside), and the place for the
+    // verse action bar: right after the text, so Tab reaches it next.
+    textRoot: content,
+    actionsSlot: notices,
 
     /**
      * Render the text. `results` has one entry per column:

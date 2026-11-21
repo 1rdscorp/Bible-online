@@ -1,0 +1,892 @@
+/* Personal study tools: verse selection and highlights, the verse action
+   bar, the Notes panel and editor, toasts, and the My Study page. */
+
+/* ---------- Verses in the reader ---------- */
+
+/* Highlights colour the words only (not the margin or the number), like a
+   marker pen, wrapping cleanly across lines. */
+:is(.verse, .prow)[data-highlight] .vtext {
+  padding: 0.06em 0;
+  border-radius: 3px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+:is(.verse, .prow)[data-highlight="yellow"] .vtext { background: var(--hl-yellow); }
+:is(.verse, .prow)[data-highlight="green"] .vtext { background: var(--hl-green); }
+:is(.verse, .prow)[data-highlight="blue"] .vtext { background: var(--hl-blue); }
+:is(.verse, .prow)[data-highlight="pink"] .vtext { background: var(--hl-pink); }
+:is(.verse, .prow)[data-highlight="orange"] .vtext { background: var(--hl-orange); }
+
+/* Selected verses: a dotted underline (works on top of a highlight too),
+   and the number in the accent colour. */
+:is(.verse, .prow).is-selected .vtext {
+  text-decoration: underline dotted var(--color-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.28em;
+}
+
+:is(.verse, .prow).is-selected > :is(.vnum, .pnum) {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+/* Bookmark ribbon and note button after a verse. */
+.study-marks {
+  margin-inline-start: 0.3em;
+  font-family: var(--font-ui);
+  white-space: nowrap;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.study-bookmark {
+  display: inline-block;
+  color: var(--color-accent);
+  vertical-align: -0.1em;
+}
+
+.study-note-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15em;
+  min-width: 1.75em;
+  min-height: 1.6em;
+  margin: 0;
+  padding: 0 0.25em;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-surface);
+  color: var(--color-accent);
+  font-size: 0.75em;
+  vertical-align: 0.1em;
+  cursor: pointer;
+}
+
+.study-note-button:hover {
+  border-color: var(--color-accent);
+}
+
+.study-note-count {
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+/* "Notes · My Study" under the chapter. */
+.chapter-study {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.25rem;
+  margin: 2.5em 0 0;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+}
+
+.chapter-study .text-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2.5rem;
+  text-decoration: none;
+}
+
+/* ---------- Shared buttons ---------- */
+
+.button--primary {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.button--primary:hover {
+  background: var(--color-accent);
+  filter: brightness(1.1);
+}
+
+.button {
+  gap: 0.4rem;
+}
+
+/* ---------- The verse action bar ---------- */
+
+.verse-actions {
+  position: fixed;
+  bottom: 0.75rem;
+  left: 50%;
+  z-index: 24;
+  width: min(44rem, calc(100vw - 1rem));
+  padding: 0.5rem 0.75rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-surface);
+  box-shadow: 0 12px 36px var(--color-shadow);
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  line-height: 1.4;
+  transform: translateX(-50%);
+}
+
+.va-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.va-title {
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.va-close {
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--color-text-muted);
+}
+
+.va-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.va-colors {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.va-swatch {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.va-swatch--yellow { background: var(--hl-yellow); }
+.va-swatch--green { background: var(--hl-green); }
+.va-swatch--blue { background: var(--hl-blue); }
+.va-swatch--pink { background: var(--hl-pink); }
+.va-swatch--orange { background: var(--hl-orange); }
+
+.va-swatch--none {
+  background: var(--color-surface);
+}
+
+.va-swatch[aria-pressed="true"] {
+  box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-accent);
+}
+
+.va-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+}
+
+.va-action {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  min-width: 3.75rem;
+  min-height: 3rem;
+  padding: 0.3rem 0.35rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.va-action:hover,
+.va-action[aria-expanded="true"] {
+  background: var(--color-surface-hover);
+}
+
+.va-action[aria-pressed="true"] {
+  color: var(--color-accent);
+}
+
+.va-label {
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.va-copy-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.25rem 1rem;
+  margin-top: 0.4rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.va-copy-menu[hidden] {
+  display: none;
+}
+
+.va-copy-menu .text-button {
+  min-height: 2.5rem;
+}
+
+/* Phones: a full-width sheet at the bottom. */
+@media (max-width: 40rem) {
+  .verse-actions {
+    bottom: 0;
+    width: 100vw;
+    padding: 0.35rem 0.5rem calc(0.6rem + env(safe-area-inset-bottom));
+    border-width: 1px 0 0;
+    border-radius: 14px 14px 0 0;
+  }
+
+  .va-row {
+    justify-content: center;
+  }
+
+  .va-actions {
+    justify-content: center;
+  }
+
+  .va-action {
+    min-width: 3.4rem;
+  }
+}
+
+/* ---------- Toasts ---------- */
+
+.toast-region {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  z-index: 40;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: calc(100vw - 2rem);
+  padding: 0.6rem 0.6rem 0.6rem 1rem;
+  border-radius: 10px;
+  background: var(--color-text);
+  box-shadow: 0 8px 24px var(--color-shadow);
+  color: var(--color-bg);
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  pointer-events: auto;
+}
+
+.toast-text {
+  padding: 0.2rem 0;
+}
+
+.toast-action {
+  min-height: 2.25rem;
+  padding: 0 0.75rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.toast-action:focus-visible {
+  outline-color: var(--color-bg);
+}
+
+/* ---------- Notes panel ---------- */
+
+.notes-panel {
+  position: fixed;
+  z-index: 26;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  padding: 0.75rem 1rem 1.5rem;
+  background: var(--color-surface);
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  overscroll-behavior: contain;
+}
+
+/* Wide screens: docked on the right, and the chapter moves over. */
+@media (min-width: 64rem) {
+  .notes-panel {
+    top: var(--header-height);
+    right: 0;
+    bottom: 0;
+    width: 24rem;
+    border-left: 1px solid var(--color-border);
+    transition: top 0.2s ease;
+  }
+
+  /* When the header slides away, the panel takes the whole height. */
+  .app-header.is-hidden:not(:focus-within) ~ .notes-panel {
+    top: 0;
+  }
+
+  .has-notes-panel .reader {
+    padding-right: 25rem;
+  }
+
+  .has-notes-panel .side-nav--next {
+    display: none;
+  }
+
+  /* The action bar centres in the space beside the panel. */
+  .has-notes-panel .verse-actions {
+    left: calc((100vw - 24rem) / 2);
+    width: min(44rem, calc(100vw - 25rem));
+  }
+}
+
+/* Narrower: a sheet from the bottom, leaving the top of the chapter visible. */
+@media (max-width: 63.99rem) {
+  .notes-panel {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-height: min(75vh, 40rem);
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--color-border);
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -10px 32px var(--color-shadow);
+  }
+}
+
+.notes-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notes-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.notes-close {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--color-text-muted);
+}
+
+.notes-search-row {
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+.notes-search-icon {
+  position: absolute;
+  top: 50%;
+  left: 0.7rem;
+  color: var(--color-text-muted);
+  transform: translateY(-50%);
+}
+
+.notes-search {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0 0.75rem 0 2.3rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.notes-composer {
+  margin-top: 1rem;
+}
+
+.notes-composer[hidden] {
+  display: none;
+}
+
+.notes-composer-title {
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}
+
+.notes-scope {
+  margin-top: 1rem;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.notes-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.notes-empty {
+  margin-top: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.note-card {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.note-card:focus {
+  outline: none;
+}
+
+.note-card:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+@keyframes card-flash {
+  0%,
+  40% {
+    background: var(--color-flash);
+  }
+  100% {
+    background: transparent;
+  }
+}
+
+.note-card.is-flash {
+  animation: card-flash 1.6s ease-out;
+}
+
+.note-ref {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a.note-ref:hover {
+  text-decoration: underline;
+}
+
+/* A note as written: paragraphs, lists, bold and italic. */
+.note-body {
+  margin-top: 0.3rem;
+  line-height: 1.55;
+  overflow-wrap: break-word;
+}
+
+.note-body p + p,
+.note-body p + ul,
+.note-body ul + p {
+  margin-top: 0.45rem;
+}
+
+.note-body ul {
+  margin: 0.3rem 0 0;
+  padding-inline-start: 1.25rem;
+  list-style: disc;
+}
+
+.note-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.45rem;
+}
+
+.note-tag {
+  padding: 0.05rem 0.5rem;
+  border-radius: 999px;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.note-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem 0.75rem;
+  margin-top: 0.35rem;
+}
+
+.note-date {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+.note-buttons {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.note-buttons .text-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 2.5rem;
+  padding: 0 0.4rem;
+  font-size: 0.9rem;
+}
+
+/* ---------- The note editor ---------- */
+
+.note-editor {
+  margin-top: 0.4rem;
+}
+
+.note-toolbar {
+  display: flex;
+  gap: 0.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.note-format {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.note-format:hover {
+  background: var(--color-surface-hover);
+}
+
+.note-format[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.note-input {
+  min-height: 7rem;
+  max-height: 22rem;
+  overflow: auto;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.55;
+  overflow-wrap: break-word;
+}
+
+.note-input:empty::before {
+  content: attr(data-placeholder);
+  color: var(--color-text-muted);
+}
+
+.note-input p + p,
+.note-input ul {
+  margin-top: 0.4rem;
+}
+
+.note-input ul {
+  padding-inline-start: 1.25rem;
+  list-style: disc;
+}
+
+.note-tags-field {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 0.6rem;
+}
+
+.note-tags-field label {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.note-tags-input {
+  min-height: 2.5rem;
+  padding: 0 0.6rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.note-editor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+/* ---------- My Study page ---------- */
+
+.study-page {
+  max-width: 48rem;
+}
+
+.study-filters {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.study-selects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: flex-end;
+}
+
+.study-text {
+  min-width: 14rem;
+}
+
+.study-colors {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.study-colors legend {
+  float: left;
+  margin-bottom: 0.3rem;
+  padding: 0;
+}
+
+.study-color-options {
+  clear: both;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.study-color-option {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+}
+
+.study-color-option input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.study-color-swatch {
+  width: 1.9rem;
+  height: 1.9rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  /* "Any colour": a split swatch. */
+  background: conic-gradient(var(--hl-yellow) 0 20%, var(--hl-green) 0 40%, var(--hl-blue) 0 60%, var(--hl-pink) 0 80%, var(--hl-orange) 0);
+}
+
+.study-color-option--yellow .study-color-swatch { background: var(--hl-yellow); }
+.study-color-option--green .study-color-swatch { background: var(--hl-green); }
+.study-color-option--blue .study-color-swatch { background: var(--hl-blue); }
+.study-color-option--pink .study-color-swatch { background: var(--hl-pink); }
+.study-color-option--orange .study-color-swatch { background: var(--hl-orange); }
+
+.study-color-option input:checked + .study-color-swatch {
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-accent);
+}
+
+.study-color-option input:focus-visible + .study-color-swatch {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.study-count {
+  min-height: 1.5em;
+  margin-top: 1.25rem;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.study-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.study-item {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.study-item:focus {
+  outline: none;
+}
+
+.study-item:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.study-item-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 0.75rem;
+}
+
+.study-ref {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.study-ref:hover {
+  text-decoration: underline;
+}
+
+.study-kind {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.study-dot {
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+}
+
+.study-kind--yellow .study-dot { background: var(--hl-yellow); }
+.study-kind--green .study-dot { background: var(--hl-green); }
+.study-kind--blue .study-dot { background: var(--hl-blue); }
+.study-kind--pink .study-dot { background: var(--hl-pink); }
+.study-kind--orange .study-dot { background: var(--hl-orange); }
+
+.study-verse {
+  margin: 0.4rem 0 0;
+  padding-inline-start: 0.75rem;
+  border-inline-start: 3px solid var(--color-border-strong);
+  color: var(--color-text-muted);
+  font-family: var(--font-scripture);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.study-item--highlight .study-verse {
+  color: var(--color-text);
+}
+
+.study-empty {
+  margin-top: 1.5rem;
+}
+
+.study-empty .button {
+  margin-top: 0.75rem;
+}
+
+.study-backup {
+  margin-top: 3rem;
+  padding: 1.1rem 1.25rem 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.study-backup-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.study-backup-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.study-backup-confirm {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.study-backup-confirm[hidden] {
+  display: none;
+}
+
+.study-backup-confirm > p + p {
+  margin-top: 0.3rem;
+}
+
+.study-backup-mode {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.study-backup-mode label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.25rem;
+}
+
+.study-backup-note,
+.study-backup-warning,
+.study-backup-status {
+  margin-top: 0.6rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.study-backup-status:empty {
+  display: none;
+}
+
+/* The type switch keeps its natural width (it's a grid item here). */
+.study-filters .search-match .segmented {
+  justify-self: start;
+}
+
+@media (max-width: 40rem) {
+  .study-filters .search-match .segmented {
+    justify-self: stretch;
+  }
+
+  .study-selects {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .study-selects .search-select,
+  .study-text {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .study-text-field {
+    grid-column: 1 / -1;
+  }
+}

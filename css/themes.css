@@ -9,6 +9,8 @@
  *
  * --color-highlight marks a linked verse; --color-flash is a stronger shade,
  * for the brief pulse after a jump from search and for search matches.
+ * --hl-* are the reader's own highlight colours (My Study): pale on light
+ * and sepia, deep on dark, so the text on them keeps its contrast.
  *
  * Every text/background pair meets WCAG AA (4.5:1 for text, 3:1 for focus
  * rings and control borders). Re-check contrast if you change a colour.
@@ -30,6 +32,11 @@
   --color-accent-soft: #e5edf5;
   --color-highlight: #faeec4;
   --color-flash: #f2d675;
+  --hl-yellow: #fdf1a5;
+  --hl-green: #d3efcf;
+  --hl-blue: #d2e6fa;
+  --hl-pink: #fad6e6;
+  --hl-orange: #fde2c4;
   --color-focus: #275a8c;
   --color-shadow: rgb(25 25 20 / 0.14);
 }
@@ -49,6 +56,11 @@
   --color-accent-soft: #efdfc2;
   --color-highlight: #efd99c;
   --color-flash: #e4c262;
+  --hl-yellow: #f1dd8c;
+  --hl-green: #d4e2b4;
+  --hl-blue: #cddbe2;
+  --hl-pink: #efcdd0;
+  --hl-orange: #f2cf9f;
   --color-focus: #8a4513;
   --color-shadow: rgb(60 40 10 / 0.16);
 }
@@ -68,6 +80,11 @@
   --color-accent-soft: #233447;
   --color-highlight: #3d3620;
   --color-flash: #5e4f1c;
+  --hl-yellow: #4a4120;
+  --hl-green: #233f2b;
+  --hl-blue: #1f3a55;
+  --hl-pink: #4d2440;
+  --hl-orange: #4f3119;
   --color-focus: #8db8e6;
   --color-shadow: rgb(0 0 0 / 0.5);
 }
@@ -88,6 +105,11 @@
     --color-accent-soft: #233447;
     --color-highlight: #3d3620;
     --color-flash: #5e4f1c;
+    --hl-yellow: #4a4120;
+    --hl-green: #233f2b;
+    --hl-blue: #1f3a55;
+    --hl-pink: #4d2440;
+    --hl-orange: #4f3119;
     --color-focus: #8db8e6;
     --color-shadow: rgb(0 0 0 / 0.5);
   }
