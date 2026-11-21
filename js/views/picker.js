@@ -56,6 +56,7 @@ export function renderBookList({ lastRead = null, studyCount = 0 } = {}) {
       { class: 'study-links', 'aria-label': t('page.studyLinks') },
       el('a', { class: 'study-link', href: pageHref(PAGES.timeline) }, icon(ICONS.timeline, { size: 18 }), t('timeline.title')),
       el('a', { class: 'study-link', href: mapHref() }, icon(ICONS.map, { size: 18 }), t('maps.title')),
+      el('a', { class: 'study-link', href: pageHref(PAGES.explore) }, icon(ICONS.statue, { size: 18 }), t('explore.title')),
     ),
   );
 }

@@ -11,7 +11,7 @@ import { formatRef, parseRef } from '../research/refs.js';
 import { bookHref, chapterHref, introHref } from '../router.js';
 import { el, icon, ICONS } from '../ui/dom.js';
 import { localize, refLink } from './maps.js';
-import { factList, outlineList, passageQuote, studyPage, tagList } from './templates/study-page.js';
+import { factList, linkCards, outlineList, passageQuote, studyPage, tagList } from './templates/study-page.js';
 import { placeLink, timelineHref } from './timeline.js';
 
 const refHref = (ref) => chapterHref(getBook(ref.book), ref.chapter, ref.verse, '', ref.endChapter === ref.chapter ? ref.endVerse : null);
@@ -24,10 +24,11 @@ const refHref = (ref) => chapterHref(getBook(ref.book), ref.chapter, ref.verse, 
  * @param {object|null} options.places
  * @param {object[]} options.maps
  * @param {{ href: string, label: string }} options.back
+ * @param {object[]} [options.explore]  link cards to interactive studies of this book
  * @returns {{ element: HTMLElement, quotes: { ref, fill }[] }}
  *   `quotes`: the key verses, for the caller to fill with text once loaded
  */
-export function renderBookIntro({ book, intro, timeline = null, places = null, maps = [], back }) {
+export function renderBookIntro({ book, intro, timeline = null, places = null, maps = [], back, explore = [] }) {
   const name = bookName(book);
   const index = BOOKS.indexOf(book);
   const neighbours = el(
@@ -77,6 +78,7 @@ export function renderBookIntro({ book, intro, timeline = null, places = null, m
       ),
     },
     { id: 'intro-verses', title: t('intro.keyVerses'), content: quotes.map((quote) => quote.node) },
+    explore.length && { id: 'intro-explore', title: t('intro.explore'), content: linkCards(explore) },
     placeLinks.length && { id: 'intro-places', title: t('intro.places'), content: el('ul', { class: 'place-links', role: 'list' }, placeLinks.map((link) => el('li', {}, link))) },
     events.length && {
       id: 'intro-timeline',

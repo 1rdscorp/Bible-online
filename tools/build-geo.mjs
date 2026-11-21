@@ -10,7 +10,8 @@
  *     more: high). "verses": where the Bible names the place.
  *
  *   basemap.json  coastlines, lakes and rivers from Natural Earth (public
- *     domain), clipped to the Bible lands and simplified:
+ *     domain), clipped to the Bible lands and simplified. basemap-wide.json
+ *     is the same, coarser, from Spain to the Indus (for maps of empires):
  *     { "formatVersion": 1, "bounds": [w, s, e, n], "land": [[lon, lat, lon, lat, …], …],
  *       "lakes": [{ "name": "Dead Sea", "rings": [[…]] }], "rivers": [{ "name": "Jordan", "lines": [[…]] }] }
  *
@@ -27,6 +28,12 @@ import { contentVersion } from './lib/translation-file.mjs';
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 // Islands smaller than this (square degrees, about 3 km²) are left out; Patmos and Cauda stay.
 const MIN_ISLAND = 0.0003;
+
+const tolerance = (source) => {
+  if (!source.detailBox) return () => source.tolerance;
+  const [w, s, e, n] = source.detailBox;
+  return ([lon, lat]) => (lon >= w && lon <= e && lat >= s && lat <= n ? source.detailTolerance : source.tolerance);
+};
 
 /** One OpenBible.info record → the site's place, or null if it has no location. */
 export function convertPlace(record, { en, ru } = {}) {
@@ -53,18 +60,13 @@ export function convertPlace(record, { en, ru } = {}) {
   return place;
 }
 
-function tolerance(source) {
-  const [w, s, e, n] = source.detailBox;
-  return ([lon, lat]) => (lon >= w && lon <= e && lat >= s && lat <= n ? source.detailTolerance : source.tolerance);
-}
-
 /** Land rings inside the bounds, simplified; tiny islands dropped. */
 export function landRings(features, source) {
   const rings = [];
   for (const feature of features) {
     for (const ring of geometryParts(feature.geometry)) {
       const clipped = clipRing(ring, source.bounds);
-      if (clipped.length < 3 || ringArea(clipped) < MIN_ISLAND) continue;
+      if (clipped.length < 3 || ringArea(clipped) < (source.minIsland ?? MIN_ISLAND)) continue;
       const simple = simplify([...clipped, clipped[0]], tolerance(source)).slice(0, -1);
       if (simple.length >= 3) rings.push(flatten(simple));
     }
@@ -119,11 +121,23 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   };
   const basemapText = `${JSON.stringify(basemap)}\n`;
 
+  const wideSource = source.wide;
+  const wide = {
+    formatVersion: 1,
+    bounds: wideSource.bounds,
+    land: landRings(await geojson(source.land), wideSource),
+    lakes: namedShapes(await geojson(source.lakes), wideSource.lakes_keep, wideSource, 'rings'),
+    rivers: namedShapes(await geojson(source.rivers), wideSource.rivers_keep, wideSource, 'lines'),
+  };
+  const wideText = `${JSON.stringify(wide)}\n`;
+  await writeFile(join(ROOT, wideSource.file), wideText);
+
   await writeFile(join(ROOT, 'data', 'geo', 'places.json'), placesText);
   await writeFile(join(ROOT, 'data', 'geo', 'basemap.json'), basemapText);
   await updateResearchManifest('geo', {
     places: { url: 'data/geo/places.json', version: contentVersion(placesText), count: Object.keys(places).length },
     basemap: { url: 'data/geo/basemap.json', version: contentVersion(basemapText) },
+    basemapWide: { url: wideSource.file, version: contentVersion(wideText) },
     license: 'CC BY 4.0 (places); public domain (basemap)',
     source: { name: 'OpenBible.info', url: 'https://www.openbible.info/geo/' },
     basemapSource: { name: 'Natural Earth', url: 'https://www.naturalearthdata.com/' },
@@ -131,4 +145,6 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const points = basemap.land.reduce((sum, ring) => sum + ring.length / 2, 0);
   console.log(`  ${Object.keys(places).length} places (${(Buffer.byteLength(placesText) / 1e3).toFixed(0)} kB)`);
   console.log(`  basemap: ${basemap.land.length} land rings, ${points} points; ${basemap.lakes.length} lakes, ${basemap.rivers.length} rivers (${(Buffer.byteLength(basemapText) / 1e3).toFixed(0)} kB)`);
+  const widePoints = wide.land.reduce((sum, ring) => sum + ring.length / 2, 0);
+  console.log(`  wide basemap: ${wide.land.length} land rings, ${widePoints} points; ${wide.lakes.length} lakes, ${wide.rivers.length} rivers (${(Buffer.byteLength(wideText) / 1e3).toFixed(0)} kB)`);
 }

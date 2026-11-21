@@ -49,6 +49,7 @@ import { showStudyPage } from './views/study.js';
 import { renderBookIntro } from './views/book-intro.js';
 import { renderMapPage, renderMapsIndex } from './views/maps.js';
 import { renderTimelinePage } from './views/timeline.js';
+import { exploreCard, exploreHref, renderExploreIndex, VIEWS as EXPLORE_VIEWS } from './views/explore.js';
 import { enableJumpLinks } from './views/templates/study-page.js';
 import { renderTranslationsPage } from './views/translations.js';
 
@@ -313,6 +314,10 @@ async function handleRoute(route, { rerender = false } = {}) {
     mapPage?.destroy();
     mapPage = null;
   }
+  if (route.view !== 'explore' || route.pageId !== explorePage?.id) {
+    explorePage?.view.destroy();
+    explorePage = null;
+  }
 
   switch (route.view) {
     case 'start': {
@@ -358,6 +363,8 @@ async function handleRoute(route, { rerender = false } = {}) {
       return showTimelinePage(route, isCurrent, rerender);
     case 'maps':
       return showMapsPage(route, isCurrent, rerender);
+    case 'explore':
+      return showExplorePage(route, isCurrent, rerender);
     default:
       return showNotFound(route, rerender);
   }
@@ -368,6 +375,91 @@ async function handleRoute(route, { rerender = false } = {}) {
 /* ---------------------------------------------------------------------- */
 
 let mapPage = null; // the map on screen, so its resize observer can be released
+let explorePage = null; // { id, view }: the interactive study on screen
+
+/**
+ * A passage's text in the translation being read, or the KJV if that one
+ * lacks the book (the Septuagint has no New Testament): { text, lang } or null.
+ */
+async function passageText(ref) {
+  const { prefs } = await translationState();
+  for (const id of [...new Set([selectionFromPrefs(prefs)[0], 'kjv'])]) {
+    try {
+      const provider = await getProvider(id);
+      const parts = [];
+      for (let chapter = ref.chapter; chapter <= ref.endChapter; chapter += 1) {
+        const data = await provider.getChapter(ref.book, chapter);
+        const first = chapter === ref.chapter ? ref.verse : 1;
+        const last = chapter === ref.endChapter ? ref.endVerse : Infinity;
+        for (const verse of data?.verses ?? []) if (verse.number >= first && verse.number <= last) parts.push(verse.text);
+      }
+      if (parts.length) return { text: parts.join(' '), lang: provider.info.language };
+    } catch {
+      // try the next translation
+    }
+  }
+  return null;
+}
+
+async function showExplorePage(route, isCurrent, rerender) {
+  let pages;
+  try {
+    pages = await researchData.explore();
+  } catch (error) {
+    if (isCurrent()) showStudyLoadFailure(error, route);
+    return;
+  }
+  if (!isCurrent()) return;
+  if (!route.pageId) {
+    mount(renderExploreIndex({ pages }), { title: t('explore.title'), preserve: rerender });
+    return;
+  }
+  const entry = pages.find((page) => page.id === route.pageId);
+  const render = EXPLORE_VIEWS[route.pageId];
+  if (!entry || !render) {
+    showNotFound({ ...route, reason: 'page' }, rerender);
+    return;
+  }
+  let data;
+  let places;
+  let basemap;
+  try {
+    [data, places, basemap] = await Promise.all([researchData.explorePage(entry.id), researchData.places(), researchData.basemapWide()]);
+  } catch (error) {
+    if (isCurrent()) showStudyLoadFailure(error, route);
+    return;
+  }
+  if (!isCurrent()) return;
+  explorePage?.view.destroy();
+  const view = render({
+    data,
+    places,
+    basemap,
+    partId: route.params.part ?? null,
+    readingId: route.params.reading ?? null,
+    passageText,
+    // Keep the choice in the URL (for sharing) without a history entry per click.
+    onChange: ({ part, reading }) => replaceHash(exploreHref(entry.id, new URLSearchParams({ part, reading }).toString())),
+  });
+  explorePage = { id: entry.id, view };
+  enableJumpLinks(view.element);
+  mount(view.element, { title: localizeText(data.title), preserve: rerender });
+}
+
+/** Under a chapter, links to the interactive studies about it (Daniel 2: the statue). */
+async function addExploreLinks(view, book, chapter) {
+  let pages;
+  try {
+    pages = await researchData.explore();
+  } catch {
+    return; // offline before the data was stored: no links, nothing else lost
+  }
+  const links = view.element.querySelector('.chapter-study');
+  if (!links || !main.contains(view.element)) return;
+  links.querySelector('.explore-link')?.remove();
+  const page = pages.find((entry) => entry.chapters.includes(`${book.id} ${chapter}`));
+  if (page) links.append(el('a', { class: 'text-button explore-link', href: exploreHref(page.id) }, icon(ICONS[page.icon] ?? ICONS.research, { size: 16 }), localizeText(page.title)));
+}
 
 /** A study page's data failed to load: say so, with a way to try again. */
 function showStudyLoadFailure(error, route) {
@@ -389,8 +481,10 @@ async function showIntroPage(route, isCurrent, rerender) {
   let timeline;
   let places;
   let maps;
+  let explore = [];
   try {
     [intro, timeline, places, maps] = await Promise.all([researchData.bookIntro(book.id), researchData.timeline(), researchData.places(), researchData.maps()]);
+    explore = (await researchData.explore()).filter((page) => page.books.includes(book.id)).map(exploreCard);
   } catch (error) {
     if (isCurrent()) showStudyLoadFailure(error, route);
     return;
@@ -404,29 +498,16 @@ async function showIntroPage(route, isCurrent, rerender) {
     timeline,
     places,
     maps,
+    explore,
     back: { href: chapterHref(backTo.book, backTo.chapter), label: t('translations.back', { title: chapterTitle(backTo.book, backTo.chapter) }) },
   });
   enableJumpLinks(element);
   mount(element, { title: t('intro.link', { book: bookName(book) }), preserve: rerender });
-  // Key verses, quoted in the translation being read (or the KJV, if that
-  // one lacks the book: the Septuagint has no New Testament).
-  const { prefs } = await translationState();
-  const ids = [...new Set([selectionFromPrefs(prefs)[0], 'kjv'])];
+  // Key verses, quoted in the translation being read.
   for (const quote of quotes) {
-    const { ref } = quote;
-    for (const id of ids) {
-      try {
-        const provider = await getProvider(id);
-        const chapter = await provider.getChapter(ref.book, ref.chapter);
-        const last = ref.endChapter === ref.chapter ? ref.endVerse : Infinity;
-        const verses = chapter?.verses.filter((v) => v.number >= ref.verse && v.number <= last) ?? [];
-        if (!verses.length) continue;
-        if (isCurrent()) quote.fill(verses.map((v) => v.text).join(' '), provider.info.language);
-        break;
-      } catch {
-        // Try the next translation; the reference link is there regardless.
-      }
-    }
+    passageText(quote.ref).then((found) => {
+      if (found && isCurrent()) quote.fill(found.text, found.lang);
+    });
   }
 }
 
@@ -530,6 +611,7 @@ async function showReader(route, isCurrent) {
     const paint = () => {
       paintStudyMarks(view.textRoot, studyStore.inChapter(book.id, chapter), { book, chapter, onOpenNote: (id) => notesPanel.openNote(id) });
       updateChapterStudyLinks(view, book, chapter);
+      addExploreLinks(view, book, chapter);
     };
     reader = { book, chapter, verse, verseEnd, ids, view, paint };
     paint();

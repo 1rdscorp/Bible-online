@@ -73,6 +73,25 @@ export function createResearchData({ fetchJson = (url, version) => translationCa
       return load(geo.basemap.url, geo.basemap.version);
     },
 
+    /** The coarser basemap from Spain to the Indus, for maps of empires. */
+    async basemapWide() {
+      const { geo } = await manifest();
+      return load(geo.basemapWide.url, geo.basemapWide.version);
+    },
+
+    /** The interactive "explore" pages: [{ id, file, title, summary, books, chapters }]. */
+    async explore() {
+      const { study } = await manifest();
+      return (await load(`${study.url}explore.json`, study.version)).pages;
+    },
+
+    /** One explore page's content, or null if there's no such page. */
+    async explorePage(id) {
+      const { study } = await manifest();
+      const page = (await this.explore()).find((entry) => entry.id === id);
+      return page ? load(`${study.url}${page.file}`, study.version) : null;
+    },
+
     /** A book's introduction, or null if it has none yet. */
     async bookIntro(bookId) {
       const { study } = await manifest();

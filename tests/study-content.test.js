@@ -180,6 +180,78 @@ describe('map pages (data/study/maps.json)', () => {
   });
 });
 
+describe('explore pages (data/study/explore.json)', () => {
+  const index = readJson('data/study/explore.json');
+  const wide = readJson('data/geo/basemap-wide.json');
+  const [W, S, E, N] = wide.bounds;
+  const onMap = (lon, lat) => lon >= W && lon <= E && lat >= S && lat <= N;
+
+  test('the index lists pages with a file, titles and the passages they belong to', () => {
+    const problems = [];
+    for (const page of index.pages) {
+      if (!/^[a-z0-9-]+$/.test(page.id)) problems.push(`${page.id}: id a-z 0-9 -`);
+      problems.push(...textProblems(page.title, `${page.id}.title`), ...textProblems(page.summary, `${page.id}.summary`));
+      for (const book of page.books) if (getBook(book)?.id !== book) problems.push(`${page.id}: unknown book ${book}`);
+      for (const chapter of page.chapters) {
+        const [book, number] = chapter.split(' ');
+        if (!(getBook(book)?.id === book && Number(number) >= 1 && Number(number) <= getBook(book).chapters)) problems.push(`${page.id}: bad chapter "${chapter}"`);
+      }
+      readJson(`data/study/${page.file}`);
+    }
+    assert.deepEqual(problems, []);
+  });
+
+  test('the statue of Daniel 2: parts, both readings, kingdoms, regions, places and eras', () => {
+    const statue = readJson('data/study/explore/daniel-statue.json');
+    const problems = [];
+    const readings = statue.readings.map((reading) => reading.id);
+    for (const reading of statue.readings) problems.push(...textProblems(reading.title, `reading ${reading.id}`), ...textProblems(reading.note, `reading ${reading.id}.note`));
+    problems.push(...textProblems(statue.title, 'title'), ...textProblems(statue.summary, 'summary'), ...textProblems(statue.note, 'note'), ...refProblems(statue.passage, 'passage'));
+    assert.deepEqual(statue.parts.map((part) => part.id), ['head', 'chest', 'belly', 'legs', 'feet', 'stone']);
+
+    const checkKingdom = (kingdom, label) => {
+      problems.push(...textProblems(kingdom.name, `${label}.name`), ...textProblems(kingdom.dates, `${label}.dates`));
+      if (!(kingdom.facts?.length >= 3)) problems.push(`${label}: at least 3 facts`);
+      kingdom.facts.forEach((fact, i) => problems.push(...textProblems(fact, `${label}.facts[${i}]`)));
+      for (const [i, parallel] of kingdom.parallels.entries()) problems.push(...refProblems(parallel.ref, `${label}.parallels[${i}]`), ...textProblems(parallel.text, `${label}.parallels[${i}]`));
+      for (const id of kingdom.regions) if (!statue.regions[id]) problems.push(`${label}: unknown region ${id}`);
+      for (const id of kingdom.places) if (!places[id]?.ru) problems.push(`${label}: place ${id} missing or without a Russian name`);
+      for (const id of kingdom.landmarks) if (!statue.landmarks[id]) problems.push(`${label}: unknown landmark ${id}`);
+    };
+    for (const part of statue.parts) {
+      problems.push(...textProblems(part.title, `${part.id}.title`), ...textProblems(part.material, `${part.id}.material`));
+      problems.push(...refProblems(part.refs.text, `${part.id}.refs.text`), ...refProblems(part.refs.meaning, `${part.id}.refs.meaning`));
+      if (part.kingdom) checkKingdom(part.kingdom, part.id);
+      else for (const reading of readings) part.kingdoms?.[reading] ? checkKingdom(part.kingdoms[reading], `${part.id}.${reading}`) : problems.push(`${part.id}: no kingdom for ${reading}`);
+    }
+    for (const [id, region] of Object.entries(statue.regions)) {
+      problems.push(...textProblems(region.title, `region ${id}`), ...textProblems(region.date, `region ${id}.date`));
+      if (!onMap(...region.label)) problems.push(`region ${id}: label off the wide basemap`);
+      for (const ring of region.rings) {
+        if (ring.length < 6 || ring.length % 2) problems.push(`region ${id}: a ring needs 3+ [lon, lat] pairs`);
+        for (let i = 0; i < ring.length; i += 2) if (!onMap(ring[i], ring[i + 1])) problems.push(`region ${id}: ${ring[i]},${ring[i + 1]} off the wide basemap`);
+      }
+    }
+    for (const [id, landmark] of Object.entries(statue.landmarks)) {
+      problems.push(...textProblems(landmark.name, `landmark ${id}`), ...textProblems(landmark.note, `landmark ${id}.note`));
+      if (!onMap(landmark.lon, landmark.lat)) problems.push(`landmark ${id}: off the wide basemap`);
+    }
+    const [from, to] = statue.range;
+    for (const reading of readings) {
+      for (const era of statue.eras[reading] ?? []) {
+        if (!statue.parts.some((part) => part.id === era.part)) problems.push(`eras.${reading}: unknown part ${era.part}`);
+        if (!(era.from < era.to && era.from >= from && era.to <= to)) problems.push(`eras.${reading}.${era.part}: ${era.from}–${era.to} outside ${from}–${to}`);
+      }
+    }
+    for (const event of statue.events) {
+      if (!Number.isInteger(event.year) || event.year === 0 || event.year < from || event.year > to) problems.push(`event ${event.year}: a whole year within the range`);
+      problems.push(...textProblems(event.label, `event ${event.year}`));
+      if (event.ref) problems.push(...refProblems(event.ref, `event ${event.year}`));
+    }
+    assert.deepEqual(problems, []);
+  });
+});
+
 test('data/research.json has the study content’s current version (run `node tools/build-study.mjs`)', () => {
   assert.equal(research.study?.version, studyVersion());
 });

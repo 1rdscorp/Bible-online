@@ -4,7 +4,7 @@ import { findBook, getBook } from '../js/canon.js';
 import { chapterHref, introHref, mapHref, PAGES, parseHash, resolveRoute } from '../js/router.js';
 
 // The fields of a route that matter for these pages.
-const pick = ({ view, book, mapId }) => ({ view, ...(book ? { book } : {}), ...(mapId ? { mapId } : {}) });
+const pick = ({ view, book, mapId, pageId }) => ({ view, ...(book ? { book } : {}), ...(mapId ? { mapId } : {}), ...(pageId ? { pageId } : {}) });
 
 const summary = (hash) => {
   const r = resolveRoute(hash);
@@ -132,4 +132,11 @@ test('study pages: book introductions, the timeline and maps', () => {
   assert.equal(resolveRoute('#/maps/<x>').view, 'not-found');
   assert.equal(mapHref('paul', 'place=a1'), '#/maps/paul?place=a1');
   assert.equal(mapHref(), '#/maps');
+});
+
+test('interactive studies: #/explore and #/explore/<id>', () => {
+  assert.deepEqual(pick(resolveRoute('#/explore')), { view: 'explore' });
+  assert.deepEqual(pick(resolveRoute('#/explore/daniel-statue?part=legs')), { view: 'explore', pageId: 'daniel-statue' });
+  assert.equal(resolveRoute('#/Explore/Daniel-Statue').redirect, '#/explore/daniel-statue');
+  assert.equal(resolveRoute('#/explore/a%20b').view, 'not-found');
 });

@@ -19,6 +19,8 @@
  *   #/timeline    timeline  the Bible timeline
  *   #/maps        maps      the list of maps
  *   #/maps/paul   maps      one map (route.mapId = "paul")
+ *   #/explore     explore   interactive studies
+ *   #/explore/daniel-statue  explore  one of them (route.pageId)
  *
  * Anything after "?" is parsed into `route.params`. The reader uses ?t= for
  * its translations (#/john/3?t=kjv,asv); see js/translations.js.
@@ -48,7 +50,14 @@ export function chapterHref(book, chapter, verse = null, query = '', verseEnd = 
  * Pages that aren't books. Their names are reserved, so no book alias may
  * use them; tests/router.test.js checks.
  */
-export const PAGES = Object.freeze({ translations: 'translations', search: 'search', study: 'study', timeline: 'timeline', maps: 'maps' });
+export const PAGES = Object.freeze({
+  translations: 'translations',
+  search: 'search',
+  study: 'study',
+  timeline: 'timeline',
+  maps: 'maps',
+  explore: 'explore',
+});
 
 export function pageHref(name) {
   return `#/${name}`;
@@ -110,6 +119,11 @@ export function resolveRoute(hash) {
     const mapId = chapterPart.toLowerCase();
     if (!/^[a-z0-9-]+$/.test(mapId)) return { ...base, view: 'not-found', reason: 'page', query: chapterPart };
     return withCanonical({ ...base, view: page, mapId }, mapHref(mapId) + suffix, raw);
+  }
+  if (page === PAGES.explore && chapterPart) {
+    const pageId = chapterPart.toLowerCase();
+    if (!/^[a-z0-9-]+$/.test(pageId)) return { ...base, view: 'not-found', reason: 'page', query: chapterPart };
+    return withCanonical({ ...base, view: page, pageId }, `${pageHref(page)}/${pageId}${suffix}`, raw);
   }
   if (page) return withCanonical({ ...base, view: page }, pageHref(page) + suffix, raw);
 
