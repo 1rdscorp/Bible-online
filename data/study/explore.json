@@ -1,0 +1,25 @@
+{
+ "formatVersion": 1,
+ "pages": [
+  {
+   "id": "daniel-statue",
+   "file": "explore/daniel-statue.json",
+   "icon": "statue",
+   "title": {
+    "en": "The Statue in Nebuchadnezzar’s Dream",
+    "ru": "Истукан из сна Навуходоносора"
+   },
+   "summary": {
+    "en": "Gold, silver, bronze, iron and clay: the kingdoms of Daniel 2, with their history, maps and the two main readings.",
+    "ru": "Золото, серебро, медь, железо и глина: царства из 2-й главы книги Даниила — история, карты и два основных толкования."
+   },
+   "books": [
+    "DAN"
+   ],
+   "chapters": [
+    "DAN 2",
+    "DAN 7"
+   ]
+  }
+ ]
+}

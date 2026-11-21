@@ -31,6 +31,11 @@
  * Clicking or tapping selects the nearest place. The SVG itself is a picture
  * for screen readers: the page lists the same places as buttons
  * (js/views/maps.js).
+ *
+ * Pages can change what's shown without redrawing the map: setPlaces(),
+ * setLabels(), setRegions() (shaded areas, such as an empire's extent,
+ * clipped to the coastline so rough outlines still follow the shore) and
+ * fitBounds() (fly to an area).
  */
 import { t } from '../i18n.js';
 import { el, icon, ICONS } from '../ui/dom.js';
@@ -56,6 +61,7 @@ function svg(name, attrs = {}, ...children) {
 
 const reducedMotion = () => globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 const isMac = () => /Mac|iPhone|iPad/.test(globalThis.navigator?.platform ?? '');
+let instances = 0; // for ids that are unique on the page
 
 /**
  * @param {object} options
@@ -67,8 +73,12 @@ const isMac = () => /Mac|iPhone|iPad/.test(globalThis.navigator?.platform ?? '')
  * @param {string} options.label      the map's accessible name
  * @param {(id: string) => void} options.onSelect
  * @param {HTMLElement} [options.details]  the selected place's details: shown under the map, and in full screen too
+ * @param {boolean} [options.allPlacesOption]  offer "Show all places" (default true)
  */
-export function createMapView({ map, basemap, places, nameOf, localize, label, onSelect, details = null }) {
+export function createMapView({ map, basemap, places, nameOf, localize, label, onSelect, details = null, allPlacesOption = true }) {
+  const uid = `map${(instances += 1)}`;
+  let regions = []; // shaded areas: [{ id, kind, rings, label: { text, lon, lat } }]
+  let labelItems = map.labels ?? [];
   let selected = null;
   let routes = new Set((map.routes ?? []).map((route) => route.id));
   let showAll = false;
@@ -89,8 +99,9 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
   let drawnView = null; // the view the places layer was last laid out for
   let fontSize = 12.5;
   let hoverId = null;
+  let pendingFit = null; // a fitBounds() asked for before the first drawing
 
-  const mapIds = new Set(map.places ?? []);
+  let mapIds = new Set(map.places ?? []);
 
   /* -------- elements -------- */
 
@@ -123,7 +134,7 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
     showAll = allInput.checked;
     render(true);
   });
-  const options = el('div', { class: 'map-options' }, el('label', {}, allInput, el('span', { class: 'map-all-label' }, t('maps.showAll'))));
+  const options = allPlacesOption ? el('div', { class: 'map-options' }, el('label', {}, allInput, el('span', { class: 'map-all-label' }, t('maps.showAll')))) : null;
 
   const container = el('div', { class: 'map-wrap' }, options, frame, keysHelp, details);
   const placeholder = document.createComment('map');
@@ -156,6 +167,18 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
   }
 
   /** Base units: the map's bounds fitted inside the frame; paths for everything the basemap has. */
+  const regionLayer = svg('g', { class: 'map-regions' });
+
+  function drawRegions() {
+    if (!proj) return;
+    regionLayer.setAttribute('clip-path', `url(#${uid}-clip)`);
+    regionLayer.replaceChildren(
+      ...regions.map((region) =>
+        svg('path', { class: `map-region map-region--${region.kind}`, 'data-region': region.id, d: region.rings.map((ring) => pathData(ring, proj, true)).join(''), 'fill-rule': 'evenodd' }),
+      ),
+    );
+  }
+
   function build() {
     const { width, height } = size;
     const ratio = projection(map.bounds, 1).height;
@@ -166,6 +189,13 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
     home = centerOn(proj.width / 2, proj.height / 2, 1, limits);
     view = keep ? centerOn(proj.x(keep.lon), proj.y(keep.lat), keep.k, limits) : home;
     keep = null;
+    if (pendingFit) {
+      const [w, s, e, n] = pendingFit;
+      pendingFit = null;
+      const [x0, y0, x1, y1] = [proj.x(w), proj.y(n), proj.x(e), proj.y(s)];
+      const k = Math.min((width - 48) / Math.max(1, x1 - x0), (height - 48) / Math.max(1, y1 - y0));
+      view = centerOn((x0 + x1) / 2, (y0 + y1) / 2, Math.min(limits.maxK, Math.max(limits.minK, k)), limits);
+    }
 
     drawing.setAttribute('viewBox', `0 0 ${width} ${height}`);
     drawing.setAttribute('width', width);
@@ -176,7 +206,10 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
     const lakes = basemap.lakes.flatMap((lake) => lake.rings.map((ring) => pathData(ring, proj, true))).join('');
     const rivers = basemap.rivers.flatMap((river) => river.lines.map((line) => pathData(line, proj))).join('');
     geo.replaceChildren(
-      svg('path', { class: 'map-land', d: land, 'fill-rule': 'evenodd' }),
+      svg('path', { class: 'map-land', id: `${uid}-land`, d: land, 'fill-rule': 'evenodd' }),
+      // Shaded areas are clipped to the land, so their outlines can be rough at sea.
+      svg('clipPath', { id: `${uid}-clip`, clipPathUnits: 'userSpaceOnUse' }, svg('use', { href: `#${uid}-land`, 'clip-rule': 'evenodd' })),
+      regionLayer,
       svg('path', { class: 'map-lake', d: lakes }),
       svg('path', { class: 'map-river', d: rivers }),
       svg(
@@ -189,6 +222,7 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
         }),
       ),
     );
+    drawRegions();
     apply();
   }
 
@@ -282,12 +316,13 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
     // Region, water and river names: fixed places on the map, obstacles for place names.
     const obstacles = [];
     const regionNodes = [];
-    for (const item of map.labels ?? []) {
+    const regionNames = regions.filter((region) => region.label).map((region) => ({ text: region.label.text, lon: region.label.lon, lat: region.label.lat, kind: 'empire', raw: true }));
+    for (const item of [...regionNames, ...labelItems]) {
       const [x, y] = toScreen(view, proj.x(item.lon), proj.y(item.lat));
       if (!inFrame([x, y])) continue;
-      const text = localize(item.text);
-      const textSize = item.kind === 'region' ? fontSize * 0.92 : fontSize;
-      const w = text.length * textSize * (item.kind === 'region' ? 0.72 : 0.56);
+      const text = item.raw ? item.text : localize(item.text);
+      const textSize = item.kind === 'region' ? fontSize * 0.92 : item.kind === 'empire' ? fontSize * 1.08 : fontSize;
+      const w = text.length * textSize * (item.kind === 'region' ? 0.72 : 0.6);
       obstacles.push({ x: x - w / 2, y: y - textSize * 0.6, width: w, height: textSize * 1.2 });
       regionNodes.push(
         svg('text', { class: `map-label map-label--${item.kind}`, x: x.toFixed(1), y: y.toFixed(1), 'text-anchor': 'middle', 'dominant-baseline': 'middle', 'font-size': textSize.toFixed(1) }, text),
@@ -729,6 +764,40 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
 
     /** The current zoom (1 = the map's bounds fill the frame), for tests and debugging. */
     zoom: () => view.k,
+
+    /** Show these places (ids in `places`) as the map's own. */
+    setPlaces(ids) {
+      mapIds = new Set(ids);
+      render(true);
+    },
+
+    /** Replace the fixed names (region, water, river): [{ text: { en, ru }, lon, lat, kind }]. */
+    setLabels(items) {
+      labelItems = items;
+      render(true);
+    },
+
+    /**
+     * Shade areas: [{ id, kind, rings: [[lon, lat, …]], label: { text, lon, lat } }].
+     * `kind` picks the colour (css/pages.css: .map-region--gold…).
+     */
+    setRegions(list) {
+      regions = list;
+      drawRegions();
+      render(true);
+    },
+
+    /** Fly to show [west, south, east, north] (or the map's own bounds), with a margin. */
+    fitBounds(bounds = map.bounds, { padding = 24 } = {}) {
+      if (!proj) {
+        pendingFit = bounds;
+        return;
+      }
+      const [w, s, e, n] = bounds;
+      const [x0, y0, x1, y1] = [proj.x(w), proj.y(n), proj.x(e), proj.y(s)];
+      const k = Math.min((size.width - padding * 2) / Math.max(1, x1 - x0), (size.height - padding * 2) / Math.max(1, y1 - y0));
+      animateTo(centerOn((x0 + x1) / 2, (y0 + y1) / 2, Math.min(limits.maxK, Math.max(limits.minK, k)), limits));
+    },
 
     destroy() {
       setFullscreen(false);

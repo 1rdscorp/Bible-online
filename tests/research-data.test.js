@@ -121,4 +121,16 @@ describe('maps (data/geo/)', () => {
     }
     assert.deepEqual(basemap.rivers.map((r) => r.name).sort(), ['Euphrates', 'Jordan', 'Nile', 'Tiber', 'Tigris']);
   });
+
+  test('the wide basemap (Spain to the Indus) is current and stays inside its bounds', () => {
+    const text = readText(research.geo.basemapWide.url);
+    assert.equal(research.geo.basemapWide.version, contentVersion(text));
+    const wide = JSON.parse(text);
+    const [w, s, e, n] = wide.bounds;
+    for (const flat of [...wide.land, ...wide.lakes.flatMap((l) => l.rings), ...wide.rivers.flatMap((r) => r.lines)]) {
+      for (let i = 0; i < flat.length; i += 2) assert.ok(flat[i] >= w && flat[i] <= e && flat[i + 1] >= s && flat[i + 1] <= n);
+    }
+    assert.ok(w <= -10 && e >= 76, 'reaches Spain and the Indus');
+    assert.ok(wide.rivers.some((r) => r.name === 'Indus') && wide.rivers.some((r) => r.name === 'Danube'));
+  });
 });

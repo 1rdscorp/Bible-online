@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * The study pages' content (data/study/: book introductions, timeline, map
- * pages) is written by hand. This stamps its content version into
+ * pages, interactive "explore" pages) is written by hand. This stamps its content version into
  * data/research.json, which the site uses as the cache key, and lists the
  * books that have an introduction. tests/study-content.test.js checks the
  * content itself; run it after editing:
@@ -24,9 +24,14 @@ export function introducedBooks() {
   return BOOKS.map((book) => book.id).filter((id) => files.has(id));
 }
 
+/** The interactive pages listed in explore.json (their files, relative to data/study/). */
+export function explorePages() {
+  return JSON.parse(readFileSync(join(STUDY, 'explore.json'), 'utf8')).pages.map((page) => page.file);
+}
+
 /** One version for all the study content: any edit refreshes readers' cached copies. */
 export function studyVersion() {
-  const parts = ['timeline.json', 'maps.json', ...introducedBooks().map((id) => join('books', `${id}.json`))];
+  const parts = ['timeline.json', 'maps.json', 'explore.json', ...explorePages(), ...introducedBooks().map((id) => join('books', `${id}.json`))];
   return contentVersion(parts.map((part) => readFileSync(join(STUDY, part), 'utf8')).join('\n'));
 }
 

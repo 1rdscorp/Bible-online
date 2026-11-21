@@ -77,6 +77,46 @@
       "Shatt al Arab": "Tigris",
       "Jordan": "Jordan",
       "Tevere": "Tiber"
+    },
+    "_wideComment": "A second, coarser basemap for maps of empires (the statue of Daniel 2): from Spain and Britain to the Indus. Same sources; simplified to about 5 km, with islands under about 100 km² left out.",
+    "wide": {
+      "file": "data/geo/basemap-wide.json",
+      "bounds": [
+        -12,
+        14,
+        80,
+        58
+      ],
+      "tolerance": 0.05,
+      "minIsland": 0.01,
+      "lakes_keep": {
+        "Lake Van": "Lake Van",
+        "Lake Urmia": "Lake Urmia",
+        "Dead Sea": "Dead Sea",
+        "Sea of Galilee": "Sea of Galilee",
+        "North Aral Sea": "Aral Sea",
+        "South Aral Sea": "Aral Sea"
+      },
+      "rivers_keep": {
+        "Nile": "Nile",
+        "Rosetta Branch": "Nile",
+        "Damietta Branch": "Nile",
+        "Euphrates": "Euphrates",
+        "Firat": "Euphrates",
+        "Al Furat": "Euphrates",
+        "Tigris": "Tigris",
+        "Dicle": "Tigris",
+        "Shatt al Arab": "Tigris",
+        "Danube": "Danube",
+        "Donau": "Danube",
+        "Rhine": "Rhine",
+        "Rhein": "Rhine",
+        "Rhin": "Rhine",
+        "Nederrijn": "Rhine",
+        "Indus": "Indus",
+        "Shiquan": "Indus",
+        "Jordan": "Jordan"
+      }
     }
   }
 }

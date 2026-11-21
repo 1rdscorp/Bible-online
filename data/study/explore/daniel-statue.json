@@ -1,0 +1,1935 @@
+{
+ "formatVersion": 1,
+ "id": "daniel-statue",
+ "title": {
+  "en": "The Statue in Nebuchadnezzar’s Dream",
+  "ru": "Истукан из сна Навуходоносора"
+ },
+ "summary": {
+  "en": "In Daniel 2 King Nebuchadnezzar dreams of a great statue of gold, silver, bronze, iron and clay, struck down by a stone that becomes a mountain. Daniel explains it as a series of kingdoms, ending in a kingdom God himself sets up. Choose a part of the statue to see which kingdom it stands for, when it ruled and where.",
+  "ru": "Во 2-й главе книги Даниила царю Навуходоносору снится огромный истукан из золота, серебра, меди, железа и глины, сокрушённый камнем, который становится горой. Даниил объясняет сон как череду царств, завершающуюся царством, которое воздвигнет Сам Бог. Выберите часть истукана, чтобы увидеть, какое царство она означает, когда и где оно правило."
+ },
+ "passage": "DAN 2:31-45",
+ "readings": [
+  {
+   "id": "traditional",
+   "title": {
+    "en": "Traditional reading",
+    "ru": "Традиционное толкование"
+   },
+   "note": {
+    "en": "Held by Jewish and Christian interpreters since ancient times: Babylon, Medo-Persia, Greece and Rome.",
+    "ru": "Принято у иудейских и христианских толкователей с древности: Вавилон, Мидо-Персия, Греция и Рим."
+   }
+  },
+  {
+   "id": "scholarly",
+   "title": {
+    "en": "Many modern scholars",
+    "ru": "Многие современные исследователи"
+   },
+   "note": {
+    "en": "Common among scholars who date the book to the 160s BC: Babylon, Media, Persia and Greece, ending with the Greek kingdoms that followed Alexander.",
+    "ru": "Распространено среди исследователей, датирующих книгу 160-ми годами до н. э.: Вавилон, Мидия, Персия и Греция; завершают ряд греческие царства наследников Александра."
+   }
+  }
+ ],
+ "note": {
+  "en": "Daniel names only the first kingdom, Babylon (2:38). His later visions name Media and Persia (8:20) and Greece (8:21). The other identifications are interpretation, and readers have made them in two main ways. Switch between them to compare.",
+  "ru": "Даниил прямо называет только первое царство — Вавилон (2:38). В последующих видениях названы Мидия и Персия (8:20) и Греция (8:21). Остальное — толкование, и читатели предлагают его в двух основных вариантах. Переключайтесь между ними, чтобы сравнить."
+ },
+ "parts": [
+  {
+   "id": "head",
+   "metal": "gold",
+   "title": {
+    "en": "Head of gold",
+    "ru": "Голова из золота"
+   },
+   "material": {
+    "en": "Fine gold",
+    "ru": "Чистое золото"
+   },
+   "refs": {
+    "text": "DAN 2:32",
+    "meaning": "DAN 2:37-38"
+   },
+   "kingdom": {
+    "name": {
+     "en": "Babylon",
+     "ru": "Вавилон"
+    },
+    "dates": {
+     "en": "626–539 BC · Nebuchadnezzar II reigned 605–562 BC",
+     "ru": "626–539 гг. до н. э. · Навуходоносор II царствовал в 605–562 гг. до н. э."
+    },
+    "facts": [
+     {
+      "en": "Nabopolassar founded the Neo-Babylonian Empire in 626 BC; with the Medes he destroyed Nineveh, the Assyrian capital, in 612 BC.",
+      "ru": "Набопаласар основал Нововавилонскую державу в 626 г. до н. э.; вместе с мидянами он разрушил Ниневию, столицу Ассирии, в 612 г. до н. э."
+     },
+     {
+      "en": "Nebuchadnezzar defeated Egypt at Carchemish in 605 BC, the year Daniel was taken to Babylon.",
+      "ru": "Навуходоносор разбил египтян при Кархемисе в 605 г. до н. э. — в год, когда Даниил был уведён в Вавилон."
+     },
+     {
+      "en": "He took Jerusalem in 597 BC, and in 586 BC destroyed the city and Solomon’s temple.",
+      "ru": "Он взял Иерусалим в 597 г. до н. э., а в 586 г. до н. э. разрушил город и храм Соломона."
+     },
+     {
+      "en": "He rebuilt Babylon in splendour: the blue-tiled Ishtar Gate, palaces and the great ziggurat. “Is not this great Babylon, that I have built…?”",
+      "ru": "Он отстроил Вавилон во всём великолепии: ворота Иштар, облицованные синими изразцами, дворцы, великий зиккурат. «Это ли не величественный Вавилон, который построил я…»"
+     },
+     {
+      "en": "Babylon fell to Cyrus of Persia in 539 BC, on the night of Belshazzar’s feast.",
+      "ru": "Вавилон пал перед персом Киром в 539 г. до н. э., в ночь пира Валтасара."
+     }
+    ],
+    "parallels": [
+     {
+      "ref": "DAN 7:4",
+      "text": {
+       "en": "A lion with eagle’s wings",
+       "ru": "Лев с орлиными крыльями"
+      }
+     },
+     {
+      "ref": "DAN 4:30",
+      "text": {
+       "en": "“Is not this great Babylon…?”",
+       "ru": "«Это ли не величественный Вавилон…»"
+      }
+     },
+     {
+      "ref": "DAN 5:30-31",
+      "text": {
+       "en": "Belshazzar’s last night",
+       "ru": "Последняя ночь Валтасара"
+      }
+     }
+    ],
+    "regions": [
+     "babylon"
+    ],
+    "places": [
+     "a217d18",
+     "a15257a",
+     "af6c730",
+     "a70fd5d",
+     "a6d9af3"
+    ],
+    "landmarks": []
+   }
+  },
+  {
+   "id": "chest",
+   "metal": "silver",
+   "title": {
+    "en": "Chest and arms of silver",
+    "ru": "Грудь и руки из серебра"
+   },
+   "material": {
+    "en": "Silver",
+    "ru": "Серебро"
+   },
+   "refs": {
+    "text": "DAN 2:32",
+    "meaning": "DAN 2:39"
+   },
+   "kingdoms": {
+    "traditional": {
+     "name": {
+      "en": "Medo-Persia",
+      "ru": "Мидо-Персия"
+     },
+     "dates": {
+      "en": "539–331 BC",
+      "ru": "539–331 гг. до н. э."
+     },
+     "facts": [
+      {
+       "en": "Cyrus the Great united the Medes and the Persians around 550 BC and took Babylon in 539 BC.",
+       "ru": "Кир Великий объединил мидян и персов около 550 г. до н. э. и взял Вавилон в 539 г. до н. э."
+      },
+      {
+       "en": "In 538 BC Cyrus let the Jews go home and rebuild the temple, which was finished in 516 BC.",
+       "ru": "В 538 г. до н. э. Кир позволил иудеям вернуться и восстановить храм; его завершили в 516 г. до н. э."
+      },
+      {
+       "en": "It was the largest empire the world had yet seen, from Egypt and Thrace to the Indus, ruled through provinces and joined by the Royal Road.",
+       "ru": "Это была крупнейшая из известных тогда держав — от Египта и Фракии до Инда; ею управляли через сатрапии, а связывала её Царская дорога."
+      },
+      {
+       "en": "Its kings appear throughout the Bible: Cyrus, Darius, Ahasuerus (Xerxes, in Esther) and Artaxerxes (in Ezra and Nehemiah).",
+       "ru": "Её цари часто встречаются в Библии: Кир, Дарий, Артаксеркс книги Есфирь (Ксеркс) и Артаксеркс книг Ездры и Неемии."
+      },
+      {
+       "en": "It ended when Alexander the Great defeated Darius III at Gaugamela in 331 BC.",
+       "ru": "Она пала, когда Александр Македонский разбил Дария III при Гавгамелах в 331 г. до н. э."
+      }
+     ],
+     "parallels": [
+      {
+       "ref": "DAN 7:5",
+       "text": {
+        "en": "A bear raised up on one side",
+        "ru": "Медведь, поднятый с одного бока"
+       }
+      },
+      {
+       "ref": "DAN 8:3-4",
+       "text": {
+        "en": "The ram with two horns…",
+        "ru": "Овен с двумя рогами…"
+       }
+      },
+      {
+       "ref": "DAN 8:20",
+       "text": {
+        "en": "…“the kings of Media and Persia”",
+        "ru": "…«цари Мидийский и Персидский»"
+       }
+      }
+     ],
+     "regions": [
+      "persia"
+     ],
+     "places": [
+      "a033b84",
+      "a212ef7",
+      "a217d18",
+      "a15257a"
+     ],
+     "landmarks": [
+      "persepolis",
+      "gaugamela"
+     ]
+    },
+    "scholarly": {
+     "name": {
+      "en": "Media",
+      "ru": "Мидия"
+     },
+     "dates": {
+      "en": "c. 625–550 BC",
+      "ru": "ок. 625–550 гг. до н. э."
+     },
+     "facts": [
+      {
+       "en": "The book names the two peoples separately: after Babylon falls, “Darius the Median” takes the kingdom (5:31), and only later comes “Cyrus the Persian” (6:28).",
+       "ru": "Книга называет эти народы порознь: после падения Вавилона царство получает «Дарий Мидянин» (5:31), и лишь затем упомянут «Кир Персидский» (6:28)."
+      },
+      {
+       "en": "The Medes, from western Iran with their capital at Ecbatana, joined Babylon in destroying Nineveh in 612 BC.",
+       "ru": "Мидяне, жившие на западе Ирана со столицей в Экбатанах, вместе с Вавилоном разрушили Ниневию в 612 г. до н. э."
+      },
+      {
+       "en": "Media ruled from the Halys river in Anatolia to central Iran, until Cyrus the Persian conquered it around 550 BC.",
+       "ru": "Мидия владела землями от реки Галис в Малой Азии до центрального Ирана, пока около 550 г. до н. э. её не покорил перс Кир."
+      },
+      {
+       "en": "“Darius the Mede” is not known from other ancient sources. On this reading he stands for a Median kingdom that, in the book’s scheme, came between Babylon and Persia; others identify him with a Persian governor, or with Cyrus himself.",
+       "ru": "«Дарий Мидянин» не известен по другим древним источникам. В этом толковании он олицетворяет Мидийское царство, которое в замысле книги стоит между Вавилоном и Персией; другие отождествляют его с персидским наместником или с самим Киром."
+      }
+     ],
+     "parallels": [
+      {
+       "ref": "DAN 7:5",
+       "text": {
+        "en": "A bear raised up on one side",
+        "ru": "Медведь, поднятый с одного бока"
+       }
+      },
+      {
+       "ref": "DAN 5:30-31",
+       "text": {
+        "en": "“Darius the Median took the kingdom”",
+        "ru": "«Дарий Мидянин принял царство»"
+       }
+      }
+     ],
+     "regions": [
+      "media"
+     ],
+     "places": [
+      "a212ef7",
+      "a70fd5d",
+      "a217d18"
+     ],
+     "landmarks": []
+    }
+   }
+  },
+  {
+   "id": "belly",
+   "metal": "bronze",
+   "title": {
+    "en": "Belly and thighs of bronze",
+    "ru": "Чрево и бёдра из меди"
+   },
+   "material": {
+    "en": "Bronze (“brass” in the KJV)",
+    "ru": "Медь"
+   },
+   "refs": {
+    "text": "DAN 2:32",
+    "meaning": "DAN 2:39"
+   },
+   "kingdoms": {
+    "traditional": {
+     "name": {
+      "en": "Greece",
+      "ru": "Греция"
+     },
+     "dates": {
+      "en": "331 BC to Rome’s conquest of the East (63 BC; Egypt in 30 BC)",
+      "ru": "С 331 г. до н. э. до покорения Востока Римом (63 г. до н. э.; Египет — в 30 г. до н. э.)"
+     },
+     "facts": [
+      {
+       "en": "Alexander of Macedon crossed into Asia in 334 BC, defeated Persia at Issus and Gaugamela, and marched as far as the Indus.",
+       "ru": "Александр Македонский переправился в Азию в 334 г. до н. э., разбил персов при Иссе и Гавгамелах и дошёл до Инда."
+      },
+      {
+       "en": "He died in Babylon in 323 BC, aged 32, and his generals divided his empire: Daniel’s “four horns” and the leopard’s four heads.",
+       "ru": "Он умер в Вавилоне в 323 г. до н. э., в 32 года, и его полководцы разделили державу: это «четыре рога» и четыре головы барса у Даниила."
+      },
+      {
+       "en": "Judea lay between two of those kingdoms, the Ptolemies of Egypt and the Seleucids of Syria, whose wars Daniel 11 traces.",
+       "ru": "Иудея оказалась между двумя из этих царств — египетскими Птолемеями и сирийскими Селевкидами, чьи войны прослеживает 11-я глава книги Даниила."
+      },
+      {
+       "en": "Greek became the common language of the East. In Alexandria the Hebrew Scriptures were translated into Greek: the Septuagint, which you can read on this site.",
+       "ru": "Греческий стал общим языком Востока. В Александрии еврейские Писания перевели на греческий — это Септуагинта, которую можно читать на этом сайте."
+      },
+      {
+       "en": "The Seleucid king Antiochus IV desecrated the temple in 167 BC; the Maccabees rededicated it in 164 BC, as Hanukkah remembers.",
+       "ru": "Селевкидский царь Антиох IV осквернил храм в 167 г. до н. э.; Маккавеи вновь освятили его в 164 г. до н. э. — в память об этом празднуют Хануку."
+      }
+     ],
+     "parallels": [
+      {
+       "ref": "DAN 7:6",
+       "text": {
+        "en": "A leopard with four wings and four heads",
+        "ru": "Барс с четырьмя крыльями и четырьмя головами"
+       }
+      },
+      {
+       "ref": "DAN 8:5-8",
+       "text": {
+        "en": "The goat with a great horn, broken into four",
+        "ru": "Козёл с большим рогом, сломившимся на четыре"
+       }
+      },
+      {
+       "ref": "DAN 8:21",
+       "text": {
+        "en": "…“the king of Grecia”",
+        "ru": "…«царь Греции»"
+       }
+      },
+      {
+       "ref": "DAN 11:2-4",
+       "text": {
+        "en": "Persia, then a mighty Greek king",
+        "ru": "Персия, а затем могущественный царь Греции"
+       }
+      }
+     ],
+     "regions": [
+      "alexander"
+     ],
+     "places": [
+      "aee7248",
+      "ae41ab4",
+      "a217d18",
+      "a15257a"
+     ],
+     "landmarks": [
+      "pella",
+      "issus",
+      "gaugamela"
+     ]
+    },
+    "scholarly": {
+     "name": {
+      "en": "Persia",
+      "ru": "Персия"
+     },
+     "dates": {
+      "en": "c. 550–331 BC",
+      "ru": "ок. 550–331 гг. до н. э."
+     },
+     "facts": [
+      {
+       "en": "Cyrus the Great united the Medes and the Persians around 550 BC and took Babylon in 539 BC.",
+       "ru": "Кир Великий объединил мидян и персов около 550 г. до н. э. и взял Вавилон в 539 г. до н. э."
+      },
+      {
+       "en": "In 538 BC Cyrus let the Jews go home and rebuild the temple, which was finished in 516 BC.",
+       "ru": "В 538 г. до н. э. Кир позволил иудеям вернуться и восстановить храм; его завершили в 516 г. до н. э."
+      },
+      {
+       "en": "“A third kingdom… which shall bear rule over all the earth”: the Persian Empire reached from Egypt and Thrace to the Indus.",
+       "ru": "«Третье царство… которое будет владычествовать над всею землёю»: Персидская держава простиралась от Египта и Фракии до Инда."
+      },
+      {
+       "en": "Its kings appear throughout the Bible: Cyrus, Darius, Ahasuerus (Xerxes, in Esther) and Artaxerxes (in Ezra and Nehemiah).",
+       "ru": "Её цари часто встречаются в Библии: Кир, Дарий, Артаксеркс книги Есфирь (Ксеркс) и Артаксеркс книг Ездры и Неемии."
+      },
+      {
+       "en": "It ended when Alexander the Great defeated Darius III at Gaugamela in 331 BC.",
+       "ru": "Она пала, когда Александр Македонский разбил Дария III при Гавгамелах в 331 г. до н. э."
+      }
+     ],
+     "parallels": [
+      {
+       "ref": "DAN 7:6",
+       "text": {
+        "en": "A leopard with four wings and four heads (on this reading, the four Persian kings of 11:2)",
+        "ru": "Барс с четырьмя крыльями и четырьмя головами (в этом толковании — четыре персидских царя из 11:2)"
+       }
+      },
+      {
+       "ref": "DAN 8:20",
+       "text": {
+        "en": "“the kings of Media and Persia”",
+        "ru": "«цари Мидийский и Персидский»"
+       }
+      },
+      {
+       "ref": "DAN 11:2",
+       "text": {
+        "en": "Four Persian kings",
+        "ru": "Четыре персидских царя"
+       }
+      }
+     ],
+     "regions": [
+      "persia"
+     ],
+     "places": [
+      "a033b84",
+      "a212ef7",
+      "a217d18",
+      "a15257a"
+     ],
+     "landmarks": [
+      "persepolis",
+      "gaugamela"
+     ]
+    }
+   }
+  },
+  {
+   "id": "legs",
+   "metal": "iron",
+   "title": {
+    "en": "Legs of iron",
+    "ru": "Голени из железа"
+   },
+   "material": {
+    "en": "Iron",
+    "ru": "Железо"
+   },
+   "refs": {
+    "text": "DAN 2:33",
+    "meaning": "DAN 2:40"
+   },
+   "kingdoms": {
+    "traditional": {
+     "name": {
+      "en": "Rome",
+      "ru": "Рим"
+     },
+     "dates": {
+      "en": "From the 2nd century BC (Jerusalem taken 63 BC) to AD 476 in the West",
+      "ru": "Со II в. до н. э. (Иерусалим взят в 63 г. до н. э.) до 476 г. н. э. на Западе"
+     },
+     "facts": [
+      {
+       "en": "Rome defeated Macedon in 168 BC and the Seleucids before that, and its general Pompey took Jerusalem in 63 BC.",
+       "ru": "Рим разгромил Македонию в 168 г. до н. э., ещё раньше — Селевкидов, а его полководец Помпей взял Иерусалим в 63 г. до н. э."
+      },
+      {
+       "en": "Jesus was born under the emperor Augustus and crucified under the Roman governor Pontius Pilate.",
+       "ru": "Иисус родился при императоре Августе и был распят при римском прокураторе Понтии Пилате."
+      },
+      {
+       "en": "Roman armies destroyed Jerusalem and the temple in AD 70.",
+       "ru": "Римские войска разрушили Иерусалим и храм в 70 г. н. э."
+      },
+      {
+       "en": "At its height, around AD 117, the empire reached from Britain to Egypt and Mesopotamia: iron that “breaketh in pieces and subdueth all things”.",
+       "ru": "В пору расцвета, около 117 г. н. э., империя простиралась от Британии до Египта и Месопотамии — железо, которое «раздробляет и разбивает всё»."
+      },
+      {
+       "en": "Rome as the fourth kingdom is an old reading: the Jewish apocalypse 4 Ezra (around AD 100) says so outright, and it became standard among church fathers such as Hippolytus and Jerome.",
+       "ru": "Рим как четвёртое царство — древнее толкование: его прямо называет иудейский апокалипсис 3-й книги Ездры (около 100 г. н. э.; в синодальном издании — 3 Езд. 12:11), и оно стало общепринятым у отцов Церкви, например у Ипполита и Иеронима."
+      }
+     ],
+     "parallels": [
+      {
+       "ref": "DAN 7:7",
+       "text": {
+        "en": "A fourth beast with great iron teeth and ten horns",
+        "ru": "Четвёртый зверь с большими железными зубами и десятью рогами"
+       }
+      },
+      {
+       "ref": "DAN 7:23",
+       "text": {
+        "en": "“the fourth kingdom upon earth”",
+        "ru": "«четвёртое царство на земле»"
+       }
+      },
+      {
+       "ref": "LUK 2:1",
+       "text": {
+        "en": "A decree from Caesar Augustus",
+        "ru": "Повеление кесаря Августа"
+       }
+      }
+     ],
+     "regions": [
+      "rome"
+     ],
+     "places": [
+      "afc8e7a",
+      "a15257a",
+      "a58735e",
+      "ae41ab4"
+     ],
+     "landmarks": [
+      "constantinople"
+     ]
+    },
+    "scholarly": {
+     "name": {
+      "en": "Greece",
+      "ru": "Греция"
+     },
+     "dates": {
+      "en": "331–164 BC",
+      "ru": "331–164 гг. до н. э."
+     },
+     "facts": [
+      {
+       "en": "Alexander of Macedon crossed into Asia in 334 BC, defeated Persia at Issus and Gaugamela, and marched as far as the Indus.",
+       "ru": "Александр Македонский переправился в Азию в 334 г. до н. э., разбил персов при Иссе и Гавгамелах и дошёл до Инда."
+      },
+      {
+       "en": "He died in Babylon in 323 BC, aged 32, and his generals divided his empire: Daniel’s “four horns” and the leopard’s four heads.",
+       "ru": "Он умер в Вавилоне в 323 г. до н. э., в 32 года, и его полководцы разделили державу: это «четыре рога» и четыре головы барса у Даниила."
+      },
+      {
+       "en": "Daniel 11 follows the wars of Alexander’s successors, the Ptolemies and Seleucids, in close detail down to the reign of Antiochus IV.",
+       "ru": "11-я глава книги Даниила подробно прослеживает войны наследников Александра — Птолемеев и Селевкидов — вплоть до царствования Антиоха IV."
+      },
+      {
+       "en": "Many scholars read the “little horn” of 7:8 and 8:9 as Antiochus IV, who outlawed Jewish worship and desecrated the temple in 167 BC.",
+       "ru": "Многие исследователи видят в «малом роге» (7:8; 8:9) Антиоха IV, который запретил иудейское богослужение и осквернил храм в 167 г. до н. э."
+      },
+      {
+       "en": "On this reading the book was completed during that persecution, around 165 BC, and expected God’s kingdom to follow it.",
+       "ru": "В этом толковании книга была завершена во время тех гонений, около 165 г. до н. э., и ожидала вслед за ними наступления Божьего царства."
+      }
+     ],
+     "parallels": [
+      {
+       "ref": "DAN 7:7-8",
+       "text": {
+        "en": "A fourth beast, ten horns and a little horn",
+        "ru": "Четвёртый зверь, десять рогов и малый рог"
+       }
+      },
+      {
+       "ref": "DAN 8:21",
+       "text": {
+        "en": "“the king of Grecia”",
+        "ru": "«царь Греции»"
+       }
+      },
+      {
+       "ref": "DAN 11:31",
+       "text": {
+        "en": "The desecration of the temple",
+        "ru": "Осквернение святилища"
+       }
+      }
+     ],
+     "regions": [
+      "alexander"
+     ],
+     "places": [
+      "aee7248",
+      "ae41ab4",
+      "a217d18",
+      "a15257a"
+     ],
+     "landmarks": [
+      "pella",
+      "issus",
+      "gaugamela"
+     ]
+    }
+   }
+  },
+  {
+   "id": "feet",
+   "metal": "clay",
+   "title": {
+    "en": "Feet of iron and clay",
+    "ru": "Ноги из железа и глины"
+   },
+   "material": {
+    "en": "Iron mixed with clay",
+    "ru": "Железо, смешанное с глиной"
+   },
+   "refs": {
+    "text": "DAN 2:33",
+    "meaning": "DAN 2:41-43"
+   },
+   "kingdoms": {
+    "traditional": {
+     "name": {
+      "en": "The divided kingdom",
+      "ru": "Разделённое царство"
+     },
+     "dates": {
+      "en": "From AD 395 to the end of the age",
+      "ru": "С 395 г. н. э. до конца времён"
+     },
+     "facts": [
+      {
+       "en": "The text stresses division: iron mixed with clay, “partly strong, and partly broken”, that will not hold together.",
+       "ru": "Текст подчёркивает разделение: железо, смешанное с глиной, — царство «частью крепкое, частью хрупкое», которое не будет держаться вместе."
+      },
+      {
+       "en": "In AD 395 the empire was divided for good between East and West; the West fell in 476, the East in 1453, and the nations of Europe grew from its pieces.",
+       "ru": "В 395 г. н. э. империя окончательно разделилась на Западную и Восточную; Запад пал в 476 г., Восток — в 1453 г., а народы Европы выросли на её обломках."
+      },
+      {
+       "en": "Many readers link the ten toes with the ten horns of Daniel 7 and the ten kings of Revelation 17, and expect a last form of this kingdom before the stone strikes.",
+       "ru": "Многие связывают десять пальцев ног с десятью рогами из 7-й главы и десятью царями из Откровения 17 и ожидают последнего вида этого царства перед ударом камня."
+      },
+      {
+       "en": "Others see in iron and clay the long mixture of strong and weak powers that followed Rome, never again united into one empire.",
+       "ru": "Другие видят в железе и глине долгое смешение сильных и слабых держав, пришедших на смену Риму и уже никогда не объединившихся в одну империю."
+      }
+     ],
+     "parallels": [
+      {
+       "ref": "DAN 7:24",
+       "text": {
+        "en": "Ten kings, and another after them",
+        "ru": "Десять царей и ещё один после них"
+       }
+      },
+      {
+       "ref": "REV 17:12",
+       "text": {
+        "en": "Ten kings who reign for one hour",
+        "ru": "Десять царей, царствующих один час"
+       }
+      }
+     ],
+     "regions": [
+      "rome-west",
+      "rome-east"
+     ],
+     "places": [
+      "afc8e7a"
+     ],
+     "landmarks": [
+      "constantinople",
+      "ravenna"
+     ]
+    },
+    "scholarly": {
+     "name": {
+      "en": "The Ptolemies and Seleucids",
+      "ru": "Птолемеи и Селевкиды"
+     },
+     "dates": {
+      "en": "301–63 BC",
+      "ru": "301–63 гг. до н. э."
+     },
+     "facts": [
+      {
+       "en": "After the battle of Ipsus in 301 BC Alexander’s empire broke apart; the strongest pieces were the Ptolemies in Egypt and the Seleucids in Syria and the East.",
+       "ru": "После битвы при Ипсе в 301 г. до н. э. держава Александра распалась; сильнейшими её частями стали Птолемеи в Египте и Селевкиды в Сирии и на Востоке."
+      },
+      {
+       "en": "“They shall mingle themselves with the seed of men” recalls their royal marriages: Antiochus II married Berenice, daughter of Ptolemy II (about 252 BC), and Cleopatra I, daughter of Antiochus III, married Ptolemy V (193 BC). Neither alliance held.",
+       "ru": "«Смешаются через семя человеческое» напоминает о царских браках: Антиох II женился на Беренике, дочери Птолемея II (около 252 г. до н. э.), а Клеопатра I, дочь Антиоха III, вышла за Птолемея V (193 г. до н. э.). Ни один союз не устоял."
+      },
+      {
+       "en": "Judea passed from Ptolemaic to Seleucid rule after the battle of Panium in 200 BC.",
+       "ru": "Иудея перешла от Птолемеев к Селевкидам после битвы при Панионе в 200 г. до н. э."
+      },
+      {
+       "en": "On this reading the stone was expected soon after the death of Antiochus IV in 164 BC.",
+       "ru": "В этом толковании удар камня ожидался вскоре после смерти Антиоха IV в 164 г. до н. э."
+      }
+     ],
+     "parallels": [
+      {
+       "ref": "DAN 11:6",
+       "text": {
+        "en": "The daughter of the king of the south",
+        "ru": "Дочь царя южного"
+       }
+      },
+      {
+       "ref": "DAN 11:17",
+       "text": {
+        "en": "“the daughter of women”",
+        "ru": "«дочь жён»"
+       }
+      }
+     ],
+     "regions": [
+      "ptolemies",
+      "seleucids"
+     ],
+     "places": [
+      "aee7248",
+      "ae41ab4",
+      "a15257a"
+     ],
+     "landmarks": [
+      "raphia",
+      "panium"
+     ]
+    }
+   }
+  },
+  {
+   "id": "stone",
+   "metal": "stone",
+   "title": {
+    "en": "The stone",
+    "ru": "Камень"
+   },
+   "material": {
+    "en": "A stone cut out without hands",
+    "ru": "Камень, оторвавшийся без содействия рук"
+   },
+   "refs": {
+    "text": "DAN 2:34-35",
+    "meaning": "DAN 2:44-45"
+   },
+   "kingdom": {
+    "name": {
+     "en": "The kingdom of God",
+     "ru": "Царство Божье"
+    },
+    "dates": {
+     "en": "“A kingdom, which shall never be destroyed”",
+     "ru": "«Царство, которое вовеки не разрушится»"
+    },
+    "facts": [
+     {
+      "en": "The stone is “cut out without hands”: not made by any human power.",
+      "ru": "Камень оторвался «без содействия рук» — не человеческой силой."
+     },
+     {
+      "en": "It strikes the feet, and the whole statue, gold, silver, bronze, iron and clay together, becomes like chaff that the wind carries away.",
+      "ru": "Он ударяет в ноги, и весь истукан — золото, серебро, медь, железо и глина вместе — становится как прах, который уносит ветер."
+     },
+     {
+      "en": "The stone grows into a great mountain that fills the whole earth: a kingdom that will replace all the others and stand for ever.",
+      "ru": "Камень вырастает в великую гору и наполняет всю землю: это царство, которое сменит все прочие и будет стоять вечно."
+     },
+     {
+      "en": "Daniel 7 tells the same story: the beasts lose their power, and “one like the Son of man” receives an everlasting kingdom.",
+      "ru": "7-я глава рассказывает о том же: звери лишаются власти, а «подобный Сыну человеческому» получает вечное царство."
+     },
+     {
+      "en": "Christian readers see the kingdom of Christ, begun at his first coming and completed at his return; Jesus applies the image of a crushing stone to himself. Jewish tradition reads it of the messianic age.",
+      "ru": "Христиане видят здесь Царство Христово, начатое при Его первом пришествии и завершаемое при втором; Иисус применяет к Себе образ сокрушающего камня. Иудейское предание относит его к мессианскому веку."
+     }
+    ],
+    "parallels": [
+     {
+      "ref": "DAN 7:13-14",
+      "text": {
+       "en": "One like the Son of man receives the kingdom",
+       "ru": "Подобный Сыну человеческому получает царство"
+      }
+     },
+     {
+      "ref": "DAN 7:27",
+      "text": {
+       "en": "The kingdom given to the saints",
+       "ru": "Царство отдано святым"
+      }
+     },
+     {
+      "ref": "LUK 20:17-18",
+      "text": {
+       "en": "Jesus and the stone",
+       "ru": "Иисус о камне"
+      }
+     }
+    ],
+    "regions": [],
+    "places": [],
+    "landmarks": []
+   }
+  }
+ ],
+ "regions": {
+  "babylon": {
+   "title": {
+    "en": "Babylonian Empire",
+    "ru": "Вавилонское царство"
+   },
+   "date": {
+    "en": "c. 560 BC",
+    "ru": "ок. 560 г. до н. э."
+   },
+   "label": [
+    41.5,
+    33.2
+   ],
+   "rings": [
+    [
+     34.2,
+     31.3,
+     35.0,
+     29.6,
+     37.0,
+     28.3,
+     38.5,
+     27.3,
+     40.5,
+     28.7,
+     43.5,
+     29.8,
+     47.8,
+     29.9,
+     48.8,
+     30.2,
+     48.3,
+     31.6,
+     47.6,
+     32.4,
+     46.2,
+     34.3,
+     45.0,
+     35.9,
+     43.6,
+     37.1,
+     40.5,
+     37.4,
+     37.5,
+     37.3,
+     36.4,
+     36.9,
+     35.6,
+     36.4,
+     35.0,
+     36.0,
+     34.6,
+     34.6,
+     34.0,
+     33.0,
+     33.6,
+     31.6
+    ]
+   ]
+  },
+  "media": {
+   "title": {
+    "en": "Median kingdom",
+    "ru": "Мидийское царство"
+   },
+   "date": {
+    "en": "c. 585 BC",
+    "ru": "ок. 585 г. до н. э."
+   },
+   "label": [
+    49.0,
+    35.6
+   ],
+   "rings": [
+    [
+     35.9,
+     42.3,
+     41.6,
+     41.8,
+     44.5,
+     41.5,
+     47.5,
+     41.8,
+     49.3,
+     40.8,
+     50.5,
+     38.5,
+     53.5,
+     37.0,
+     56.5,
+     37.5,
+     60.0,
+     36.5,
+     61.0,
+     34.0,
+     60.5,
+     31.5,
+     57.0,
+     30.5,
+     53.0,
+     30.8,
+     50.5,
+     31.5,
+     48.6,
+     33.0,
+     46.5,
+     34.8,
+     44.5,
+     35.4,
+     42.6,
+     36.5,
+     41.0,
+     37.4,
+     39.5,
+     38.6,
+     37.5,
+     38.8,
+     36.0,
+     39.2,
+     34.8,
+     39.8,
+     34.3,
+     40.8,
+     35.0,
+     41.6
+    ]
+   ]
+  },
+  "persia": {
+   "title": {
+    "en": "Persian Empire",
+    "ru": "Персидская держава"
+   },
+   "date": {
+    "en": "c. 500 BC",
+    "ru": "ок. 500 г. до н. э."
+   },
+   "label": [
+    54.0,
+    32.0
+   ],
+   "rings": [
+    [
+     20.0,
+     30.0,
+     20.0,
+     33.3,
+     27.0,
+     33.3,
+     32.2,
+     34.0,
+     32.2,
+     35.9,
+     28.0,
+     36.1,
+     26.2,
+     37.4,
+     25.9,
+     39.6,
+     25.5,
+     40.5,
+     24.0,
+     40.7,
+     23.9,
+     41.6,
+     26.5,
+     42.2,
+     28.2,
+     42.4,
+     29.3,
+     41.5,
+     33.0,
+     42.2,
+     38.0,
+     41.4,
+     41.6,
+     41.6,
+     44.5,
+     41.6,
+     47.5,
+     41.8,
+     49.3,
+     40.8,
+     50.5,
+     38.8,
+     53.0,
+     40.5,
+     55.5,
+     41.8,
+     59.5,
+     43.3,
+     64.0,
+     43.0,
+     68.5,
+     42.8,
+     71.0,
+     41.0,
+     71.5,
+     38.5,
+     72.5,
+     36.5,
+     74.5,
+     34.5,
+     75.5,
+     32.0,
+     74.0,
+     29.5,
+     71.5,
+     26.8,
+     69.0,
+     23.5,
+     65.0,
+     24.6,
+     61.0,
+     24.8,
+     57.5,
+     24.2,
+     56.2,
+     25.8,
+     52.5,
+     26.5,
+     50.2,
+     28.5,
+     48.6,
+     29.5,
+     47.6,
+     29.0,
+     44.5,
+     29.2,
+     40.0,
+     29.3,
+     37.0,
+     29.0,
+     35.0,
+     28.3,
+     34.4,
+     27.6,
+     33.8,
+     27.0,
+     34.4,
+     25.0,
+     33.2,
+     23.6,
+     32.2,
+     23.0,
+     30.5,
+     23.8,
+     28.5,
+     25.2,
+     26.0,
+     27.0,
+     25.2,
+     29.0,
+     23.0,
+     29.5
+    ]
+   ]
+  },
+  "alexander": {
+   "title": {
+    "en": "Empire of Alexander",
+    "ru": "Держава Александра Македонского"
+   },
+   "date": {
+    "en": "323 BC",
+    "ru": "323 г. до н. э."
+   },
+   "label": [
+    52.0,
+    32.0
+   ],
+   "rings": [
+    [
+     20.0,
+     30.0,
+     20.0,
+     33.3,
+     27.0,
+     33.3,
+     32.2,
+     34.0,
+     32.2,
+     35.9,
+     28.0,
+     36.1,
+     26.5,
+     36.3,
+     24.5,
+     36.0,
+     22.8,
+     36.2,
+     21.3,
+     36.6,
+     20.6,
+     38.0,
+     19.6,
+     39.6,
+     19.4,
+     40.4,
+     20.0,
+     41.6,
+     21.5,
+     42.3,
+     23.5,
+     42.6,
+     26.0,
+     42.8,
+     28.0,
+     42.6,
+     29.3,
+     41.5,
+     33.0,
+     42.2,
+     38.0,
+     41.4,
+     41.6,
+     41.6,
+     44.5,
+     41.6,
+     47.5,
+     41.8,
+     49.3,
+     40.8,
+     50.5,
+     38.8,
+     53.0,
+     40.5,
+     55.5,
+     41.8,
+     59.5,
+     43.3,
+     64.0,
+     43.0,
+     68.5,
+     42.8,
+     71.0,
+     41.0,
+     71.5,
+     38.5,
+     72.5,
+     36.5,
+     74.5,
+     34.5,
+     75.5,
+     32.0,
+     74.0,
+     29.5,
+     71.5,
+     26.8,
+     69.0,
+     23.5,
+     65.0,
+     24.6,
+     61.0,
+     24.8,
+     57.5,
+     24.2,
+     56.2,
+     25.8,
+     52.5,
+     26.5,
+     50.2,
+     28.5,
+     48.6,
+     29.5,
+     47.6,
+     29.0,
+     44.5,
+     29.2,
+     40.0,
+     29.3,
+     37.0,
+     29.0,
+     35.0,
+     28.3,
+     34.4,
+     27.6,
+     33.8,
+     27.0,
+     34.4,
+     25.0,
+     33.2,
+     23.6,
+     32.2,
+     23.0,
+     30.5,
+     23.8,
+     28.5,
+     25.2,
+     26.0,
+     27.0,
+     25.2,
+     29.0,
+     23.0,
+     29.5
+    ]
+   ]
+  },
+  "rome": {
+   "title": {
+    "en": "Roman Empire",
+    "ru": "Римская империя"
+   },
+   "date": {
+    "en": "AD 117",
+    "ru": "117 г. н. э."
+   },
+   "label": [
+    14.0,
+    44.0
+   ],
+   "rings": [
+    [
+     -10.0,
+     34.0,
+     -10.0,
+     36.0,
+     -10.0,
+     44.0,
+     -5.0,
+     48.5,
+     -6.0,
+     49.8,
+     -5.4,
+     51.6,
+     -5.0,
+     53.0,
+     -5.2,
+     54.6,
+     -3.4,
+     55.1,
+     -1.6,
+     55.1,
+     0.5,
+     55.0,
+     2.5,
+     52.5,
+     4.0,
+     51.9,
+     6.0,
+     51.9,
+     6.8,
+     51.4,
+     7.6,
+     50.4,
+     8.7,
+     50.3,
+     9.6,
+     49.4,
+     10.5,
+     49.0,
+     11.5,
+     48.9,
+     12.3,
+     48.8,
+     13.8,
+     48.4,
+     16.4,
+     48.3,
+     17.1,
+     48.1,
+     18.8,
+     47.8,
+     19.0,
+     45.9,
+     20.8,
+     46.6,
+     22.2,
+     47.6,
+     24.0,
+     47.8,
+     25.6,
+     46.7,
+     25.8,
+     45.6,
+     26.6,
+     45.0,
+     27.8,
+     44.4,
+     28.8,
+     45.3,
+     29.8,
+     45.2,
+     30.0,
+     44.0,
+     29.5,
+     42.5,
+     30.5,
+     41.5,
+     33.0,
+     42.3,
+     37.5,
+     41.6,
+     41.6,
+     41.7,
+     43.5,
+     41.5,
+     46.0,
+     41.3,
+     47.2,
+     40.0,
+     46.0,
+     38.5,
+     45.0,
+     36.5,
+     46.5,
+     34.5,
+     48.0,
+     31.5,
+     48.6,
+     30.0,
+     47.0,
+     29.8,
+     45.5,
+     31.0,
+     43.5,
+     33.0,
+     41.0,
+     34.0,
+     39.5,
+     33.0,
+     38.0,
+     31.5,
+     37.8,
+     29.0,
+     37.9,
+     26.6,
+     36.5,
+     27.0,
+     35.0,
+     28.3,
+     34.4,
+     27.6,
+     33.8,
+     27.0,
+     34.4,
+     25.0,
+     33.2,
+     23.4,
+     32.2,
+     22.9,
+     30.5,
+     23.6,
+     28.5,
+     25.3,
+     26.0,
+     27.5,
+     25.0,
+     29.6,
+     20.0,
+     30.0,
+     16.0,
+     30.5,
+     13.5,
+     31.0,
+     11.0,
+     31.5,
+     9.5,
+     32.5,
+     8.0,
+     34.3,
+     6.0,
+     34.9,
+     3.5,
+     35.4,
+     1.0,
+     35.3,
+     -1.5,
+     34.9,
+     -4.5,
+     34.3,
+     -6.0,
+     33.8,
+     -7.5,
+     33.6
+    ]
+   ]
+  },
+  "rome-west": {
+   "title": {
+    "en": "Western Empire",
+    "ru": "Западная империя"
+   },
+   "date": {
+    "en": "AD 395",
+    "ru": "395 г. н. э."
+   },
+   "label": [
+    3.0,
+    45.0
+   ],
+   "rings": [
+    [
+     -10.0,
+     34.0,
+     -10.0,
+     44.0,
+     -5.0,
+     48.5,
+     -6.0,
+     49.8,
+     -5.4,
+     51.6,
+     -5.0,
+     53.0,
+     -5.2,
+     54.6,
+     -3.4,
+     55.1,
+     -1.6,
+     55.1,
+     0.5,
+     55.0,
+     2.5,
+     52.5,
+     4.0,
+     51.9,
+     6.0,
+     51.9,
+     6.8,
+     51.4,
+     7.6,
+     50.4,
+     8.2,
+     48.0,
+     9.5,
+     47.6,
+     10.9,
+     48.4,
+     12.3,
+     48.8,
+     13.8,
+     48.4,
+     16.4,
+     48.3,
+     17.1,
+     48.1,
+     18.8,
+     47.8,
+     19.0,
+     45.9,
+     19.3,
+     45.0,
+     19.4,
+     43.5,
+     19.6,
+     41.9,
+     19.0,
+     40.0,
+     19.0,
+     36.0,
+     18.8,
+     30.3,
+     16.0,
+     30.5,
+     13.5,
+     31.0,
+     11.0,
+     31.5,
+     9.5,
+     32.5,
+     8.0,
+     34.3,
+     6.0,
+     34.9,
+     3.5,
+     35.4,
+     1.0,
+     35.3,
+     -1.5,
+     34.9,
+     -4.5,
+     34.3,
+     -6.0,
+     33.8,
+     -7.5,
+     33.6
+    ]
+   ]
+  },
+  "rome-east": {
+   "title": {
+    "en": "Eastern Empire",
+    "ru": "Восточная империя"
+   },
+   "date": {
+    "en": "AD 395",
+    "ru": "395 г. н. э."
+   },
+   "label": [
+    33.0,
+    38.8
+   ],
+   "rings": [
+    [
+     19.3,
+     45.0,
+     22.5,
+     44.6,
+     25.0,
+     43.7,
+     27.8,
+     44.1,
+     28.8,
+     45.3,
+     29.8,
+     45.2,
+     30.0,
+     44.0,
+     29.5,
+     42.5,
+     30.5,
+     41.5,
+     33.0,
+     42.3,
+     37.5,
+     41.6,
+     41.6,
+     41.7,
+     43.0,
+     41.2,
+     43.8,
+     40.0,
+     42.0,
+     38.5,
+     41.0,
+     37.3,
+     40.0,
+     36.0,
+     38.8,
+     35.0,
+     38.0,
+     33.0,
+     37.5,
+     30.5,
+     35.0,
+     28.3,
+     34.4,
+     27.6,
+     33.8,
+     27.0,
+     34.4,
+     25.0,
+     33.2,
+     23.4,
+     32.2,
+     22.9,
+     30.5,
+     23.6,
+     28.5,
+     25.3,
+     26.0,
+     27.5,
+     25.0,
+     29.6,
+     18.8,
+     30.3,
+     19.0,
+     36.0,
+     19.0,
+     40.0,
+     19.6,
+     41.9,
+     19.4,
+     43.5
+    ]
+   ]
+  },
+  "ptolemies": {
+   "title": {
+    "en": "Ptolemaic kingdom",
+    "ru": "Царство Птолемеев"
+   },
+   "date": {
+    "en": "c. 200 BC",
+    "ru": "ок. 200 г. до н. э."
+   },
+   "label": [
+    29.5,
+    27.0
+   ],
+   "rings": [
+    [
+     19.5,
+     30.0,
+     19.5,
+     33.3,
+     25.0,
+     32.6,
+     29.0,
+     31.8,
+     32.0,
+     31.8,
+     34.0,
+     31.5,
+     34.2,
+     31.2,
+     34.6,
+     29.5,
+     34.4,
+     27.6,
+     33.8,
+     27.0,
+     35.5,
+     23.5,
+     33.0,
+     22.0,
+     31.0,
+     22.0,
+     28.5,
+     25.3,
+     26.0,
+     27.5,
+     25.0,
+     29.6
+    ],
+    [
+     32.0,
+     34.4,
+     34.8,
+     34.4,
+     34.8,
+     35.9,
+     32.0,
+     35.9
+    ]
+   ]
+  },
+  "seleucids": {
+   "title": {
+    "en": "Seleucid kingdom",
+    "ru": "Царство Селевкидов"
+   },
+   "date": {
+    "en": "c. 200 BC",
+    "ru": "ок. 200 г. до н. э."
+   },
+   "label": [
+    44.0,
+    34.0
+   ],
+   "rings": [
+    [
+     34.2,
+     31.2,
+     33.8,
+     31.6,
+     34.6,
+     34.6,
+     35.0,
+     36.0,
+     34.0,
+     36.4,
+     32.0,
+     36.2,
+     30.6,
+     36.6,
+     30.0,
+     37.5,
+     28.0,
+     37.8,
+     27.5,
+     38.5,
+     26.8,
+     38.8,
+     27.5,
+     39.8,
+     30.5,
+     39.8,
+     33.5,
+     39.2,
+     35.0,
+     38.5,
+     37.5,
+     38.3,
+     40.0,
+     38.0,
+     42.5,
+     37.8,
+     44.5,
+     37.0,
+     46.5,
+     35.5,
+     48.0,
+     35.5,
+     50.5,
+     36.5,
+     54.5,
+     36.5,
+     55.0,
+     33.0,
+     54.0,
+     30.0,
+     52.0,
+     27.5,
+     50.5,
+     28.5,
+     48.6,
+     29.6,
+     47.5,
+     29.5,
+     45.0,
+     30.5,
+     42.0,
+     31.5,
+     39.0,
+     32.0,
+     37.5,
+     30.0,
+     35.6,
+     31.0,
+     35.2,
+     30.6,
+     34.6,
+     30.0
+    ]
+   ]
+  }
+ },
+ "landmarks": {
+  "persepolis": {
+   "name": {
+    "en": "Persepolis",
+    "ru": "Персеполь"
+   },
+   "lon": 52.891,
+   "lat": 29.935,
+   "note": {
+    "en": "Ceremonial capital of the Persian kings, begun by Darius I; burned by Alexander in 330 BC.",
+    "ru": "Церемониальная столица персидских царей, заложенная Дарием I; сожжена Александром в 330 г. до н. э."
+   }
+  },
+  "gaugamela": {
+   "name": {
+    "en": "Gaugamela",
+    "ru": "Гавгамелы"
+   },
+   "lon": 43.45,
+   "lat": 36.36,
+   "note": {
+    "en": "Here Alexander defeated Darius III in 331 BC, ending the Persian Empire.",
+    "ru": "Здесь Александр разбил Дария III в 331 г. до н. э., положив конец Персидской державе."
+   }
+  },
+  "issus": {
+   "name": {
+    "en": "Issus",
+    "ru": "Исс"
+   },
+   "lon": 36.16,
+   "lat": 36.84,
+   "note": {
+    "en": "Alexander’s victory over Darius III in 333 BC opened Syria and Egypt to him.",
+    "ru": "Победа Александра над Дарием III в 333 г. до н. э. открыла ему путь в Сирию и Египет."
+   }
+  },
+  "pella": {
+   "name": {
+    "en": "Pella",
+    "ru": "Пелла"
+   },
+   "lon": 22.52,
+   "lat": 40.76,
+   "note": {
+    "en": "Capital of Macedon, where Alexander was born in 356 BC.",
+    "ru": "Столица Македонии, где в 356 г. до н. э. родился Александр."
+   }
+  },
+  "constantinople": {
+   "name": {
+    "en": "Constantinople",
+    "ru": "Константинополь"
+   },
+   "lon": 28.98,
+   "lat": 41.01,
+   "note": {
+    "en": "Capital of the Eastern Roman Empire from AD 330 until it fell to the Ottomans in 1453.",
+    "ru": "Столица Восточной Римской империи с 330 г. н. э. до её падения под ударами османов в 1453 г."
+   }
+  },
+  "ravenna": {
+   "name": {
+    "en": "Ravenna",
+    "ru": "Равенна"
+   },
+   "lon": 12.2,
+   "lat": 44.42,
+   "note": {
+    "en": "Capital of the Western Roman Empire from AD 402 to its end in 476.",
+    "ru": "Столица Западной Римской империи с 402 г. н. э. до её конца в 476 г."
+   }
+  },
+  "raphia": {
+   "name": {
+    "en": "Raphia",
+    "ru": "Рафия"
+   },
+   "lon": 34.25,
+   "lat": 31.29,
+   "note": {
+    "en": "In 217 BC the Ptolemies defeated the Seleucids here, a battle Daniel 11:10–12 is read as describing.",
+    "ru": "В 217 г. до н. э. Птолемеи разбили здесь Селевкидов; эту битву видят в Даниила 11:10–12."
+   }
+  },
+  "panium": {
+   "name": {
+    "en": "Panium",
+    "ru": "Панион"
+   },
+   "lon": 35.69,
+   "lat": 33.25,
+   "note": {
+    "en": "Antiochus III’s victory here in 200 BC moved Judea from Ptolemaic to Seleucid rule (Daniel 11:15–16).",
+    "ru": "Победа Антиоха III здесь в 200 г. до н. э. передала Иудею от Птолемеев Селевкидам (Даниила 11:15–16)."
+   }
+  }
+ },
+ "range": [
+  -650,
+  500
+ ],
+ "eras": {
+  "traditional": [
+   {
+    "part": "head",
+    "from": -626,
+    "to": -539
+   },
+   {
+    "part": "chest",
+    "from": -539,
+    "to": -331
+   },
+   {
+    "part": "belly",
+    "from": -331,
+    "to": -63
+   },
+   {
+    "part": "legs",
+    "from": -63,
+    "to": 476
+   },
+   {
+    "part": "feet",
+    "from": 395,
+    "to": 500,
+    "open": true
+   }
+  ],
+  "scholarly": [
+   {
+    "part": "head",
+    "from": -626,
+    "to": -539
+   },
+   {
+    "part": "chest",
+    "from": -625,
+    "to": -550
+   },
+   {
+    "part": "belly",
+    "from": -550,
+    "to": -331
+   },
+   {
+    "part": "legs",
+    "from": -331,
+    "to": -164
+   },
+   {
+    "part": "feet",
+    "from": -301,
+    "to": -63
+   }
+  ]
+ },
+ "events": [
+  {
+   "year": -612,
+   "label": {
+    "en": "Nineveh falls",
+    "ru": "Падение Ниневии"
+   },
+   "ref": "NAM 3:7"
+  },
+  {
+   "year": -605,
+   "label": {
+    "en": "Daniel taken to Babylon",
+    "ru": "Даниил уведён в Вавилон"
+   },
+   "ref": "DAN 1:1-6"
+  },
+  {
+   "year": -586,
+   "label": {
+    "en": "Jerusalem destroyed",
+    "ru": "Разрушение Иерусалима"
+   },
+   "ref": "2KI 25:8-10"
+  },
+  {
+   "year": -539,
+   "label": {
+    "en": "Babylon falls to Cyrus",
+    "ru": "Вавилон пал перед Киром"
+   },
+   "ref": "DAN 5:30-31"
+  },
+  {
+   "year": -331,
+   "label": {
+    "en": "Gaugamela",
+    "ru": "Гавгамелы"
+   },
+   "ref": "DAN 8:5-7"
+  },
+  {
+   "year": -167,
+   "label": {
+    "en": "Temple desecrated",
+    "ru": "Осквернение храма"
+   },
+   "ref": "DAN 11:31"
+  },
+  {
+   "year": -63,
+   "label": {
+    "en": "Pompey takes Jerusalem",
+    "ru": "Помпей берёт Иерусалим"
+   }
+  },
+  {
+   "year": 70,
+   "label": {
+    "en": "Temple destroyed",
+    "ru": "Разрушение храма"
+   },
+   "ref": "MAT 24:1-2"
+  },
+  {
+   "year": 476,
+   "label": {
+    "en": "Western Empire ends",
+    "ru": "Конец Западной империи"
+   }
+  }
+ ]
+}

@@ -59,6 +59,7 @@ In the repository, go to **Settings → Pages → Build and deployment**. Set **
 | `#/john/intro` | Introduction to John: author, date, themes, outline, key verses, places, timeline events |
 | `#/timeline` | The Bible timeline (`?event=crucifixion` brings one event into view) |
 | `#/maps` | The maps; `#/maps/paul?place=a5feb15` opens one with a place selected |
+| `#/explore` | Interactive studies; `#/explore/daniel-statue?part=legs&reading=traditional` opens the statue of Daniel 2 at a part |
 
 A link without `?t=` opens in the translations you used last. Abbreviations redirect to the canonical URL (`#/jn/3` → `#/john/3?t=…`). Opening the site with no `#…` resumes the last chapter read.
 
@@ -164,7 +165,13 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
   - **Show all places** adds every place OpenBible.info locates (about 1,300), each selectable.
   - **Full screen** gives the map the whole window, with the selected place's details underneath; Escape leaves it.
 
-The pages are built from reusable templates (`js/views/templates/study-page.js`: page, facts, tags, outline, quotes, link cards) and data files (`data/study/`), so new pages such as topics or reading plans follow the same pattern.
+- **Interactive studies** (`#/explore`). The first is **the statue of Nebuchadnezzar's dream** (Daniel 2), linked from Daniel 2 and 7, the Daniel introduction and the book list.
+  - **The figure:** choose a part, on the figure or in the list: head of gold, chest and arms of silver, belly and thighs of bronze, legs of iron, feet of iron and clay, or the stone. You see its verses (quoted in your translation), the kingdom it stands for, its dates and history, and related passages in Daniel 7, 8 and 11.
+  - **Two readings:** a switch compares the traditional reading (Babylon, Medo-Persia, Greece, Rome) with the one many modern scholars hold (Babylon, Media, Persia, Greece).
+  - **Time and place:** a time bar shows the kingdoms and key events. A zoomable map flies to each kingdom and shades its approximate extent, clipped to the coast, with its cities and historical sites such as Persepolis, Gaugamela and Constantinople.
+  - **Play the dream:** the stone strikes, the statue turns to dust, and the stone grows into a mountain (Daniel 2:34–35).
+
+The pages are built from reusable templates (`js/views/templates/study-page.js`: page, facts, tags, outline, quotes, link cards; `era-bar.js`: periods on a time axis) and data files (`data/study/`), so new pages such as topics or reading plans follow the same pattern.
 
 ## Interface language
 
@@ -195,7 +202,8 @@ js/
                       verse), the store, note markup, copy formats, backup files
   research/           Research data: loading it (data.js), references ("ROM 5:8"),
                       Strong's helpers, the concordance (run in the search worker)
-  geo/                Maps: projection and label placement (projection.js), the SVG map (map.js)
+  geo/                Maps: projection and label placement (projection.js), zoom and pan (view.js),
+                      the SVG map (map.js)
   canon.js            The 66 books: USFM ids, names, URL slugs, chapter counts
   router.js           Hash routing (#/john/3/16?t=kjv) and canonical redirects
   translations.js     Which translations to show: ?t= parsing, preferences, columns
@@ -208,7 +216,8 @@ js/
                       docks them), toasts
   views/              Book/chapter picker, reader (single + parallel), verse alignment,
                       search page, My Study, Translations page, book introductions, timeline,
-                      maps, messages; templates/ holds the study-page building blocks
+                      maps, messages; templates/ holds the study-page building blocks; explore/
+                      holds the interactive studies (the statue of Daniel 2)
 data/                 translations.json + one JSON file per translation; research.json lists the
                       research data: xref/ (cross-references), strongs/ (dictionaries), geo/
                       (places, basemap), study/ (introductions, timeline, maps). See data/README.md
@@ -233,4 +242,5 @@ tests/                node --test suites
 - [x] **Stage 4:** personal study tools: tap or select verses for an action bar (5 highlight colours, notes, bookmarks, two copy formats, share), a Notes panel with a rich-ish editor, tags and search, a My Study page with filters, highlights kept by verse reference across translations, and JSON backup export/import
   - Added later: word-level highlights (in the translation they were made in), and searching for selected words
 - [x] **Stage 5:** research and study pages: a Research side panel with cross-references (OpenBible.info) and Strong's word study in KJV+ (Hebrew/Greek word, transliteration, definition, every verse using it); book introductions for all 66 books, a timeline and SVG maps of key places, built as reusable page templates; English and Russian
+  - Added later: zoomable, interactive maps; the interactive statue of Daniel 2 (`#/explore`)
 - [ ] Later: reading plans, topical lookups, offline support, cloud sync

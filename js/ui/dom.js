@@ -87,6 +87,9 @@ export const ICONS = Object.freeze({
   fit: 'M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5',
   expand: 'M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7',
   collapse: 'M20 10h-6V4M4 14h6v6M14 10l7-7M10 14l-7 7',
+  play: 'M8 5v14l11-7z',
+  // A standing figure (the statue of Daniel 2; interactive studies).
+  statue: 'M12 2.5l1.5 1.5-1.5 1.5-1.5-1.5zM12 6.5a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM8.5 11.5h7l-.8 5h-5.4zM10 16.5l-.5 5M14 16.5l.5 5M8 21.5h8',
   timeline: 'M4 12h16M7 8v8M12 6v12M17 9v6',
   info: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 11v6M12 7.5h.01',
 });

@@ -1,0 +1,512 @@
+/* ---------- Interactive studies: the statue of Daniel 2 ----------
+   js/views/explore/daniel-statue.js, statue-figure.js, templates/era-bar.js */
+
+.statue-page {
+  max-width: 64rem;
+}
+
+/* Metal colours for swatches, the time bar and the map's shaded areas. */
+:root {
+  --metal-gold: #c99a2e;
+  --metal-silver: #9aa4ae;
+  --metal-bronze: #b0692c;
+  --metal-iron: #565d66;
+  --metal-clay: #a77c55;
+  --metal-stone: #8a857c;
+}
+
+.statue-readings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  border: 0;
+}
+
+.statue-readings legend {
+  margin-bottom: 0.35rem;
+  font-weight: 600;
+}
+
+.statue-reading {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+.statue-reading:has(input:checked) {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.statue-reading input {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.15rem;
+  flex: none;
+  accent-color: var(--color-accent);
+}
+
+.statue-reading-title {
+  display: block;
+  font-weight: 600;
+}
+
+.statue-reading-note {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+/* The figure beside the parts and their details. */
+.statue-layout {
+  display: grid;
+  grid-template-columns: minmax(12rem, 17rem) 1fr;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+  align-items: start;
+}
+
+.statue-stage {
+  position: sticky;
+  top: calc(var(--header-height) + 1rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 44rem) {
+  .statue-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .statue-stage {
+    position: static;
+  }
+
+  .statue {
+    max-height: 22rem;
+  }
+}
+
+.statue {
+  display: block;
+  width: 100%;
+  max-width: 17rem;
+  height: auto;
+  overflow: visible;
+}
+
+.statue-ground {
+  fill: var(--color-shadow);
+}
+
+.statue-shape {
+  stroke: rgb(0 0 0 / 0.35);
+  stroke-width: 1;
+  stroke-linejoin: round;
+}
+
+.statue-facet {
+  fill: rgb(255 255 255 / 0.18);
+}
+
+.statue-detail {
+  fill: none;
+  stroke: rgb(0 0 0 / 0.28);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+.statue-part {
+  cursor: pointer;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.2s ease;
+}
+
+.statue.has-selection .statue-part:not(.is-selected) {
+  opacity: 0.42;
+}
+
+.statue.has-selection .statue-part:not(.is-selected):hover {
+  opacity: 0.8;
+}
+
+/* The chosen part glows; the others fade back. */
+.statue-part.is-selected {
+  filter: drop-shadow(0 0 1.5px var(--color-accent)) drop-shadow(0 0 5px var(--color-accent));
+}
+
+.statue-part--stone {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.statue-mountain {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  pointer-events: none;
+}
+
+.statue.is-played .statue-mountain {
+  opacity: 1;
+}
+
+.statue.is-played .statue-figure,
+.statue.is-played .statue-part--stone {
+  opacity: 0;
+}
+
+.statue.is-played .statue-part,
+.statue.is-playing .statue-part {
+  cursor: default;
+}
+
+.statue-play-row {
+  margin-top: 0.75rem;
+}
+
+.statue-play {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.statue-caption {
+  min-height: 1.5rem;
+  margin-top: 0.5rem;
+  font-family: var(--font-scripture);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* The parts, as tabs. */
+.statue-tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 0.4rem;
+}
+
+.statue-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 3.25rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.statue-tab:hover {
+  border-color: var(--color-border-strong);
+}
+
+.statue-tab[aria-selected="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  box-shadow: inset 3px 0 0 var(--color-accent);
+}
+
+.statue-tab-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.statue-tab-title {
+  font-weight: 600;
+}
+
+.statue-tab-kingdom {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.statue-swatch {
+  display: inline-block;
+  flex: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 1px solid rgb(0 0 0 / 0.3);
+  border-radius: 50%;
+}
+
+.statue-swatch--gold { background: linear-gradient(135deg, #fff1b8, #c99a2e); }
+.statue-swatch--silver { background: linear-gradient(135deg, #ffffff, #8e98a3); }
+.statue-swatch--bronze { background: linear-gradient(135deg, #f0b987, #8f5020); }
+.statue-swatch--iron { background: linear-gradient(135deg, #a3aab3, #2e3237); }
+.statue-swatch--clay { background: repeating-linear-gradient(135deg, #565d66 0 4px, #a77c55 4px 8px); }
+.statue-swatch--stone { background: linear-gradient(135deg, #b7b2a8, #5d5a54); border-radius: 30% 45% 35% 50%; }
+
+.statue-panel {
+  margin-top: 1rem;
+  padding: 1rem 1.1rem 1.2rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.statue-panel:focus {
+  outline: none;
+}
+
+.statue-panel:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.statue-part-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.statue-material {
+  margin-top: 0.15rem;
+  color: var(--color-text-muted);
+}
+
+.statue-quotes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0 1.25rem;
+}
+
+.statue-quote-label {
+  margin-top: 0.9rem;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.statue-quote .passage-quote {
+  margin-top: 0.35rem;
+}
+
+.statue-kingdom {
+  margin-top: 1rem;
+  padding: 0.7rem 0.9rem;
+  border-left: 5px solid var(--metal-stone);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+}
+
+.statue-kingdom--gold { border-left-color: var(--metal-gold); }
+.statue-kingdom--silver { border-left-color: var(--metal-silver); }
+.statue-kingdom--bronze { border-left-color: var(--metal-bronze); }
+.statue-kingdom--iron { border-left-color: var(--metal-iron); }
+.statue-kingdom--clay { border-left-color: var(--metal-clay); }
+
+.statue-kingdom-label {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.statue-kingdom-name {
+  margin-top: 0.1rem;
+  font-family: var(--font-scripture);
+  font-size: 1.35rem;
+}
+
+.statue-kingdom-dates {
+  color: var(--color-text-muted);
+}
+
+.statue-panel h4 {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.statue-facts,
+.statue-parallels,
+.statue-read {
+  margin: 0.4rem 0 0;
+  padding-inline-start: 1.25rem;
+  line-height: 1.55;
+}
+
+.statue-facts li + li,
+.statue-parallels li + li,
+.statue-read li + li {
+  margin-top: 0.35rem;
+}
+
+.statue-jump {
+  margin-top: 1rem;
+}
+
+.statue-jump a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.statue-region-note {
+  margin-top: 0.25rem;
+}
+
+/* ---------- Era bar (js/views/templates/era-bar.js) ---------- */
+
+.era-bar {
+  --era-lane: 2.5rem;
+  margin-top: 0.75rem;
+}
+
+.era-track {
+  position: relative;
+  height: calc(var(--era-lanes) * var(--era-lane));
+}
+
+.era-markers {
+  position: relative;
+  height: 2.6rem;
+  border-bottom: 1px solid var(--color-border-strong);
+}
+
+.era-period {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  height: calc(var(--era-lane) - 0.4rem);
+  min-width: 0.6rem;
+  padding: 0 0.4rem;
+  overflow: hidden;
+  border: 1px solid rgb(0 0 0 / 0.25);
+  border-radius: 6px;
+  color: #111;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.era-period-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.era-period--gold { background: linear-gradient(#f3d88a, #c99a2e); }
+.era-period--silver { background: linear-gradient(#f2f4f6, #a7b0ba); }
+.era-period--bronze { background: linear-gradient(#efb27c, #b0692c); }
+.era-period--iron { background: linear-gradient(#8d949d, #4a5058); color: #fff; }
+.era-period--clay { background: repeating-linear-gradient(135deg, #8d949d 0 6px, #c49a73 6px 12px); }
+
+.era-period.is-open {
+  border-right-style: dashed;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  -webkit-mask-image: linear-gradient(to right, #000 70%, transparent);
+  mask-image: linear-gradient(to right, #000 70%, transparent);
+}
+
+.era-period[aria-pressed="true"] {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 1px;
+  z-index: 1;
+}
+
+.era-period:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  z-index: 2;
+}
+
+.era-event {
+  position: absolute;
+  top: 0.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-left: -0.575rem;
+  border-radius: 50%;
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.era-event.is-low {
+  top: 1.35rem;
+}
+
+.era-axis {
+  position: relative;
+  height: 1.4rem;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+}
+
+.era-tick {
+  position: absolute;
+  top: 0.2rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 40rem) {
+  .era-tick:not(.is-major) {
+    display: none;
+  }
+}
+
+.era-events {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 0.25rem 1.25rem;
+  margin: 0.75rem 0 0;
+  padding-inline-start: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.era-event-year {
+  color: var(--color-text-muted);
+}
+
+/* ---------- The map's shaded kingdoms (js/geo/map.js setRegions) ---------- */
+
+.map-region {
+  fill-opacity: 0.38;
+  stroke-width: 1.6;
+  stroke-opacity: 0.9;
+}
+
+.map-region--gold { fill: var(--metal-gold); stroke: #8a6416; }
+.map-region--silver { fill: var(--metal-silver); stroke: #59636e; }
+.map-region--bronze { fill: var(--metal-bronze); stroke: #6b3b14; }
+.map-region--iron { fill: var(--metal-iron); stroke: #2e3237; }
+.map-region--clay { fill: var(--metal-clay); stroke: #6d4c2e; }
+
+.map-label--empire {
+  fill: var(--color-text);
+  font-weight: 700;
+}
+
+.map-place[data-type="landmark"] .map-dot {
+  fill: var(--color-text-muted);
+}

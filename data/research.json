@@ -37,6 +37,10 @@
       "url": "data/geo/basemap.json",
       "version": "4240be80016d"
     },
+    "basemapWide": {
+      "url": "data/geo/basemap-wide.json",
+      "version": "5d0b449e9f5c"
+    },
     "license": "CC BY 4.0 (places); public domain (basemap)",
     "source": {
       "name": "OpenBible.info",
@@ -49,7 +53,7 @@
   },
   "study": {
     "url": "data/study/",
-    "version": "f77419531e4c",
+    "version": "bf6ae1399a42",
     "books": [
       "GEN",
       "EXO",
