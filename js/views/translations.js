@@ -2,17 +2,18 @@
  * #/translations: what each translation is, its copyright/licence, where the
  * text comes from, and whether it's already stored on this device.
  */
-import { chapterTitle, getBook } from '../canon.js';
+import { getBook } from '../canon.js';
+import { chapterTitle, getLanguage, t } from '../i18n.js';
 import { chapterHref } from '../router.js';
 import { el } from '../ui/dom.js';
 
-const languageNames = typeof Intl.DisplayNames === 'function' ? new Intl.DisplayNames(['en'], { type: 'language' }) : null;
-
+/** "English" / "Английский": a language's name in the interface language. */
 function languageName(code) {
   try {
-    return languageNames?.of(code) ?? code;
+    const name = new Intl.DisplayNames([getLanguage()], { type: 'language' }).of(code) ?? code;
+    return name.charAt(0).toLocaleUpperCase(getLanguage()) + name.slice(1);
   } catch {
-    return code; // not a valid language code
+    return code; // no Intl.DisplayNames, or not a valid language code
   }
 }
 
@@ -37,16 +38,11 @@ export function renderTranslationsPage({ translations, savedIds = [], lastRead =
           'a',
           { class: 'back-link', href: chapterHref(lastRead.book, lastRead.chapter) },
           el('span', { 'aria-hidden': 'true' }, '←'),
-          `Back to ${chapterTitle(lastRead.book, lastRead.chapter)}`,
+          t('translations.back', { title: chapterTitle(lastRead.book, lastRead.chapter) }),
         ),
       ),
-    el('h1', { class: 'view-title', id: 'view-title', tabindex: '-1' }, 'Translations'),
-    el(
-      'p',
-      { class: 'page-intro' },
-      'Every translation here is in the public domain. Each one downloads the first time you open it ' +
-        '(1.2–1.4 MB) and is then kept on this device, so it opens instantly next time.',
-    ),
+    el('h1', { class: 'view-title', id: 'view-title', tabindex: '-1' }, t('translations.title')),
+    el('p', { class: 'page-intro' }, t('translations.intro')),
     el(
       'ul',
       { class: 'translation-list', role: 'list' },
@@ -66,9 +62,9 @@ function card(info, saved, target) {
     el(
       'dl',
       { class: 'translation-details' },
-      el('div', {}, el('dt', {}, 'Copyright'), el('dd', {}, info.copyright ?? info.license)),
-      info.source && el('div', {}, el('dt', {}, 'Text source'), el('dd', {}, el('a', { href: info.source.url }, info.source.name))),
-      el('div', {}, el('dt', {}, 'On this device'), el('dd', {}, saved ? 'Downloaded' : 'Not downloaded yet')),
+      el('div', {}, el('dt', {}, t('translations.copyright')), el('dd', {}, info.copyright ?? info.license)),
+      info.source && el('div', {}, el('dt', {}, t('translations.source')), el('dd', {}, el('a', { href: info.source.url }, info.source.name))),
+      el('div', {}, el('dt', {}, t('translations.device')), el('dd', {}, t(saved ? 'translations.downloaded' : 'translations.notDownloaded'))),
     ),
     el(
       'p',
@@ -76,7 +72,7 @@ function card(info, saved, target) {
       el(
         'a',
         { class: 'button', href: chapterHref(target.book, target.chapter, null, `t=${info.id}`) },
-        `Read ${chapterTitle(target.book, target.chapter)} in ${info.abbreviation}`,
+        t('translations.read', { title: chapterTitle(target.book, target.chapter), abbr: info.abbreviation }),
       ),
     ),
   );

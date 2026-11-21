@@ -14,6 +14,14 @@
       "license": "Public domain",
       "copyright": "Public domain in most of the world. In the United Kingdom, rights in the Authorized Version are vested in the Crown and administered by Cambridge University Press.",
       "description": "The Authorized Version of 1611, in the 1769 Oxford edition used by most printings today.",
+      "i18n": {
+        "ru": {
+          "name": "Библия короля Якова",
+          "license": "Общественное достояние",
+          "copyright": "Общественное достояние почти во всём мире. В Великобритании права на Авторизованную версию принадлежат Короне; ими распоряжается издательство Кембриджского университета.",
+          "description": "Авторизованная версия 1611 года в оксфордской редакции 1769 года, по которой печатается большинство изданий сегодня."
+        }
+      },
       "source": {
         "name": "scrollmapper/bible_databases",
         "url": "https://github.com/scrollmapper/bible_databases"
@@ -32,6 +40,14 @@
       "license": "Public domain",
       "copyright": "Public domain. The original 1901 copyright has expired.",
       "description": "The American edition of the Revised Version (1881–1885). A careful, literal translation that renders God’s name as “Jehovah”. Verses that the 1901 edition moved to the margin, such as Matthew 17:21, are left empty.",
+      "i18n": {
+        "ru": {
+          "name": "Американская стандартная версия",
+          "license": "Общественное достояние",
+          "copyright": "Общественное достояние: срок авторского права на издание 1901 года истёк.",
+          "description": "Американское издание Пересмотренной версии (1881–1885). Тщательный буквальный перевод; имя Бога передано как «Иегова» (Jehovah). Стихи, которые издание 1901 года вынесло на поля (например, Матфея 17:21), оставлены пустыми."
+        }
+      },
       "source": {
         "name": "scrollmapper/bible_databases",
         "url": "https://github.com/scrollmapper/bible_databases"
@@ -50,6 +66,13 @@
       "license": "Public domain",
       "copyright": "Public domain: it may be freely copied, published and shared without permission. eBible.org asks that a changed text not be called the World English Bible. Footnotes are not shown here.",
       "description": "A modern-English update of the 1901 ASV, made by volunteers and published by eBible.org. The New Testament follows the Majority Text, and God’s name is rendered “Yahweh”.",
+      "i18n": {
+        "ru": {
+          "license": "Общественное достояние",
+          "copyright": "Общественное достояние: текст можно свободно копировать, издавать и распространять без разрешения. eBible.org просит не называть изменённый текст World English Bible. Сноски здесь не показаны.",
+          "description": "Обновление ASV 1901 года на современный английский язык, выполненное добровольцами и изданное eBible.org. Новый Завет следует Тексту большинства (Majority Text); имя Бога передано как «Яхве» (Yahweh)."
+        }
+      },
       "source": {
         "name": "eBible.org (via seven1m/open-bibles)",
         "url": "https://ebible.org/"
@@ -68,6 +91,14 @@
       "license": "Public domain",
       "copyright": "Public domain.",
       "description": "Robert Young’s very literal translation (1862, revised 1887 and 1898). It keeps the Hebrew and Greek tenses and word order wherever it can, so it reads unusually but shows the original’s shape.",
+      "i18n": {
+        "ru": {
+          "name": "Буквальный перевод Янга",
+          "license": "Общественное достояние",
+          "copyright": "Общественное достояние.",
+          "description": "Предельно буквальный перевод Роберта Янга (1862, переработан в 1887 и 1898 годах). Он сохраняет времена глаголов и порядок слов еврейского и греческого подлинника, где только можно, поэтому читается непривычно, но передаёт строй оригинала."
+        }
+      },
       "source": {
         "name": "scrollmapper/bible_databases",
         "url": "https://github.com/scrollmapper/bible_databases"
@@ -86,6 +117,14 @@
       "license": "Public domain",
       "copyright": "Public domain.",
       "description": "John Nelson Darby’s literal translation. The New Testament appeared in 1867 (revised 1872 and 1884) and the complete Bible in 1890. Square brackets mark words added for sense.",
+      "i18n": {
+        "ru": {
+          "name": "Перевод Дарби",
+          "license": "Общественное достояние",
+          "copyright": "Общественное достояние.",
+          "description": "Буквальный перевод Джона Нельсона Дарби. Новый Завет вышел в 1867 году (переработан в 1872 и 1884 годах), полная Библия — в 1890 году. В квадратных скобках — слова, добавленные для ясности."
+        }
+      },
       "source": {
         "name": "scrollmapper/bible_databases",
         "url": "https://github.com/scrollmapper/bible_databases"
@@ -104,6 +143,14 @@
       "license": "Public domain (US)",
       "copyright": "In the public domain in the United States, because the 1965 printing carried no copyright notice. Its status may differ in other countries.",
       "description": "A translation by S. H. Hooke that uses a vocabulary of about 1,000 words: the 850 words of Basic English plus words for poetry and Bible terms. Asterisks (***) mark places the translators left blank, usually where the Hebrew text is uncertain.",
+      "i18n": {
+        "ru": {
+          "name": "Библия на базовом английском",
+          "license": "Общественное достояние (США)",
+          "copyright": "Общественное достояние в США, поскольку издание 1965 года вышло без уведомления об авторском праве. В других странах статус может отличаться.",
+          "description": "Перевод С. Х. Хука со словарём около 1000 слов: 850 слов «базового английского» (Basic English) и слова для поэзии и библейских понятий. Звёздочками (***) отмечены места, оставленные переводчиками пустыми, обычно там, где еврейский текст неясен."
+        }
+      },
       "source": {
         "name": "scrollmapper/bible_databases",
         "url": "https://github.com/scrollmapper/bible_databases"
@@ -127,6 +174,17 @@
         "psalms": "Псалмы"
       },
       "description": "Синодальный перевод: the standard Russian Bible since 1876, prepared under the Holy Synod of the Russian Orthodox Church and read by Orthodox and Protestant Christians alike. Printed Russian Bibles number some chapters and verses differently (most Psalms are one lower, so the Shepherd psalm is Псалом 22); here the verses follow English numbering, so they line up with the other translations. Words in square brackets were added for sense or come from the Greek Septuagint.",
+      "i18n": {
+        "ru": {
+          "name": "Синодальный перевод",
+          "license": "Общественное достояние",
+          "copyright": "Общественное достояние: Синодальный перевод завершён в 1876 году, срок авторского права давно истёк. Текст дан в современной орфографии (после реформы 1918 года). Сноски не показаны.",
+          "description": "Стандартная русская Библия с 1876 года, подготовленная по благословению Святейшего Синода Русской православной церкви; её читают и православные, и протестанты. В печатных русских Библиях некоторые главы и стихи пронумерованы иначе (большинство псалмов на единицу меньше: «Господь — Пастырь мой» — это Псалом 22). Здесь стихи пронумерованы по английской системе, чтобы совпадать с другими переводами; в режиме сравнения русский номер псалма показан под названием колонки. В квадратных скобках — слова, добавленные для ясности или взятые из греческой Септуагинты.",
+          "numbering": {
+            "name": "Синодальная нумерация"
+          }
+        }
+      },
       "source": {
         "name": "scrollmapper/bible_databases",
         "url": "https://github.com/scrollmapper/bible_databases"

@@ -11,7 +11,8 @@
  * licence area and previous/next links, none of which need the text.
  * main.js fills in the text with show() once the providers respond.
  */
-import { adjacentChapter, chapterTitle } from '../canon.js';
+import { adjacentChapter } from '../canon.js';
+import { chapterTitle, t } from '../i18n.js';
 import { chapterHref, pageHref } from '../router.js';
 import { addColumn, MAX_COLUMNS, removeColumn, replaceColumn } from '../translations.js';
 import { el, icon, ICONS } from '../ui/dom.js';
@@ -45,7 +46,7 @@ export function createReaderView({ book, chapter, columns, translations, query =
   // Compare mode: one slot per column for that translation's own Psalm number
   // ("Псалом 22"), filled in by show() once the text arrives.
   const numberingLabels = columns.map(() => el('p', { class: 'column-numbering', hidden: true }));
-  const loadingText = parallel ? `Loading ${columns.length} translations…` : `Loading the ${columns[0].name}…`;
+  const loadingText = parallel ? t('reader.loadingMany', { n: columns.length }) : t('reader.loadingOne', { name: columns[0].name });
   const content = el('div', { class: parallel ? 'parallel-rows' : 'scripture' }, status(loadingText));
   const notices = el('footer', { class: 'chapter-notices' });
 
@@ -89,7 +90,7 @@ export function createReaderView({ book, chapter, columns, translations, query =
           onclick: () => onColumnsChange(addColumn(ids, allIds), `col-${ids.length}`),
         },
         icon(ICONS.plus, { size: 16 }),
-        'Add translation',
+        t('reader.addTranslation'),
       ),
     );
   }
@@ -97,7 +98,7 @@ export function createReaderView({ book, chapter, columns, translations, query =
   function columnHeads() {
     return el(
       'div',
-      { class: 'parallel-head', role: 'group', 'aria-label': 'Translations in columns' },
+      { class: 'parallel-head', role: 'group', 'aria-label': t('reader.columnsGroup') },
       el('span', { class: 'pnum', 'aria-hidden': 'true' }),
       columns.map((info, index) =>
         el(
@@ -107,7 +108,7 @@ export function createReaderView({ book, chapter, columns, translations, query =
             translations,
             value: info.id,
             disabledIds: ids, // a translation can't fill two columns
-            label: `Column ${index + 1} translation`,
+            label: t('reader.columnLabel', { n: index + 1 }),
             focusKey: `col-${index}`,
             onChange: (id) => onColumnsChange(replaceColumn(ids, index, id), `col-${index}`),
           }).element,
@@ -117,7 +118,7 @@ export function createReaderView({ book, chapter, columns, translations, query =
               {
                 type: 'button',
                 class: 'icon-button column-remove',
-                'aria-label': `Remove ${info.abbreviation} column`,
+                'aria-label': t('reader.removeColumn', { abbr: info.abbreviation }),
                 'data-focus-key': `remove-${index}`,
                 // Focus moves to the column that takes this one's place.
                 onclick: () => onColumnsChange(removeColumn(ids, index), `col-${Math.min(index, ids.length - 2)}`),
@@ -140,7 +141,7 @@ export function createReaderView({ book, chapter, columns, translations, query =
         slot.replaceChildren();
         return;
       }
-      const name = info.numbering?.name ?? `${info.abbreviation} numbering`;
+      const name = info.numbering?.name ?? t('numbering.fallback', { abbr: info.abbreviation });
       slot.title = name;
       slot.replaceChildren(el('span', { class: 'visually-hidden' }, `${name}: `), el('span', { lang: info.language || null }, label));
       slot.hidden = false;
@@ -151,17 +152,19 @@ export function createReaderView({ book, chapter, columns, translations, query =
 
   function fillSingle({ info, chapter: data, error }) {
     if (error) {
-      content.replaceChildren(errorBox(`Sorry, ${title} couldn’t be loaded.`, error));
+      content.replaceChildren(errorBox(t('reader.loadFailed', { title }), error));
       return;
     }
     if (!data) {
-      content.replaceChildren(status(`${title} isn’t included in the ${info.name}.`));
+      content.replaceChildren(status(t('reader.notIncluded', { title, name: info.name })));
       return;
     }
-    // lang/dir come from the translation, so a later non-English or
-    // right-to-left translation is announced and laid out correctly.
-    if (info.language) article.lang = info.language;
-    article.dir = info.direction === 'rtl' ? 'rtl' : 'ltr';
+    // The text is in the translation's language; the rest of the page (title,
+    // notices, links) is in the interface language. So lang/dir go on the
+    // text alone: screen readers switch voice for it, and the font stack for
+    // its script applies (base.css).
+    if (info.language) content.lang = info.language;
+    content.dir = info.direction === 'rtl' ? 'rtl' : 'ltr';
     content.replaceChildren(
       ...data.verses.map((v) =>
         el(
@@ -185,12 +188,12 @@ export function createReaderView({ book, chapter, columns, translations, query =
           el(
             'p',
             { class: 'column-problem', role: 'alert' },
-            `The ${info.name} couldn’t be loaded. `,
-            el('button', { type: 'button', class: 'text-button', onclick: onRetry }, 'Try again'),
+            `${t('reader.columnFailed', { name: info.name })} `,
+            el('button', { type: 'button', class: 'text-button', onclick: onRetry }, t('action.retry')),
           ),
         ];
       }
-      return data ? [] : [el('p', { class: 'column-problem' }, `${title} isn’t included in the ${info.name}.`)];
+      return data ? [] : [el('p', { class: 'column-problem' }, t('reader.notIncluded', { title, name: info.name }))];
     });
 
     const rows = alignVerses(results.map((r) => r.chapter)).map((row) =>
@@ -218,7 +221,7 @@ export function createReaderView({ book, chapter, columns, translations, query =
       },
       el('span', { class: 'pcell-label' }, info.abbreviation),
       ' ',
-      missing ? [el('span', { 'aria-hidden': 'true' }, '—'), el('span', { class: 'visually-hidden' }, 'not in this translation')] : text,
+      missing ? [el('span', { 'aria-hidden': 'true' }, '—'), el('span', { class: 'visually-hidden' }, t('reader.missingVerse'))] : text,
     );
   }
 
@@ -227,7 +230,7 @@ export function createReaderView({ book, chapter, columns, translations, query =
       ...results.map(({ info, chapter: data }) =>
         el('p', { class: 'notice' }, el('abbr', { title: info.name }, info.abbreviation), ' · ', noticeText(info, data)),
       ),
-      el('p', { class: 'notice' }, el('a', { href: pageHref('translations') }, 'About these translations')),
+      el('p', { class: 'notice' }, el('a', { href: pageHref('translations') }, t('reader.about'))),
     );
   }
 
@@ -237,7 +240,7 @@ export function createReaderView({ book, chapter, columns, translations, query =
       { class: 'load-error', role: 'alert' },
       el('p', {}, message),
       el('p', { class: 'load-error-detail' }, error?.message ?? String(error)),
-      el('button', { type: 'button', class: 'button', onclick: onRetry }, 'Try again'),
+      el('button', { type: 'button', class: 'button', onclick: onRetry }, t('action.retry')),
     );
   }
 
@@ -307,9 +310,9 @@ function chapterNav(book, chapter, query) {
   const next = adjacentChapter(book, chapter, 1);
   return el(
     'nav',
-    { class: 'chapter-nav', 'aria-label': 'Chapter' },
-    previous && navLink(previous, 'prev', 'Previous', query),
-    next && navLink(next, 'next', 'Next', query),
+    { class: 'chapter-nav', 'aria-label': t('reader.chapterNav') },
+    previous && navLink(previous, 'prev', t('reader.previous'), query),
+    next && navLink(next, 'next', t('reader.next'), query),
   );
 }
 
@@ -323,7 +326,7 @@ function navLink(position, direction, label, query) {
     },
     el('span', { class: 'chapter-nav-label' }, label),
     // Accessible name: "Previous chapter: John 2"
-    el('span', { class: 'visually-hidden' }, ' chapter: '),
+    el('span', { class: 'visually-hidden' }, t('reader.navJoin')),
     el('span', { class: 'chapter-nav-target' }, chapterTitle(position.book, position.chapter)),
   );
 }
@@ -336,9 +339,9 @@ function navLink(position, direction, label, query) {
  */
 function sideNav(book, chapter, query) {
   return [
-    [-1, 'prev', 'Previous chapter', ICONS.chevronLeft],
-    [1, 'next', 'Next chapter', ICONS.chevronRight],
-  ].map(([delta, direction, label, path]) => {
+    [-1, 'prev', 'reader.previousTitle', ICONS.chevronLeft],
+    [1, 'next', 'reader.nextTitle', ICONS.chevronRight],
+  ].map(([delta, direction, titleKey, path]) => {
     const target = adjacentChapter(book, chapter, delta);
     if (!target) return null;
     return el(
@@ -348,7 +351,7 @@ function sideNav(book, chapter, query) {
         href: chapterHref(target.book, target.chapter, null, query),
         'aria-hidden': 'true',
         tabindex: '-1',
-        title: `${label}: ${chapterTitle(target.book, target.chapter)}`,
+        title: t(titleKey, { title: chapterTitle(target.book, target.chapter) }),
       },
       icon(path, { size: 28 }),
     );

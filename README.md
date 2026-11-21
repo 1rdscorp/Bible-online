@@ -29,7 +29,7 @@ npm test
 ```
 
 This runs two groups of tests:
-- **Unit tests:** canon, router, translation selection, verse alignment, versification remapping, the provider contract, the cache, the registry.
+- **Unit tests:** canon, router, translation selection, verse alignment, versification remapping, the provider contract, the cache, the registry, interface languages.
 - **Data checks:** every translation in `data/translations.json` is validated, version-checked and scanned for leftover markup.
 
 ## Deploy to GitHub Pages
@@ -51,6 +51,18 @@ A link without `?t=` opens in the translations you used last. Abbreviations redi
 
 Keyboard: **←** / **→** go to the previous/next chapter (in the same translations).
 
+## Interface language
+
+The whole interface is in **English** or **Russian**, switched with the **RUS | ENG** buttons in the top-right corner:
+- **Covered:** menus, settings, book names (Synodal style: 1–4 Царств, От Иоанна…), page titles, messages, screen-reader labels, and the descriptions and licences on the Translations page.
+- **Remembered:** the choice is saved on the device. A first visit follows the browser's language.
+- **Not affected:** the Bible text stays in its translation's own language, and URLs and verse numbers don't change.
+
+To add another interface language:
+1. Copy `js/locales/en.js` to `js/locales/<code>.js` and translate it. `npm test` checks that every key and placeholder matches.
+2. Register it in `LANGUAGES` in `js/i18n.js` and in the language check of the inline script in `index.html`.
+3. Optionally add `i18n.<code>` blocks to the entries in `data/translations.json`.
+
 ## Project layout
 
 ```
@@ -58,6 +70,7 @@ index.html            App shell: header, settings panel, <main> where views rend
 css/                  themes.css (colour tokens), base, layout, picker, reader, parallel
 js/
   main.js             Entry point: routes → views, translation choice, keyboard, last-read
+  i18n.js             Interface language: t('key'), book names, RUS | ENG (text in locales/)
   canon.js            The 66 books: USFM ids, names, URL slugs, chapter counts
   router.js           Hash routing (#/john/3/16?t=kjv) and canonical redirects
   translations.js     Which translations to show: ?t= parsing, preferences, columns
@@ -82,4 +95,5 @@ tests/                node --test suites
 - [x] **Stage 2:** six translations, dropdown, parallel view (2–4 columns, aligned, stacks on phones), lazy loading with on-device caching, provider interface ready for API sources, copyright/licence notices and a Translations page
   - Added later: the Russian Synodal translation, with build-time verse renumbering (versification) and a Cyrillic font stack
   - In compare mode, a translation's own Psalm numbers appear under its column picker ("Псалом 22" beside English Psalm 23)
+  - Russian interface with a RUS | ENG switch
 - [ ] Later: search, highlights/notes/bookmarks, reading plans, cross-references, Strong's word study, offline support

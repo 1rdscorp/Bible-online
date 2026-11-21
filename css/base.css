@@ -3,8 +3,12 @@
 :root {
   /* System fonts: no downloads (fast, and ready for offline use later).
      The serif stack picks a screen-friendly book face on each platform:
-     Iowan/Charter (Apple), Sitka (Windows), Noto Serif (Android). */
-  --font-scripture: "Iowan Old Style", Charter, "Bitstream Charter", "Sitka Text", Georgia, Cambria, "Noto Serif", "Droid Serif", serif;
+     Iowan/Charter (Apple), Sitka (Windows), Noto Serif (Android).
+     Cyrillic: Apple's Iowan and Charter have none, so that stack starts with
+     PT Serif (macOS, designed for Russian), then Sitka, Georgia, Noto Serif. */
+  --font-scripture-latin: "Iowan Old Style", Charter, "Bitstream Charter", "Sitka Text", Georgia, Cambria, "Noto Serif", "Droid Serif", serif;
+  --font-scripture-cyrillic: "PT Serif", "Sitka Text", Georgia, Cambria, "Noto Serif", "Droid Serif", serif;
+  --font-scripture: var(--font-scripture-latin);
   --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 
   /* Scripture size = base × the user's text-size setting (--reader-scale,
@@ -20,16 +24,27 @@
   --radius: 12px;
 }
 
-/* Cyrillic scripture (a translation with language "ru" and similar). The
-   default book faces on Apple devices (Iowan, Charter) have no Cyrillic, so
-   put first the faces that do: PT Serif (macOS, designed for Russian), Sitka
-   (Windows), Georgia (everywhere), Noto Serif (Android). The reader sets
-   `lang` from the translation, on the article or on each parallel cell. */
+/* Pick the serif stack by language. Two kinds of text can differ: the
+   interface (lang on <html>, set by js/i18n.js) and the Bible text (lang on
+   the verses or on each parallel cell, set by the reader). An English column
+   on a Russian page, or a Russian column on an English one, gets its own
+   script's stack, because every element that uses the serif sets
+   `font-family: var(--font-scripture)` itself. */
 :lang(ru),
 :lang(uk),
 :lang(be),
 :lang(bg) {
-  --font-scripture: "PT Serif", "Sitka Text", Georgia, Cambria, "Noto Serif", "Droid Serif", serif;
+  --font-scripture: var(--font-scripture-cyrillic);
+}
+
+:lang(en) {
+  --font-scripture: var(--font-scripture-latin);
+}
+
+/* Until js/i18n.js has filled in a non-English interface, hide the English
+   placeholder text (index.html adds the class only in that case). */
+html.i18n-pending [data-i18n] {
+  visibility: hidden;
 }
 
 *,
@@ -41,8 +56,19 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  /* Leave room for the sticky header when scrolling to a verse. */
-  scroll-padding-top: calc(var(--header-height) + 1rem);
+}
+
+/* Keep keyboard-focused content (and verses scrolled to) clear of the sticky
+   header. This is a margin on the content, not scroll-padding on the page:
+   with page padding, focusing a control *inside* a sticky bar (the header,
+   the parallel column headings) made the browser scroll the page to
+   "uncover" it, and the reader lost their place. */
+main :is(a, button, input, select, textarea, [tabindex]) {
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+
+.parallel-head :is(a, button, input, select) {
+  scroll-margin-top: 0;
 }
 
 body {

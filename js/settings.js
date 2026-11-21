@@ -14,7 +14,9 @@ export const THEMES = Object.freeze(['auto', 'light', 'sepia', 'dark']);
 /** Text sizes offered by the A− / A+ buttons, as % of the default reading size. */
 export const FONT_SCALES = Object.freeze([80, 90, 100, 110, 120, 135, 150, 175, 200]);
 
-export const DEFAULT_SETTINGS = Object.freeze({ theme: 'auto', fontScale: 100 });
+// language: the interface language chosen with the RUS | ENG switch, or null
+// to follow the browser (resolved by js/i18n.js).
+export const DEFAULT_SETTINGS = Object.freeze({ theme: 'auto', fontScale: 100, language: null });
 
 // Stored as "bible-online:settings". The inline script in index.html reads it
 // before first paint, so keep the key and value shape in sync with that script.
@@ -32,6 +34,7 @@ function sanitize(settings) {
   return {
     theme: THEMES.includes(settings?.theme) ? settings.theme : DEFAULT_SETTINGS.theme,
     fontScale: closestScale(settings?.fontScale),
+    language: typeof settings?.language === 'string' && /^[a-z]{2}$/.test(settings.language) ? settings.language : null,
   };
 }
 
@@ -49,7 +52,7 @@ export function getSettings() {
 /** Merge `patch` into the settings, then apply, save and notify listeners. */
 export function updateSettings(patch) {
   const next = sanitize({ ...current, ...patch });
-  if (next.theme === current.theme && next.fontScale === current.fontScale) return current;
+  if (Object.keys(next).every((key) => next[key] === current[key])) return current;
   current = next;
   applySettings(current);
   storage.set(SETTINGS_KEY, current);

@@ -8,7 +8,7 @@
  * it holds keyboard focus (CSS :focus-within) or while `isPinned()` is true
  * (the settings panel is open).
  */
-import { chapterTitle } from '../canon.js';
+import { chapterTitle, t } from '../i18n.js';
 import { bookHref } from '../router.js';
 
 // Ignore tiny scroll movements (trackpad jitter, iOS rubber-banding).
@@ -46,7 +46,7 @@ export function initHeader(root, { isPinned = () => false } = {}) {
       const title = chapterTitle(position.book, position.chapter);
       locationText.textContent = title;
       locationLink.href = bookHref(position.book);
-      locationLink.setAttribute('aria-label', `${title}: choose another chapter`);
+      locationLink.setAttribute('aria-label', t('location.choose', { title }));
       location.hidden = false;
     },
 

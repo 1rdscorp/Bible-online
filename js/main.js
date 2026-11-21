@@ -7,11 +7,12 @@
  * what they need. New features (search, notes…) can then be added as new
  * routes and views without reworking existing ones.
  */
-import { adjacentChapter, chapterTitle, getBook, isValidChapter } from './canon.js';
+import { adjacentChapter, getBook, isValidChapter } from './canon.js';
+import { bookName, chapterTitle, getLanguage, localizeTranslation, resolveLanguage, setLanguage, t } from './i18n.js';
 import { getDefaultTranslationId, getProvider, listTranslations } from './providers/registry.js';
 import { translationCache } from './providers/translation-cache.js';
 import { bookHref, chapterHref, navigate, replaceHash, startRouter } from './router.js';
-import { loadSettings } from './settings.js';
+import { loadSettings, onSettingsChange, updateSettings } from './settings.js';
 import { storage } from './storage.js';
 import {
   loadPrefs,
@@ -24,6 +25,7 @@ import {
   stopComparing,
 } from './translations.js';
 import { initHeader } from './ui/header.js';
+import { initLanguageSwitch } from './ui/language-switch.js';
 import { initSettingsPanel } from './ui/settings-panel.js';
 import { initTranslationControl } from './ui/translation-control.js';
 import { renderMessage } from './views/message.js';
@@ -31,7 +33,6 @@ import { renderBookList, renderChapterGrid } from './views/picker.js';
 import { createReaderView } from './views/reader.js';
 import { renderTranslationsPage } from './views/translations.js';
 
-const APP_NAME = 'Bible Online';
 const LAST_READ_KEY = 'lastRead';
 
 const main = document.getElementById('main');
@@ -57,8 +58,10 @@ let pendingFocusKey = null;
 /* ---------------------------------------------------------------------- */
 
 async function translationState() {
-  const [translations, defaultId] = await Promise.all([listTranslations(), getDefaultTranslationId()]);
-  const knownIds = translations.map((t) => t.id);
+  const [all, defaultId] = await Promise.all([listTranslations(), getDefaultTranslationId()]);
+  const knownIds = all.map((info) => info.id);
+  // Names, descriptions and licences in the interface language.
+  const translations = all.map(localizeTranslation);
   return { translations, knownIds, prefs: await loadPrefs(knownIds, defaultId) };
 }
 
@@ -156,7 +159,11 @@ function saveLastRead(book, chapter) {
 /* Routing                                                                 */
 /* ---------------------------------------------------------------------- */
 
-async function handleRoute(route) {
+/**
+ * Show `route`. With `rerender` (the interface language changed), the page is
+ * rebuilt in place: no scrolling to the top, and focus stays where it is.
+ */
+async function handleRoute(route, { rerender = false } = {}) {
   const id = ++navigationId;
   const isCurrent = () => id === navigationId;
   currentRoute = route;
@@ -170,20 +177,20 @@ async function handleRoute(route) {
     }
     case 'books': {
       const lastRead = await getLastRead();
-      if (isCurrent()) mount(renderBookList({ lastRead }), { title: null });
+      if (isCurrent()) mount(renderBookList({ lastRead }), { title: null, preserve: rerender });
       return;
     }
     case 'chapters': {
       const lastRead = await getLastRead();
-      if (isCurrent()) mount(renderChapterGrid(route.book, { lastRead }), { title: route.book.name });
+      if (isCurrent()) mount(renderChapterGrid(route.book, { lastRead }), { title: bookName(route.book), preserve: rerender });
       return;
     }
     case 'reader':
       return showReader(route, isCurrent);
     case 'translations':
-      return showTranslationsPage(isCurrent);
+      return showTranslationsPage(isCurrent, rerender);
     default:
-      return showNotFound(route);
+      return showNotFound(route, rerender);
   }
 }
 
@@ -227,7 +234,7 @@ async function showReader(route, isCurrent) {
 
   const finish = (view, results) => {
     reader = { book, chapter, verse, ids, view };
-    document.title = `${title} (${columns.map((c) => c.abbreviation).join(', ')}) · ${APP_NAME}`;
+    document.title = `${title} (${columns.map((c) => c.abbreviation).join(', ')}) · ${t('app.name')}`;
     if (results.some((r) => r.chapter)) saveLastRead(book, chapter);
   };
 
@@ -242,7 +249,7 @@ async function showReader(route, isCurrent) {
     const focusKey = pendingFocusKey ?? document.activeElement?.dataset?.focusKey ?? null;
     pendingAnchor = pendingFocusKey = null;
     reader.view.setBusy(true);
-    const stopStatus = showStatusSoon(`Loading ${columns.map((c) => c.name).join(', ')}…`);
+    const stopStatus = showStatusSoon(t('status.loading', { names: columns.map((c) => c.name).join(', ') }));
     const results = await loadColumns(columns, book.id, chapter);
     stopStatus();
     if (!isCurrent()) return;
@@ -250,6 +257,7 @@ async function showReader(route, isCurrent) {
     const view = createView();
     view.show(results, { verse });
     main.replaceChildren(view.element);
+    header.setLocation({ book, chapter }); // its text follows the interface language
     restoreAnchor(anchor);
     restoreFocus(focusKey, view);
     header.reveal();
@@ -274,38 +282,39 @@ async function showReader(route, isCurrent) {
   finish(view, results);
 }
 
-async function showTranslationsPage(isCurrent) {
+async function showTranslationsPage(isCurrent, rerender = false) {
   try {
-    const [translations, lastRead] = await Promise.all([listTranslations(), getLastRead()]);
-    const saved = await Promise.all(translations.map((t) => translationCache.has(t.url, t.version)));
+    const [all, lastRead] = await Promise.all([listTranslations(), getLastRead()]);
+    const translations = all.map(localizeTranslation);
+    const saved = await Promise.all(translations.map((info) => translationCache.has(info.url, info.version)));
     if (!isCurrent()) return;
-    const savedIds = translations.filter((_, i) => saved[i]).map((t) => t.id);
-    mount(renderTranslationsPage({ translations, savedIds, lastRead }), { title: 'Translations' });
+    const savedIds = translations.filter((_, i) => saved[i]).map((info) => info.id);
+    mount(renderTranslationsPage({ translations, savedIds, lastRead }), { title: t('title.translations'), preserve: rerender });
   } catch (error) {
     if (isCurrent()) showLoadFailure(error);
   }
 }
 
-function showNotFound(route) {
+function showNotFound(route, rerender = false) {
   if (route.reason === 'chapter') {
-    const { book } = route;
+    const name = bookName(route.book);
     mount(
       renderMessage({
-        title: 'Chapter not found',
-        text: `${book.name} has ${book.chapters} chapter${book.chapters === 1 ? '' : 's'}.`,
-        links: [{ href: bookHref(book), label: `Choose a chapter in ${book.name}` }],
+        title: t('notFound.chapterTitle'),
+        text: t('notFound.chapterText', { book: name, n: route.book.chapters }),
+        links: [{ href: bookHref(route.book), label: t('notFound.chooseIn', { book: name }) }],
       }),
-      { title: 'Not found' },
+      { title: t('title.notFound'), preserve: rerender },
     );
     return;
   }
   mount(
     renderMessage({
-      title: 'Book not found',
-      text: `There’s no book called “${route.query}”.`,
-      links: [{ href: '#/', label: 'Browse all books' }],
+      title: t('notFound.bookTitle'),
+      text: t('notFound.bookText', { query: route.query }),
+      links: [{ href: '#/', label: t('notFound.browse') }],
     }),
-    { title: 'Not found' },
+    { title: t('title.notFound'), preserve: rerender },
   );
 }
 
@@ -314,23 +323,29 @@ function showLoadFailure(error) {
   console.error(error);
   mount(
     renderMessage({
-      title: 'Couldn’t load the translations',
+      title: t('error.translations'),
       text: error?.message ?? String(error),
-      actions: [{ label: 'Try again', onClick: () => handleRoute(currentRoute) }],
-      links: [{ href: '#/', label: 'Browse all books' }],
+      actions: [{ label: t('action.retry'), onClick: () => handleRoute(currentRoute) }],
+      links: [{ href: '#/', label: t('notFound.browse') }],
     }),
-    { title: 'Error' },
+    { title: t('title.error') },
   );
 }
 
 /**
  * Swap in a new page. Scroll to the top, then move focus to its heading so
  * screen-reader users hear where they've arrived (as on a full page load).
+ * `preserve` (a language change) keeps the scroll position and focus instead.
  */
-function mount(node, { title, location = null }) {
+function mount(node, { title, location = null, preserve = false }) {
+  const scrollY = window.scrollY;
   main.replaceChildren(node);
-  document.title = title ? `${title} · ${APP_NAME}` : APP_NAME;
+  document.title = title ? `${title} · ${t('app.name')}` : t('app.name');
   header.setLocation(location);
+  if (preserve) {
+    window.scrollTo(0, scrollY);
+    return;
+  }
   header.reveal();
   window.scrollTo(0, 0);
   node.querySelector('h1')?.focus({ preventScroll: true });
@@ -363,7 +378,8 @@ function onKeydown(event) {
 /* ---------------------------------------------------------------------- */
 
 async function boot() {
-  await loadSettings();
+  const settings = await loadSettings();
+  setLanguage(resolveLanguage(settings.language));
 
   const settingsPanel = initSettingsPanel({
     button: document.getElementById('settings-button'),
@@ -373,6 +389,19 @@ async function boot() {
   translationControl = initTranslationControl(document.getElementById('translation-control'), {
     onSelect: (id) => changeTranslations([id], 'header-translation'),
     onToggleCompare: toggleCompare,
+  });
+
+  // RUS | ENG: save the choice; the settings listener below applies it.
+  const languageSwitch = initLanguageSwitch(document.getElementById('lang-switch'), {
+    onChange: (id) => updateSettings({ language: id }),
+  });
+  languageSwitch.update(getLanguage());
+  onSettingsChange((next) => {
+    const language = resolveLanguage(next.language);
+    if (language === getLanguage()) return;
+    setLanguage(language);
+    languageSwitch.update(language);
+    if (currentRoute) handleRoute(currentRoute, { rerender: true });
   });
 
   // The skip link targets "#main", which would clash with hash routing, so

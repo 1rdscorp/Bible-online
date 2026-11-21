@@ -191,7 +191,9 @@
   color: var(--color-accent);
 }
 
-@media (max-width: 40rem) {
+/* The "Compare" label appears from tablet width; below it, the icon (with
+   its accessible name) saves room for the chapter name. */
+@media (max-width: 47.99rem) {
   .compare-text {
     position: absolute;
     width: 1px;
@@ -293,7 +295,7 @@
 
 .translation-details > div {
   display: grid;
-  grid-template-columns: 8.5rem minmax(0, 1fr);
+  grid-template-columns: 10.5rem minmax(0, 1fr);
   gap: 0.75rem;
 }
 
@@ -320,6 +322,71 @@
 .header-actions {
   grid-column: 3;
   justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* RUS | ENG, in the top-right corner. Pressed = current language, shown by
+   fill and border, not colour alone. */
+.lang-switch {
+  display: flex;
+  padding: 2px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+}
+
+.lang-button {
+  min-width: 2.6rem;
+  min-height: 2rem;
+  padding: 0 0.45rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
+.lang-button:hover {
+  color: var(--color-text);
+}
+
+.lang-button[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+/* Phones: a tighter switch, so the chapter name keeps some room. */
+@media (max-width: 30rem) {
+  .header-actions {
+    gap: 0.1rem;
+  }
+
+  .lang-button {
+    min-width: 2.15rem;
+    padding: 0 0.2rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+  }
+
+  .icon-button#settings-button {
+    width: 2.4rem;
+  }
+
+  /* On a reader page, the chapter name needs the room more than the logo
+     does (Russian book names are long). Home stays reachable through the
+     chapter grid's "All books"; browsers without :has() keep the logo. */
+  .app-header-inner:has(> .location:not([hidden])) > .brand {
+    display: none;
+  }
+
+  .location-chevron {
+    display: none;
+  }
 }
 
 .icon-button {
@@ -346,8 +413,9 @@
   line-height: 1;
 }
 
-/* Narrow phones: icon-only brand so the location stays readable. */
-@media (max-width: 26rem) {
+/* Below tablet width, the brand is just its icon (the name stays for screen
+   readers), so the chapter name and the reader's controls keep their room. */
+@media (max-width: 40rem) {
   .brand-name {
     position: absolute;
     width: 1px;
@@ -356,7 +424,9 @@
     clip-path: inset(50%);
     white-space: nowrap;
   }
+}
 
+@media (max-width: 30rem) {
   .location-link {
     font-size: 1rem;
     padding: 0 0.5rem;

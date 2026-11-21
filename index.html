@@ -9,19 +9,33 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
   <!--
-    Apply the saved theme and text size before the first paint, so the page
-    never flashes the wrong theme. This reads the key that js/storage.js and
-    js/settings.js write ("bible-online:settings"). Keep them in sync.
+    Before the first paint, apply the saved theme, text size and interface
+    language, so the page never flashes the wrong theme or language. This
+    reads the key that js/storage.js and js/settings.js write
+    ("bible-online:settings"); keep them in sync. With no saved language, the
+    browser's preferred language decides (as in js/i18n.js resolveLanguage).
   -->
   <script>
     (function () {
+      var root = document.documentElement;
+      var saved = null;
       try {
-        var saved = JSON.parse(localStorage.getItem('bible-online:settings') || 'null');
-        if (!saved) return;
-        var root = document.documentElement;
+        saved = JSON.parse(localStorage.getItem('bible-online:settings') || 'null');
+      } catch (e) { /* storage blocked: the defaults apply */ }
+      if (saved) {
         if (/^(light|sepia|dark)$/.test(saved.theme)) root.setAttribute('data-theme', saved.theme);
         if (typeof saved.fontScale === 'number') root.style.setProperty('--reader-scale', String(saved.fontScale / 100));
-      } catch (e) { /* storage blocked: the defaults apply */ }
+      }
+      var lang = saved && /^(en|ru)$/.test(saved.language) ? saved.language : null;
+      var preferred = navigator.languages || [navigator.language || ''];
+      for (var i = 0; !lang && i < preferred.length; i++) {
+        var base = String(preferred[i]).toLowerCase().split('-')[0];
+        if (base === 'en' || base === 'ru') lang = base;
+      }
+      root.lang = lang || 'en';
+      // The text below is English; hide it until js/i18n.js has filled in the
+      // right language.
+      if (root.lang !== 'en') root.classList.add('i18n-pending');
     })();
   </script>
 
@@ -35,7 +49,7 @@
   <script type="module" src="js/main.js"></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
 
   <header class="app-header" id="app-header">
     <div class="app-header-inner">
@@ -43,7 +57,7 @@
         <svg class="brand-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
           <path d="M12 6.5C10.4 5.2 8 4.5 4.5 4.5H3v13h1.5c3.5 0 5.9.7 7.5 2m0-13c1.6-1.3 4-2 7.5-2H21v13h-1.5c-3.5 0-5.9.7-7.5 2m0-13v13"/>
         </svg>
-        <span class="brand-name">Bible Online</span>
+        <span class="brand-name" data-i18n="app.name">Bible Online</span>
       </a>
 
       <div class="location" id="header-location" hidden>
@@ -58,74 +72,91 @@
       <div class="header-actions">
         <button type="button" class="icon-button" id="settings-button" aria-expanded="false" aria-controls="settings-panel">
           <span class="icon-aa" aria-hidden="true">Aa</span>
-          <span class="visually-hidden">Reading settings</span>
+          <span class="visually-hidden" data-i18n="settings.open">Reading settings</span>
         </button>
+
+        <!-- Interface language (js/ui/language-switch.js). Each button's
+             accessible name starts with its visible label ("RUS") and adds
+             the language's own name for screen readers. -->
+        <div class="lang-switch" id="lang-switch" role="group" aria-label="Language" data-i18n-attr="aria-label:lang.group">
+          <button type="button" class="lang-button" data-lang="ru" aria-pressed="false">
+            <span>RUS</span><span class="visually-hidden" lang="ru"> — Русский</span>
+          </button>
+          <button type="button" class="lang-button" data-lang="en" aria-pressed="true">
+            <span>ENG</span><span class="visually-hidden" lang="en"> — English</span>
+          </button>
+        </div>
       </div>
 
       <div class="settings-panel" id="settings-panel" role="group" aria-labelledby="settings-title" hidden>
-        <h2 class="settings-title" id="settings-title">Reading settings</h2>
+        <h2 class="settings-title" id="settings-title" data-i18n="settings.title">Reading settings</h2>
 
         <fieldset class="settings-group">
-          <legend class="settings-label">Theme</legend>
+          <legend class="settings-label" data-i18n="settings.theme">Theme</legend>
           <div class="theme-options">
             <label class="theme-option">
               <input type="radio" name="theme" value="auto">
               <span class="theme-swatch theme-swatch--auto" aria-hidden="true"></span>
-              <span class="theme-name">Auto</span>
+              <span class="theme-name" data-i18n="theme.auto">Auto</span>
             </label>
             <label class="theme-option">
               <input type="radio" name="theme" value="light">
               <span class="theme-swatch theme-swatch--light" aria-hidden="true">Aa</span>
-              <span class="theme-name">Light</span>
+              <span class="theme-name" data-i18n="theme.light">Light</span>
             </label>
             <label class="theme-option">
               <input type="radio" name="theme" value="sepia">
               <span class="theme-swatch theme-swatch--sepia" aria-hidden="true">Aa</span>
-              <span class="theme-name">Sepia</span>
+              <span class="theme-name" data-i18n="theme.sepia">Sepia</span>
             </label>
             <label class="theme-option">
               <input type="radio" name="theme" value="dark">
               <span class="theme-swatch theme-swatch--dark" aria-hidden="true">Aa</span>
-              <span class="theme-name">Dark</span>
+              <span class="theme-name" data-i18n="theme.dark">Dark</span>
             </label>
           </div>
         </fieldset>
 
         <div class="settings-group" role="group" aria-labelledby="text-size-label">
-          <span class="settings-label" id="text-size-label">Text size</span>
+          <span class="settings-label" id="text-size-label" data-i18n="settings.textSize">Text size</span>
           <div class="font-size-row">
             <div class="stepper">
-              <button type="button" class="stepper-button" data-font-step="-1" aria-label="Smaller text">
+              <button type="button" class="stepper-button" data-font-step="-1" aria-label="Smaller text" data-i18n-attr="aria-label:settings.smaller">
                 <span class="a-small" aria-hidden="true">A</span>
               </button>
               <output class="stepper-value" data-font-value aria-live="polite">100%</output>
-              <button type="button" class="stepper-button" data-font-step="1" aria-label="Larger text">
+              <button type="button" class="stepper-button" data-font-step="1" aria-label="Larger text" data-i18n-attr="aria-label:settings.larger">
                 <span class="a-large" aria-hidden="true">A</span>
               </button>
             </div>
-            <button type="button" class="text-button" data-font-reset>Reset</button>
+            <button type="button" class="text-button" data-font-reset data-i18n="settings.reset">Reset</button>
           </div>
         </div>
 
-        <p class="settings-hint">Tip: press <kbd>←</kbd> and <kbd>→</kbd> to change chapter.</p>
+        <p class="settings-hint">
+          <span data-i18n="settings.tipPress">Tip: press</span> <kbd>←</kbd>
+          <span data-i18n="settings.tipAnd">and</span> <kbd>→</kbd>
+          <span data-i18n="settings.tipChange">to change chapter.</span>
+        </p>
       </div>
     </div>
   </header>
 
   <main id="main" tabindex="-1">
-    <p class="status" id="boot-status">Loading…</p>
+    <p class="status" id="boot-status" data-i18n="boot.loading">Loading…</p>
   </main>
 
   <!-- "Loading…" toast for slow translation downloads (js/main.js). It stays
        in the page so screen readers announce changes to it. -->
   <div class="app-status" id="app-status" role="status" aria-live="polite"></div>
 
-  <noscript><p class="status">This Bible reader needs JavaScript turned on.</p></noscript>
+  <noscript><p class="status">This Bible reader needs JavaScript turned on. / Для работы сайта нужен JavaScript.</p></noscript>
   <script>
     // Opening index.html straight from disk can't work: browsers block
     // JavaScript modules and data files on file:// pages. Say so instead of
     // showing "Loading…" forever.
     if (location.protocol === 'file:') {
+      document.documentElement.classList.remove('i18n-pending');
       document.getElementById('boot-status').textContent =
         'Open this site through a web server: run "npm start" (or "python3 -m http.server 8000") in the project folder, then visit http://localhost:8000.';
     }
