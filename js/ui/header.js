@@ -1,11 +1,12 @@
 /**
  * App header: the current location ("John 3 ⌄", linking to the chapter
- * grid), the translation badge, and hide-on-scroll.
+ * grid), the reader's translation controls (ui/translation-control.js, which
+ * sit inside the location area), and hide-on-scroll.
  *
  * To keep reading distraction-free, the sticky header slides away while you
- * scroll down and returns as soon as you scroll up. It never hides while it
- * holds keyboard focus (CSS :focus-within) or while `isPinned()` is true (the
- * settings panel is open).
+ * scroll down and comes back as soon as you scroll up. It never hides while
+ * it holds keyboard focus (CSS :focus-within) or while `isPinned()` is true
+ * (the settings panel is open).
  */
 import { chapterTitle } from '../canon.js';
 import { bookHref } from '../router.js';
@@ -17,7 +18,6 @@ export function initHeader(root, { isPinned = () => false } = {}) {
   const location = root.querySelector('#header-location');
   const locationLink = root.querySelector('#location-link');
   const locationText = root.querySelector('#location-text');
-  const badge = root.querySelector('#translation-badge');
 
   let lastY = window.scrollY;
   let frameRequested = false;
@@ -37,7 +37,7 @@ export function initHeader(root, { isPinned = () => false } = {}) {
   window.addEventListener('scroll', onScroll, { passive: true });
 
   return {
-    /** Show "John 3" in the header (or hide the location with null). */
+    /** Show "John 3" and the translation controls (or hide both with null). */
     setLocation(position) {
       if (!position) {
         location.hidden = true;
@@ -50,15 +50,14 @@ export function initHeader(root, { isPinned = () => false } = {}) {
       location.hidden = false;
     },
 
-    setTranslation(info) {
-      badge.textContent = info?.abbreviation ?? '';
-      badge.title = info?.name ?? '';
-      badge.hidden = !info;
-    },
-
     reveal() {
       root.classList.remove('is-hidden');
       lastY = window.scrollY;
+    },
+
+    /** How far down the viewport the header currently covers (0 when slid away). */
+    coveredHeight() {
+      return root.classList.contains('is-hidden') ? 0 : Math.max(0, root.getBoundingClientRect().bottom);
     },
   };
 }

@@ -63,6 +63,11 @@ abbr[title] {
   text-decoration: none;
 }
 
+/* `hidden` must win over any component's display value. */
+[hidden] {
+  display: none !important;
+}
+
 /* A clearly visible keyboard focus ring, for keyboard users only. */
 :focus-visible {
   outline: 3px solid var(--color-focus);

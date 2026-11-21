@@ -1,0 +1,190 @@
+/*
+ * Parallel view: 2–4 translations, verses aligned by number.
+ *
+ * Mobile-first: each verse's translations stack, each with a small label
+ * ("KJV", "ASV"). When the reader is wide enough for every column to be at
+ * least ~13em, js/views/reader.js adds .is-side-by-side and the translations
+ * sit in columns under sticky headings. Widths are in em, so a larger text
+ * size switches to stacking sooner.
+ *
+ * --cols (the column count) is set on the article by js/views/reader.js.
+ */
+
+/* Use the width the columns need, up to the window: about 30em per column. */
+.chapter.is-parallel {
+  max-width: calc(2em + var(--cols) * 30em + (var(--cols) - 1) * 1.25em);
+}
+
+.chapter.is-parallel .chapter-nav {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.parallel {
+  line-height: var(--reader-line-height);
+}
+
+.parallel-toolbar {
+  margin-top: 0.9rem;
+  font-family: var(--font-ui);
+  font-size: 1rem;
+}
+
+.parallel-toolbar .text-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* ---------- Column headings (one dropdown per column) ---------- */
+
+.parallel-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0 0 1.75em;
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.parallel-head > .pnum {
+  display: none;
+}
+
+.parallel-head-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.column-remove {
+  width: 2.25rem;
+  height: 2.25rem;
+  color: var(--color-text-muted);
+}
+
+.column-problem {
+  margin: 0 0 1.25em;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+}
+
+/* ---------- Verse rows ---------- */
+
+.prow {
+  position: relative;
+  margin: 0 0 1.1em;
+  padding-inline-start: 2em;
+}
+
+/* Verse number hanging in the margin, as in single view (see reader.css .vnum). */
+.pnum {
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  width: 2.35em;
+  color: var(--color-verse-number);
+  font-family: var(--font-ui);
+  font-size: 0.65em;
+  font-variant-numeric: tabular-nums;
+  line-height: calc(1.8em / 0.65);
+  text-align: end;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.pcell + .pcell {
+  margin-top: 0.4em;
+}
+
+.pcell-label {
+  margin-inline-end: 0.35em;
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.62em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  vertical-align: 0.12em;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.pcell.is-missing {
+  color: var(--color-text-muted);
+}
+
+.prow.is-target {
+  border-radius: 4px;
+  background: var(--color-highlight);
+  box-shadow: 0 0 0 0.3em var(--color-highlight);
+}
+
+/* Muted colour, as for .vnum: the usual verse-number colour is too faint
+   on the highlight. */
+.prow.is-target .pnum {
+  color: var(--color-text-muted);
+}
+
+/* ---------- Side by side ---------- */
+
+.parallel.is-side-by-side .prow,
+.parallel.is-side-by-side .parallel-head {
+  display: grid;
+  grid-template-columns: 2em repeat(var(--cols), minmax(0, 1fr));
+  column-gap: 1.25em;
+  padding-inline-start: 0;
+}
+
+.parallel.is-side-by-side .prow {
+  margin-bottom: 0.9em;
+}
+
+.parallel.is-side-by-side .pnum {
+  position: static;
+  width: auto;
+  /* Pull the number towards its text (the grid gap is sized for columns). */
+  margin-inline-end: -0.75em;
+}
+
+.parallel.is-side-by-side .pcell + .pcell {
+  margin-top: 0;
+}
+
+/* The column heading names each translation, so the per-cell labels are only
+   for screen readers here. */
+.parallel.is-side-by-side .pcell-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Headings stay in view while scrolling a long chapter: at the top of the
+   window, or just below the app header when it's showing. */
+.parallel.is-side-by-side .parallel-head {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  margin-bottom: 1.25em;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+  transition: top 0.2s ease;
+}
+
+.app-header:not(.is-hidden) ~ main .parallel.is-side-by-side .parallel-head {
+  top: calc(var(--header-height) + 1px);
+}
+
+.parallel.is-side-by-side .parallel-head > .pnum {
+  display: block;
+}

@@ -2,23 +2,35 @@
  * Provider for translations stored as static JSON files in /data. The file
  * format is documented in data/README.md.
  *
- * The whole file is downloaded once, on first use, and kept in memory, so
- * every chapter after that is instant. (Search, in a later stage, needs the
- * whole text anyway.)
+ * Lazy: nothing downloads until the translation is first needed. The whole
+ * file (about 1.2 MB compressed) then arrives in one request, is kept in
+ * memory for the session, and is stored on the device by translation-cache.js,
+ * so later visits open it instantly. Every chapter after the first is
+ * instant. (Search, in a later stage, needs the whole text anyway.)
  */
-import { fetchJson as defaultFetchJson } from './fetch-json.js';
+import { translationCache } from './translation-cache.js';
 
 /**
- * @param {object} info  translation entry from data/translations.json (needs `url`)
+ * @param {import('./interface.js').TranslationInfo} info  needs `url`; `version` enables the persistent cache
  * @param {object} [options]
- * @param {(url: string) => Promise<any>} [options.fetchJson]  injectable for tests
+ * @param {(url: string, version?: string) => Promise<any>} [options.fetchJson]  injectable for tests
+ * @returns {import('./interface.js').TranslationProvider}
  */
-export function createJsonProvider(info, { fetchJson = defaultFetchJson } = {}) {
+export function createJsonProvider(info, { fetchJson = (url, version) => translationCache.fetchJson(url, version) } = {}) {
+  if (typeof info?.url !== 'string' || info.url === '') {
+    throw new TypeError(`Translation "${info?.id}" uses the json provider, so it needs a "url".`);
+  }
+
   let booksPromise = null;
+  let loaded = false;
 
   function books() {
     if (!booksPromise) {
-      booksPromise = fetchJson(info.url).then((data) => indexBooks(data, info));
+      booksPromise = fetchJson(info.url, info.version).then((data) => {
+        const byId = indexBooks(data, info);
+        loaded = true;
+        return byId;
+      });
       // Forget a failed download so the next request tries again.
       booksPromise.catch(() => {
         booksPromise = null;
@@ -30,15 +42,16 @@ export function createJsonProvider(info, { fetchJson = defaultFetchJson } = {}) 
   return {
     info,
 
-    /** Download the translation in advance (optional; getChapter does it too). */
     async load() {
       await books();
     },
 
-    /**
-     * @returns {Promise<{bookId: string, chapter: number, verses: {number: number, text: string}[]} | null>}
-     *   null if this translation doesn't contain the book or chapter.
-     */
+    isLoaded: () => loaded,
+
+    async getBooks() {
+      return [...(await books()).keys()];
+    },
+
     async getChapter(bookId, chapter) {
       const verses = (await books()).get(bookId)?.[chapter - 1];
       if (!Array.isArray(verses)) return null;
@@ -46,7 +59,7 @@ export function createJsonProvider(info, { fetchJson = defaultFetchJson } = {}) 
         bookId,
         chapter,
         // Verse N is at index N-1. An empty string marks a verse this
-        // translation doesn't have; it is skipped, and numbering stays intact.
+        // translation doesn't have; it's skipped, and numbering stays intact.
         verses: verses.flatMap((text, index) =>
           typeof text === 'string' && text !== '' ? [{ number: index + 1, text }] : [],
         ),

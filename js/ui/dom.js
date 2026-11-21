@@ -58,4 +58,8 @@ export function icon(pathData, { size = 24, className = 'icon' } = {}) {
 export const ICONS = Object.freeze({
   chevronLeft: 'M15 5l-7 7 7 7',
   chevronRight: 'M9 5l7 7-7 7',
+  chevronDown: 'M6 9l6 6 6-6',
+  columns: 'M4 5h6v14H4zM14 5h6v14h-6z',
+  plus: 'M12 5v14M5 12h14',
+  close: 'M6 6l12 12M18 6L6 18',
 });
