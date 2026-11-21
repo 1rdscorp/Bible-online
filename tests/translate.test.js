@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { afterEach, test } from 'node:test';
-import { canTranslateOnDevice, googleTranslateUrl, TIMEOUTS, translateOnDevice } from '../js/translate/machine.js';
+import { copyText } from '../js/translate/clipboard.js';
+import { canTranslateOnDevice, TIMEOUTS, translateComUrl, translateOnDevice } from '../js/translate/machine.js';
 import { cleanSelection, truncate, verseRangeLabel } from '../js/translate/text.js';
 
 afterEach(() => {
@@ -23,13 +24,33 @@ test('verse ranges read naturally', () => {
   assert.equal(verseRangeLabel([4, 1, 3, 3]), '1, 3–4');
 });
 
-test('Google Translate link carries the text and languages', () => {
-  const url = new URL(googleTranslateUrl('For God so loved the world', 'en', 'ru'));
-  assert.equal(url.origin, 'https://translate.google.com');
-  assert.equal(url.searchParams.get('sl'), 'en');
-  assert.equal(url.searchParams.get('tl'), 'ru');
-  assert.equal(url.searchParams.get('text'), 'For God so loved the world');
-  assert.equal(new URL(googleTranslateUrl('x'.repeat(5000), 'en', 'ru')).searchParams.get('text').length, 2000);
+test('Translate.com link goes to its page for the language pair', () => {
+  assert.equal(translateComUrl('en', 'ru'), 'https://www.translate.com/english-russian');
+  assert.equal(translateComUrl('ru', 'en'), 'https://www.translate.com/russian-english');
+  assert.equal(translateComUrl('en', 'xx'), 'https://www.translate.com/', 'unknown pairs: the home page');
+  assert.equal(translateComUrl('en', 'en'), 'https://www.translate.com/');
+});
+
+test('copying uses the Clipboard API, then the old copy command', async () => {
+  let written = null;
+  assert.equal(await copyText('Jesus wept.', { clipboard: { writeText: async (text) => (written = text) }, doc: null }), true);
+  assert.equal(written, 'Jesus wept.');
+
+  // No Clipboard API (plain http): a hidden text box and execCommand('copy').
+  const calls = [];
+  const box = { style: {}, setAttribute() {}, select: () => calls.push('select'), remove: () => calls.push('remove') };
+  const doc = {
+    activeElement: { focus: () => calls.push('refocus') },
+    body: { append: () => calls.push('append') },
+    createElement: () => box,
+    execCommand: (command) => calls.push(command) && true,
+  };
+  const blocked = { writeText: async () => { throw new Error('denied'); } };
+  assert.equal(await copyText('Jesus wept.', { clipboard: blocked, doc }), true);
+  assert.equal(box.value, 'Jesus wept.');
+  assert.deepEqual(calls, ['append', 'select', 'copy', 'remove', 'refocus']);
+
+  assert.equal(await copyText('x', { clipboard: undefined, doc: null }), false, 'nothing available');
 });
 
 test('on-device translation is used only where the browser offers it', async () => {

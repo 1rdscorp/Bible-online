@@ -5,11 +5,14 @@
  *    Edge on desktop): free and private, since the text never leaves the
  *    device. The first use may download a language model (~tens of MB),
  *    which the browser does once.
- * 2. Otherwise, a link that opens Google Translate with the text filled in.
- *    Nothing is sent until the reader clicks it.
+ * 2. A link to Translate.com's English→Russian translator. Translate.com
+ *    can't take text from a link, so clicking it also copies the text, for
+ *    the reader to paste there (js/translate/clipboard.js). Nothing is sent
+ *    until the reader does. Its free translator allows a limited number of
+ *    characters a day without an account.
  *
- * A paid translation API isn't used: on a static site its key would be
- * public, and the project has no backend (see CLAUDE.md).
+ * Translate.com's API isn't used: it is paid, per word, and on a static site
+ * its key would be public; the project has no backend (see CLAUDE.md).
  *
  * The built-in API can stall (e.g. when the model download is blocked), so
  * every step has a time limit; the caller then falls back to the link.
@@ -96,11 +99,13 @@ export async function translateOnDevice(text, { from, to, onProgress } = {}) {
   return withTimeout(translator.translate(text), TIMEOUTS.translate, 'translate');
 }
 
-// Google Translate's web page accepts about 5,000 characters in the URL.
-const URL_TEXT_LIMIT = 2000;
+// Translate.com names its translator pages after the two languages
+// (https://www.translate.com/english-russian). Add a language here to offer
+// its page; other pairs get the home page.
+const TRANSLATE_COM_NAMES = { en: 'english', ru: 'russian' };
 
-/** A link that opens Google Translate with `text` filled in. */
-export function googleTranslateUrl(text, from, to) {
-  const params = new URLSearchParams({ sl: from, tl: to, op: 'translate', text: text.slice(0, URL_TEXT_LIMIT) });
-  return `https://translate.google.com/?${params}`;
+/** Translate.com's translator page for this pair of languages. */
+export function translateComUrl(from, to) {
+  const [source, target] = [TRANSLATE_COM_NAMES[from], TRANSLATE_COM_NAMES[to]];
+  return source && target && source !== target ? `https://www.translate.com/${source}-${target}` : 'https://www.translate.com/';
 }
