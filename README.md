@@ -156,11 +156,11 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
 
     | Input | Pan | Zoom |
     |---|---|---|
-    | Mouse | drag | Ctrl/⌘ + scroll (or a trackpad pinch); double-click zooms in, Shift + double-click out |
+    | Mouse | drag (the map follows the pointer exactly; a quick drag glides on and slows to a stop) | Ctrl/⌘ + scroll (or a trackpad pinch); double-click zooms in, Shift + double-click out |
     | Touch | two fingers (one in full screen) | pinch |
     | Keyboard (map focused) | arrow keys | **+** / **−**; **0** shows the whole map |
 
-    Outside full screen, plain scrolling and one-finger swipes still scroll the page, and a hint says how to move the map. Buttons zoom in and out, show the whole map, and switch to full screen. Text and dots keep their size, more names appear as you zoom in, and zooming out shows the lands around the map.
+    Pointing at a place with the mouse rings it, shows its name and turns the cursor into a pointer, since a click selects it. Outside full screen, plain scrolling and one-finger swipes still scroll the page, and a hint says how to move the map. Buttons zoom in and out, show the whole map, and switch to full screen. Text and dots keep their size, more names appear as you zoom in, and zooming out shows the lands around the map.
   - **Show all places** adds every place OpenBible.info locates (about 1,300), each selectable.
   - **Full screen** gives the map the whole window, with the selected place's details underneath; Escape leaves it.
 

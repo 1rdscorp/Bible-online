@@ -445,7 +445,12 @@
   -webkit-user-select: none;
 }
 
-.map-frame.is-dragging {
+/* Pointing at a place: a click selects it. Pressed: the map is held. */
+.map-frame.is-over-place {
+  cursor: pointer;
+}
+
+.map-frame.is-grabbing {
   cursor: grabbing;
 }
 
@@ -634,8 +639,19 @@
 .map-route--3 { stroke: var(--route-3); stroke-dasharray: 2 4; }
 .map-route--4 { stroke: var(--route-4); stroke-dasharray: 12 4 2 4; }
 
-.map-overlay {
+.map-overlay,
+.map-hover-layer {
   pointer-events: none;
+}
+
+.map-hover-ring {
+  fill: none;
+  stroke: var(--map-place);
+  stroke-width: 2;
+}
+
+.map-name--hover {
+  font-weight: 600;
 }
 
 .map-dot {

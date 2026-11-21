@@ -5,9 +5,11 @@
  * and no tiles: it works offline once the data is stored, and in every theme.
  *
  * Zoom and pan:
- *   - mouse: drag to pan; Ctrl/⌘ + scroll (or a trackpad pinch) zooms; a
- *     double-click zooms in (Shift: out). Plain scrolling still scrolls the
- *     page, with a hint, so the map never traps the reader.
+ *   - mouse: drag to pan (the map follows the cursor exactly, and a quick
+ *     drag glides on after release, slowing to a stop); Ctrl/⌘ + scroll (or
+ *     a trackpad pinch) zooms; a double-click zooms in (Shift: out). Plain
+ *     scrolling still scrolls the page, with a hint, so the map never traps
+ *     the reader. Pointing at a place shows its name and a pointer cursor.
  *   - touch: two fingers pinch and pan; one finger scrolls the page, with a
  *     hint. In full screen one finger pans too.
  *   - keyboard (the map is focusable): + and − zoom, arrow keys pan, 0 shows
@@ -20,9 +22,11 @@
  * How it's drawn: the coastlines are paths in "base" units (the map's bounds
  * fitted to the frame), moved by one transform (js/geo/view.js), with
  * strokes that don't scale. Places and names are laid out again in screen
- * units after every move, so text and dots keep their size and more names
- * fit as you zoom in. During a gesture only the map's own places get names;
- * the rest are labelled once it settles.
+ * units, so text and dots keep their size and more names fit as you zoom in.
+ * While the map is only being panned, the places layer simply moves with it
+ * (no re-layout, so nothing flickers; places just outside the frame are
+ * already drawn and slide in); it's laid out afresh once the map settles.
+ * During a zoom gesture only the map's own places get names until then.
  *
  * Clicking or tapping selects the nearest place. The SVG itself is a picture
  * for screen readers: the page lists the same places as buttons
@@ -38,6 +42,10 @@ const MAX_HEIGHT = 0.78; // of the window height, outside full screen
 const MAX_ZOOM = 12;
 const TAP_REACH = 18; // px: how far from a dot a tap still selects it
 const SETTLE_MS = 140; // after the last move, lay out every name
+const DRAG_START = 3; // px the mouse moves before a press becomes a drag
+// Gliding after a drag: release speeds (px/ms) below MIN don't glide; the
+// speed is capped at MAX and decays with this time constant (as on iOS).
+const GLIDE = { MIN: 0.25, MAX: 3, TAU: 325, SAMPLE_MS: 100, STALE_MS: 60 };
 
 function svg(name, attrs = {}, ...children) {
   const node = document.createElementNS(SVG, name);
@@ -77,6 +85,10 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
   let shown = []; // the points drawn last, in screen units: for taps
   let animation = 0;
   let goal = null; // where a running animation is heading
+  let glide = 0; // the gliding animation after a drag
+  let drawnView = null; // the view the places layer was last laid out for
+  let fontSize = 12.5;
+  let hoverId = null;
 
   const mapIds = new Set(map.places ?? []);
 
@@ -84,9 +96,10 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
 
   const geo = svg('g', { class: 'map-geo' });
   const overlay = svg('g', { class: 'map-overlay' });
+  const hoverLayer = svg('g', { class: 'map-hover-layer' });
   // The drawing is hidden from screen readers: the frame (a labelled group
   // with key help) speaks for it, and the page lists its places as buttons.
-  const drawing = svg('svg', { class: 'map', 'aria-hidden': 'true', focusable: 'false' }, svg('rect', { class: 'map-water', width: '100%', height: '100%' }), geo, overlay);
+  const drawing = svg('svg', { class: 'map', 'aria-hidden': 'true', focusable: 'false' }, svg('rect', { class: 'map-water', width: '100%', height: '100%' }), geo, overlay, hoverLayer);
   const hint = el('p', { class: 'map-hint', 'aria-hidden': 'true', hidden: true });
   const keysHelp = el('p', { class: 'visually-hidden', id: `map-keys-${map.id}` }, t('maps.keys'));
 
@@ -127,7 +140,8 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
   }
 
   function measure() {
-    const width = Math.round(fullscreen ? frame.clientWidth : container.clientWidth);
+    // The frame's inner width (inside its border), so one map unit is one pixel.
+    const width = Math.round(frame.clientWidth || container.clientWidth);
     if (!width) return;
     const ratio = projection(map.bounds, 1).height;
     const height = Math.round(fullscreen ? frame.clientHeight : Math.max(260, Math.min(width * ratio, window.innerHeight * MAX_HEIGHT)));
@@ -190,7 +204,15 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
     zoomInButton.disabled = view.k >= limits.maxK - 1e-6;
     zoomOutButton.disabled = view.k <= limits.minK + 1e-6;
     cancelAnimationFrame(frameRequest);
-    frameRequest = requestAnimationFrame(() => render(false));
+    if (drawnView && drawnView.k === view.k && performance.now() < busyUntil) {
+      // Only panning: move the places layer with the map; lay it out once it settles.
+      const [dx, dy] = layerOffset();
+      const shift = `translate(${dx.toFixed(2)} ${dy.toFixed(2)})`;
+      overlay.setAttribute('transform', shift);
+      hoverLayer.setAttribute('transform', shift);
+    } else {
+      frameRequest = requestAnimationFrame(() => render(false));
+    }
     clearTimeout(settleTimer);
     settleTimer = setTimeout(() => render(true), Math.max(0, busyUntil - performance.now()) + 20);
   }
@@ -198,6 +220,11 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
   /** Mark a gesture as under way, so names are laid out fully only once it settles. */
   function busy() {
     busyUntil = performance.now() + SETTLE_MS;
+  }
+
+  /** How far the map has been panned since the places layer was laid out. */
+  function layerOffset() {
+    return drawnView && drawnView.k === view.k ? [view.x - drawnView.x, view.y - drawnView.y] : [0, 0];
   }
 
   // Quick presses build on each other: each step starts from where the last
@@ -208,6 +235,7 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
 
   /** Move smoothly to `target` (instantly with reduced motion). `anchor`: the screen point a zoom keeps still. */
   function animateTo(target, anchor = null) {
+    stopGlide();
     cancelAnimationFrame(animation);
     goal = null;
     if (reducedMotion()) {
@@ -242,9 +270,14 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
   function render(settled) {
     if (!proj) return;
     const { width, height } = size;
-    const fontSize = width < 480 ? 11 : 12.5;
-    const margin = 24;
+    fontSize = width < 480 ? 11 : 12.5;
+    // Places up to half a frame outside are drawn too, so they're already
+    // there when a pan brings them in. Only those in the frame get names.
+    const margin = Math.max(width, height) / 2;
     const inFrame = ([x, y]) => x >= -margin && y >= -margin && x <= width + margin && y <= height + margin;
+    overlay.removeAttribute('transform');
+    hoverLayer.removeAttribute('transform');
+    drawnView = { ...view };
 
     // Region, water and river names: fixed places on the map, obstacles for place names.
     const obstacles = [];
@@ -309,13 +342,37 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
           ),
         ),
     );
+    // Keep the pointed-at place marked through the new layout.
+    const pointed = hoverId;
+    hoverId = null;
+    showHover(pointed);
+  }
+
+  /**
+   * Pointing at a place: a ring around its dot, its name if the layout had
+   * no room for it, and a pointer cursor (a click will select it).
+   */
+  function showHover(id) {
+    if (id === hoverId) return;
+    hoverId = id;
+    frame.classList.toggle('is-over-place', Boolean(id));
+    hoverLayer.replaceChildren();
+    const point = id && shown.find((p) => p.id === id);
+    if (!point) return;
+    const named = overlay.querySelector(`text[data-id="${CSS.escape(id)}"]`);
+    hoverLayer.append(svg('circle', { class: 'map-hover-ring', cx: point.x.toFixed(1), cy: point.y.toFixed(1), r: 7.5 }));
+    if (!named) {
+      hoverLayer.append(svg('text', { class: 'map-name map-name--hover', x: (point.x + 9).toFixed(1), y: point.y.toFixed(1), 'dominant-baseline': 'middle', 'font-size': fontSize }, point.text));
+    }
   }
 
   /** The nearest place drawn within reach of a screen point. */
   function placeAt(x, y) {
+    // The places layer may have moved with a pan since it was laid out.
+    const [dx, dy] = layerOffset();
     let best = null;
     for (const point of shown) {
-      const distance = Math.hypot(point.x - x, point.y - y);
+      const distance = Math.hypot(point.x + dx - x, point.y + dy - y);
       if (distance <= TAP_REACH && (!best || distance < best.distance || (distance === best.distance && point.major))) best = { id: point.id, distance };
     }
     return best?.id ?? null;
@@ -341,32 +398,103 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
   }
 
   // Mouse and pen: drag to pan. (Touch is handled with touch events below.)
-  let drag = null; // { x, y, moved }
+  // The map follows the pointer exactly from where it was pressed; a quick
+  // drag glides on after release.
+  let drag = null; // { last: [x, y], start: [x, y], moved, scale, samples: [{ t, x, y }] }
   let suppressClick = false;
+  frame.addEventListener('mousedown', (event) => {
+    // No text selection or image dragging while panning; focus the map for its keys.
+    if (event.button !== 0 || event.target.closest('.map-controls')) return;
+    event.preventDefault();
+    frame.focus({ preventScroll: true });
+  });
   frame.addEventListener('pointerdown', (event) => {
     if (event.pointerType === 'touch' || event.button !== 0 || event.target.closest('.map-controls')) return;
-    drag = { x: event.clientX, y: event.clientY, moved: 0 };
+    stopGlide();
+    const rect = drawing.getBoundingClientRect();
+    drag = {
+      start: [event.clientX, event.clientY],
+      last: [event.clientX, event.clientY],
+      moved: false,
+      scale: size.width / (rect.width || size.width), // page px → map units
+      samples: [{ t: event.timeStamp, x: event.clientX, y: event.clientY }],
+    };
     frame.setPointerCapture?.(event.pointerId);
+    frame.classList.add('is-grabbing');
   });
   frame.addEventListener('pointermove', (event) => {
-    if (!drag || event.pointerType === 'touch') return;
-    const dx = event.clientX - drag.x;
-    const dy = event.clientY - drag.y;
-    drag = { x: event.clientX, y: event.clientY, moved: drag.moved + Math.abs(dx) + Math.abs(dy) };
-    if (drag.moved > 3) {
-      frame.classList.add('is-dragging');
-      busy();
-      setView(panBy(view, dx, dy, limits));
+    if (event.pointerType === 'touch') return;
+    if (!drag) {
+      // Not dragging: show which place a click would select.
+      if (!glide && performance.now() >= busyUntil) showHover(placeAt(...local(event.clientX, event.clientY)));
+      return;
     }
+    const [x, y] = [event.clientX, event.clientY];
+    if (!drag.moved) {
+      if (Math.hypot(x - drag.start[0], y - drag.start[1]) <= DRAG_START) return;
+      drag.moved = true;
+      showHover(null);
+    }
+    // From the last position, so the press point stays under the pointer
+    // (the first few pixels, before it counted as a drag, included).
+    const dx = (x - drag.last[0]) * drag.scale;
+    const dy = (y - drag.last[1]) * drag.scale;
+    drag.last = [x, y];
+    drag.samples.push({ t: event.timeStamp, x, y });
+    while (drag.samples.length > 2 && event.timeStamp - drag.samples[0].t > GLIDE.SAMPLE_MS) drag.samples.shift();
+    busy();
+    setView(panBy(view, dx, dy, limits));
   });
-  const endDrag = () => {
+  function endDrag(event, { glideOn = true } = {}) {
     if (!drag) return;
-    suppressClick = drag.moved > 3;
+    const ended = drag;
     drag = null;
-    frame.classList.remove('is-dragging');
-  };
-  frame.addEventListener('pointerup', endDrag);
-  frame.addEventListener('pointercancel', endDrag);
+    suppressClick = ended.moved;
+    frame.classList.remove('is-grabbing');
+    if (glideOn && ended.moved) startGlide(releaseVelocity(ended.samples, event.timeStamp, ended.scale));
+  }
+  frame.addEventListener('pointerup', (event) => endDrag(event));
+  frame.addEventListener('pointercancel', (event) => endDrag(event, { glideOn: false }));
+  frame.addEventListener('lostpointercapture', (event) => endDrag(event, { glideOn: false }));
+  frame.addEventListener('pointerleave', (event) => {
+    if (!drag && event.pointerType !== 'touch') showHover(null);
+  });
+
+  /** The pointer's speed at release (map units per ms), from its last ~100 ms; 0 if it had stopped. */
+  function releaseVelocity(samples, releasedAt, scale) {
+    const last = samples[samples.length - 1];
+    const first = samples.find((sample) => last.t - sample.t <= GLIDE.SAMPLE_MS) ?? samples[0];
+    if (!last || releasedAt - last.t > GLIDE.STALE_MS || last.t - first.t < 8) return [0, 0];
+    return [((last.x - first.x) / (last.t - first.t)) * scale, ((last.y - first.y) / (last.t - first.t)) * scale];
+  }
+
+  /** Keep moving after a quick drag, slowing to a stop. */
+  function startGlide([vx, vy]) {
+    stopGlide();
+    const speed = Math.hypot(vx, vy);
+    if (speed < GLIDE.MIN || reducedMotion()) return;
+    if (speed > GLIDE.MAX) [vx, vy] = [(vx * GLIDE.MAX) / speed, (vy * GLIDE.MAX) / speed];
+    let last = performance.now();
+    const step = (now) => {
+      const dt = Math.min(32, now - last);
+      last = now;
+      const before = view;
+      busy();
+      setView(panBy(view, vx * dt, vy * dt, limits));
+      const decay = Math.exp(-dt / GLIDE.TAU);
+      vx *= decay;
+      vy *= decay;
+      // Stop when slow, or when the edge of the map is reached.
+      const stuck = view.x === before.x && view.y === before.y;
+      glide = Math.hypot(vx, vy) > 0.02 && !stuck ? requestAnimationFrame(step) : 0;
+    };
+    glide = requestAnimationFrame(step);
+  }
+
+  function stopGlide() {
+    cancelAnimationFrame(glide);
+    glide = 0;
+  }
 
   frame.addEventListener('click', (event) => {
     if (event.target.closest('.map-controls')) return;
@@ -394,6 +522,7 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
         return;
       }
       event.preventDefault();
+      stopGlide();
       const delta = event.deltaMode === 1 ? event.deltaY * 16 : event.deltaY;
       busy();
       setView(zoomAround(view, Math.exp(-delta * 0.002), ...local(event.clientX, event.clientY), limits));
@@ -419,6 +548,7 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
     'touchstart',
     (event) => {
       if (event.target.closest('.map-controls')) return;
+      stopGlide();
       const points = touchPoints(event);
       const handled = fullscreen || points.size >= 2;
       if (handled) event.preventDefault();
@@ -606,6 +736,7 @@ export function createMapView({ map, basemap, places, nameOf, localize, label, o
       document.removeEventListener('keydown', onEscape);
       cancelAnimationFrame(frameRequest);
       cancelAnimationFrame(animation);
+      stopGlide();
       clearTimeout(settleTimer);
     },
   };
