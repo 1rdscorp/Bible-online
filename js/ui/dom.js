@@ -82,6 +82,11 @@ export const ICONS = Object.freeze({
   // An open book (Research: cross-references and word study).
   research: 'M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5C17 4 14 4.5 12 6zM12 6v14.5',
   map: 'M9 4L3 6v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14',
+  minus: 'M5 12h14',
+  // The whole map: four corners. Full screen: arrows out; leaving it: arrows in.
+  fit: 'M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5',
+  expand: 'M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7',
+  collapse: 'M20 10h-6V4M4 14h6v6M14 10l7-7M10 14l-7 7',
   timeline: 'M4 12h16M7 8v8M12 6v12M17 9v6',
   info: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 11v6M12 7.5h.01',
 });

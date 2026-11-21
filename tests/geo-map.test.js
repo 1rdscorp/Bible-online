@@ -52,3 +52,45 @@ test('mapForPlace prefers a map that labels the place, then one that contains it
   assert.equal(mapForPlace(maps, { lon: 90, lat: 0 }, 'x'), null);
   assert.equal(mapForPlace(maps, null, 'x'), null);
 });
+
+import { centerOn, clampView, minZoom, panBy, toBase, toScreen, zoomAround } from '../js/geo/view.js';
+
+// A 100×80 frame showing a map drawn 100×80 at zoom 1, inside a 300×240 extent.
+const limits = { width: 100, height: 80, extent: [-100, -80, 200, 160], minK: 1 / 3, maxK: 8 };
+
+test('minZoom: as far out as the extent still fills the frame', () => {
+  assert.equal(minZoom(limits.extent, 100, 80), 1 / 3);
+  assert.equal(minZoom([0, 0, 100, 80], 100, 80), 1, 'never past the map itself… ');
+  assert.equal(minZoom([0, 0, 50, 50], 100, 80, 1), 1, '…when the extent is smaller than the frame');
+});
+
+test('clampView keeps zoom in range and the extent covering the frame', () => {
+  assert.deepEqual(clampView({ k: 1, x: 0, y: 0 }, limits), { k: 1, x: 0, y: 0 });
+  assert.equal(clampView({ k: 20, x: 0, y: 0 }, limits).k, 8);
+  assert.equal(clampView({ k: 0.01, x: 0, y: 0 }, limits).k, 1 / 3);
+  // Panned too far right: the extent's left edge (−100) would show a gap.
+  assert.deepEqual(clampView({ k: 1, x: 500, y: 0 }, limits), { k: 1, x: 100, y: 0 });
+  assert.deepEqual(clampView({ k: 1, x: -500, y: -500 }, limits), { k: 1, x: -100, y: -80 });
+});
+
+test('zoomAround keeps the point under the cursor still', () => {
+  const view = { k: 1, x: 0, y: 0 };
+  const zoomed = zoomAround(view, 2, 30, 20, limits);
+  assert.equal(zoomed.k, 2);
+  const before = toBase(view, 30, 20);
+  const after = toBase(zoomed, 30, 20);
+  assert.deepEqual(after.map((n) => Math.round(n * 1e6) / 1e6), before);
+  assert.equal(zoomAround(view, 100, 30, 20, limits).k, 8, 'capped');
+});
+
+test('panBy and centerOn', () => {
+  assert.deepEqual(panBy({ k: 2, x: 0, y: 0 }, -10, -5, limits), { k: 2, x: -10, y: -5 });
+  const centred = centerOn(70, 60, 4, limits);
+  assert.deepEqual(toScreen(centred, 70, 60), [50, 40]);
+});
+
+test('projection inverts', () => {
+  const p = projection([30, 30, 40, 40], 800);
+  assert.equal(Math.round(p.lon(p.x(35.25)) * 1e6) / 1e6, 35.25);
+  assert.equal(Math.round(p.lat(p.y(31.5)) * 1e6) / 1e6, 31.5);
+});

@@ -16,6 +16,9 @@ export function projection(bounds, width) {
     height: (north - south) * scale,
     x: (lon) => (lon - west) * k * scale,
     y: (lat) => (north - lat) * scale,
+    // And back: map units → longitude and latitude.
+    lon: (x) => west + x / (k * scale),
+    lat: (y) => north - y / scale,
   };
 }
 
