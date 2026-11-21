@@ -26,6 +26,7 @@ import {
 } from './translations.js';
 import { initHeader } from './ui/header.js';
 import { initLanguageSwitch } from './ui/language-switch.js';
+import { initSelectionTranslate } from './ui/selection-translate.js';
 import { initSettingsPanel } from './ui/settings-panel.js';
 import { initTranslationControl } from './ui/translation-control.js';
 import { renderMessage } from './views/message.js';
@@ -39,6 +40,7 @@ const main = document.getElementById('main');
 const appStatus = document.getElementById('app-status');
 let header;
 let translationControl;
+let selectionTranslate;
 let currentRoute = null;
 
 // Incremented on every navigation. Async work (loading a chapter) checks it
@@ -141,6 +143,18 @@ function showStatusSoon(message, delay = 300) {
   };
 }
 
+/**
+ * For "translate selection": the same verses in a Russian Bible translation
+ * (the first one listed, normally the Synodal), unless one is already a
+ * column on screen. Downloads that translation on first use.
+ */
+async function getRussianVerses(book, chapter, verses, shownIds) {
+  const info = (await listTranslations()).find((entry) => entry.language === 'ru' && !shownIds.includes(entry.id));
+  if (!info) return null;
+  const data = await (await getProvider(info.id)).getChapter(book.id, chapter);
+  return { info: localizeTranslation(info), verses: (data?.verses ?? []).filter((v) => verses.includes(v.number)) };
+}
+
 /* ---------------------------------------------------------------------- */
 /* Last chapter read                                                       */
 /* ---------------------------------------------------------------------- */
@@ -167,6 +181,8 @@ async function handleRoute(route, { rerender = false } = {}) {
   const id = ++navigationId;
   const isCurrent = () => id === navigationId;
   currentRoute = route;
+  // "Translate selection" works on the chapter on screen; showReader sets it again.
+  selectionTranslate.setContext(null);
 
   switch (route.view) {
     case 'start': {
@@ -234,6 +250,7 @@ async function showReader(route, isCurrent) {
 
   const finish = (view, results) => {
     reader = { book, chapter, verse, ids, view };
+    selectionTranslate.setContext({ book, chapter, shownIds: ids });
     document.title = `${title} (${columns.map((c) => c.abbreviation).join(', ')}) · ${t('app.name')}`;
     if (results.some((r) => r.chapter)) saveLastRead(book, chapter);
   };
@@ -386,6 +403,7 @@ async function boot() {
     panel: document.getElementById('settings-panel'),
   });
   header = initHeader(document.getElementById('app-header'), { isPinned: settingsPanel.isOpen });
+  selectionTranslate = initSelectionTranslate({ root: main, getRussianVerses });
   translationControl = initTranslationControl(document.getElementById('translation-control'), {
     onSelect: (id) => changeTranslations([id], 'header-translation'),
     onToggleCompare: toggleCompare,

@@ -165,6 +165,8 @@ export function createReaderView({ book, chapter, columns, translations, query =
     // its script applies (base.css).
     if (info.language) content.lang = info.language;
     content.dir = info.direction === 'rtl' ? 'rtl' : 'ltr';
+    // Which translation the text is (used by "translate selection").
+    content.dataset.translation = info.id;
     content.replaceChildren(
       ...data.verses.map((v) =>
         el(
@@ -216,6 +218,7 @@ export function createReaderView({ book, chapter, columns, translations, query =
       'div',
       {
         class: missing ? 'pcell is-missing' : 'pcell',
+        'data-translation': info.id,
         lang: info.language || null,
         dir: info.direction === 'rtl' ? 'rtl' : null,
       },
