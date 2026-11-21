@@ -25,10 +25,10 @@ test('translations.json is well formed', () => {
   }
 });
 
-test('the six planned public-domain translations are all present', () => {
+test('the public-domain translations are all present', () => {
   assert.deepEqual(
     manifest.translations.map((t) => t.id),
-    ['kjv', 'asv', 'web', 'ylt', 'darby', 'bbe'],
+    ['kjv', 'asv', 'web', 'ylt', 'darby', 'bbe', 'rst'],
   );
 });
 
@@ -105,6 +105,33 @@ describe('spot checks', () => {
     assert.match(verse(darby, 'JHN', 3, 16), /^For God so loved the world/);
     assert.match(verse(darby, 'ROM', 16, 27), /^\[the\] only wise God,/, 'Darby’s own brackets are kept');
     assert.match(verse(darby, 'PSA', 57, 1), /‘Destroy not\.’/);
+  });
+
+  test('RST: renumbered to English verse numbers', () => {
+    const rst = load('rst');
+    // Psalms: Synodal Psalm 22 is English Psalm 23; titles open verse 1
+    assert.equal(verse(rst, 'PSA', 23, 1), 'Псалом Давида. Господь — Пастырь мой; я ни в чем не буду нуждаться:');
+    assert.match(verse(rst, 'PSA', 51, 1), /^Начальнику хора\. Псалом Давида, когда приходил к нему пророк Нафан.*Помилуй меня, Боже/);
+    assert.match(verse(rst, 'PSA', 51, 2), /^Многократно омой меня/);
+    assert.match(verse(rst, 'PSA', 145, 1), /^Хвала Давида\. Буду превозносить Тебя/, 'title moved from the end of the previous Psalm');
+    // Elsewhere
+    assert.match(verse(rst, 'JOL', 2, 28), /^И будет после того, излию от Духа Моего/);
+    assert.match(verse(rst, 'ROM', 16, 25), /^Могущему же утвердить вас/, 'Synodal 14:24–26 doxology moved to 16:25–27');
+    assert.match(verse(rst, 'ISA', 3, 26), /^И будут воздыхать и плакать ворота/);
+    assert.match(verse(rst, 'DAN', 6, 1), /^Угодно было Дарию/);
+    assert.match(verse(rst, '2CO', 13, 14), /^Благодать Господа нашего/);
+    assert.match(verse(rst, '3JN', 1, 14), /устами к устам\. Мир тебе\./, 'Synodal 1:15 joined to English 1:14');
+    assert.match(verse(rst, 'JOS', 4, 7), /им: «в память того/);
+    assert.match(verse(rst, 'JHN', 3, 16), /^Ибо так возлюбил Бог мир/);
+  });
+
+  test('RST: Russian typography, no source markup', () => {
+    const verses = load('rst').books.flatMap((b) => b.chapters.flat());
+    assert.deepEqual(verses.filter((v) => /(^|\s)-(\s|$)/.test(v)).slice(0, 3), [], 'spaced hyphen instead of a dash');
+    assert.deepEqual(verses.filter((v) => /[A-Za-z]/.test(v)).slice(0, 3), [], 'Latin letters (markup)');
+    const open = verses.join('').split('«').length - 1;
+    const close = verses.join('').split('»').length - 1;
+    assert.equal(open, close, '« and » balance');
   });
 
   test('BBE', () => {

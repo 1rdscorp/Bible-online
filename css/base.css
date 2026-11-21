@@ -20,6 +20,18 @@
   --radius: 12px;
 }
 
+/* Cyrillic scripture (a translation with language "ru" and similar). The
+   default book faces on Apple devices (Iowan, Charter) have no Cyrillic, so
+   put first the faces that do: PT Serif (macOS, designed for Russian), Sitka
+   (Windows), Georgia (everywhere), Noto Serif (Android). The reader sets
+   `lang` from the translation, on the article or on each parallel cell. */
+:lang(ru),
+:lang(uk),
+:lang(be),
+:lang(bg) {
+  --font-scripture: "PT Serif", "Sitka Text", Georgia, Cambria, "Noto Serif", "Droid Serif", serif;
+}
+
 *,
 *::before,
 *::after {

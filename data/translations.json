@@ -108,6 +108,24 @@
         "name": "scrollmapper/bible_databases",
         "url": "https://github.com/scrollmapper/bible_databases"
       }
+    },
+    {
+      "id": "rst",
+      "abbreviation": "RST",
+      "name": "Russian Synodal Translation",
+      "year": "1876",
+      "language": "ru",
+      "direction": "ltr",
+      "provider": "json",
+      "url": "data/rst.json",
+      "version": "8010cdf55310",
+      "license": "Public domain",
+      "copyright": "Public domain: the Synodal translation was completed in 1876 and its copyright has long expired. This text uses modern (post-1918) Russian spelling. Footnotes are not shown.",
+      "description": "Синодальный перевод: the standard Russian Bible since 1876, prepared under the Holy Synod of the Russian Orthodox Church and read by Orthodox and Protestant Christians alike. Printed Russian Bibles number some chapters and verses differently (most Psalms are one lower, so the Shepherd psalm is Псалом 22); here the verses follow English numbering, so they line up with the other translations. Words in square brackets were added for sense or come from the Greek Septuagint.",
+      "source": {
+        "name": "scrollmapper/bible_databases",
+        "url": "https://github.com/scrollmapper/bible_databases"
+      }
     }
   ]
 }
