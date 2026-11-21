@@ -4,8 +4,10 @@
  * Selecting English text in the reader (single view, or an English column
  * in compare mode) shows a small button under the selection. Clicking it
  * opens a panel with:
- *   - a machine translation of exactly the selected words (on the device
- *     where the browser supports it, else a link to Google Translate);
+ *   - a machine translation of exactly the selected words, made on the
+ *     device where the browser supports it;
+ *   - a link to Translate.com's English→Russian translator. It can't take
+ *     the text from the link, so clicking it copies the text to paste there;
  *   - the Russian Synodal text of the same verses, a real Bible translation,
  *     unless that translation is already a column on screen.
  *
@@ -14,7 +16,8 @@
  * across compare columns doesn't mix KJV and ASV.
  */
 import { chapterTitle, t } from '../i18n.js';
-import { canTranslateOnDevice, googleTranslateUrl, translateOnDevice } from '../translate/machine.js';
+import { copyText } from '../translate/clipboard.js';
+import { canTranslateOnDevice, translateComUrl, translateOnDevice } from '../translate/machine.js';
 import { cleanSelection, truncate, verseRangeLabel } from '../translate/text.js';
 import { el, icon, ICONS } from './dom.js';
 
@@ -86,6 +89,7 @@ export function initSelectionTranslate({ root, getRussianVerses }) {
   const closeButton = el('button', { type: 'button', class: 'icon-button translate-close' }, icon(ICONS.close, { size: 18 }));
   const quote = el('blockquote', { class: 'translate-quote', lang: FROM });
   const machine = el('section', { class: 'translate-section', 'aria-live': 'polite' });
+  const external = el('div', { class: 'translate-external' });
   const synodal = el('section', { class: 'translate-section', 'aria-live': 'polite' });
   const panel = el(
     'div',
@@ -93,6 +97,7 @@ export function initSelectionTranslate({ root, getRussianVerses }) {
     el('div', { class: 'translate-head' }, title, closeButton),
     quote,
     machine,
+    external,
     synodal,
   );
   document.body.append(button, panel);
@@ -154,31 +159,40 @@ export function initSelectionTranslate({ root, getRussianVerses }) {
     } else if (state.status) {
       parts.push(el('p', { class: 'translate-status' }, state.status));
     }
-    if (state.link) {
-      parts.push(
-        el(
-          'p',
-          { class: 'translate-link' },
-          el(
-            'a',
-            { href: state.link, target: '_blank', rel: 'noopener noreferrer' },
-            t('translate.openGoogle'),
-            icon(ICONS.external, { size: 14 }),
-            el('span', { class: 'visually-hidden' }, ` ${t('translate.newTab')}`),
-          ),
-        ),
-      );
-    }
     machine.replaceChildren(...parts);
   }
 
+  /**
+   * "Open Translate.com". Its translator can't be given text in a link, so
+   * the click also copies the text, and the note says to paste it there.
+   * Shown the whole time, also while (or after) the device translates.
+   */
+  function renderExternal(request, id) {
+    const note = el('p', { class: 'translate-note', 'aria-live': 'polite' }, t('translate.copyHint'));
+    const link = el(
+      'a',
+      {
+        href: translateComUrl(FROM, TO),
+        target: '_blank',
+        rel: 'noopener noreferrer',
+        // Copy without waiting: the link opens its tab as usual.
+        onclick: () => {
+          copyText(request.text).then((copied) => {
+            if (id === requestId) note.textContent = t(copied ? 'translate.copied' : 'translate.copyFailed');
+          });
+        },
+      },
+      t('translate.openTranslateCom'),
+      icon(ICONS.external, { size: 14 }),
+      el('span', { class: 'visually-hidden' }, ` ${t('translate.newTab')}`),
+    );
+    external.replaceChildren(el('p', { class: 'translate-link' }, link), note);
+  }
+
   async function runMachine(request, id) {
-    // The Google Translate link is offered while waiting too, so a slow
-    // on-device translation never leaves the reader stuck.
-    const link = googleTranslateUrl(request.text, FROM, TO);
-    renderMachine({ status: t('translate.translating'), link });
+    renderMachine({ status: t('translate.translating') });
     if (!(await canTranslateOnDevice(FROM, TO))) {
-      if (id === requestId) renderMachine({ status: t('translate.unavailable'), link });
+      if (id === requestId) renderMachine({ status: t('translate.unavailable') });
       return;
     }
     try {
@@ -186,13 +200,13 @@ export function initSelectionTranslate({ root, getRussianVerses }) {
         from: FROM,
         to: TO,
         onProgress: (fraction) => {
-          if (id === requestId) renderMachine({ status: t('translate.downloading', { percent: Math.round(fraction * 100) }), link });
+          if (id === requestId) renderMachine({ status: t('translate.downloading', { percent: Math.round(fraction * 100) }) });
         },
       });
       if (id === requestId) renderMachine({ result });
     } catch (error) {
       console.warn('On-device translation failed', error);
-      if (id === requestId) renderMachine({ status: t('translate.failed'), link });
+      if (id === requestId) renderMachine({ status: t('translate.failed') });
     }
   }
 
@@ -238,6 +252,7 @@ export function initSelectionTranslate({ root, getRussianVerses }) {
     quote.textContent = `“${truncate(request.text, 280)}”`;
     panel.hidden = false;
     title.focus({ preventScroll: true });
+    renderExternal(request, id);
     runMachine(request, id);
     runSynodal(request, id);
   }

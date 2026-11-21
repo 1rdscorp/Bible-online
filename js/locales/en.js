@@ -101,7 +101,10 @@ export default {
     'translate.downloading': 'Downloading the translation model ({percent}%)…',
     'translate.unavailable': 'This browser can’t translate on the device (Chrome or Edge on a computer can).',
     'translate.failed': 'The translation didn’t work.',
-    'translate.openGoogle': 'Open in Google Translate',
+    'translate.openTranslateCom': 'Open Translate.com',
+    'translate.copyHint': 'Opening it copies the selected text, ready to paste into the box there.',
+    'translate.copied': 'Copied. Paste it into the box on Translate.com.',
+    'translate.copyFailed': 'The text couldn’t be copied automatically. Copy it from the quote above.',
     'translate.newTab': '(opens in a new tab)',
     'translate.loadingBible': 'Loading the Russian Bible text…',
 

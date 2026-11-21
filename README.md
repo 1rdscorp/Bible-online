@@ -79,10 +79,11 @@ The URL holds the whole search, `#/search?q=…&t=<id or all>&in=<all, OT, NT or
 ## Translate a selection into Russian
 
 Select English Bible text (in single view, or in an English column when comparing) and a **Translate to Russian** button appears under it. The panel it opens shows:
-- **Machine translation** of exactly the selected words. It's made on the device by the browser's built-in Translator API (desktop Chrome and Edge), so nothing leaves the device. Where that isn't available, or while it's still working, an **Open in Google Translate** link has the text filled in. A browser that doesn't answer within a few seconds falls back to the link.
+- **Machine translation** of exactly the selected words. It's made on the device by the browser's built-in Translator API (desktop Chrome and Edge), so nothing leaves the device. A browser that doesn't answer within a few seconds says so.
+- **Open Translate.com:** a link to [Translate.com](https://www.translate.com/english-russian)'s English→Russian translator, offered in every browser. Translate.com can't receive text through a link, so clicking it also **copies the selected text**; paste it into the box there. Its free translator handles a limited amount of text a day without an account (500 characters when this was written).
 - **The Russian Synodal text of the same verses,** a real Bible translation. It's skipped when the Synodal is already a column on screen.
 
-No translation service with an API key is used. On a static site the key would be public, and the project has no backend.
+Translate.com's API isn't used: it's paid per word and needs a key, which would be public on a static site, and the project has no backend.
 
 ## Interface language
 
@@ -104,7 +105,8 @@ css/                  themes.css (colour tokens), base, layout, picker, reader, 
 js/
   main.js             Entry point: routes → views, translation choice, keyboard, last-read
   i18n.js             Interface language: t('key'), book names, RUS | ENG (text in locales/)
-  translate/          Translate-selection helpers: on-device machine translation, text tidying
+  translate/          Translate-selection helpers: on-device machine translation, Translate.com
+                      link, clipboard, text tidying
   search/             Full-text search: words and queries (text.js), the index (engine.js),
                       the Web Worker and its client, references ("Jn 3:16"), search URLs
   canon.js            The 66 books: USFM ids, names, URL slugs, chapter counts
@@ -132,6 +134,6 @@ tests/                node --test suites
   - Added later: the Russian Synodal translation, with build-time verse renumbering (versification) and a Cyrillic font stack
   - In compare mode, a translation's own Psalm numbers appear under its column picker ("Псалом 22" beside English Psalm 23)
   - Russian interface with a RUS | ENG switch
-  - Translate selected English text into Russian (on-device machine translation, Google Translate link, Synodal verses)
+  - Translate selected English text into Russian (on-device machine translation, Translate.com link, Synodal verses)
 - [x] **Stage 3:** full-text search in one or all translations (all words, any word, exact phrase, word starts), book/Testament filters, results grouped by book with counts and highlights, jump-and-flash to the verse, reference entry ("Jn 3:16", "Ps 23:1-4", Russian names too), and indexing in a Web Worker
 - [ ] Later: highlights/notes/bookmarks, reading plans, cross-references, Strong's word study, offline support

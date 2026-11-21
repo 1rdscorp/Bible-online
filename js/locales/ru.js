@@ -171,7 +171,10 @@ export default {
     'translate.downloading': 'Загрузка модели перевода ({percent}%)…',
     'translate.unavailable': 'Этот браузер не умеет переводить на устройстве (Chrome и Edge на компьютере умеют).',
     'translate.failed': 'Перевести не удалось.',
-    'translate.openGoogle': 'Открыть в Google Переводчике',
+    'translate.openTranslateCom': 'Открыть Translate.com',
+    'translate.copyHint': 'Выделенный текст при этом скопируется: вставьте его в поле на сайте.',
+    'translate.copied': 'Текст скопирован. Вставьте его в поле на Translate.com.',
+    'translate.copyFailed': 'Не удалось скопировать текст автоматически. Скопируйте его из цитаты выше.',
     'translate.newTab': '(откроется в новой вкладке)',
     'translate.loadingBible': 'Загрузка русского текста Библии…',
 
