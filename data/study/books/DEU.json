@@ -1,0 +1,33 @@
+{
+  "formatVersion": 1,
+  "book": "DEU",
+  "author": {
+    "en": "Traditionally Moses, whose farewell speeches fill most of the book; the account of his death is thought to have been added by Joshua. Many scholars link the book’s core to King Josiah’s reform (2 Kings 22–23).",
+    "ru": "По преданию — Моисей: большую часть книги составляют его прощальные речи, а рассказ о его смерти, как считается, дописал Иисус Навин. Многие исследователи связывают основу книги с реформой царя Иосии (4 Цар. 22–23)."
+  },
+  "date": {
+    "en": "Traditionally the 15th–13th century BC, on the eve of the conquest; many scholars date its core to the 7th century BC and its final form to the exile, in the 6th century BC.",
+    "ru": "По традиции — XV–XIII вв. до н. э., канун завоевания Ханаана; многие учёные относят основу книги к VII в. до н. э., а окончательную редакцию — ко времени плена, к VI в. до н. э."
+  },
+  "summary": {
+    "en": "On the plains of Moab, Moses addresses the new generation before they enter the land without him. He recalls the journey, restates the law, and urges Israel to love the Lord with all their heart and keep his covenant, setting before them life and death. The book ends with Moses’ death on Mount Nebo.",
+    "ru": "На равнинах Моава Моисей обращается к новому поколению, которое войдёт в землю уже без него. Он вспоминает пройденный путь, вновь излагает закон и призывает Израиль любить Господа всем сердцем и хранить Его завет, предлагая выбор между жизнью и смертью. Книга заканчивается смертью Моисея на горе Нево."
+  },
+  "themes": [
+    { "en": "Wholehearted love for God", "ru": "Любовь к Богу всем сердцем" },
+    { "en": "Remember and obey", "ru": "Помнить и исполнять" },
+    { "en": "One God, one place of worship", "ru": "Единый Бог и единое место поклонения" },
+    { "en": "Blessing and curse", "ru": "Благословение и проклятие" },
+    { "en": "Covenant renewal", "ru": "Обновление завета" }
+  ],
+  "outline": [
+    { "ref": "DEU 1:1-4:43", "en": "Moses recalls the journey", "ru": "Моисей вспоминает пройденный путь" },
+    { "ref": "DEU 4:44-11:32", "en": "The Ten Commandments and the great commandment", "ru": "Десять заповедей и наибольшая заповедь" },
+    { "ref": "DEU 12:1-26:19", "en": "Laws for life in the land", "ru": "Законы для жизни в земле обетованной" },
+    { "ref": "DEU 27:1-28:68", "en": "Blessings and curses", "ru": "Благословения и проклятия" },
+    { "ref": "DEU 29:1-30:20", "en": "The covenant renewed: choose life", "ru": "Обновление завета: избери жизнь" },
+    { "ref": "DEU 31:1-34:12", "en": "Joshua appointed; Moses’ song, blessing and death", "ru": "Назначение Иисуса Навина; песнь, благословение и смерть Моисея" }
+  ],
+  "keyVerses": ["DEU 6:4-5", "DEU 8:3", "DEU 30:19", "DEU 31:6"],
+  "places": ["abfba2a", "ac2cef0", "a341fe8", "ae686c9", "a231f80", "ab5bd29"]
+}

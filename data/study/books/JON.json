@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "book": "JON",
+  "author": {
+    "en": "Anonymous. The book tells the story of Jonah son of Amittai, a prophet in the reign of Jeroboam II, and tradition credits Jonah himself; many scholars think a later writer told his story.",
+    "ru": "Автор не назван. Книга повествует об Ионе, сыне Амафиином, пророке времён Иеровоама II, и предание считает автором самого Иону; многие исследователи полагают, что его историю записал позднейший автор."
+  },
+  "date": {
+    "en": "Jonah lived in the 8th century BC; many scholars date the book to the 5th–4th century BC, after the exile.",
+    "ru": "Иона жил в VIII в. до н. э.; многие учёные относят написание книги к V–IV вв. до н. э., ко времени после плена."
+  },
+  "summary": {
+    "en": "Sent to preach to Nineveh, capital of Israel’s Assyrian enemy, Jonah flees by sea, is swallowed by a great fish and is brought back. When Nineveh repents and God spares the city, Jonah is angry. The book ends with God’s question about his compassion for all he has made, even Israel’s enemies.",
+    "ru": "Посланный проповедовать в Ниневию, столицу враждебной Израилю Ассирии, Иона бежит морем, но его проглатывает большая рыба, и Бог возвращает его. Когда ниневитяне каются и Бог щадит город, Иона гневается. Книга завершается вопросом Бога о Его милосердии ко всему, что Он создал, даже к врагам Израиля."
+  },
+  "themes": [
+    { "en": "God’s compassion for all nations", "ru": "Милосердие Бога ко всем народам" },
+    { "en": "Running from God", "ru": "Бегство от Бога" },
+    { "en": "Repentance and mercy", "ru": "Покаяние и милость" },
+    { "en": "God’s rule over sea and storm", "ru": "Власть Бога над морем и бурей" },
+    { "en": "Anger at God’s mercy", "ru": "Гнев на Божью милость" }
+  ],
+  "outline": [
+    { "ref": "JON 1:1-17", "en": "Jonah flees from the Lord", "ru": "Иона бежит от лица Господня" },
+    { "ref": "JON 2:1-10", "en": "Jonah’s prayer from the fish", "ru": "Молитва Ионы из чрева рыбы" },
+    { "ref": "JON 3:1-10", "en": "Nineveh repents", "ru": "Покаяние Ниневии" },
+    { "ref": "JON 4:1-11", "en": "Jonah’s anger and God’s compassion", "ru": "Гнев Ионы и милосердие Бога" }
+  ],
+  "keyVerses": ["JON 2:9", "JON 3:10", "JON 4:2", "JON 4:11"],
+  "places": ["a70fd5d", "ae023a9"]
+}

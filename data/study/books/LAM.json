@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "book": "LAM",
+  "author": {
+    "en": "Anonymous; Jewish and Christian tradition credits Jeremiah, and the Greek version opens by naming him. Many scholars think one or more poets wrote it in Judah after Jerusalem fell.",
+    "ru": "Автор не назван; иудейское и христианское предание приписывает книгу Иеремии, и греческий перевод открывается упоминанием о нём. Многие исследователи полагают, что её написали один или несколько поэтов в Иудее после падения Иерусалима."
+  },
+  "date": {
+    "en": "Soon after the fall of Jerusalem in 586 BC, probably before the return from exile in 538 BC.",
+    "ru": "Вскоре после падения Иерусалима в 586 г. до н. э., вероятно, до возвращения из плена в 538 г. до н. э."
+  },
+  "summary": {
+    "en": "Five poems of grief over Jerusalem, destroyed by Babylon. Four are alphabetic acrostics, giving shape to overwhelming sorrow. The poet confesses that the disaster came from God because of the people’s sin, yet at the heart of the book he clings to hope: the Lord’s mercies are new every morning.",
+    "ru": "Пять плачей об Иерусалиме, разрушенном Вавилоном. Четыре из них — алфавитные акростихи, придающие форму безмерной скорби. Поэт признаёт, что бедствие пришло от Бога за грехи народа, но в самом средоточии книги держится надежды: милосердие Господа обновляется каждое утро."
+  },
+  "themes": [
+    { "en": "Grief and lament", "ru": "Скорбь и плач" },
+    { "en": "Sin and judgment", "ru": "Грех и суд" },
+    { "en": "God’s faithfulness in disaster", "ru": "Верность Бога среди бедствий" },
+    { "en": "Hope in the Lord’s mercy", "ru": "Надежда на милость Господа" },
+    { "en": "Confession and prayer", "ru": "Покаяние и молитва" }
+  ],
+  "outline": [
+    { "ref": "LAM 1:1-22", "en": "Jerusalem the desolate widow", "ru": "Иерусалим — покинутая вдова" },
+    { "ref": "LAM 2:1-22", "en": "The Lord’s anger against Zion", "ru": "Гнев Господа на Сион" },
+    { "ref": "LAM 3:1-66", "en": "Suffering and hope in God’s mercy", "ru": "Страдание и надежда на милость Божью" },
+    { "ref": "LAM 4:1-22", "en": "The horrors of the siege", "ru": "Ужасы осады" },
+    { "ref": "LAM 5:1-22", "en": "A prayer for restoration", "ru": "Молитва о восстановлении" }
+  ],
+  "keyVerses": ["LAM 1:12", "LAM 3:22-23", "LAM 5:21"],
+  "places": ["a15257a"]
+}

@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "book": "NEH",
+  "author": {
+    "en": "Traditionally Nehemiah, whose first-person memoir forms much of the book; Ezra and Nehemiah were originally one book. Many scholars see it as compiled by a later editor from that memoir and other records.",
+    "ru": "По преданию — Неемия: значительную часть книги составляют его записки от первого лица; книги Ездры и Неемии изначально были одной книгой. Многие исследователи считают, что её составил позднейший редактор на основе этих записок и других документов."
+  },
+  "date": {
+    "en": "Nehemiah came to Jerusalem in 445 BC and returned for a second term some time after 433 BC; the book was probably completed in the late 5th or 4th century BC.",
+    "ru": "Неемия прибыл в Иерусалим в 445 г. до н. э., а после 433 г. до н. э. вернулся туда вновь; книга, вероятно, завершена в конце V или в IV в. до н. э."
+  },
+  "summary": {
+    "en": "Nehemiah, cupbearer to the Persian king, hears that Jerusalem lies in ruins and gets leave to rebuild its walls. Against ridicule, threats and plots the wall is finished in fifty-two days. Ezra reads the law to the people, who confess their sins and renew the covenant; the book ends with Nehemiah’s reforms.",
+    "ru": "Неемия, виночерпий персидского царя, узнаёт, что Иерусалим лежит в развалинах, и получает позволение отстроить его стены. Несмотря на насмешки, угрозы и козни, стена завершена за пятьдесят два дня. Ездра читает закон, люди исповедуют свои грехи и обновляют завет; книга заканчивается преобразованиями Неемии."
+  },
+  "themes": [
+    { "en": "Prayer and action", "ru": "Молитва и дело" },
+    { "en": "Rebuilding the walls", "ru": "Восстановление стен" },
+    { "en": "Perseverance against opposition", "ru": "Стойкость перед лицом противников" },
+    { "en": "The joy of the Lord", "ru": "Радость пред Господом" },
+    { "en": "Covenant renewal", "ru": "Обновление завета" }
+  ],
+  "outline": [
+    { "ref": "NEH 1:1-2:20", "en": "Nehemiah’s prayer and mission", "ru": "Молитва и миссия Неемии" },
+    { "ref": "NEH 3:1-7:73", "en": "The wall rebuilt despite opposition", "ru": "Восстановление стены вопреки противникам" },
+    { "ref": "NEH 8:1-10:39", "en": "The law read and the covenant renewed", "ru": "Чтение закона и обновление завета" },
+    { "ref": "NEH 11:1-12:47", "en": "Jerusalem resettled and the wall dedicated", "ru": "Заселение Иерусалима и освящение стены" },
+    { "ref": "NEH 13:1-31", "en": "Nehemiah’s final reforms", "ru": "Последние преобразования Неемии" }
+  ],
+  "keyVerses": ["NEH 2:20", "NEH 4:14", "NEH 8:10"],
+  "places": ["a033b84", "a15257a", "a217d18"]
+}

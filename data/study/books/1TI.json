@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "book": "1TI",
+  "author": {
+    "en": "Traditionally Paul, writing to his co-worker Timothy; many scholars think the Pastoral Letters (1 and 2 Timothy and Titus) were written in Paul’s name by a later follower.",
+    "ru": "По преданию — апостол Павел, писавший своему сотруднику Тимофею; многие исследователи считают, что пастырские послания (к Тимофею и Титу) позднее написал от имени Павла один из его последователей."
+  },
+  "date": {
+    "en": "c. AD 62–64, after Paul’s release from his first Roman imprisonment; scholars who doubt his authorship date it to the late 1st or early 2nd century.",
+    "ru": "Ок. 62–64 гг. н. э., после освобождения Павла из первого римского заключения; учёные, сомневающиеся в его авторстве, относят послание к концу I – началу II в. н. э."
+  },
+  "summary": {
+    "en": "Paul writes to Timothy, whom he had left in Ephesus to correct false teaching and set the church in order. The letter gives guidance on prayer and worship, the qualities needed in overseers and deacons, care for widows and elders, and the dangers of the love of money, and urges Timothy to fight the good fight of faith.",
+    "ru": "Павел пишет Тимофею, которого оставил в Ефесе, чтобы тот противостоял лжеучениям и навёл порядок в Церкви. В послании даны наставления о молитве и богослужении, о том, какими должны быть епископы и диаконы, о заботе о вдовах и пресвитерах, об опасности сребролюбия, и Павел призывает Тимофея подвизаться добрым подвигом веры."
+  },
+  "themes": [
+    { "en": "Sound teaching and false teaching", "ru": "Здравое учение и лжеучения" },
+    { "en": "Order in the church", "ru": "Порядок в Церкви" },
+    { "en": "Qualities of church leaders", "ru": "Каким должен быть служитель Церкви" },
+    { "en": "Godliness with contentment", "ru": "Благочестие с довольством" },
+    { "en": "Faithful ministry", "ru": "Верное служение" }
+  ],
+  "outline": [
+    { "ref": "1TI 1:1-20", "en": "False teachers and Paul’s testimony", "ru": "Лжеучители и свидетельство Павла" },
+    { "ref": "1TI 2:1-3:16", "en": "Worship and church leaders", "ru": "Богослужение и служители Церкви" },
+    { "ref": "1TI 4:1-16", "en": "A good minister of Christ", "ru": "Добрый служитель Иисуса Христа" },
+    { "ref": "1TI 5:1-6:2", "en": "Widows, elders and slaves", "ru": "Вдовы, пресвитеры и рабы" },
+    { "ref": "1TI 6:3-21", "en": "False teaching, wealth and a final charge", "ru": "Лжеучение, богатство и последний завет" }
+  ],
+  "keyVerses": ["1TI 1:15", "1TI 2:5", "1TI 4:12", "1TI 6:10"],
+  "places": ["a5feb15"]
+}

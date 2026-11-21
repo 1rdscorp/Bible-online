@@ -1,0 +1,30 @@
+{
+  "formatVersion": 1,
+  "book": "1PE",
+  "author": {
+    "en": "Traditionally the apostle Peter, writing with the help of Silvanus; many scholars think it was written in his name by a later disciple.",
+    "ru": "По преданию — апостол Пётр, писавший при помощи Силуана; многие исследователи считают, что послание написал от его имени один из позднейших учеников."
+  },
+  "date": {
+    "en": "c. AD 62–64, from Rome (called Babylon in the letter), before Peter’s martyrdom; scholars who doubt his authorship date it to c. AD 70–90.",
+    "ru": "Ок. 62–64 гг. н. э., из Рима (в послании он назван Вавилоном), до мученической кончины Петра; учёные, сомневающиеся в его авторстве, относят послание к 70–90 гг. н. э."
+  },
+  "summary": {
+    "en": "A letter of hope to Christians scattered through Asia Minor who were suffering for their faith. Peter reminds them that they have been born again to a living hope through Christ’s resurrection, calls them God’s holy people living as strangers in the world, and encourages them to follow Christ’s example in suffering and doing good.",
+    "ru": "Послание надежды христианам, рассеянным по Малой Азии и страдающим за веру. Пётр напоминает им, что воскресением Христа они возрождены к живому упованию, называет их святым Божьим народом, живущим в мире как странники, и призывает следовать примеру Христа — терпеливо страдать и делать добро."
+  },
+  "themes": [
+    { "en": "A living hope", "ru": "Живое упование" },
+    { "en": "A holy people of God", "ru": "Святой народ Божий" },
+    { "en": "Suffering for doing good", "ru": "Страдание за добрые дела" },
+    { "en": "Strangers and exiles", "ru": "Странники и пришельцы" },
+    { "en": "Humble service", "ru": "Смиренное служение" }
+  ],
+  "outline": [
+    { "ref": "1PE 1:1-2:10", "en": "Born again to a living hope", "ru": "Возрождённые к живому упованию" },
+    { "ref": "1PE 2:11-3:12", "en": "Good conduct among the nations", "ru": "Добрая жизнь среди язычников" },
+    { "ref": "1PE 3:13-4:19", "en": "Suffering for doing right", "ru": "Страдания за правду" },
+    { "ref": "1PE 5:1-14", "en": "Elders, humility and farewell", "ru": "Пастыри, смирение и прощание" }
+  ],
+  "keyVerses": ["1PE 1:3", "1PE 2:9", "1PE 3:15", "1PE 5:7"]
+}

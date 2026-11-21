@@ -1,0 +1,34 @@
+{
+  "formatVersion": 1,
+  "book": "ROM",
+  "author": {
+    "en": "Paul, writing through his scribe Tertius; Paul’s authorship is accepted almost universally.",
+    "ru": "Апостол Павел, писавший через писца Тертия; авторство Павла признаётся практически всеми."
+  },
+  "date": {
+    "en": "c. AD 56–57, from Corinth, before Paul took the collection for the poor to Jerusalem.",
+    "ru": "Ок. 56–57 гг. н. э., в Коринфе, перед тем как Павел отправился в Иерусалим с пожертвованиями для бедных."
+  },
+  "summary": {
+    "en": "Paul’s fullest explanation of the gospel, written to a church he had not yet visited. All people, Jews and Gentiles alike, have sinned, and all are made right with God by faith in Christ; the Spirit gives new life, God remains faithful to Israel, and the letter ends with how believers should live together.",
+    "ru": "Самое полное изложение Евангелия у Павла, адресованное Церкви, в которой он ещё не бывал. Все люди, и иудеи, и язычники, согрешили, и все оправдываются перед Богом верой во Христа; Дух даёт новую жизнь, Бог остаётся верен Израилю, а в конце послания Павел говорит о том, как верующим жить вместе."
+  },
+  "themes": [
+    { "en": "God’s righteousness revealed", "ru": "Откровение Божьей праведности" },
+    { "en": "Justification by faith", "ru": "Оправдание верой" },
+    { "en": "Life in the Spirit", "ru": "Жизнь по Духу" },
+    { "en": "God’s faithfulness to Israel", "ru": "Верность Бога Израилю" },
+    { "en": "Life together in love", "ru": "Совместная жизнь в любви" }
+  ],
+  "outline": [
+    { "ref": "ROM 1:1-17", "en": "Greeting and theme: the power of the gospel", "ru": "Приветствие и тема: сила Евангелия" },
+    { "ref": "ROM 1:18-3:20", "en": "All have sinned", "ru": "Все согрешили" },
+    { "ref": "ROM 3:21-5:21", "en": "Justified by faith", "ru": "Оправдание верой" },
+    { "ref": "ROM 6:1-8:39", "en": "New life in Christ and the Spirit", "ru": "Новая жизнь во Христе и в Духе" },
+    { "ref": "ROM 9:1-11:36", "en": "God’s faithfulness to Israel", "ru": "Верность Бога Израилю" },
+    { "ref": "ROM 12:1-15:13", "en": "The gospel lived out", "ru": "Евангелие в повседневной жизни" },
+    { "ref": "ROM 15:14-16:27", "en": "Paul’s plans and greetings", "ru": "Планы Павла и приветствия" }
+  ],
+  "keyVerses": ["ROM 1:16-17", "ROM 3:23-24", "ROM 8:28", "ROM 12:1-2"],
+  "places": ["afc8e7a", "aa31dd3", "a15257a"]
+}

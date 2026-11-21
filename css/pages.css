@@ -1,0 +1,675 @@
+/* ---------- Study pages (js/views/templates/study-page.js) ----------
+   Book introductions, the timeline and maps share these. Reading text
+   (summaries, quotes) uses the scripture serif; labels the UI sans. */
+
+.study-page {
+  max-width: 46rem;
+}
+
+.study-kicker {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.study-lead {
+  margin-top: 0.75rem;
+  font-family: var(--font-scripture);
+  font-size: 1.15rem;
+  line-height: 1.65;
+}
+
+.study-toc {
+  margin-top: 1.25rem;
+}
+
+.study-toc ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.study-toc a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: inherit;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.study-toc a:hover {
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-hover);
+}
+
+.study-section {
+  margin-top: 2.25rem;
+}
+
+.study-section > h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+
+.study-section > h2:focus {
+  outline: none;
+}
+
+.study-note {
+  margin-top: 0.4rem;
+  color: var(--color-text-muted);
+}
+
+.study-footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.study-footer p + p,
+.study-footer p + nav {
+  margin-top: 0.5rem;
+}
+
+/* Facts: label above value, in a grid on wider screens. */
+.fact-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem 1.5rem;
+  margin: 0.75rem 0 0;
+}
+
+.fact dt {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.fact dd {
+  margin: 0.2rem 0 0;
+  line-height: 1.5;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag-list li {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: var(--color-accent-soft);
+  font-size: 0.95rem;
+}
+
+.outline-list {
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: outline;
+}
+
+.outline-list li {
+  display: grid;
+  grid-template-columns: minmax(9rem, 12rem) 1fr;
+  gap: 0.25rem 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.outline-ref {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.outline-ref:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 32rem) {
+  .outline-list li {
+    grid-template-columns: 1fr;
+  }
+}
+
+.passage-quote {
+  margin: 1rem 0 0;
+  padding: 0.25rem 0 0.25rem 1rem;
+  border-left: 3px solid var(--color-border-strong);
+}
+
+.passage-text {
+  font-family: var(--font-scripture);
+  font-size: 1.1rem;
+  line-height: 1.65;
+}
+
+.passage-text:empty {
+  display: none;
+}
+
+.passage-quote footer {
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.passage-quote a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.place-links,
+.intro-events {
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.place-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+.place-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 2.25rem;
+}
+
+.intro-events li {
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.intro-event-date {
+  display: inline-block;
+  min-width: 9rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.intro-event-ref {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.intro-read {
+  margin-top: 0;
+}
+
+.intro-read .button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  text-decoration: none;
+}
+
+.intro-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.intro-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 2.5rem;
+  text-decoration: none;
+}
+
+/* Links to the study pages from the book list and the chapter grid. */
+.study-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.study-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.5rem;
+  text-decoration: none;
+}
+
+.study-link:hover {
+  text-decoration: underline;
+}
+
+.intro-link {
+  margin-top: 0.5rem;
+}
+
+/* Cards leading to other pages (the maps). */
+.link-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 0.75rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.15rem 0.75rem;
+  height: 100%;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: inherit;
+  text-decoration: none;
+}
+
+.link-card:hover {
+  border-color: var(--color-border-strong);
+}
+
+.link-card-icon {
+  grid-row: span 2;
+  color: var(--color-accent);
+}
+
+.link-card-title {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.link-card-text {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+/* ---------- Timeline ---------- */
+
+.era-dates {
+  margin-top: 0.2rem;
+  color: var(--color-text-muted);
+}
+
+.timeline {
+  position: relative;
+  margin: 1rem 0 0;
+  padding: 0 0 0 1.5rem;
+  list-style: none;
+}
+
+/* The line, and a dot for each event. */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  left: 0.35rem;
+  width: 2px;
+  background: var(--color-border);
+}
+
+.timeline-event {
+  position: relative;
+  padding: 0 0 1.4rem;
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+
+.timeline-event::before {
+  content: "";
+  position: absolute;
+  top: 0.3rem;
+  left: -1.5rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 2px solid var(--color-accent);
+  border-radius: 50%;
+  background: var(--color-bg);
+}
+
+.timeline-event:focus {
+  outline: none;
+}
+
+.timeline-event:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 4px;
+}
+
+.timeline-event.is-target {
+  margin-bottom: 0.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-highlight);
+  box-shadow: 0 0 0 0.5rem var(--color-highlight);
+}
+
+.timeline-date {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.timeline-title {
+  margin-top: 0.1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.timeline-summary {
+  margin-top: 0.25rem;
+  font-family: var(--font-scripture);
+  line-height: 1.6;
+}
+
+.timeline-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.1rem 1rem;
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.timeline-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 2rem;
+}
+
+/* ---------- Maps (js/geo/map.js, js/views/maps.js) ---------- */
+
+.map-page {
+  max-width: 64rem;
+}
+
+.map-wrap {
+  margin-top: 0.75rem;
+}
+
+.map-frame {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--map-water);
+}
+
+.map {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  font-family: var(--font-ui);
+}
+
+.map-water {
+  fill: var(--map-water);
+}
+
+.map-land {
+  fill: var(--map-land);
+  stroke: var(--map-coast);
+  stroke-width: 0.8;
+  stroke-linejoin: round;
+}
+
+.map-lake {
+  fill: var(--map-water);
+  stroke: var(--map-coast);
+  stroke-width: 0.6;
+}
+
+.map-river {
+  fill: none;
+  stroke: var(--map-river);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.map-label {
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: var(--map-land);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+.map-label--region {
+  fill: var(--color-text-muted);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+.map-label--water,
+.map-label--river {
+  fill: var(--map-water-label);
+  font-style: italic;
+  stroke: var(--map-water);
+}
+
+.map-label--river {
+  stroke: var(--map-land);
+}
+
+.map-route {
+  fill: none;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Colour and dash pattern both tell the journeys apart. */
+.map-route--1 { stroke: var(--route-1); }
+.map-route--2 { stroke: var(--route-2); stroke-dasharray: 9 5; }
+.map-route--3 { stroke: var(--route-3); stroke-dasharray: 2 4; }
+.map-route--4 { stroke: var(--route-4); stroke-dasharray: 12 4 2 4; }
+
+.map-place {
+  cursor: pointer;
+}
+
+.map-hit {
+  fill: transparent;
+}
+
+.map-dot {
+  fill: var(--map-place);
+  stroke: var(--map-land);
+  stroke-width: 1.5;
+}
+
+.map-name {
+  fill: var(--color-text);
+  paint-order: stroke;
+  stroke: var(--map-land);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+.map-name--hidden {
+  display: none;
+}
+
+.map-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.map-place:hover .map-dot,
+.map-place.is-selected .map-dot {
+  transform: scale(1.6);
+}
+
+.map-place.is-selected .map-dot {
+  stroke: var(--color-text);
+  stroke-width: 2;
+}
+
+.map-place:hover .map-name--hidden,
+.map-place.is-selected .map-name--hidden {
+  display: inline;
+}
+
+.map-place.is-selected .map-name {
+  font-weight: 700;
+}
+
+.route-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.route-controls legend {
+  float: left;
+  width: 100%;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.route-control label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.25rem;
+  cursor: pointer;
+}
+
+.route-control input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--color-accent);
+}
+
+.route-swatch {
+  display: inline-block;
+  width: 1.4rem;
+  height: 0;
+  border-top: 3px solid;
+}
+
+.route-swatch--1 { border-color: var(--route-1); }
+.route-swatch--2 { border-top-style: dashed; border-color: var(--route-2); }
+.route-swatch--3 { border-top-style: dotted; border-color: var(--route-3); }
+.route-swatch--4 { border-top-style: dashed; border-color: var(--route-4); }
+
+.route-ref {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.place-details {
+  min-height: 3rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.place-hint {
+  color: var(--color-text-muted);
+}
+
+.place-name {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.place-name-en {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.place-meta,
+.place-count {
+  margin-top: 0.2rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.place-verses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.place-verses a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+}
+
+.place-more {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.place-more a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.place-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.place-button {
+  min-height: 2.5rem;
+  padding: 0 0.8rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.place-button:hover {
+  background: var(--color-surface-hover);
+}
+
+.place-button[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  font-weight: 600;
+}

@@ -1,0 +1,34 @@
+{
+  "formatVersion": 1,
+  "book": "MAT",
+  "author": {
+    "en": "Traditionally the apostle Matthew (Levi), the former tax collector; the Gospel itself names no author. Many scholars think it was written by an unknown Jewish Christian who drew on Mark.",
+    "ru": "По преданию — апостол Матфей (Левий), бывший мытарь; само Евангелие имени автора не называет. Многие исследователи считают, что его написал неизвестный христианин из иудеев, опиравшийся на Евангелие от Марка."
+  },
+  "date": {
+    "en": "Traditionally the AD 50s or 60s, before the fall of Jerusalem in AD 70; many scholars date it to c. AD 80–90.",
+    "ru": "По традиции — 50-е или 60-е гг. I в. н. э., до разрушения Иерусалима в 70 г.; многие учёные датируют его ок. 80–90 гг. н. э."
+  },
+  "summary": {
+    "en": "Matthew presents Jesus as the Messiah promised in Israel’s Scriptures, the son of David and son of Abraham, and again and again shows him fulfilling the Law and the Prophets. Jesus’ teaching is gathered into five great discourses, beginning with the Sermon on the Mount, and the Gospel ends with the risen Lord sending his disciples to all nations.",
+    "ru": "Матфей показывает Иисуса как обещанного в Писаниях Израиля Мессию, Сына Давидова и Сына Авраамова, и вновь и вновь отмечает, как в Нём исполняются Закон и Пророки. Учение Иисуса собрано в пять больших речей, начиная с Нагорной проповеди, а завершается Евангелие тем, что воскресший Господь посылает учеников ко всем народам."
+  },
+  "themes": [
+    { "en": "Jesus the promised Messiah", "ru": "Иисус — обещанный Мессия" },
+    { "en": "The kingdom of heaven", "ru": "Царство Небесное" },
+    { "en": "Fulfilment of Scripture", "ru": "Исполнение Писаний" },
+    { "en": "True righteousness and discipleship", "ru": "Истинная праведность и ученичество" },
+    { "en": "Mission to all nations", "ru": "Проповедь всем народам" }
+  ],
+  "outline": [
+    { "ref": "MAT 1:1-4:11", "en": "Birth and preparation of the Messiah", "ru": "Рождение Мессии и приготовление к служению" },
+    { "ref": "MAT 4:12-7:29", "en": "Galilean ministry and the Sermon on the Mount", "ru": "Служение в Галилее и Нагорная проповедь" },
+    { "ref": "MAT 8:1-11:1", "en": "Mighty works and the mission of the Twelve", "ru": "Чудеса и посланничество двенадцати" },
+    { "ref": "MAT 11:2-13:52", "en": "Rising opposition and parables of the kingdom", "ru": "Растущее противостояние и притчи о Царстве" },
+    { "ref": "MAT 13:53-18:35", "en": "Peter’s confession and the community of disciples", "ru": "Исповедание Петра и община учеников" },
+    { "ref": "MAT 19:1-25:46", "en": "To Jerusalem: conflict and teaching on the end", "ru": "В Иерусалим: споры и учение о последних временах" },
+    { "ref": "MAT 26:1-28:20", "en": "Death and resurrection of Jesus", "ru": "Смерть и воскресение Иисуса" }
+  ],
+  "keyVerses": ["MAT 5:17", "MAT 16:16", "MAT 22:37-39", "MAT 28:18-20"],
+  "places": ["a112427", "af5884f", "ae686c9", "af2161c", "a562fcc", "ab7bf48", "a15257a", "a42418f"]
+}

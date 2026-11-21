@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "book": "JAS",
+  "author": {
+    "en": "Traditionally James, the brother of the Lord and leader of the church in Jerusalem; some scholars think it was written in his name at a later date.",
+    "ru": "По преданию — Иаков, брат Господень, возглавлявший Иерусалимскую Церковь; некоторые исследователи считают, что послание написано от его имени позднее."
+  },
+  "date": {
+    "en": "Traditionally before James’s death in AD 62, perhaps in the 40s; scholars who doubt his authorship date it to the late 1st century.",
+    "ru": "По традиции — до гибели Иакова в 62 г. н. э., возможно, в 40-е гг. I в. н. э.; учёные, сомневающиеся в его авторстве, относят послание к концу I в. н. э."
+  },
+  "summary": {
+    "en": "A practical letter of wisdom to the twelve tribes scattered abroad, in the tradition of Proverbs and the Sermon on the Mount. James urges believers to endure trials, to be doers of the word and not hearers only, to show no favouritism, to control the tongue and to prove their faith by their works.",
+    "ru": "Практическое послание мудрости, обращённое к двенадцати коленам в рассеянии и продолжающее традицию Книги Притчей и Нагорной проповеди. Иаков призывает верующих терпеть испытания, быть исполнителями слова, а не только слушателями, не быть лицеприятными, обуздывать язык и доказывать свою веру делами."
+  },
+  "themes": [
+    { "en": "Trials and endurance", "ru": "Испытания и терпение" },
+    { "en": "Faith shown by works", "ru": "Вера, явленная в делах" },
+    { "en": "Taming the tongue", "ru": "Обуздание языка" },
+    { "en": "Wisdom from above", "ru": "Мудрость свыше" },
+    { "en": "Rich and poor", "ru": "Богатые и бедные" }
+  ],
+  "outline": [
+    { "ref": "JAS 1:1-27", "en": "Trials, wisdom and doing the word", "ru": "Испытания, мудрость и исполнение слова" },
+    { "ref": "JAS 2:1-26", "en": "Favouritism, and faith without works", "ru": "Лицеприятие и вера без дел" },
+    { "ref": "JAS 3:1-18", "en": "The tongue and true wisdom", "ru": "Язык и истинная мудрость" },
+    { "ref": "JAS 4:1-5:6", "en": "Pride, worldliness and the rich", "ru": "Гордость, дружба с миром и богатые" },
+    { "ref": "JAS 5:7-20", "en": "Patience, prayer and restoring the wanderer", "ru": "Терпение, молитва и обращение заблудших" }
+  ],
+  "keyVerses": ["JAS 1:5", "JAS 1:22", "JAS 2:17", "JAS 5:16"]
+}

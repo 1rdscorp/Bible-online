@@ -21,6 +21,10 @@
  * level instead: the colours highlight just those words, in that
  * translation, and a Search button looks them up (#/search).
  *
+ * Research opens the Research panel (cross-references, and in KJV+ the
+ * Hebrew and Greek words). In KJV+, tapping a word opens its word study
+ * directly; the verse number still selects the verse.
+ *
  * The bar sits in the page right after the verses (fixed to the bottom of
  * the window by CSS), so Tab from a verse number reaches it next.
  */
@@ -47,8 +51,10 @@ const NUMBER = '.vnum, .pnum';
  * @param {(ref) => void} options.onNote          open the Notes panel to write a note on `ref`
  * @param {(request) => void} options.onTranslate  open "Translate to Russian" for { text, verses, translation }
  * @param {() => object|null} options.readTextSelection  the exact selected words, as a translate request
+ * @param {(selection) => void} [options.onResearch]  open the Research panel for { book, chapter, verses, words }
+ * @param {(word) => void} [options.onWord]  a tagged KJV+ word was tapped: { strongs, word, book, chapter, verse, words }
  */
-export function initVerseActions({ root, store, toaster, onNote, onTranslate, readTextSelection }) {
+export function initVerseActions({ root, store, toaster, onNote, onTranslate, readTextSelection, onResearch, onWord }) {
   let context = null; // { book, chapter, view, columns, query }
   const selected = new Set();
   let anchor = null; // the last verse tapped, for Shift+click ranges
@@ -75,6 +81,7 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
   const share = action(ICONS.share, () => sharePassage());
   const translate = action(ICONS.translate, () => translateSelection(), { 'data-action': 'translate' });
   const search = action(ICONS.search, () => searchWords(), { 'data-action': 'search' });
+  const research = action(ICONS.research, () => researchVerses(), { 'data-action': 'research' });
 
   const copyPlain = el('button', { type: 'button', class: 'text-button', onclick: () => copyPassage(false) });
   const copyNamed = el('button', { type: 'button', class: 'text-button', onclick: () => copyPassage(true) });
@@ -84,7 +91,12 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
     'section',
     { class: 'verse-actions', 'aria-labelledby': 'va-title', hidden: true },
     el('div', { class: 'va-head' }, title, closeButton),
-    el('div', { class: 'va-row' }, colorsGroup, el('div', { class: 'va-actions' }, note.button, bookmark.button, copy.button, share.button, search.button, translate.button)),
+    el(
+      'div',
+      { class: 'va-row' },
+      colorsGroup,
+      el('div', { class: 'va-actions' }, note.button, bookmark.button, copy.button, share.button, research.button, search.button, translate.button),
+    ),
     copyMenu,
   );
   // A press on the bar must not clear a text selection (it would deselect).
@@ -164,6 +176,8 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
     copy.label.textContent = t('study.copy');
     share.label.textContent = t('study.share');
     translate.label.textContent = t('study.translate');
+    research.label.textContent = t('study.research');
+    research.button.hidden = !onResearch;
     translate.button.hidden = !context.columns.some((info) => translatableLanguage(info.language));
     translate.button.setAttribute('aria-label', t('translate.button'));
     copyPlain.textContent = t('study.copyPlain');
@@ -230,6 +244,13 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
     // A click on the words that ends a drag, or the 2nd click of a
     // double-click (selecting a word), is text selection, not a tap.
     if (!onNumber && !extend && (event.detail > 1 || !document.getSelection()?.isCollapsed)) return;
+    // KJV+: a tap on a tagged word studies that word.
+    const wordEl = !onNumber && !extend ? event.target.closest('.w[data-strongs]') : null;
+    if (wordEl && onWord) {
+      clear();
+      onWord({ ...tappedWord(wordEl), book: context.book, chapter: context.chapter, verse: Number(verseEl.dataset.verse) });
+      return;
+    }
     select(Number(verseEl.dataset.verse), { range: event.shiftKey });
   });
 
@@ -372,6 +393,24 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
     focusIfInBar(verseAfter);
     if (result.bookmarked) toaster.show(t('study.bookmarkAdded', { ref: label }));
     else toaster.show(t('study.bookmarkRemoved'), { action: { label: t('study.undo'), onClick: () => context.store.restore([result.removed]) } });
+  }
+
+  /** The Strong's-tagged words of a verse's text (KJV+), in order. */
+  function taggedWords(textEl) {
+    return [...(textEl?.querySelectorAll('.w[data-strongs]') ?? [])].map((node) => ({ text: node.textContent, strongs: node.dataset.strongs.split(' ') }));
+  }
+
+  function tappedWord(wordEl) {
+    return { strongs: wordEl.dataset.strongs.split(' '), word: wordEl.textContent, words: taggedWords(wordEl.closest('.vtext')) };
+  }
+
+  function researchVerses() {
+    const list = verses();
+    // The first selected verse's words, from the first column with Strong's numbers.
+    const textEl = verseElement(list[0])?.querySelector('.vtext[data-tags]');
+    const selection = { book: context.book, chapter: context.chapter, verses: list, words: textEl ? taggedWords(textEl) : null };
+    clear();
+    onResearch(selection);
   }
 
   function addNote() {

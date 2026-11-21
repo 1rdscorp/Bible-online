@@ -6,8 +6,8 @@
  */
 import { booksInTestament, TESTAMENTS } from '../canon.js';
 import { bookName, chapterTitle, t, testamentName } from '../i18n.js';
-import { bookHref, chapterHref, pageHref, PAGES } from '../router.js';
-import { el } from '../ui/dom.js';
+import { bookHref, chapterHref, introHref, mapHref, pageHref, PAGES } from '../router.js';
+import { el, icon, ICONS } from '../ui/dom.js';
 
 /**
  * @param {{ lastRead?: { book, chapter } | null, studyCount?: number }} options
@@ -50,6 +50,13 @@ export function renderBookList({ lastRead = null, studyCount = 0 } = {}) {
         ),
       ),
     ),
+    // The study pages: quiet links under the books.
+    el(
+      'nav',
+      { class: 'study-links', 'aria-label': t('page.studyLinks') },
+      el('a', { class: 'study-link', href: pageHref(PAGES.timeline) }, icon(ICONS.timeline, { size: 18 }), t('timeline.title')),
+      el('a', { class: 'study-link', href: mapHref() }, icon(ICONS.map, { size: 18 }), t('maps.title')),
+    ),
   );
 }
 
@@ -88,6 +95,7 @@ export function renderChapterGrid(book, { lastRead = null } = {}) {
     ),
     el('h1', { class: 'view-title', id: 'view-title', tabindex: '-1' }, bookName(book)),
     el('p', { class: 'view-subtitle', id: 'chapter-grid-label' }, t('chapters.choose', { n: book.chapters })),
+    el('p', { class: 'intro-link' }, el('a', { class: 'study-link', href: introHref(book) }, icon(ICONS.info, { size: 18 }), t('intro.link', { book: bookName(book) }))),
     el(
       'ol',
       { class: 'chapter-grid', role: 'list', 'aria-labelledby': 'chapter-grid-label' },

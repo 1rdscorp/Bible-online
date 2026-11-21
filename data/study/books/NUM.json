@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "book": "NUM",
+  "author": {
+    "en": "Traditionally Moses, who is said to have recorded Israel’s journeys (33:2). Many scholars see it as drawn from several older sources and edited over a long period.",
+    "ru": "По преданию — Моисей; в книге сказано, что он записал переходы Израиля (33:2). Многие исследователи считают, что она сложилась из нескольких древних источников и редактировалась долгое время."
+  },
+  "date": {
+    "en": "Traditionally the 15th–13th century BC, in the time of Moses; many scholars date its final form to the 6th–5th century BC.",
+    "ru": "По традиции — XV–XIII вв. до н. э., время Моисея; многие учёные относят окончательную редакцию к VI–V вв. до н. э."
+  },
+  "summary": {
+    "en": "Israel’s forty years between Sinai and the edge of the promised land. Counted and organised for the march, the people set out, but at Kadesh they refuse to enter Canaan, and that generation dies in the wilderness. God stays faithful: a new generation is counted on the plains of Moab, ready to cross the Jordan.",
+    "ru": "Сорок лет странствий Израиля между Синаем и порогом обетованной земли. Народ исчислен и выстроен в походный порядок, но у Кадеса отказывается войти в Ханаан, и всё то поколение умирает в пустыне. Бог остаётся верен: на равнинах Моава исчисляют новое поколение, готовое перейти Иордан."
+  },
+  "themes": [
+    { "en": "Journey through the wilderness", "ru": "Путь через пустыню" },
+    { "en": "Grumbling and unbelief", "ru": "Ропот и неверие" },
+    { "en": "God’s faithfulness to his promises", "ru": "Верность Бога Своим обетованиям" },
+    { "en": "A blessing no one can curse", "ru": "Благословение, которое нельзя отменить" },
+    { "en": "A new generation", "ru": "Новое поколение" }
+  ],
+  "outline": [
+    { "ref": "NUM 1:1-10:10", "en": "Preparing to leave Sinai", "ru": "Приготовления к выходу от Синая" },
+    { "ref": "NUM 10:11-14:45", "en": "To Kadesh, and the refusal to enter", "ru": "Путь до Кадеса и отказ войти в землю" },
+    { "ref": "NUM 15:1-21:35", "en": "Wilderness years and the road to Moab", "ru": "Годы в пустыне и путь к Моаву" },
+    { "ref": "NUM 22:1-25:18", "en": "Balaam’s oracles and Israel’s sin at Peor", "ru": "Пророчества Валаама и поклонение Ваал-Фегору" },
+    { "ref": "NUM 26:1-36:13", "en": "A new generation prepares for the land", "ru": "Новое поколение готовится войти в землю" }
+  ],
+  "keyVerses": ["NUM 6:24-26", "NUM 14:18", "NUM 21:8-9", "NUM 23:19"],
+  "places": ["a079b21", "abfba2a", "ac2cef0", "a85151a", "ae686c9", "a231f80"]
+}

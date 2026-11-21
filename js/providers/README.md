@@ -22,6 +22,7 @@ provider.isLoaded?.()                  // optional: true if getChapter needs no 
 
 - `getChapter` resolves `null` when the translation doesn't contain that book or chapter, and rejects on network or data errors. The reader shows those as "isn't included" and "couldn't be loaded, Try again".
 - `verses` are plain text in ascending order. Leave out verses the translation doesn't have.
+- A verse may also carry `words`: `[{ start, end, strongs: ["H7225"] }]`, the words tagged with Strong's numbers (offsets into `text`). A translation that has them sets `"strongs": true` in its entry, and its words can then be tapped for word study. The JSON provider reads them from the file's `tags` (see data/README.md). An API source with original-language tagging could supply them the same way.
 - `copyright` is optional per-passage wording. When present it is shown under the text, replacing the translation's `license`/`notice`. Use it when an API sends copyright text that must accompany each passage.
 
 `tests/provider-contract.test.js` runs every provider type through the same checks. Add a new type to its list.

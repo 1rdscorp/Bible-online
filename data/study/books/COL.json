@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "book": "COL",
+  "author": {
+    "en": "Paul, writing with Timothy from prison; a number of scholars think it was written in his name by a close follower.",
+    "ru": "Апостол Павел вместе с Тимофеем, находясь в узах; ряд исследователей считает, что послание написал от его имени близкий ученик."
+  },
+  "date": {
+    "en": "c. AD 60–62, during Paul’s imprisonment, traditionally in Rome; scholars who doubt his authorship date it somewhat later.",
+    "ru": "Ок. 60–62 гг. н. э., во время заключения Павла, по преданию — в Риме; учёные, сомневающиеся в его авторстве, датируют послание несколько более поздним временем."
+  },
+  "summary": {
+    "en": "Paul writes to a church he had not founded himself, in the Lycus valley of Asia Minor, where some were drawn to teaching about special rules and spiritual powers. He answers by exalting Christ as the image of God, creator and head of all things, in whom believers are complete, and shows what new life in him looks like.",
+    "ru": "Павел пишет Церкви, основанной не им самим, в долине реки Лик в Малой Азии, где некоторых увлекло учение об особых правилах и духовных силах. В ответ он возвеличивает Христа — образ Бога, Творца и Главу всего, в Котором верующие имеют полноту, — и показывает, какой должна быть новая жизнь в Нём."
+  },
+  "themes": [
+    { "en": "The supremacy of Christ", "ru": "Превосходство Христа" },
+    { "en": "Fullness in Christ", "ru": "Полнота во Христе" },
+    { "en": "Freedom from human rules", "ru": "Свобода от человеческих предписаний" },
+    { "en": "Putting on the new self", "ru": "Облечься в нового человека" },
+    { "en": "Prayer and thanksgiving", "ru": "Молитва и благодарение" }
+  ],
+  "outline": [
+    { "ref": "COL 1:1-14", "en": "Greeting, thanksgiving and prayer", "ru": "Приветствие, благодарение и молитва" },
+    { "ref": "COL 1:15-2:5", "en": "Christ supreme over all things", "ru": "Христос — Глава над всем" },
+    { "ref": "COL 2:6-23", "en": "Complete in Christ, free from false teaching", "ru": "Полнота во Христе и свобода от лжеучений" },
+    { "ref": "COL 3:1-4:6", "en": "The new life in Christ", "ru": "Новая жизнь во Христе" },
+    { "ref": "COL 4:7-18", "en": "News and greetings", "ru": "Известия и приветствия" }
+  ],
+  "keyVerses": ["COL 1:15-17", "COL 2:9-10", "COL 3:1-2", "COL 3:17"],
+  "places": ["a4e5a69", "a83fb1e", "a11bbbe"]
+}

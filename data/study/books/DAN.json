@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "book": "DAN",
+  "author": {
+    "en": "Traditionally Daniel, a Jewish exile at the Babylonian and Persian courts, who speaks in the first person in chapters 7–12. Most modern scholars think an unknown author completed the book during the Maccabean crisis.",
+    "ru": "По преданию — Даниил, иудейский пленник при вавилонском и персидском дворах; в главах 7–12 он говорит от первого лица. Большинство современных учёных считают, что книгу завершил неизвестный автор в эпоху Маккавеев."
+  },
+  "date": {
+    "en": "Traditionally the 6th century BC; most scholars date its final form to c. 165 BC, during the persecution under Antiochus IV.",
+    "ru": "По традиции — VI в. до н. э.; большинство учёных относят окончательную редакцию примерно к 165 г. до н. э., ко времени гонений при Антиохе IV."
+  },
+  "summary": {
+    "en": "Daniel and his friends stay faithful to God at the court of Babylon, and God rescues them from the fiery furnace and the lions’ den. In his visions Daniel sees empires rise and fall until God gives everlasting dominion to one like a son of man. The book strengthens God’s people living under hostile powers.",
+    "ru": "Даниил и его друзья хранят верность Богу при вавилонском дворе, и Бог спасает их из огненной печи и львиного рва. В видениях Даниил видит, как возникают и рушатся царства, пока Бог не дарует вечное владычество Тому, Кто подобен Сыну человеческому. Книга укрепляет народ Божий, живущий под властью враждебных держав."
+  },
+  "themes": [
+    { "en": "God rules over kings and empires", "ru": "Бог властвует над царями и державами" },
+    { "en": "Faithfulness in exile", "ru": "Верность в изгнании" },
+    { "en": "Prayer and courage", "ru": "Молитва и мужество" },
+    { "en": "The coming kingdom of God", "ru": "Грядущее Царство Божье" },
+    { "en": "Resurrection and final judgment", "ru": "Воскресение и последний суд" }
+  ],
+  "outline": [
+    { "ref": "DAN 1:1-21", "en": "Faithful exiles at Babylon’s court", "ru": "Верные пленники при вавилонском дворе" },
+    { "ref": "DAN 2:1-6:28", "en": "God rules over the kings of the earth", "ru": "Бог властвует над земными царями" },
+    { "ref": "DAN 7:1-8:27", "en": "Visions of four beasts, ram and goat", "ru": "Видения четырёх зверей, овна и козла" },
+    { "ref": "DAN 9:1-27", "en": "Daniel’s prayer and the seventy weeks", "ru": "Молитва Даниила и семьдесят седмин" },
+    { "ref": "DAN 10:1-12:13", "en": "The final vision: kings, the end and resurrection", "ru": "Последнее видение: цари, конец и воскресение" }
+  ],
+  "keyVerses": ["DAN 2:44", "DAN 3:17-18", "DAN 7:13-14", "DAN 12:2"],
+  "places": ["a217d18", "a15257a", "a033b84"]
+}

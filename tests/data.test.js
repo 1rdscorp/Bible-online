@@ -38,7 +38,7 @@ test('every translation has Russian metadata for the Russian interface', () => {
 test('the public-domain translations are all present', () => {
   assert.deepEqual(
     manifest.translations.map((t) => t.id),
-    ['kjv', 'kjvs', 'asv', 'web', 'ylt', 'darby', 'bbe', 'rst', 'lxx'],
+    ['kjv', 'asv', 'web', 'ylt', 'darby', 'bbe', 'rst', 'lxx', 'kjvs'],
   );
 });
 

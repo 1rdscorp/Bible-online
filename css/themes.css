@@ -39,6 +39,16 @@
   --hl-orange: #fde2c4;
   --color-focus: #275a8c;
   --color-shadow: rgb(25 25 20 / 0.14);
+  --map-water: #d9e7f0;
+  --map-land: #f5f2ea;
+  --map-coast: #9c968a;
+  --map-river: #5f8fb5;
+  --map-water-label: #3a6585;
+  --map-place: #8a2f1c;
+  --route-1: #b3261e;
+  --route-2: #1d65a6;
+  --route-3: #2d7431;
+  --route-4: #7a3f9e;
 }
 
 /* Sepia: warm paper, brown ink */
@@ -63,6 +73,16 @@
   --hl-orange: #f2cf9f;
   --color-focus: #8a4513;
   --color-shadow: rgb(60 40 10 / 0.16);
+  --map-water: #d6dfdb;
+  --map-land: #f8f0de;
+  --map-coast: #9b8a6a;
+  --map-river: #6890a3;
+  --map-water-label: #3f6274;
+  --map-place: #8a3b16;
+  --route-1: #a8321b;
+  --route-2: #285d88;
+  --route-3: #3c6a28;
+  --route-4: #74407f;
 }
 
 /* Dark: soft, not pure black, to reduce glare and halation */
@@ -87,6 +107,16 @@
   --hl-orange: #4f3119;
   --color-focus: #8db8e6;
   --color-shadow: rgb(0 0 0 / 0.5);
+  --map-water: #15202a;
+  --map-land: #2a2c30;
+  --map-coast: #5d6169;
+  --map-river: #4f7ea3;
+  --map-water-label: #86abc8;
+  --map-place: #f0a868;
+  --route-1: #ff8a80;
+  --route-2: #8db8e6;
+  --route-3: #8fd694;
+  --route-4: #d4a6f2;
 }
 
 /* Auto: same values as the dark theme above. Keep the two blocks in sync. */
@@ -112,5 +142,15 @@
     --hl-orange: #4f3119;
     --color-focus: #8db8e6;
     --color-shadow: rgb(0 0 0 / 0.5);
+    --map-water: #15202a;
+    --map-land: #2a2c30;
+    --map-coast: #5d6169;
+    --map-river: #4f7ea3;
+    --map-water-label: #86abc8;
+    --map-place: #f0a868;
+    --route-1: #ff8a80;
+    --route-2: #8db8e6;
+    --route-3: #8fd694;
+    --route-4: #d4a6f2;
   }
 }

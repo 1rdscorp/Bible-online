@@ -1,0 +1,30 @@
+{
+  "formatVersion": 1,
+  "book": "OBA",
+  "author": {
+    "en": "Obadiah, whose name means servant of the Lord; nothing else is known of him.",
+    "ru": "Авдий, чьё имя означает «раб Господень»; больше о нём ничего не известно."
+  },
+  "date": {
+    "en": "Probably soon after Edom joined in the plunder of Jerusalem in 586 BC; some date it to an earlier attack in the 9th century BC.",
+    "ru": "Вероятно, вскоре после того, как Едом участвовал в разграблении Иерусалима в 586 г. до н. э.; некоторые связывают книгу с более ранним нападением в IX в. до н. э."
+  },
+  "summary": {
+    "en": "The shortest book of the Old Testament, a single oracle against Edom. Descended from Esau, Edom should have stood by its brother Jacob, but gloated over Jerusalem’s fall and joined in the plunder. Obadiah announces that Edom’s pride will be brought low, and that on the day of the Lord the kingdom will be the Lord’s.",
+    "ru": "Самая короткая книга Ветхого Завета — одно пророчество против Едома. Потомки Исава должны были поддержать своего брата Иакова, но злорадствовали при падении Иерусалима и участвовали в грабеже. Авдий возвещает, что гордыня Едома будет низложена, а в день Господень царство будет принадлежать Господу."
+  },
+  "themes": [
+    { "en": "Pride brought low", "ru": "Низложенная гордыня" },
+    { "en": "A brother betrayed", "ru": "Преданный брат" },
+    { "en": "God’s justice among the nations", "ru": "Божий суд над народами" },
+    { "en": "The day of the Lord", "ru": "День Господень" },
+    { "en": "The Lord’s kingdom", "ru": "Царство Господа" }
+  ],
+  "outline": [
+    { "ref": "OBA 1:1-9", "en": "Edom’s pride will be brought low", "ru": "Гордыня Едома будет низложена" },
+    { "ref": "OBA 1:10-14", "en": "Violence against brother Jacob", "ru": "Насилие над братом Иаковом" },
+    { "ref": "OBA 1:15-21", "en": "The day of the Lord and his kingdom", "ru": "День Господень и Его Царство" }
+  ],
+  "keyVerses": ["OBA 1:3", "OBA 1:15", "OBA 1:21"],
+  "places": ["a15257a"]
+}

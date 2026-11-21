@@ -1,0 +1,34 @@
+{
+  "formatVersion": 1,
+  "book": "ACT",
+  "author": {
+    "en": "Traditionally Luke, the companion of Paul, continuing his Gospel; the passages told as “we” suggest the author sometimes travelled with Paul, though some scholars doubt this.",
+    "ru": "По преданию — Лука, спутник Павла, продолживший своё Евангелие; рассказы от первого лица («мы») указывают, что автор временами путешествовал с Павлом, хотя некоторые учёные в этом сомневаются."
+  },
+  "date": {
+    "en": "Traditionally c. AD 62, since the book ends with Paul awaiting trial in Rome; many scholars date it to c. AD 80–90.",
+    "ru": "По традиции — ок. 62 г. н. э., ведь книга заканчивается тем, что Павел ожидает суда в Риме; многие учёные датируют её ок. 80–90 гг. н. э."
+  },
+  "summary": {
+    "en": "The story of the early church, from Jesus’ ascension to Paul preaching in Rome. Empowered by the Holy Spirit at Pentecost, the apostles bear witness in Jerusalem, Judea and Samaria, and through Paul’s journeys the gospel then reaches the Gentiles across the Roman world, as Jesus had promised.",
+    "ru": "История ранней Церкви — от вознесения Иисуса до проповеди Павла в Риме. Получив силу Святого Духа в день Пятидесятницы, апостолы свидетельствуют в Иерусалиме, Иудее и Самарии, а затем, благодаря путешествиям Павла, благая весть, как и обещал Иисус, доходит до язычников по всей Римской империи."
+  },
+  "themes": [
+    { "en": "The power of the Holy Spirit", "ru": "Сила Святого Духа" },
+    { "en": "Witness from Jerusalem to Rome", "ru": "Свидетельство от Иерусалима до Рима" },
+    { "en": "Jews and Gentiles in one church", "ru": "Иудеи и язычники в одной Церкви" },
+    { "en": "The resurrection proclaimed", "ru": "Проповедь о воскресении" },
+    { "en": "Growth through persecution", "ru": "Рост Церкви вопреки гонениям" }
+  ],
+  "outline": [
+    { "ref": "ACT 1:1-2:47", "en": "Ascension and Pentecost", "ru": "Вознесение и Пятидесятница" },
+    { "ref": "ACT 3:1-8:3", "en": "The church in Jerusalem", "ru": "Церковь в Иерусалиме" },
+    { "ref": "ACT 8:4-12:25", "en": "Into Judea, Samaria and beyond", "ru": "В Иудею, Самарию и дальше" },
+    { "ref": "ACT 13:1-15:35", "en": "Paul’s first journey and the Jerusalem council", "ru": "Первое путешествие Павла и Иерусалимский собор" },
+    { "ref": "ACT 15:36-18:22", "en": "Second journey: into Europe", "ru": "Второе путешествие: в Европу" },
+    { "ref": "ACT 18:23-21:16", "en": "Third journey: Ephesus and the road to Jerusalem", "ru": "Третье путешествие: Ефес и путь в Иерусалим" },
+    { "ref": "ACT 21:17-28:31", "en": "Paul’s arrest, trials and voyage to Rome", "ru": "Арест Павла, суды и путь в Рим" }
+  ],
+  "keyVerses": ["ACT 1:8", "ACT 2:42", "ACT 4:12", "ACT 16:31"],
+  "places": ["a15257a", "a69c1d4", "ae41ab4", "a49e1d0", "a1fe6e7", "a6f437a", "a5feb15", "afc8e7a"]
+}

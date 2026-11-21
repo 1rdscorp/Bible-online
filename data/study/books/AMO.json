@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "book": "AMO",
+  "author": {
+    "en": "Amos, a shepherd and dresser of sycamore figs from Tekoa in Judah, sent to prophesy in the northern kingdom. Some scholars think a few passages, including the closing promise, were added later.",
+    "ru": "Амос из Фекои в Иудее, пастух и собиратель сикоморовых плодов; Бог послал его пророчествовать в Северное царство. Некоторые исследователи считают, что отдельные отрывки, включая заключительное обетование, добавлены позже."
+  },
+  "date": {
+    "en": "c. 760–750 BC, under Jeroboam II of Israel and Uzziah of Judah, two years before the earthquake.",
+    "ru": "Ок. 760–750 гг. до н. э., при Иеровоаме II, царе Израильском, и Озии, царе Иудейском, за два года до землетрясения."
+  },
+  "summary": {
+    "en": "In a time of prosperity Amos, a herdsman from Judah, denounces the northern kingdom for crushing the poor, corrupting justice and keeping empty festivals. God’s choice of Israel brings greater responsibility, not immunity, and judgment is coming. The book closes with the promise that God will restore the fallen house of David.",
+    "ru": "Во времена благополучия Амос, пастух из Иудеи, обличает Северное царство за угнетение бедных, извращение правосудия и пустые праздничные обряды. Избранность Израиля налагает на него большую ответственность, а не ограждает от наказания, и суд приближается. Книга заканчивается обещанием, что Бог восстановит падшую скинию Давида."
+  },
+  "themes": [
+    { "en": "Justice for the poor", "ru": "Справедливость к бедным" },
+    { "en": "Empty worship", "ru": "Пустое богослужение" },
+    { "en": "Privilege and responsibility", "ru": "Избранность и ответственность" },
+    { "en": "God rules all nations", "ru": "Бог — Владыка всех народов" },
+    { "en": "Restoration of David’s house", "ru": "Восстановление дома Давида" }
+  ],
+  "outline": [
+    { "ref": "AMO 1:1-2:16", "en": "Judgment on the nations, Judah and Israel", "ru": "Суд над народами, Иудеей и Израилем" },
+    { "ref": "AMO 3:1-6:14", "en": "Hear this word: charges against Israel", "ru": "Слушайте слово сие: обличения Израиля" },
+    { "ref": "AMO 7:1-9:10", "en": "Five visions of judgment", "ru": "Пять видений суда" },
+    { "ref": "AMO 9:11-15", "en": "David’s fallen tabernacle restored", "ru": "Восстановление падшей скинии Давида" }
+  ],
+  "keyVerses": ["AMO 3:2", "AMO 5:24", "AMO 8:11", "AMO 9:11"],
+  "places": ["a041bb3", "a64f355", "ab94aea", "a15257a", "a69c1d4", "aa8edd2", "a160272", "ae067b5"]
+}

@@ -1,0 +1,30 @@
+{
+  "formatVersion": 1,
+  "book": "HOS",
+  "author": {
+    "en": "Hosea son of Beeri, a prophet of the northern kingdom of Israel. Many scholars think his oracles were collected and lightly edited in Judah after Samaria fell.",
+    "ru": "Осия, сын Беерин, пророк Северного (Израильского) царства. Многие исследователи считают, что его пророчества были собраны и отчасти отредактированы в Иудее после падения Самарии."
+  },
+  "date": {
+    "en": "c. 755–715 BC, from the last years of Jeroboam II into the reign of Hezekiah, spanning the fall of Samaria in 722 BC.",
+    "ru": "Ок. 755–715 гг. до н. э., от последних лет Иеровоама II до царствования Езекии; на это время пришлось падение Самарии в 722 г. до н. э."
+  },
+  "summary": {
+    "en": "God tells Hosea to marry Gomer, who proves unfaithful, and then to take her back: a living picture of Israel’s unfaithfulness to the Lord through idolatry, and of his persistent love. In the northern kingdom’s last decades Hosea warns of judgment, yet the book ends with God’s promise to heal his people and love them freely.",
+    "ru": "Бог повелевает Осии взять в жёны Гомерь, которая оказывается неверной, а затем вернуть её: это живой образ того, как Израиль изменяет Господу, служа идолам, и как неотступно Господь его любит. В последние десятилетия Северного царства Осия предупреждает о суде, но книга завершается обещанием Бога исцелить Свой народ и возлюбить его по благоволению."
+  },
+  "themes": [
+    { "en": "God’s faithful, persistent love", "ru": "Верная и неотступная любовь Бога" },
+    { "en": "Israel’s spiritual adultery", "ru": "Духовное прелюбодеяние Израиля" },
+    { "en": "Knowing God", "ru": "Познание Бога" },
+    { "en": "Judgment and exile", "ru": "Суд и изгнание" },
+    { "en": "Return and healing", "ru": "Обращение и исцеление" }
+  ],
+  "outline": [
+    { "ref": "HOS 1:1-3:5", "en": "Hosea’s marriage: a sign of God and Israel", "ru": "Брак Осии — образ Бога и Израиля" },
+    { "ref": "HOS 4:1-13:16", "en": "The Lord’s case against unfaithful Israel", "ru": "Тяжба Господа с неверным Израилем" },
+    { "ref": "HOS 14:1-9", "en": "Return and the promise of healing", "ru": "Призыв к обращению и обещание исцеления" }
+  ],
+  "keyVerses": ["HOS 4:6", "HOS 6:6", "HOS 11:8", "HOS 14:4"],
+  "places": ["a041bb3", "a64f355", "ab94aea", "ae0bf4a"]
+}

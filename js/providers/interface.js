@@ -28,6 +28,8 @@
  *   Interface-language versions of the fields above, e.g. i18n.ru = { name, license, copyright,
  *   description, numbering: { name } }. Applied by i18n.js localizeTranslation().
  * @property {boolean} [strongs]       its verses carry `words` (Strong's numbers): words can be studied
+ * @property {string} [basedOn]        the id of the translation whose text this one shares (KJV+ → "kjv");
+ *   "All translations" search leaves it out, so the same text isn't listed twice
  * @property {string} [url]            json provider: the data file
  * @property {string} [version]        json provider: content hash, used as the cache key
  *

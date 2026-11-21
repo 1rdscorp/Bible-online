@@ -1,0 +1,27 @@
+{
+  "formatVersion": 1,
+  "book": "PHM",
+  "author": {
+    "en": "Paul, writing with Timothy from prison; its authorship is not disputed.",
+    "ru": "Апостол Павел вместе с Тимофеем, находясь в узах; авторство этого послания не оспаривается."
+  },
+  "date": {
+    "en": "c. AD 60–62, from Rome, at the same time as Colossians; some scholars suggest an earlier imprisonment in Ephesus.",
+    "ru": "Ок. 60–62 гг. н. э., из Рима, одновременно с Посланием к колоссянам; некоторые учёные предполагают более раннее заключение в Ефесе."
+  },
+  "summary": {
+    "en": "A short personal letter to Philemon, a Christian probably living in Colossae, about his slave Onesimus, who had come to faith through Paul. Paul sends Onesimus back and asks Philemon to receive him no longer as a slave but as a beloved brother, offering to repay any debt himself.",
+    "ru": "Краткое личное письмо Филимону, христианину, жившему, вероятно, в Колоссах, о его рабе Онисиме, который уверовал через Павла. Павел отсылает Онисима обратно и просит Филимона принять его уже не как раба, но как возлюбленного брата, обещая сам возместить любой ущерб."
+  },
+  "themes": [
+    { "en": "Reconciliation", "ru": "Примирение" },
+    { "en": "Brothers in Christ", "ru": "Братья во Христе" },
+    { "en": "An appeal made in love", "ru": "Просьба ради любви" }
+  ],
+  "outline": [
+    { "ref": "PHM 1:1-7", "en": "Greeting and thanksgiving", "ru": "Приветствие и благодарение" },
+    { "ref": "PHM 1:8-22", "en": "Paul’s appeal for Onesimus", "ru": "Просьба Павла об Онисиме" },
+    { "ref": "PHM 1:23-25", "en": "Greetings and blessing", "ru": "Приветствия и благословение" }
+  ],
+  "keyVerses": ["PHM 1:15-16"]
+}

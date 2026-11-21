@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "book": "JOL",
+  "author": {
+    "en": "Joel son of Pethuel; nothing else is known of him.",
+    "ru": "Иоиль, сын Вафуилов; больше о нём ничего не известно."
+  },
+  "date": {
+    "en": "Uncertain, since the book names no king. Proposals range from the 9th century BC to the 5th–4th century BC; many scholars prefer a date after the exile.",
+    "ru": "Неизвестна, поскольку в книге не названы цари. Предположения колеблются от IX до V–IV вв. до н. э.; многие учёные склоняются ко времени после плена."
+  },
+  "summary": {
+    "en": "A devastating locust plague becomes a warning of the day of the Lord, and Joel calls everyone to return to God with fasting and tears. God answers with restored harvests and the promise to pour out his Spirit on all people, then judges the nations and blesses Zion. Peter quotes Joel at Pentecost.",
+    "ru": "Опустошительное нашествие саранчи становится предупреждением о дне Господнем, и Иоиль призывает всех обратиться к Богу в посте и плаче. Бог отвечает обещанием нового урожая и излияния Своего Духа на всякую плоть, а затем судит народы и благословляет Сион. Апостол Пётр приводит слова Иоиля в день Пятидесятницы."
+  },
+  "themes": [
+    { "en": "The day of the Lord", "ru": "День Господень" },
+    { "en": "Repentance with the whole heart", "ru": "Покаяние всем сердцем" },
+    { "en": "God’s mercy and restoration", "ru": "Божья милость и восстановление" },
+    { "en": "The Spirit poured out", "ru": "Излияние Духа" },
+    { "en": "Judgment on the nations", "ru": "Суд над народами" }
+  ],
+  "outline": [
+    { "ref": "JOL 1:1-20", "en": "The locust plague and a call to lament", "ru": "Нашествие саранчи и призыв к плачу" },
+    { "ref": "JOL 2:1-27", "en": "The day of the Lord; return and restoration", "ru": "День Господень; обращение и восстановление" },
+    { "ref": "JOL 2:28-32", "en": "The Spirit poured out on all people", "ru": "Излияние Духа на всякую плоть" },
+    { "ref": "JOL 3:1-21", "en": "Judgment on the nations, blessing for Zion", "ru": "Суд над народами и благословение Сиону" }
+  ],
+  "keyVerses": ["JOL 2:13", "JOL 2:25", "JOL 2:28", "JOL 2:32"],
+  "places": ["a15257a", "a160272", "a98e4d7"]
+}

@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "book": "ZEC",
+  "author": {
+    "en": "Zechariah son of Berechiah and grandson of Iddo, a priest and prophet among the returned exiles. Many scholars assign chapters 9–14 to one or more later authors.",
+    "ru": "Захария, сын Варахии и внук Аддо, священник и пророк среди вернувшихся из плена. Многие исследователи приписывают главы 9–14 одному или нескольким позднейшим авторам."
+  },
+  "date": {
+    "en": "Chapters 1–8 are dated 520–518 BC, alongside Haggai; chapters 9–14 are undated, and many scholars place them in the 5th century BC or later.",
+    "ru": "Главы 1–8 датированы 520–518 гг. до н. э., одновременно с пророчествами Аггея; главы 9–14 не датированы, и многие учёные относят их к V в. до н. э. или более позднему времени."
+  },
+  "summary": {
+    "en": "Encouraging the returned exiles to rebuild the temple, Zechariah sees eight night visions of God cleansing his people and returning to Jerusalem. Later oracles picture a humble king riding on a donkey, a rejected shepherd, and a final day when the Lord will be king over all the earth. The Gospels draw on it for Jesus’ last days.",
+    "ru": "Ободряя вернувшихся изгнанников отстроить храм, Захария получает восемь ночных видений о том, как Бог очищает Свой народ и возвращается в Иерусалим. Последующие пророчества рисуют кроткого Царя, грядущего на осле, отвергнутого пастыря и последний день, когда Господь будет Царём над всей землёй. Евангелисты обращаются к этой книге, рассказывая о последних днях Иисуса."
+  },
+  "themes": [
+    { "en": "Return to the Lord", "ru": "Обращение к Господу" },
+    { "en": "God’s return to Zion", "ru": "Возвращение Бога на Сион" },
+    { "en": "By my Spirit, not by might", "ru": "Не силою, но Духом Моим" },
+    { "en": "The humble coming king", "ru": "Кроткий грядущий Царь" },
+    { "en": "The Lord’s universal reign", "ru": "Вселенское царство Господа" }
+  ],
+  "outline": [
+    { "ref": "ZEC 1:1-6", "en": "A call to return to the Lord", "ru": "Призыв обратиться к Господу" },
+    { "ref": "ZEC 1:7-6:15", "en": "Eight night visions", "ru": "Восемь ночных видений" },
+    { "ref": "ZEC 7:1-8:23", "en": "Fasting turned to feasting", "ru": "Пост станет праздником" },
+    { "ref": "ZEC 9:1-11:17", "en": "The coming king and the rejected shepherd", "ru": "Грядущий Царь и отвергнутый пастырь" },
+    { "ref": "ZEC 12:1-14:21", "en": "Jerusalem cleansed; the Lord is king", "ru": "Очищение Иерусалима; Господь — Царь" }
+  ],
+  "keyVerses": ["ZEC 4:6", "ZEC 9:9", "ZEC 12:10", "ZEC 14:9"],
+  "places": ["a15257a", "ac2c4c5", "a217d18", "a69c1d4", "ac62cbc", "a160272", "a98e4d7", "a8554e3"]
+}

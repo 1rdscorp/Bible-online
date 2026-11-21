@@ -1,0 +1,33 @@
+{
+  "formatVersion": 1,
+  "book": "ECC",
+  "author": {
+    "en": "Traditionally Solomon: the speaker, Qoheleth (the Teacher or Preacher), is called a son of David and king in Jerusalem. Most modern scholars think a later sage wrote in Solomon’s voice.",
+    "ru": "По преданию — Соломон: говорящий, Екклесиаст (Проповедник), назван сыном Давида и царём в Иерусалиме. Большинство современных исследователей полагают, что позднейший мудрец писал от лица Соломона."
+  },
+  "date": {
+    "en": "Traditionally the 10th century BC; on the evidence of its late Hebrew, most scholars date it to the 5th–3rd century BC.",
+    "ru": "По традиции — X в. до н. э.; судя по поздним чертам языка, большинство учёных относят книгу к V–III вв. до н. э."
+  },
+  "summary": {
+    "en": "A searching reflection on life under the sun. The Teacher tests pleasure, work, wealth and wisdom and finds them all fleeting, a breath that cannot be held, since death comes to everyone. Yet he urges his readers to enjoy God’s gifts while they can, and he ends: fear God and keep his commandments.",
+    "ru": "Глубокое размышление о жизни «под солнцем». Екклесиаст испытывает наслаждения, труд, богатство и мудрость и находит, что всё это мимолётно, как дуновение, которое не удержать, ведь смерть ждёт каждого. И всё же он призывает радоваться Божьим дарам, пока есть время, и заключает: бойся Бога и заповеди Его соблюдай."
+  },
+  "themes": [
+    { "en": "Vanity: life as a fleeting breath", "ru": "Суета: жизнь как мимолётное дуновение" },
+    { "en": "A time for everything", "ru": "Всему своё время" },
+    { "en": "The limits of wisdom", "ru": "Пределы мудрости" },
+    { "en": "Enjoying God’s gifts", "ru": "Радость о Божьих дарах" },
+    { "en": "Fear God", "ru": "Бойся Бога" }
+  ],
+  "outline": [
+    { "ref": "ECC 1:1-11", "en": "Vanity of vanities: the theme", "ru": "Суета сует: тема книги" },
+    { "ref": "ECC 1:12-2:26", "en": "The Teacher tests pleasure, work and wisdom", "ru": "Екклесиаст испытывает наслаждения, труд и мудрость" },
+    { "ref": "ECC 3:1-6:12", "en": "Time, injustice and the emptiness of wealth", "ru": "Время, несправедливость и тщета богатства" },
+    { "ref": "ECC 7:1-11:6", "en": "Wisdom for an uncertain world", "ru": "Мудрость перед лицом неизвестного" },
+    { "ref": "ECC 11:7-12:8", "en": "Enjoy your youth; remember your Creator", "ru": "Радуйся юности и помни Создателя" },
+    { "ref": "ECC 12:9-14", "en": "Epilogue: fear God", "ru": "Заключение: бойся Бога" }
+  ],
+  "keyVerses": ["ECC 1:2", "ECC 3:1", "ECC 12:1", "ECC 12:13"],
+  "places": ["a15257a"]
+}

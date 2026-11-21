@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "book": "HAG",
+  "author": {
+    "en": "Haggai the prophet, who also appears in the book of Ezra alongside Zechariah.",
+    "ru": "Пророк Аггей; он упоминается также в книге Ездры вместе с Захарией."
+  },
+  "date": {
+    "en": "520 BC: his four messages are dated within four months of the second year of Darius I.",
+    "ru": "520 г. до н. э.: четыре его речи датированы в пределах четырёх месяцев второго года царствования Дария I."
+  },
+  "summary": {
+    "en": "Eighteen years after the first exiles returned from Babylon, work on the temple has stalled while the people build their own houses. Haggai calls them to put God first and rebuild, and they respond. He promises that the glory of this humble house will be greater than the former, and that God has chosen Zerubbabel.",
+    "ru": "Через восемнадцать лет после возвращения первых изгнанников из Вавилона строительство храма стоит, а народ строит собственные дома. Аггей призывает поставить Бога на первое место и отстроить храм, и народ откликается. Пророк обещает, что слава этого скромного дома будет больше прежней и что Бог избрал Зоровавеля."
+  },
+  "themes": [
+    { "en": "Put God’s house first", "ru": "Прежде всего — дом Божий" },
+    { "en": "Consider your ways", "ru": "Обратите сердце ваше на пути ваши" },
+    { "en": "Courage for the work", "ru": "Мужество в деле" },
+    { "en": "Holiness and blessing", "ru": "Святость и благословение" },
+    { "en": "The future glory of the temple", "ru": "Грядущая слава храма" }
+  ],
+  "outline": [
+    { "ref": "HAG 1:1-15", "en": "Rebuild the house of the Lord", "ru": "Отстройте дом Господень" },
+    { "ref": "HAG 2:1-9", "en": "The greater glory of this house", "ru": "Слава последнего храма" },
+    { "ref": "HAG 2:10-19", "en": "From defilement to blessing", "ru": "От нечистоты к благословению" },
+    { "ref": "HAG 2:20-23", "en": "Zerubbabel, the Lord’s signet ring", "ru": "Зоровавель — перстень с печатью Господа" }
+  ],
+  "keyVerses": ["HAG 1:4", "HAG 2:7", "HAG 2:9"],
+  "places": ["a15257a"]
+}

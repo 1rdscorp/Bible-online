@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "book": "2CO",
+  "author": {
+    "en": "Paul, writing with Timothy. His authorship is accepted, though many scholars think the letter combines parts of more than one letter.",
+    "ru": "Апостол Павел вместе с Тимофеем. Авторство Павла признаётся, но многие исследователи считают, что послание объединяет части нескольких писем."
+  },
+  "date": {
+    "en": "c. AD 55–56, from Macedonia.",
+    "ru": "Ок. 55–56 гг. н. э., из Македонии."
+  },
+  "summary": {
+    "en": "Paul’s most personal letter, written after a painful conflict with the church in Corinth. He defends a ministry in which God’s power is shown in weakness, rejoices at their reconciliation, urges them to complete the collection for Jerusalem, and answers rivals who boasted of their own credentials.",
+    "ru": "Самое личное послание Павла, написанное после болезненного конфликта с Церковью в Коринфе. Апостол защищает своё служение, в котором сила Божья совершается в немощи, радуется примирению с коринфянами, призывает их завершить сбор пожертвований для Иерусалима и отвечает соперникам, хвалившимся своими заслугами."
+  },
+  "themes": [
+    { "en": "Strength in weakness", "ru": "Сила в немощи" },
+    { "en": "The ministry of reconciliation", "ru": "Служение примирения" },
+    { "en": "Comfort in suffering", "ru": "Утешение в скорбях" },
+    { "en": "Generous giving", "ru": "Щедрое даяние" },
+    { "en": "True and false apostles", "ru": "Истинные и ложные апостолы" }
+  ],
+  "outline": [
+    { "ref": "2CO 1:1-2:13", "en": "Comfort, and Paul’s change of plans", "ru": "Утешение и изменение планов Павла" },
+    { "ref": "2CO 2:14-7:4", "en": "The ministry of the new covenant", "ru": "Служение Нового Завета" },
+    { "ref": "2CO 7:5-16", "en": "Good news from Titus", "ru": "Радостные вести от Тита" },
+    { "ref": "2CO 8:1-9:15", "en": "The collection for Jerusalem", "ru": "Сбор пожертвований для Иерусалима" },
+    { "ref": "2CO 10:1-13:14", "en": "Paul defends his apostleship", "ru": "Павел защищает своё апостольство" }
+  ],
+  "keyVerses": ["2CO 4:7", "2CO 5:17", "2CO 9:7", "2CO 12:9"],
+  "places": ["a6f437a", "a91c509", "a15257a", "a69c1d4"]
+}

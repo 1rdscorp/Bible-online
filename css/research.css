@@ -1,0 +1,322 @@
+/* ---------- Research panel (js/ui/research-panel.js) ----------
+   It docks like the Notes panel (.side-panel in study.css). */
+
+.research-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.research-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.research-close {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--color-text-muted);
+}
+
+.research-tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0.5rem 0 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.research-tab {
+  min-height: 2.75rem;
+  padding: 0 0.75rem;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--color-text-muted);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.research-tab[aria-selected="true"] {
+  border-bottom-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.research-tab:hover {
+  color: var(--color-text);
+}
+
+.research-pane {
+  padding-top: 0.75rem;
+}
+
+.research-pane:focus {
+  outline: none;
+}
+
+.research-pane:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.research-subject {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.research-note {
+  margin-top: 0.5rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.research-source {
+  margin-top: 1.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.research-more,
+.research-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 2.5rem;
+  margin-top: 0.25rem;
+}
+
+.research-back {
+  margin: -0.25rem 0 0.25rem -0.25rem;
+}
+
+.research-open-strongs {
+  display: inline-block;
+  margin-top: 0.75rem;
+  text-decoration: none;
+}
+
+.research-error {
+  margin-top: 0.75rem;
+}
+
+.research-error-detail {
+  margin: 0.25rem 0 0.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+/* Cross-references and concordance lines: the reference, then the text. */
+.xref-group + .xref-group {
+  margin-top: 1rem;
+}
+
+.xref-verse {
+  margin-top: 0.75rem;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.xref-list,
+.concordance-list,
+.word-list {
+  margin: 0.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.xref-item {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.xref-ref {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.xref-ref:hover {
+  text-decoration: underline;
+}
+
+.xref-text {
+  margin-top: 0.2rem;
+  font-family: var(--font-scripture);
+  line-height: 1.55;
+  overflow-wrap: break-word;
+}
+
+.word-hit {
+  padding: 0 0.1em;
+  border-radius: 3px;
+  background: var(--color-highlight);
+  color: inherit;
+}
+
+/* Word study: the words of a verse, then one word's entry. */
+.word-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.word-pick {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 2.75rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 10px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.word-pick:hover {
+  background: var(--color-surface-hover);
+}
+
+.word-pick-text {
+  font-family: var(--font-scripture);
+}
+
+.word-pick-number {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+.word-numbers {
+  margin-bottom: 0.5rem;
+  color: var(--color-text-muted);
+}
+
+.word-head {
+  margin-top: 0.25rem;
+}
+
+.word-lemma {
+  font-family: var(--font-scripture);
+  font-size: 2rem;
+  line-height: 1.3;
+}
+
+/* Hebrew reads right to left, but lines up with the rest of the panel. */
+.word-lemma[dir="rtl"] {
+  text-align: left;
+}
+
+.word-xlit {
+  font-style: italic;
+}
+
+.word-number {
+  margin-top: 0.15rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.word-details {
+  margin: 0.75rem 0 0;
+}
+
+.word-details dt {
+  margin-top: 0.6rem;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.word-details dd {
+  margin: 0.15rem 0 0;
+  line-height: 1.5;
+}
+
+.word-original {
+  font-family: var(--font-scripture);
+}
+
+.strongs-link {
+  min-height: 1.75rem;
+  padding: 0 0.3rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 6px;
+  background: var(--color-bg);
+  color: var(--color-accent);
+  font: inherit;
+  font-size: 0.85em;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.strongs-link[aria-pressed="true"] {
+  background: var(--color-accent-soft);
+}
+
+.word-uses {
+  margin-top: 1.25rem;
+}
+
+.word-uses h4 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.word-count {
+  margin-top: 0.3rem;
+}
+
+.word-renderings {
+  margin-top: 0.3rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* ---------- KJV+ in the reader ---------- */
+
+/* Tagged words: tappable, but no clutter until pointed at. */
+.vtext .w {
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+@media (hover: hover) {
+  .vtext .w:hover {
+    text-decoration: underline dotted var(--color-accent);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.2em;
+  }
+}
+
+.reader-tip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+  max-width: 40rem;
+  margin: 0 auto 1rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+}
+
+.reader-tip > span {
+  flex: 1 1 14rem;
+}
+
+.reader-tip .text-button {
+  margin-left: auto;
+  min-height: 2.25rem;
+}

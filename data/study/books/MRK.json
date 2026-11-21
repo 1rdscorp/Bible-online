@@ -1,0 +1,34 @@
+{
+  "formatVersion": 1,
+  "book": "MRK",
+  "author": {
+    "en": "Traditionally John Mark, a companion of Paul and Barnabas and later of Peter, whose preaching he is said to have written down; the Gospel itself names no author.",
+    "ru": "По преданию — Иоанн, называемый Марком, спутник Павла и Варнавы, а затем Петра, чью проповедь он, по свидетельству древних авторов, записал; само Евангелие автора не называет."
+  },
+  "date": {
+    "en": "Traditionally the AD 60s, in Rome, around the time of Peter’s death; most scholars see it as the earliest Gospel and date it to c. AD 65–75.",
+    "ru": "По традиции — 60-е гг. I в. н. э., в Риме, около времени мученической кончины Петра; большинство учёных считают его самым ранним из Евангелий и датируют ок. 65–75 гг. н. э."
+  },
+  "summary": {
+    "en": "The shortest and probably earliest Gospel, told at a fast pace. Mark shows Jesus as the Son of God who proclaims God’s kingdom with authority, yet came not to be served but to serve and to give his life as a ransom for many. The story turns on Peter’s confession, then moves swiftly to the cross and the empty tomb.",
+    "ru": "Самое краткое и, вероятно, самое раннее Евангелие с быстрым, напряжённым повествованием. Марк показывает Иисуса как Сына Божьего, Который властно возвещает Царство Божье, но пришёл не для того, чтобы Ему служили, а чтобы послужить и отдать душу Свою для искупления многих. Поворотная точка — исповедание Петра, после которого рассказ стремительно ведёт к кресту и пустой гробнице."
+  },
+  "themes": [
+    { "en": "Jesus the Son of God", "ru": "Иисус — Сын Божий" },
+    { "en": "Authority in word and deed", "ru": "Власть в слове и деле" },
+    { "en": "The suffering Son of Man", "ru": "Страдающий Сын Человеческий" },
+    { "en": "The cost of discipleship", "ru": "Цена ученичества" },
+    { "en": "Faith and misunderstanding", "ru": "Вера и непонимание" }
+  ],
+  "outline": [
+    { "ref": "MRK 1:1-13", "en": "Prologue: John, baptism and temptation", "ru": "Пролог: Иоанн, крещение и искушение" },
+    { "ref": "MRK 1:14-3:6", "en": "Authority in Galilee and first opposition", "ru": "Власть Иисуса в Галилее и первые противники" },
+    { "ref": "MRK 3:7-8:26", "en": "Parables, miracles and the mission of the Twelve", "ru": "Притчи, чудеса и посланничество двенадцати" },
+    { "ref": "MRK 8:27-10:52", "en": "On the way: the cross foretold", "ru": "В пути: предсказания о кресте" },
+    { "ref": "MRK 11:1-13:37", "en": "Jesus in Jerusalem", "ru": "Иисус в Иерусалиме" },
+    { "ref": "MRK 14:1-15:47", "en": "Arrest, trial and crucifixion", "ru": "Взятие под стражу, суд и распятие" },
+    { "ref": "MRK 16:1-20", "en": "The resurrection", "ru": "Воскресение" }
+  ],
+  "keyVerses": ["MRK 1:15", "MRK 8:29", "MRK 8:34", "MRK 10:45"],
+  "places": ["ae686c9", "af2161c", "a562fcc", "a160272", "ab7bf48", "a4f35bc", "a15257a", "a42418f"]
+}

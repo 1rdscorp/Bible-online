@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { findBook, getBook } from '../js/canon.js';
-import { chapterHref, PAGES, parseHash, resolveRoute } from '../js/router.js';
+import { chapterHref, introHref, mapHref, PAGES, parseHash, resolveRoute } from '../js/router.js';
+
+// The fields of a route that matter for these pages.
+const pick = ({ view, book, mapId }) => ({ view, ...(book ? { book } : {}), ...(mapId ? { mapId } : {}) });
 
 const summary = (hash) => {
   const r = resolveRoute(hash);
@@ -114,4 +117,19 @@ test('the search page keeps its query', () => {
   assert.equal(route.view, 'search');
   assert.equal(route.params.q, 'in the beginning');
   assert.equal(resolveRoute('#/Search?q=x').redirect, '#/search?q=x');
+});
+
+test('study pages: book introductions, the timeline and maps', () => {
+  const john = findBook('john');
+  assert.deepEqual(pick(resolveRoute('#/john/intro')), { view: 'intro', book: john });
+  assert.equal(resolveRoute('#/jn/Intro').redirect, '#/john/intro');
+  assert.equal(resolveRoute('#/jude/intro').view, 'intro', 'a one-chapter book’s introduction is not its chapter');
+  assert.equal(introHref(john), '#/john/intro');
+  assert.equal(resolveRoute('#/timeline').view, 'timeline');
+  assert.deepEqual(pick(resolveRoute('#/maps')), { view: 'maps' });
+  assert.deepEqual(pick(resolveRoute('#/maps/paul?place=a15257a')), { view: 'maps', mapId: 'paul' });
+  assert.equal(resolveRoute('#/maps/Paul').redirect, '#/maps/paul');
+  assert.equal(resolveRoute('#/maps/<x>').view, 'not-found');
+  assert.equal(mapHref('paul', 'place=a1'), '#/maps/paul?place=a1');
+  assert.equal(mapHref(), '#/maps');
 });

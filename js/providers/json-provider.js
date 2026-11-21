@@ -109,3 +109,8 @@ export function parseWordTags(tags, length) {
   }
   return words;
 }
+
+/** The reverse of parseWordTags: [{ start: 7, end: 16, strongs: ["H7225"] }] → "7.9.H7225". */
+export function formatWordTags(words) {
+  return words.map(({ start, end, strongs }) => `${start}.${end - start}.${strongs.join('+')}`).join(' ');
+}

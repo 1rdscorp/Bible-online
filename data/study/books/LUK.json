@@ -1,0 +1,34 @@
+{
+  "formatVersion": 1,
+  "book": "LUK",
+  "author": {
+    "en": "Traditionally Luke, the physician and companion of Paul, who also wrote Acts; the Gospel names no author, but both books clearly come from the same writer.",
+    "ru": "По преданию — Лука, врач и спутник Павла, написавший также Деяния апостолов; имени автора в Евангелии нет, но обе книги явно принадлежат одному писателю."
+  },
+  "date": {
+    "en": "Traditionally the early AD 60s, before Acts; many scholars date it to c. AD 80–90.",
+    "ru": "По традиции — начало 60-х гг. I в. н. э., до Деяний; многие учёные датируют его ок. 80–90 гг. н. э."
+  },
+  "summary": {
+    "en": "An orderly account of Jesus’ life written for Theophilus, the first of two volumes with Acts. Luke shows Jesus as the Saviour of all, with special care for the poor, women, outsiders and sinners, and gives much space to his long journey to Jerusalem, where he dies, rises and promises his disciples power from on high.",
+    "ru": "Упорядоченное повествование о жизни Иисуса, написанное для Феофила, — первая часть двухтомного труда, продолжением которого стали Деяния. Лука показывает Иисуса как Спасителя всех людей, особенно внимательного к бедным, женщинам, отверженным и грешникам, и подробно описывает Его долгий путь в Иерусалим, где Он умирает, воскресает и обещает ученикам силу свыше."
+  },
+  "themes": [
+    { "en": "Salvation for all people", "ru": "Спасение для всех людей" },
+    { "en": "Good news for the poor", "ru": "Благая весть нищим" },
+    { "en": "The work of the Holy Spirit", "ru": "Действие Святого Духа" },
+    { "en": "Prayer and joy", "ru": "Молитва и радость" },
+    { "en": "Jesus’ journey to Jerusalem", "ru": "Путь Иисуса в Иерусалим" }
+  ],
+  "outline": [
+    { "ref": "LUK 1:1-2:52", "en": "Prologue and the births of John and Jesus", "ru": "Вступление; рождение Иоанна и Иисуса" },
+    { "ref": "LUK 3:1-4:13", "en": "Preparation: John, baptism and temptation", "ru": "Приготовление: Иоанн, крещение и искушение" },
+    { "ref": "LUK 4:14-9:50", "en": "Ministry in Galilee", "ru": "Служение в Галилее" },
+    { "ref": "LUK 9:51-19:27", "en": "The journey to Jerusalem", "ru": "Путь в Иерусалим" },
+    { "ref": "LUK 19:28-21:38", "en": "Teaching in Jerusalem", "ru": "Учение в Иерусалиме" },
+    { "ref": "LUK 22:1-23:56", "en": "Last Supper, trial and crucifixion", "ru": "Тайная вечеря, суд и распятие" },
+    { "ref": "LUK 24:1-53", "en": "Resurrection and ascension", "ru": "Воскресение и вознесение" }
+  ],
+  "keyVerses": ["LUK 2:11", "LUK 4:18-19", "LUK 15:20", "LUK 19:10"],
+  "places": ["af5884f", "a112427", "af2161c", "aee679c", "a4f35bc", "ac2c4c5", "a15257a", "ae7274b"]
+}

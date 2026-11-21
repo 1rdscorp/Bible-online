@@ -1,0 +1,33 @@
+{
+  "formatVersion": 1,
+  "book": "JDG",
+  "author": {
+    "en": "Traditionally Samuel; the book itself names no author. Many scholars see it as part of a larger history, from Deuteronomy to Kings, compiled from older stories.",
+    "ru": "По преданию — Самуил; сама книга автора не называет. Многие исследователи считают её частью большого исторического труда (от Второзакония до Книг Царств), составленного из древних сказаний."
+  },
+  "date": {
+    "en": "Its repeated remark that Israel had no king suggests the early monarchy, c. 1000 BC; many scholars date its final form to the 7th–6th century BC.",
+    "ru": "Повторяющееся замечание, что в Израиле ещё не было царя, указывает на начало царской эпохи, ок. 1000 г. до н. э.; многие учёные относят окончательную редакцию к VII–VI вв. до н. э."
+  },
+  "summary": {
+    "en": "After Joshua’s death, Israel falls into a repeated cycle: the people turn to other gods, are oppressed by enemies, cry out, and God raises up a judge to rescue them. From Othniel and Deborah to Gideon and Samson each turn is worse, and the book closes in moral chaos, setting the scene for Israel’s kings.",
+    "ru": "После смерти Иисуса Навина Израиль раз за разом проходит один и тот же круг: народ уклоняется к чужим богам, попадает под власть врагов, взывает к Господу, и Бог воздвигает судью, который избавляет его. От Гофониила и Деворы до Гедеона и Самсона каждый виток хуже прежнего, и книга завершается нравственным распадом, подготавливая рассказ о царях."
+  },
+  "themes": [
+    { "en": "The cycle of sin and rescue", "ru": "Круг греха и избавления" },
+    { "en": "God’s patience and mercy", "ru": "Божье долготерпение и милость" },
+    { "en": "Unlikely deliverers", "ru": "Неожиданные избавители" },
+    { "en": "The danger of idolatry", "ru": "Опасность идолопоклонства" },
+    { "en": "Israel without a king", "ru": "Израиль без царя" }
+  ],
+  "outline": [
+    { "ref": "JDG 1:1-3:6", "en": "An unfinished conquest and a pattern of failure", "ru": "Незавершённое завоевание и круг отступничества" },
+    { "ref": "JDG 3:7-5:31", "en": "Othniel, Ehud and Deborah", "ru": "Гофониил, Аод и Девора" },
+    { "ref": "JDG 6:1-9:57", "en": "Gideon and Abimelech", "ru": "Гедеон и Авимелех" },
+    { "ref": "JDG 10:1-12:15", "en": "Jephthah and the minor judges", "ru": "Иеффай и другие судьи" },
+    { "ref": "JDG 13:1-16:31", "en": "Samson", "ru": "Самсон" },
+    { "ref": "JDG 17:1-21:25", "en": "When Israel had no king", "ru": "Когда в Израиле не было царя" }
+  ],
+  "keyVerses": ["JDG 2:16", "JDG 7:2", "JDG 21:25"],
+  "places": ["a6f33c5", "acd63ee", "a8554e3", "adf74d4", "aa8edd2", "a513646", "aa4680a", "a64f355"]
+}

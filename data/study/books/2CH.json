@@ -1,0 +1,33 @@
+{
+  "formatVersion": 1,
+  "book": "2CH",
+  "author": {
+    "en": "Traditionally Ezra. Most scholars attribute 1 and 2 Chronicles, originally one book, to an unknown writer often called the Chronicler, perhaps a Levite in Jerusalem.",
+    "ru": "По преданию — Ездра. Большинство исследователей приписывают 1 и 2 Паралипоменон (изначально одна книга) неизвестному автору, которого часто называют Летописцем; возможно, это был левит из Иерусалима."
+  },
+  "date": {
+    "en": "After the return from exile: the book ends with Cyrus’s decree of 538 BC, and the whole work is usually dated to the 5th–4th century BC.",
+    "ru": "После возвращения из плена: книга заканчивается указом Кира 538 г. до н. э., а весь труд обычно датируют V–IV вв. до н. э."
+  },
+  "summary": {
+    "en": "The story of Solomon, his temple, and the kings of Judah after the kingdom divides. The Chronicler measures each king by his faithfulness to the Lord and his temple, and shows that humble repentance brings restoration. The book ends with Jerusalem’s fall to Babylon and Cyrus’s decree inviting the exiles home to rebuild.",
+    "ru": "История Соломона и построенного им храма, а затем — иудейских царей после разделения царства. Каждого царя Летописец оценивает по его верности Господу и Его храму и показывает, что смиренное покаяние ведёт к восстановлению. Книга завершается падением Иерусалима под ударами Вавилона и указом Кира, разрешающим пленникам вернуться и отстроить храм."
+  },
+  "themes": [
+    { "en": "The temple at the centre", "ru": "Храм в центре жизни народа" },
+    { "en": "Seeking the Lord", "ru": "Искать Господа" },
+    { "en": "Humble repentance and restoration", "ru": "Смирение, покаяние и восстановление" },
+    { "en": "Reform and renewed worship", "ru": "Реформы и обновление богослужения" },
+    { "en": "Hope beyond exile", "ru": "Надежда после плена" }
+  ],
+  "outline": [
+    { "ref": "2CH 1:1-9:31", "en": "Solomon and the temple", "ru": "Соломон и храм" },
+    { "ref": "2CH 10:1-20:37", "en": "The kingdom divides: Rehoboam to Jehoshaphat", "ru": "Разделение царства: от Ровоама до Иосафата" },
+    { "ref": "2CH 21:1-28:27", "en": "Judah’s kings from Jehoram to Ahaz", "ru": "Цари Иудеи от Иорама до Ахаза" },
+    { "ref": "2CH 29:1-32:33", "en": "Hezekiah’s reform", "ru": "Реформа Езекии" },
+    { "ref": "2CH 33:1-35:27", "en": "Manasseh, Amon and Josiah", "ru": "Манассия, Амон и Иосия" },
+    { "ref": "2CH 36:1-23", "en": "The fall of Jerusalem and Cyrus’s decree", "ru": "Падение Иерусалима и указ Кира" }
+  ],
+  "keyVerses": ["2CH 7:14", "2CH 16:9", "2CH 20:15", "2CH 36:23"],
+  "places": ["a15257a", "aede336", "adf74d4", "a3cc590", "a8554e3", "a217d18"]
+}

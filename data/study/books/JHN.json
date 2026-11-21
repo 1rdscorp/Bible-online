@@ -1,0 +1,34 @@
+{
+  "formatVersion": 1,
+  "book": "JHN",
+  "author": {
+    "en": "Traditionally the apostle John, son of Zebedee, identified with the disciple whom Jesus loved, whose witness the Gospel says it records. Many scholars think it reached its final form among his followers.",
+    "ru": "По преданию — апостол Иоанн, сын Зеведеев, которого отождествляют с учеником, «которого любил Иисус»; Евангелие говорит о себе, что передаёт его свидетельство. Многие исследователи считают, что окончательный вид ему придали ученики апостола."
+  },
+  "date": {
+    "en": "Traditionally c. AD 90, at Ephesus; most scholars date it to AD 90–100, though some argue for an earlier date.",
+    "ru": "По преданию — ок. 90 г. н. э., в Ефесе; большинство учёных относят его к 90–100 гг. н. э., хотя некоторые предлагают более раннюю дату."
+  },
+  "summary": {
+    "en": "Written so that readers may believe that Jesus is the Messiah, the Son of God, and have life in his name. John presents Jesus as the eternal Word made flesh, revealed through seven signs and the great “I am” sayings, and dwells at length on his farewell words to the disciples, his death and his resurrection.",
+    "ru": "Евангелие написано для того, чтобы читатели уверовали, что Иисус есть Христос, Сын Божий, и, веруя, имели жизнь во имя Его. Иоанн показывает Иисуса как вечное Слово, ставшее плотью, Которое открывается в семи знамениях и в словах «Я есмь», и подробно передаёт Его прощальную беседу с учениками, Его смерть и воскресение."
+  },
+  "themes": [
+    { "en": "The Word made flesh", "ru": "Слово стало плотью" },
+    { "en": "Signs that lead to faith", "ru": "Знамения, ведущие к вере" },
+    { "en": "Believing and eternal life", "ru": "Вера и вечная жизнь" },
+    { "en": "Light and darkness", "ru": "Свет и тьма" },
+    { "en": "Love and the promised Spirit", "ru": "Любовь и обещанный Утешитель" }
+  ],
+  "outline": [
+    { "ref": "JHN 1:1-18", "en": "Prologue: the Word made flesh", "ru": "Пролог: Слово стало плотью" },
+    { "ref": "JHN 1:19-4:54", "en": "First witnesses and first signs", "ru": "Первые свидетели и первые знамения" },
+    { "ref": "JHN 5:1-10:42", "en": "Signs and conflict at the feasts", "ru": "Знамения и споры в дни праздников" },
+    { "ref": "JHN 11:1-12:50", "en": "Lazarus raised and the hour comes", "ru": "Воскрешение Лазаря и приближение часа" },
+    { "ref": "JHN 13:1-17:26", "en": "The Last Supper and farewell discourse", "ru": "Тайная вечеря и прощальная беседа" },
+    { "ref": "JHN 18:1-19:42", "en": "Arrest, trial and crucifixion", "ru": "Взятие под стражу, суд и распятие" },
+    { "ref": "JHN 20:1-21:25", "en": "Resurrection and appearances", "ru": "Воскресение и явления Воскресшего" }
+  ],
+  "keyVerses": ["JHN 1:14", "JHN 3:16", "JHN 14:6", "JHN 20:31"],
+  "places": ["ae686c9", "a031bda", "af2161c", "a27b472", "a562fcc", "a4f35bc", "a15257a", "a631d35"]
+}

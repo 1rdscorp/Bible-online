@@ -1,0 +1,29 @@
+{
+  "formatVersion": 1,
+  "book": "2TH",
+  "author": {
+    "en": "Paul, writing with Silvanus and Timothy; many scholars think it was written in Paul’s name by a later follower.",
+    "ru": "Апостол Павел вместе с Силуаном и Тимофеем; многие исследователи считают, что послание позднее написал от имени Павла один из его последователей."
+  },
+  "date": {
+    "en": "c. AD 51, from Corinth, soon after the first letter; scholars who doubt Paul’s authorship date it later in the 1st century.",
+    "ru": "Ок. 51 г. н. э., из Коринфа, вскоре после первого послания; учёные, сомневающиеся в авторстве Павла, относят его к более позднему времени I в. н. э."
+  },
+  "summary": {
+    "en": "A short follow-up to 1 Thessalonians for a church still under persecution and unsettled by claims that the day of the Lord had already come. Paul encourages them, explains that the man of lawlessness must first be revealed, and warns those who had stopped working to earn their own living.",
+    "ru": "Краткое продолжение Первого послания к фессалоникийцам, обращённое к Церкви, которая по-прежнему терпит гонения и смущена слухами, будто день Господень уже наступил. Павел ободряет верующих, объясняет, что прежде должен открыться человек греха, и предостерегает тех, кто перестал трудиться, призывая их самим зарабатывать на хлеб."
+  },
+  "themes": [
+    { "en": "Encouragement in persecution", "ru": "Ободрение в гонениях" },
+    { "en": "God’s just judgement", "ru": "Праведный суд Божий" },
+    { "en": "The day of the Lord", "ru": "День Господень" },
+    { "en": "Diligent work", "ru": "Добросовестный труд" }
+  ],
+  "outline": [
+    { "ref": "2TH 1:1-12", "en": "Thanksgiving and encouragement in persecution", "ru": "Благодарение и ободрение в гонениях" },
+    { "ref": "2TH 2:1-17", "en": "Before the day of the Lord", "ru": "Что предшествует дню Господню" },
+    { "ref": "2TH 3:1-18", "en": "Prayer, work and final greetings", "ru": "Молитва, труд и прощальные слова" }
+  ],
+  "keyVerses": ["2TH 2:15", "2TH 3:3", "2TH 3:10"],
+  "places": ["afa9d8e"]
+}

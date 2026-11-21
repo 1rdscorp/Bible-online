@@ -1,6 +1,6 @@
 {
   "name": "bible-online",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "description": "A calm, fast, distraction-free Bible reader. Static site for GitHub Pages.",
   "type": "module",
@@ -8,7 +8,8 @@
     "start": "node tools/serve.mjs",
     "test": "node --test",
     "validate": "node tools/validate-translation.mjs data/kjv.json data/kjvs.json data/asv.json data/web.json data/ylt.json data/darby.json data/bbe.json data/rst.json data/lxx.json",
-    "build-data": "node tools/build-data.mjs"
+    "build-data": "node tools/build-data.mjs",
+    "build-research": "node tools/build-xref.mjs && node tools/build-strongs.mjs && node tools/build-geo.mjs && node tools/build-study.mjs"
   },
   "engines": {
     "node": ">=20"

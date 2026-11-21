@@ -1,0 +1,28 @@
+{
+  "formatVersion": 1,
+  "book": "TIT",
+  "author": {
+    "en": "Traditionally Paul, writing to his co-worker Titus; many scholars think the Pastoral Letters were written in Paul’s name by a later follower.",
+    "ru": "По преданию — апостол Павел, писавший своему сотруднику Титу; многие исследователи считают, что пастырские послания позднее написал от имени Павла один из его последователей."
+  },
+  "date": {
+    "en": "c. AD 63–65, between Paul’s two Roman imprisonments; scholars who doubt his authorship date it to the late 1st or early 2nd century.",
+    "ru": "Ок. 63–65 гг. н. э., между двумя римскими заключениями Павла; учёные, сомневающиеся в его авторстве, относят послание к концу I – началу II в. н. э."
+  },
+  "summary": {
+    "en": "Paul writes to Titus, whom he had left on Crete to appoint elders in every town and to silence false teachers. The letter teaches that the grace of God, which brings salvation, trains believers to live self-controlled, upright and godly lives and to be ready for every good work.",
+    "ru": "Павел пишет Титу, которого оставил на Крите, чтобы тот поставил пресвитеров по всем городам и обличил лжеучителей. Послание учит, что явившаяся спасительная благодать Божья наставляет верующих жить целомудренно, праведно и благочестиво и быть готовыми ко всякому доброму делу."
+  },
+  "themes": [
+    { "en": "Worthy elders", "ru": "Достойные пресвитеры" },
+    { "en": "Sound doctrine and good works", "ru": "Здравое учение и добрые дела" },
+    { "en": "Grace that teaches godliness", "ru": "Благодать, наставляющая к благочестию" },
+    { "en": "Christian conduct in society", "ru": "Поведение христиан в обществе" }
+  ],
+  "outline": [
+    { "ref": "TIT 1:1-16", "en": "Elders and false teachers", "ru": "Пресвитеры и лжеучители" },
+    { "ref": "TIT 2:1-15", "en": "Sound teaching for old and young", "ru": "Здравое учение для старших и младших" },
+    { "ref": "TIT 3:1-15", "en": "Saved to do good works", "ru": "Спасённые для добрых дел" }
+  ],
+  "keyVerses": ["TIT 2:11-12", "TIT 3:5"]
+}

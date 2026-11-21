@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "book": "PSA",
+  "author": {
+    "en": "Many authors. In the Hebrew text the titles name David in 73 psalms, as well as Asaph, the sons of Korah, Solomon, Moses and others; about a third are anonymous. Many scholars read the titles as later additions.",
+    "ru": "Псалмы принадлежат многим авторам. В еврейском тексте надписания называют Давида в 73 псалмах, а также Асафа, сынов Кореевых, Соломона, Моисея и других; около трети псалмов безымянны. Многие исследователи считают надписания позднейшими добавлениями."
+  },
+  "date": {
+    "en": "Written over many centuries, from David’s time (c. 1000 BC) or earlier until after the exile, when the collection probably took its final shape.",
+    "ru": "Псалмы создавались на протяжении многих веков, от времени Давида (ок. 1000 г. до н. э.) и ранее до эпохи после плена, когда сборник, вероятно, и обрёл окончательный вид."
+  },
+  "summary": {
+    "en": "Israel’s book of prayer and praise: 150 songs and poems for worship, lament, thanksgiving and instruction. Gathered into five books, the Psalms bring every human emotion before God, celebrate his rule and his law, and look to the king of David’s line. They became the prayer book of synagogue and church.",
+    "ru": "Книга молитв и хвалы Израиля: 150 песнопений для богослужения, плача, благодарения и наставления. Разделённая на пять книг, Псалтирь выражает перед Богом всю гамму человеческих чувств, прославляет Его царство и закон и обращает взор к царю из рода Давида. Она стала молитвенником синагоги и Церкви."
+  },
+  "themes": [
+    { "en": "Praise and thanksgiving", "ru": "Хвала и благодарение" },
+    { "en": "Lament and trust in trouble", "ru": "Плач и упование в беде" },
+    { "en": "The Lord reigns", "ru": "Господь царствует" },
+    { "en": "God’s law and instruction", "ru": "Божий закон и наставление" },
+    { "en": "The anointed king", "ru": "Помазанный царь" }
+  ],
+  "outline": [
+    { "ref": "PSA 1:1-41:13", "en": "Book I: mostly psalms of David", "ru": "Книга I: в основном псалмы Давида" },
+    { "ref": "PSA 42:1-72:20", "en": "Book II: the sons of Korah and David", "ru": "Книга II: псалмы сынов Кореевых и Давида" },
+    { "ref": "PSA 73:1-89:52", "en": "Book III: Asaph, Korah and a fallen throne", "ru": "Книга III: Асаф, сыны Кореевы и павший престол" },
+    { "ref": "PSA 90:1-106:48", "en": "Book IV: the Lord reigns", "ru": "Книга IV: Господь царствует" },
+    { "ref": "PSA 107:1-150:6", "en": "Book V: thanksgiving, ascents and final praise", "ru": "Книга V: благодарение, песни восхождения и хвала" }
+  ],
+  "keyVerses": ["PSA 1:1-2", "PSA 23:1", "PSA 51:10", "PSA 119:105"],
+  "places": ["a15257a", "ae686c9", "a341fe8", "a217d18"]
+}

@@ -1,0 +1,32 @@
+{
+  "formatVersion": 1,
+  "book": "1CH",
+  "author": {
+    "en": "Traditionally Ezra. Most scholars attribute 1 and 2 Chronicles, originally one book, to an unknown writer often called the Chronicler, perhaps a Levite in Jerusalem.",
+    "ru": "По преданию — Ездра. Большинство исследователей приписывают 1 и 2 Паралипоменон (изначально одна книга) неизвестному автору, которого часто называют Летописцем; возможно, это был левит из Иерусалима."
+  },
+  "date": {
+    "en": "After the return from exile; the genealogies run several generations past Zerubbabel, pointing to the 5th–4th century BC.",
+    "ru": "После возвращения из плена: родословия доходят до нескольких поколений после Зоровавеля, что указывает на V–IV вв. до н. э."
+  },
+  "summary": {
+    "en": "Chronicles retells Israel’s history for the community that returned from exile. After genealogies tracing the people from Adam, 1 Chronicles centres on David: the ark brought to Jerusalem, God’s promise of a lasting dynasty, and David’s preparations for the temple that Solomon will build.",
+    "ru": "Книги Паралипоменон заново излагают историю Израиля для общины, вернувшейся из плена. После родословий, начинающихся с Адама, первая книга сосредоточена на Давиде: перенесение ковчега в Иерусалим, Божье обетование о вечном царском роде и приготовления к строительству храма, который возведёт Соломон."
+  },
+  "themes": [
+    { "en": "Continuity with Israel’s past", "ru": "Преемственность с прошлым Израиля" },
+    { "en": "David and his dynasty", "ru": "Давид и его династия" },
+    { "en": "The temple and true worship", "ru": "Храм и истинное богослужение" },
+    { "en": "All Israel united", "ru": "Единство всего Израиля" },
+    { "en": "Seeking the Lord", "ru": "Искать Господа" }
+  ],
+  "outline": [
+    { "ref": "1CH 1:1-9:44", "en": "Genealogies from Adam to the return", "ru": "Родословия от Адама до возвращения из плена" },
+    { "ref": "1CH 10:1-12:40", "en": "Saul’s death and David made king", "ru": "Гибель Саула и воцарение Давида" },
+    { "ref": "1CH 13:1-16:43", "en": "The ark brought to Jerusalem", "ru": "Перенесение ковчега в Иерусалим" },
+    { "ref": "1CH 17:1-20:8", "en": "God’s promise to David and David’s wars", "ru": "Обетование Давиду и его войны" },
+    { "ref": "1CH 21:1-29:30", "en": "David prepares for the temple", "ru": "Давид готовит строительство храма" }
+  ],
+  "keyVerses": ["1CH 4:10", "1CH 16:34", "1CH 17:11-12", "1CH 29:11"],
+  "places": ["a15257a", "a85151a", "aede336", "a217d18"]
+}

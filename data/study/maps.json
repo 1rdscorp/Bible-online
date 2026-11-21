@@ -1,0 +1,809 @@
+{
+ "formatVersion": 1,
+ "maps": [
+  {
+   "id": "near-east",
+   "title": {
+    "en": "The Ancient Near East",
+    "ru": "Древний Ближний Восток"
+   },
+   "summary": {
+    "en": "The world of the Old Testament, from Abraham’s Ur to Egypt, and the empires of Assyria, Babylon and Persia.",
+    "ru": "Мир Ветхого Завета: от Ура, откуда вышел Авраам, до Египта, и державы Ассирии, Вавилона и Персии."
+   },
+   "bounds": [
+    25,
+    23.8,
+    50.5,
+    40.5
+   ],
+   "places": [
+    "a6cf75c",
+    "a217d18",
+    "a70fd5d",
+    "a874951",
+    "a6d9af3",
+    "af6c730",
+    "ad797fe",
+    "ac62cbc",
+    "a69c1d4",
+    "a160272",
+    "a15257a",
+    "ac2cef0",
+    "abfba2a",
+    "a079b21",
+    "ac31fee",
+    "a8ec269",
+    "a9674fc",
+    "a8a6a5b",
+    "a033b84",
+    "a212ef7",
+    "ab89be9"
+   ],
+   "labels": [
+    {
+     "text": {
+      "en": "EGYPT",
+      "ru": "ЕГИПЕТ"
+     },
+     "lon": 30.0,
+     "lat": 27.0,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "CANAAN",
+      "ru": "ХАНААН"
+     },
+     "lon": 35.9,
+     "lat": 31.0,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "ARAM",
+      "ru": "АРАМ"
+     },
+     "lon": 37.6,
+     "lat": 34.6,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "ASSYRIA",
+      "ru": "АССИРИЯ"
+     },
+     "lon": 42.8,
+     "lat": 35.3,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "BABYLONIA",
+      "ru": "ВАВИЛОНИЯ"
+     },
+     "lon": 45.2,
+     "lat": 31.9,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "ELAM",
+      "ru": "ЕЛАМ"
+     },
+     "lon": 47.6,
+     "lat": 31.3,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "MEDIA",
+      "ru": "МИДИЯ"
+     },
+     "lon": 47.2,
+     "lat": 36.3,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "ARABIA",
+      "ru": "АРАВИЯ"
+     },
+     "lon": 40.0,
+     "lat": 28.5,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "ASIA MINOR",
+      "ru": "МАЛАЯ АЗИЯ"
+     },
+     "lon": 32.5,
+     "lat": 38.6,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "Great Sea",
+      "ru": "Великое море"
+     },
+     "lon": 28.5,
+     "lat": 33.6,
+     "kind": "water"
+    },
+    {
+     "text": {
+      "en": "Red Sea",
+      "ru": "Чермное море"
+     },
+     "lon": 35.8,
+     "lat": 26.0,
+     "kind": "water"
+    },
+    {
+     "text": {
+      "en": "Persian Gulf",
+      "ru": "Персидский залив"
+     },
+     "lon": 49.6,
+     "lat": 28.5,
+     "kind": "water"
+    },
+    {
+     "text": {
+      "en": "Euphrates",
+      "ru": "Евфрат"
+     },
+     "lon": 40.2,
+     "lat": 35.6,
+     "kind": "river"
+    },
+    {
+     "text": {
+      "en": "Tigris",
+      "ru": "Тигр"
+     },
+     "lon": 44.6,
+     "lat": 34.2,
+     "kind": "river"
+    },
+    {
+     "text": {
+      "en": "Nile",
+      "ru": "Нил"
+     },
+     "lon": 31.5,
+     "lat": 26.5,
+     "kind": "river"
+    }
+   ]
+  },
+  {
+   "id": "israel",
+   "title": {
+    "en": "The Land of Israel",
+    "ru": "Земля Израиля"
+   },
+   "summary": {
+    "en": "Cities, hills and valleys of the Old Testament story, “from Dan even to Beersheba”, with the peoples around Israel.",
+    "ru": "Города, горы и долины ветхозаветной истории — «от Дана до Вирсавии» — и народы вокруг Израиля."
+   },
+   "bounds": [
+    34.2,
+    30.4,
+    36.6,
+    33.6
+   ],
+   "places": [
+    "a98e4d7",
+    "a6fa2d3",
+    "a160272",
+    "a513646",
+    "a341fe8",
+    "a6f33c5",
+    "a3e21c6",
+    "a8554e3",
+    "ae0bf4a",
+    "acd63ee",
+    "acf57c5",
+    "a2a8df0",
+    "ab635e4",
+    "a80d317",
+    "a041bb3",
+    "adf74d4",
+    "aa4680a",
+    "a64f355",
+    "a231f80",
+    "aede336",
+    "a15257a",
+    "a112427",
+    "a85151a",
+    "ae023a9",
+    "a3fc47a",
+    "a30c937",
+    "ac87d4c",
+    "a18873f",
+    "aa8edd2",
+    "a3cc590",
+    "ad2f6c2",
+    "ac2cef0",
+    "a2fe63c",
+    "ae5bfe9",
+    "ae067b5",
+    "ab5bd29"
+   ],
+   "labels": [
+    {
+     "text": {
+      "en": "PHOENICIA",
+      "ru": "ФИНИКИЯ"
+     },
+     "lon": 35.55,
+     "lat": 33.48,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "GALILEE",
+      "ru": "ГАЛИЛЕЯ"
+     },
+     "lon": 35.3,
+     "lat": 32.95,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "GILEAD",
+      "ru": "ГАЛААД"
+     },
+     "lon": 35.95,
+     "lat": 32.3,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "BASHAN",
+      "ru": "ВАСАН"
+     },
+     "lon": 36.2,
+     "lat": 32.95,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "ISRAEL",
+      "ru": "ИЗРАИЛЬ"
+     },
+     "lon": 35.05,
+     "lat": 32.35,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "JUDAH",
+      "ru": "ИУДЕЯ"
+     },
+     "lon": 35.0,
+     "lat": 31.4,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "PHILISTIA",
+      "ru": "ФИЛИСТИЯ"
+     },
+     "lon": 34.5,
+     "lat": 31.25,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "AMMON",
+      "ru": "АММОН"
+     },
+     "lon": 36.25,
+     "lat": 31.85,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "MOAB",
+      "ru": "МОАВ"
+     },
+     "lon": 35.9,
+     "lat": 31.25,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "EDOM",
+      "ru": "ЕДОМ"
+     },
+     "lon": 35.55,
+     "lat": 30.6,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "NEGEV",
+      "ru": "НЕГЕВ"
+     },
+     "lon": 34.75,
+     "lat": 30.8,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "Great Sea",
+      "ru": "Великое море"
+     },
+     "lon": 34.45,
+     "lat": 32.55,
+     "kind": "water"
+    },
+    {
+     "text": {
+      "en": "Salt Sea",
+      "ru": "Соленое море"
+     },
+     "lon": 35.47,
+     "lat": 31.4,
+     "kind": "water"
+    },
+    {
+     "text": {
+      "en": "Sea of Chinnereth",
+      "ru": "море Киннереф"
+     },
+     "lon": 35.75,
+     "lat": 32.66,
+     "kind": "water"
+    },
+    {
+     "text": {
+      "en": "Jordan",
+      "ru": "Иордан"
+     },
+     "lon": 35.6,
+     "lat": 31.99,
+     "kind": "river"
+    }
+   ]
+  },
+  {
+   "id": "gospels",
+   "title": {
+    "en": "The Land of the Gospels",
+    "ru": "Земля Евангелий"
+   },
+   "summary": {
+    "en": "Galilee, Samaria and Judea in the time of Jesus: the towns of his ministry, from Nazareth and Capernaum to Bethany and Jerusalem.",
+    "ru": "Галилея, Самария и Иудея во времена Иисуса: места Его служения — от Назарета и Капернаума до Вифании и Иерусалима."
+   },
+   "bounds": [
+    34.75,
+    31.4,
+    36.05,
+    33.35
+   ],
+   "places": [
+    "a160272",
+    "ab7bf48",
+    "a593a48",
+    "a91b732",
+    "af2161c",
+    "ac9adc9",
+    "a031bda",
+    "af5884f",
+    "aee679c",
+    "afed46a",
+    "a58735e",
+    "a27b472",
+    "ada6b64",
+    "a231f80",
+    "a4f35bc",
+    "ae7274b",
+    "a15257a",
+    "a112427"
+   ],
+   "labels": [
+    {
+     "text": {
+      "en": "GALILEE",
+      "ru": "ГАЛИЛЕЯ"
+     },
+     "lon": 35.25,
+     "lat": 32.98,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "SAMARIA",
+      "ru": "САМАРИЯ"
+     },
+     "lon": 35.15,
+     "lat": 32.3,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "JUDEA",
+      "ru": "ИУДЕЯ"
+     },
+     "lon": 35.0,
+     "lat": 31.55,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "DECAPOLIS",
+      "ru": "ДЕКАПОЛИС"
+     },
+     "lon": 35.88,
+     "lat": 32.5,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "PEREA",
+      "ru": "ПЕРЕЯ"
+     },
+     "lon": 35.78,
+     "lat": 31.95,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "ITURAEA",
+      "ru": "ИТУРЕЯ"
+     },
+     "lon": 35.85,
+     "lat": 33.25,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "Mediterranean Sea",
+      "ru": "Средиземное море"
+     },
+     "lon": 34.85,
+     "lat": 32.9,
+     "kind": "water"
+    },
+    {
+     "text": {
+      "en": "Sea of Galilee",
+      "ru": "Галилейское море"
+     },
+     "lon": 35.75,
+     "lat": 32.75,
+     "kind": "water"
+    },
+    {
+     "text": {
+      "en": "Dead Sea",
+      "ru": "Мёртвое море"
+     },
+     "lon": 35.5,
+     "lat": 31.5,
+     "kind": "water"
+    },
+    {
+     "text": {
+      "en": "Jordan",
+      "ru": "Иордан"
+     },
+     "lon": 35.64,
+     "lat": 32.18,
+     "kind": "river"
+    }
+   ]
+  },
+  {
+   "id": "paul",
+   "title": {
+    "en": "Paul’s Journeys",
+    "ru": "Путешествия апостола Павла"
+   },
+   "summary": {
+    "en": "Paul’s three missionary journeys and his voyage to Rome, as Acts tells them. Routes are drawn as straight lines between the places named.",
+    "ru": "Три миссионерских путешествия Павла и его плавание в Рим по книге Деяний. Маршруты показаны прямыми линиями между упомянутыми местами."
+   },
+   "bounds": [
+    12,
+    30.6,
+    37.2,
+    42.4
+   ],
+   "places": [
+    "a15257a",
+    "a58735e",
+    "abc2af0",
+    "a160272",
+    "a98e4d7",
+    "a69c1d4",
+    "ae41ab4",
+    "a6d306d",
+    "a666ea0",
+    "afa863b",
+    "a314765",
+    "aff04b8",
+    "ac744c1",
+    "a6c704a",
+    "ae425aa",
+    "af0719d",
+    "aa401a9",
+    "a91c509",
+    "a0a2ca7",
+    "a6a7150",
+    "a49e1d0",
+    "a4bdea7",
+    "afa9d8e",
+    "a62fe31",
+    "a1fe6e7",
+    "a6f437a",
+    "aa31dd3",
+    "a5feb15",
+    "a55027d",
+    "a33910d",
+    "a4c2c75",
+    "acf6ec0",
+    "a398e5d",
+    "a4218ee",
+    "ade301b",
+    "aa4b3e2",
+    "aae626a",
+    "aca2b0a",
+    "a57835d",
+    "a1e3697",
+    "a63bb26",
+    "a4488e9",
+    "a121d5e",
+    "afef438",
+    "afc8e7a"
+   ],
+   "labels": [
+    {
+     "text": {
+      "en": "ITALY",
+      "ru": "ИТАЛИЯ"
+     },
+     "lon": 15.2,
+     "lat": 41.3,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "MACEDONIA",
+      "ru": "МАКЕДОНИЯ"
+     },
+     "lon": 22.4,
+     "lat": 41.15,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "ACHAIA",
+      "ru": "АХАЙЯ"
+     },
+     "lon": 22.0,
+     "lat": 37.4,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "ASIA",
+      "ru": "АЗИЯ"
+     },
+     "lon": 28.4,
+     "lat": 38.75,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "GALATIA",
+      "ru": "ГАЛАТИЯ"
+     },
+     "lon": 32.9,
+     "lat": 39.4,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "CILICIA",
+      "ru": "КИЛИКИЯ"
+     },
+     "lon": 34.4,
+     "lat": 37.35,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "SYRIA",
+      "ru": "СИРИЯ"
+     },
+     "lon": 36.6,
+     "lat": 34.9,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "CYPRUS",
+      "ru": "КИПР"
+     },
+     "lon": 33.3,
+     "lat": 35.25,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "CRETE",
+      "ru": "КРИТ"
+     },
+     "lon": 25.0,
+     "lat": 35.05,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "JUDEA",
+      "ru": "ИУДЕЯ"
+     },
+     "lon": 35.6,
+     "lat": 31.0,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "EGYPT",
+      "ru": "ЕГИПЕТ"
+     },
+     "lon": 30.0,
+     "lat": 31.0,
+     "kind": "region"
+    },
+    {
+     "text": {
+      "en": "Mediterranean Sea",
+      "ru": "Средиземное море"
+     },
+     "lon": 19.5,
+     "lat": 34.5,
+     "kind": "water"
+    },
+    {
+     "text": {
+      "en": "Aegean Sea",
+      "ru": "Эгейское море"
+     },
+     "lon": 25.0,
+     "lat": 38.9,
+     "kind": "water"
+    },
+    {
+     "text": {
+      "en": "Adriatic Sea",
+      "ru": "Адриатическое море"
+     },
+     "lon": 17.4,
+     "lat": 41.2,
+     "kind": "water"
+    }
+   ],
+   "routes": [
+    {
+     "id": "first",
+     "title": {
+      "en": "First journey",
+      "ru": "Первое путешествие"
+     },
+     "ref": "ACT 13:1-14:28",
+     "stops": [
+      "ae41ab4",
+      "a6d306d",
+      "afa863b",
+      "a314765",
+      "aff04b8",
+      "a6c704a",
+      "ae425aa",
+      "af0719d",
+      "aa401a9",
+      "af0719d",
+      "ae425aa",
+      "a6c704a",
+      "aff04b8",
+      "ac744c1",
+      "ae41ab4"
+     ]
+    },
+    {
+     "id": "second",
+     "title": {
+      "en": "Second journey",
+      "ru": "Второе путешествие"
+     },
+     "ref": "ACT 15:36-18:22",
+     "stops": [
+      "ae41ab4",
+      "a666ea0",
+      "aa401a9",
+      "af0719d",
+      "ae425aa",
+      "a6c704a",
+      "a91c509",
+      "a6a7150",
+      "a49e1d0",
+      "a4bdea7",
+      "afa9d8e",
+      "a62fe31",
+      "a1fe6e7",
+      "a6f437a",
+      "aa31dd3",
+      "a5feb15",
+      "a58735e",
+      "a15257a",
+      "ae41ab4"
+     ]
+    },
+    {
+     "id": "third",
+     "title": {
+      "en": "Third journey",
+      "ru": "Третье путешествие"
+     },
+     "ref": "ACT 18:23-21:17",
+     "stops": [
+      "ae41ab4",
+      "a666ea0",
+      "aa401a9",
+      "af0719d",
+      "ae425aa",
+      "a6c704a",
+      "a5feb15",
+      "a91c509",
+      "a49e1d0",
+      "afa9d8e",
+      "a6f437a",
+      "afa9d8e",
+      "a49e1d0",
+      "a91c509",
+      "a0a2ca7",
+      "a33910d",
+      "a4c2c75",
+      "acf6ec0",
+      "a55027d",
+      "a398e5d",
+      "a4218ee",
+      "ade301b",
+      "a160272",
+      "abc2af0",
+      "a58735e",
+      "a15257a"
+     ]
+    },
+    {
+     "id": "rome",
+     "title": {
+      "en": "Voyage to Rome",
+      "ru": "Плавание в Рим"
+     },
+     "ref": "ACT 27:1-28:16",
+     "stops": [
+      "a58735e",
+      "a98e4d7",
+      "aa4b3e2",
+      "aae626a",
+      "aca2b0a",
+      "a57835d",
+      "a1e3697",
+      "a63bb26",
+      "a4488e9",
+      "a121d5e",
+      "afef438",
+      "afc8e7a"
+     ]
+    }
+   ]
+  }
+ ]
+}

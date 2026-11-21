@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "book": "EZR",
+  "author": {
+    "en": "Traditionally Ezra, who speaks in the first person in chapters 7–9. Ezra and Nehemiah were originally one book; many scholars see it as compiled by a later editor from Ezra’s memoir, Persian documents and lists.",
+    "ru": "По преданию — Ездра; в гл. 7–9 он говорит от первого лица. Книги Ездры и Неемии изначально составляли одну книгу; многие исследователи считают, что её составил позднейший редактор, опираясь на записки Ездры, персидские документы и списки."
+  },
+  "date": {
+    "en": "Probably the late 5th or 4th century BC. The events run from Cyrus’s decree in 538 BC to Ezra’s arrival, usually dated 458 BC; some scholars prefer 398 BC.",
+    "ru": "Вероятно, конец V или IV в. до н. э. События охватывают время от указа Кира (538 г. до н. э.) до прибытия Ездры, которое обычно датируют 458 г. до н. э.; некоторые учёные предпочитают 398 г. до н. э."
+  },
+  "summary": {
+    "en": "After Cyrus of Persia lets the exiles go home, a first group returns to Jerusalem and, despite opposition, rebuilds the temple. Decades later Ezra, a priest and scribe, comes with the law of God and leads the people in repentance over marriages with foreign wives. God is seen keeping his promise to restore his people.",
+    "ru": "Когда персидский царь Кир позволяет пленникам вернуться, первые переселенцы приходят в Иерусалим и, несмотря на противодействие, восстанавливают храм. Спустя десятилетия священник и книжник Ездра приносит с собой закон Божий и призывает народ к покаянию за браки с иноплеменными жёнами. Книга показывает, как Бог исполняет обещание восстановить Свой народ."
+  },
+  "themes": [
+    { "en": "Return from exile", "ru": "Возвращение из плена" },
+    { "en": "Rebuilding the temple", "ru": "Восстановление храма" },
+    { "en": "The good hand of God", "ru": "Благая рука Божья" },
+    { "en": "Living by God’s law", "ru": "Жизнь по закону Божьему" },
+    { "en": "Repentance and purity", "ru": "Покаяние и чистота" }
+  ],
+  "outline": [
+    { "ref": "EZR 1:1-2:70", "en": "The first return under Cyrus", "ru": "Первое возвращение при Кире" },
+    { "ref": "EZR 3:1-6:22", "en": "The temple rebuilt despite opposition", "ru": "Восстановление храма вопреки противодействию" },
+    { "ref": "EZR 7:1-8:36", "en": "Ezra’s journey to Jerusalem", "ru": "Путь Ездры в Иерусалим" },
+    { "ref": "EZR 9:1-10:44", "en": "Repentance over foreign marriages", "ru": "Покаяние за браки с иноплеменницами" }
+  ],
+  "keyVerses": ["EZR 1:3", "EZR 3:11", "EZR 7:10"],
+  "places": ["a217d18", "a15257a", "a212ef7"]
+}

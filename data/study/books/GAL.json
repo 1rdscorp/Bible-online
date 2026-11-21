@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "book": "GAL",
+  "author": {
+    "en": "Paul; his authorship is not disputed.",
+    "ru": "Апостол Павел; его авторство не оспаривается."
+  },
+  "date": {
+    "en": "c. AD 48 or the mid-50s; scholars differ on whether it was sent to the churches of southern Galatia founded on Paul’s first journey or to northern Galatia.",
+    "ru": "Ок. 48 г. н. э. или середина 50-х гг. I в. н. э.: учёные расходятся во мнениях, кому оно адресовано — церквам южной Галатии, основанным в первом путешествии Павла, или северной Галатии."
+  },
+  "summary": {
+    "en": "A passionate letter to churches in Galatia that were being urged to accept circumcision and the Law of Moses. Paul defends the gospel he received from Christ himself, argues that people are justified by faith and not by works of the Law, and calls believers to live in freedom by the Spirit.",
+    "ru": "Горячее послание церквам Галатии, которых убеждали принять обрезание и Закон Моисея. Павел защищает Евангелие, полученное им от Самого Христа, доказывает, что человек оправдывается верой, а не делами Закона, и призывает верующих жить в свободе по Духу."
+  },
+  "themes": [
+    { "en": "One true gospel", "ru": "Единственное истинное Евангелие" },
+    { "en": "Justification by faith", "ru": "Оправдание верой" },
+    { "en": "Freedom in Christ", "ru": "Свобода во Христе" },
+    { "en": "Children of Abraham by faith", "ru": "Дети Авраама по вере" },
+    { "en": "Life by the Spirit", "ru": "Жизнь по Духу" }
+  ],
+  "outline": [
+    { "ref": "GAL 1:1-10", "en": "Greeting: no other gospel", "ru": "Приветствие: нет иного Евангелия" },
+    { "ref": "GAL 1:11-2:21", "en": "Paul’s gospel came from Christ", "ru": "Евангелие Павла — от Самого Христа" },
+    { "ref": "GAL 3:1-4:31", "en": "Justified by faith, not by the Law", "ru": "Оправдание верой, а не делами Закона" },
+    { "ref": "GAL 5:1-6:18", "en": "Freedom and life by the Spirit", "ru": "Свобода и жизнь по Духу" }
+  ],
+  "keyVerses": ["GAL 2:20", "GAL 3:28", "GAL 5:1", "GAL 5:22-23"],
+  "places": ["a15257a", "a69c1d4", "ae41ab4"]
+}
