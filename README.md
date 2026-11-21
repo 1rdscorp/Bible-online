@@ -124,12 +124,14 @@ Data lives in the browser's storage on this device, through `js/storage.js`, the
 
 ## Translate a selection into Russian
 
-Select English Bible text (in single view, or in an English column when comparing), or tap English verses, and choose **Translate** in the action bar. The panel it opens shows:
+Select English or Greek (Septuagint) Bible text (in single view, or in that column when comparing), or tap verses, and choose **Translate** in the action bar. The panel it opens shows:
 - **Machine translation** of exactly the selected words. It's made on the device by the browser's built-in Translator API (desktop Chrome and Edge), so nothing leaves the device. A browser that doesn't answer within a few seconds says so.
 - **Open in Yandex Translate:** opens Yandex Translate with the selected text already filled in, and translated straight away (no account, nothing to paste). It's offered in every browser. With the Russian interface it opens the Russian site, translate.yandex.ru. The text goes to Yandex only when you click the link.
 - **The Russian Synodal text of the same verses,** a real Bible translation. It's skipped when the Synodal is already a column on screen.
 
 No paid translation API is used: its key would be public on a static site, and the project has no backend. Translate.com, used for a while, can't receive text through a link, so readers had to paste it themselves.
+
+**Septuagint Greek:** machine translators know Modern Greek but not ancient Greek. So the Septuagint's text is sent to them as Modern Greek, rewritten in modern spelling: breathings dropped, accents simplified (`ἘΝ ἀρχῇ` → `ΕΝ αρχή`). In tests with Yandex Translate this made the difference between nonsense and a usable rendering (Genesis 1:1: "В начале Бог сотворил небо и Землю"). The panel says it's a rough guide. The Synodal verses below it are the real translation.
 
 ## Interface language
 
@@ -185,7 +187,7 @@ tests/                node --test suites
   - In compare mode, a translation's own Psalm numbers appear under its column picker ("Псалом 22" beside English Psalm 23)
   - Russian interface with a RUS | ENG switch
   - Translate selected English text into Russian (on-device machine translation, a Yandex Translate link with the text filled in, Synodal verses)
-  - The Septuagint (LXX), in Greek, with a polytonic Greek font stack and accent-insensitive search
+  - The Septuagint (LXX), in Greek, with a polytonic Greek font stack and accent-insensitive search; its text can be translated into Russian too
 - [x] **Stage 3:** full-text search in one or all translations (all words, any word, exact phrase, word starts), book/Testament filters, results grouped by book with counts and highlights, jump-and-flash to the verse, reference entry ("Jn 3:16", "Ps 23:1-4", Russian names too), and indexing in a Web Worker
 - [x] **Stage 4:** personal study tools: tap or select verses for an action bar (5 highlight colours, notes, bookmarks, two copy formats, share), a Notes panel with a rich-ish editor, tags and search, a My Study page with filters, highlights kept by verse reference across translations, and JSON backup export/import
   - Added later: word-level highlights (in the translation they were made in), and searching for selected words

@@ -98,6 +98,23 @@ export async function translateOnDevice(text, { from, to, onProgress } = {}) {
   return withTimeout(translator.translate(text), TIMEOUTS.translate, 'translate');
 }
 
+/**
+ * The Bible languages that can be translated into Russian here, and how a
+ * machine translator should read them. Ancient Greek (the Septuagint) is
+ * offered as Modern Greek, in modern spelling: translators know no ancient
+ * Greek, and read it far better that way (see toMonotonic).
+ */
+export const TRANSLATABLE = Object.freeze({
+  en: Object.freeze({ machineLanguage: 'en' }),
+  grc: Object.freeze({ machineLanguage: 'el', modernSpelling: true }),
+});
+
+/** "en-GB" → "en", "grc" → "grc", anything else → null. */
+export function translatableLanguage(language) {
+  const base = String(language ?? '').toLowerCase().split('-')[0];
+  return TRANSLATABLE[base] ? base : null;
+}
+
 // Yandex Translate's page accepts up to 10,000 characters; a link that long
 // is still fine for browsers, but keep it well inside common URL limits.
 const URL_TEXT_LIMIT = 2000;
