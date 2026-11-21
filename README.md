@@ -81,4 +81,5 @@ tests/                node --test suites
 - [x] **Stage 1:** core reader: book/chapter picker, chapter view, hash URLs, keyboard navigation, last-read memory, light/sepia/dark themes, text size
 - [x] **Stage 2:** six translations, dropdown, parallel view (2–4 columns, aligned, stacks on phones), lazy loading with on-device caching, provider interface ready for API sources, copyright/licence notices and a Translations page
   - Added later: the Russian Synodal translation, with build-time verse renumbering (versification) and a Cyrillic font stack
+  - In compare mode, a translation's own Psalm numbers appear under its column picker ("Псалом 22" beside English Psalm 23)
 - [ ] Later: search, highlights/notes/bookmarks, reading plans, cross-references, Strong's word study, offline support

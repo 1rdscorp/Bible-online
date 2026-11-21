@@ -125,6 +125,22 @@ describe('spot checks', () => {
     assert.match(verse(rst, 'JHN', 3, 16), /^Ибо так возлюбил Бог мир/);
   });
 
+  test('RST: its own Psalm numbers are recorded (shown in compare mode)', () => {
+    const rst = load('rst');
+    const native = rst.books.find((b) => b.id === 'PSA').native;
+    assert.equal(rst.nativeVersification, 'rso');
+    assert.deepEqual(native['23'], [[22]]);
+    assert.deepEqual(native['9'], [[9, 1, 21]], 'English 9 is the first half of Synodal 9');
+    assert.deepEqual(native['10'], [[9, 22, 39]]);
+    assert.deepEqual(native['116'], [[114], [115]]);
+    assert.deepEqual(native['147'], [[146], [147]]);
+    assert.equal(native['1'], undefined, 'same number in both: nothing recorded');
+    assert.equal(native['148'], undefined);
+    assert.equal(load('kjv').books.find((b) => b.id === 'PSA').native, undefined);
+    // Synodal Psalm 114:9, split from 114:8 in the source and mapped to English 116:9
+    assert.equal(verse(rst, 'PSA', 116, 9), 'Буду ходить пред лицем Господним на земле живых.');
+  });
+
   test('RST: Russian typography, no source markup', () => {
     const verses = load('rst').books.flatMap((b) => b.chapters.flat());
     assert.deepEqual(verses.filter((v) => /(^|\s)-(\s|$)/.test(v)).slice(0, 3), [], 'spaced hyphen instead of a dash');

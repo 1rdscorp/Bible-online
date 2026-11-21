@@ -98,12 +98,16 @@ export function createVersificationMapper({ from, to, corrections = {} }) {
  * order. A title that lands on verse 0 is placed at the start of verse 1, the
  * convention used across this project's data. A verse whose target leaves
  * gaps (one source verse covering two target verses) leaves the later ones
- * empty; the reader shows those as a dash.
+ * empty; the reader shows those as a dash. Empty source verses are skipped.
+ *
+ * Each yielded verse also carries `sources`: the { chapter, verse } references
+ * it came from in the source's own numbering (see nativeChapterSpans).
  */
 export function* remapVerses(verses, mapper) {
-  const byTarget = new Map(); // "BOOK chapter" → Map(verse → texts[])
+  const byTarget = new Map(); // "BOOK chapter" → { verses: Map(verse → { texts, sources }) }
   const order = [];
   for (const { bookId, chapter, verse, text } of verses) {
+    if (!String(text ?? '').trim()) continue;
     const target = mapper(bookId, chapter, verse);
     const chapterKey = `${target.bookId} ${target.chapter}`;
     if (!byTarget.has(chapterKey)) {
@@ -111,18 +115,64 @@ export function* remapVerses(verses, mapper) {
       order.push(chapterKey);
     }
     const targetVerses = byTarget.get(chapterKey).verses;
-    if (!targetVerses.has(target.verse)) targetVerses.set(target.verse, []);
-    targetVerses.get(target.verse).push(text);
+    if (!targetVerses.has(target.verse)) targetVerses.set(target.verse, { texts: [], sources: [] });
+    const entry = targetVerses.get(target.verse);
+    entry.texts.push(text);
+    entry.sources.push({ chapter, verse });
   }
 
   for (const chapterKey of order) {
     const { bookId, chapter, verses: targetVerses } = byTarget.get(chapterKey);
-    const title = targetVerses.get(0) ?? [];
+    const title = targetVerses.get(0) ?? { texts: [], sources: [] };
     targetVerses.delete(0);
-    if (title.length && !targetVerses.has(1)) targetVerses.set(1, []);
+    if (title.texts.length && !targetVerses.has(1)) targetVerses.set(1, { texts: [], sources: [] });
     for (const verse of [...targetVerses.keys()].sort((a, b) => a - b)) {
-      const parts = verse === 1 ? [...title, ...targetVerses.get(verse)] : targetVerses.get(verse);
-      yield { bookId, chapter, verse, text: parts.join(' ') };
+      const entry = targetVerses.get(verse);
+      const texts = verse === 1 ? [...title.texts, ...entry.texts] : entry.texts;
+      const sources = verse === 1 ? [...title.sources, ...entry.sources] : entry.sources;
+      yield { bookId, chapter, verse, text: texts.join(' '), sources };
     }
   }
+}
+
+/**
+ * Where each renumbered chapter sits in the source's own numbering, for the
+ * chapters where that tells a reader something: it draws on a different
+ * chapter, or on only part of one. English Psalm 23 is all of Synodal
+ * Psalm 22 → [[22]]; English Psalm 10 is Synodal 9:22–39 → [[9, 22, 39]];
+ * English Psalm 116 is Synodal 114 and 115 → [[114], [115]].
+ *
+ * @param {Iterable<{ bookId, chapter, sources }>} verses  output of remapVerses
+ * @param {Record<string, string[]>} nativeMaxVerses       the source scheme's verse counts (maxVerses)
+ * @returns {Record<string, Record<string, number[][]>>}   bookId → chapter → spans
+ */
+export function nativeChapterSpans(verses, nativeMaxVerses) {
+  const byChapter = new Map();
+  for (const { bookId, chapter, sources } of verses) {
+    const chapterKey = `${bookId} ${chapter}`;
+    if (!byChapter.has(chapterKey)) byChapter.set(chapterKey, { bookId, chapter, sources: [] });
+    byChapter.get(chapterKey).sources.push(...sources);
+  }
+
+  const result = {};
+  for (const { bookId, chapter, sources } of byChapter.values()) {
+    // Consecutive runs of the same source chapter, with their verse range.
+    const runs = [];
+    for (const source of sources) {
+      const run = runs.at(-1);
+      if (run && run.chapter === source.chapter) {
+        run.from = Math.min(run.from, source.verse);
+        run.to = Math.max(run.to, source.verse);
+      } else {
+        runs.push({ chapter: source.chapter, from: source.verse, to: source.verse });
+      }
+    }
+    const spans = runs.map(({ chapter: c, from, to }) => {
+      const whole = from <= 1 && to >= Number(nativeMaxVerses[bookId]?.[c - 1]);
+      return whole ? [c] : [c, from, to];
+    });
+    if (spans.every((span) => span.length === 1 && span[0] === chapter)) continue; // same as English
+    (result[bookId] ??= {})[chapter] = spans;
+  }
+  return result;
 }

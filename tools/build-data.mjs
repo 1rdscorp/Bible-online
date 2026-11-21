@@ -17,8 +17,8 @@ import { basename, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readScrollmapper } from './lib/read-scrollmapper.mjs';
 import { readUsfx } from './lib/read-usfx.mjs';
-import { buildBooks, writeTranslationFile } from './lib/translation-file.mjs';
-import { createVersificationMapper, remapVerses } from './lib/versification.mjs';
+import { buildBooks, splitVerses, writeTranslationFile } from './lib/translation-file.mjs';
+import { createVersificationMapper, nativeChapterSpans, remapVerses } from './lib/versification.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const CACHE_DIR = join(ROOT, '.cache', 'sources');
@@ -70,17 +70,27 @@ for (const id of ids) {
   if (!read) throw new Error(`${id}: unknown format "${source.format}"`);
 
   let verses = read(await download(source.url));
+  // Verses a source ran together, split at the given phrase (source numbering).
+  if (source.splitVerses) verses = splitVerses(verses, source.splitVerses);
+
+  let native = null;
   if (source.versification) {
     // e.g. Russian Synodal ("rso") → English numbering, via the original-language numbering.
     const { scheme, corrections = {} } = source.versification;
     const [from, to] = await Promise.all(
       [scheme, 'eng'].map(async (name) => JSON.parse(await download(`${sources._versificationMappings}${name}.json`))),
     );
-    verses = remapVerses(verses, createVersificationMapper({ from, to, corrections }));
+    const remapped = [...remapVerses(verses, createVersificationMapper({ from, to, corrections }))];
+    // Remember where each English chapter sits in the source's own numbering,
+    // so the reader can show it (e.g. "Псалом 22" beside English Psalm 23).
+    native = nativeChapterSpans(remapped, from.maxVerses);
+    verses = remapped;
     console.log(`  renumbered from "${scheme}" to English verse numbers (${Object.keys(corrections).length} corrections)`);
   }
 
   const { books, fixCounts } = buildBooks(verses, { fixes: source.fixes ?? [] });
+  for (const book of books) if (native?.[book.id]) book.native = native[book.id];
+
   const result = await writeTranslationFile(join(ROOT, entry.url), {
     id,
     abbreviation: entry.abbreviation,
@@ -89,6 +99,7 @@ for (const id of ids) {
     direction: entry.direction ?? 'ltr',
     license: entry.license,
     source: source.url,
+    ...(source.versification ? { nativeVersification: source.versification.scheme } : {}),
     books,
   });
   if (!result.ok) {

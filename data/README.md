@@ -41,6 +41,7 @@ Rules:
 - **`chapters[i]`** is chapter *i + 1*; **`chapters[i][j]`** is verse *j + 1*, as plain UTF-8 text with no HTML or markup.
 - **Missing verse:** use `""` so later verse numbers stay aligned (the ASV leaves Matthew 17:21 empty). Don't pad the end of a chapter.
 - **Psalm titles**, where a source has them, are the start of verse 1 ("A Psalm of David. Jehovah is my shepherd…").
+- **Optional: a translation's own numbering.** A translation renumbered to English verse numbers (see "Verse numbering" below) records its original scheme in `"nativeVersification"`, and gives each affected book a `"native"` object. That object says where each English chapter sits in the original numbering, for chapters where the two differ: `"native": {"23": [[22]], "10": [[9, 22, 39]], "116": [[114], [115]]}`. Each span is `[chapter]` (all of it) or `[chapter, firstVerse, lastVerse]`. The reader uses it to show, in compare mode, "Псалом 22" beside English Psalm 23.
 - **Typography:** curly quotes and apostrophes (‘ ’ “ ”), em dashes (—), no space before punctuation. The tests enforce this so parallel columns look consistent.
 
 Check a file with `node tools/validate-translation.mjs data/kjv.json`, or check all six with `npm run validate`.
@@ -76,6 +77,7 @@ Check a file with `node tools/validate-translation.mjs data/kjv.json`, or check 
 | `abbreviation`, `name`, `year` | Dropdowns, column headings, notices |
 | `license` | Short label shown under the text ("Public domain") |
 | `notice` | *(optional)* Credit line a licence requires next to the text; replaces `license` there |
+| `numbering` | *(optional)* For a translation with its own numbering: `name` (read to screen readers, e.g. "Synodal numbering") and the words for its Psalm labels (`psalm`, `psalms`) |
 | `copyright`, `description`, `source` | The Translations page (`#/translations`) |
 | `provider` | Which provider serves it: `"json"` = static file at `url`. See `js/providers/README.md` for API sources |
 | `version` | First 12 hex digits of the file's SHA-256. It's the cache key: when a file changes, readers' cached copies refresh automatically. `npm run build-data` sets it, and `npm test` fails if it's stale |
@@ -92,7 +94,7 @@ Each source was chosen by comparing the candidates verse by verse and checking f
 | **YLT** | scrollmapper, current branch | Has Psalm titles and fewer leftover marks than the legacy file | typography (backtick quotes → ‘ ’, `--` → —) |
 | **Darby** | scrollmapper, current branch | The only copy available | typography, missing space before "God"/"Godhead" restored (3,681) |
 | **BBE** | scrollmapper, current branch | The legacy file uses Hebrew verse numbers in places (Leviticus 5:20–26, Job 39:31–38), which breaks alignment | typography |
-| **RST** | scrollmapper, current branch (`RusSynodal.json`) | Consistently in Synodal numbering (all 1,192 chapters match the `rso` scheme), so it can be renumbered exactly. The other copy checked (open-bibles' Zefania XML) mixes numbering systems. Wording agrees with it in 99.1% of New Testament verses; the rest are spelling variants | renumbered to English verse numbers (below); `russian-typography` (` - ` → ` — `, straight quotes → «», one quote typed as `::`); `capitalize-chapter-start` (24 Psalm titles began in lower case); footnotes dropped; a Psalm title stuck to the end of the previous Psalm moved back |
+| **RST** | scrollmapper, current branch (`RusSynodal.json`) | Consistently in Synodal numbering (all 1,192 chapters match the `rso` scheme), so it can be renumbered exactly. The other copy checked (open-bibles' Zefania XML) mixes numbering systems. Wording agrees with it in 99.1% of New Testament verses; the rest are spelling variants | renumbered to English verse numbers (below); `russian-typography` (` - ` → ` — `, straight quotes → «», one quote typed as `::`); `capitalize-chapter-start` (24 Psalm titles began in lower case); footnotes dropped; a Psalm title stuck to the end of the previous Psalm moved back; Psalm 114:8–9 (Synodal), which the source runs together, split again (`splitVerses`) |
 
 Clean-ups only change typography or repair conversion damage. They're defined in `tools/lib/translation-file.mjs`. The pinned URLs are in `tools/data-sources.json`.
 
@@ -102,8 +104,9 @@ All data files use **English (KJV) chapter and verse numbers**, so `#/psalms/23`
 
 - **Mappings:** the [Copenhagen Alliance versification mappings](https://github.com/Copenhagen-Alliance/versification-specification) (CC BY-SA 4.0), which map each scheme to the original-language numbering, giving Synodal (`rso`) → original → English (`eng`). They're downloaded at build time and not stored in this repository.
 - **Two-verse titles:** where one English verse covers two Synodal verses, their text is joined. A title that has no number in English starts verse 1, as in the other translations.
-- **Corrections:** checking every chapter against the KJV turned up four errors in `rso.json` (Isaiah 3:19–26, Daniel 5:31–6:28, 2 Corinthians 13:13, 3 John 1:15). Each was confirmed by reading the Russian and English text side by side. They're fixed by the `corrections` in `tools/data-sources.json`, which are offered under the same CC BY-SA 4.0 licence.
-- **Tests:** `tests/versification.test.js` covers the method, and `tests/data.test.js` spot-checks the result.
+- **Corrections:** checking every chapter against the KJV turned up five errors in `rso.json` (Isaiah 3:19–26, Daniel 5:31–6:28, 2 Corinthians 13:13, 3 John 1:15, Psalm 114:9). Each was confirmed by reading the Russian and English text side by side. They're fixed by the `corrections` in `tools/data-sources.json`, which are offered under the same CC BY-SA 4.0 licence.
+- **Native numbering:** the original chapter of every renumbered verse is kept as each book's `native` spans (format above). In compare mode, a Psalm column whose numbering differs shows it under its dropdown: "Псалом 22", "Псалом 9:22–39", "Псалмы 114–115". The label words come from the translation's `numbering` entry in `translations.json`.
+- **Tests:** `tests/versification.test.js` and `tests/numbering.test.js` cover the method, and `tests/data.test.js` spot-checks the result.
 
 To renumber another translation, add `"versification": { "scheme": "<scheme>" }` to its source. Schemes include `rso` (Russian Orthodox/Synodal), `rsc` (Russian Protestant), `lxx` and `vul`.
 

@@ -20,6 +20,9 @@
  * @property {string} [copyright]      full statement for the Translations page
  * @property {string} [description]
  * @property {{ name: string, url: string }} [source]
+ * @property {{ name: string, psalm: string, psalms: string }} [numbering]
+ *   For a translation with its own numbering: what to call it ("Synodal numbering") and the
+ *   words for labelling its Psalm numbers ("Псалом", "Псалмы"). See views/numbering.js.
  * @property {string} [url]            json provider: the data file
  * @property {string} [version]        json provider: content hash, used as the cache key
  *
@@ -32,6 +35,10 @@
  * @property {number} chapter
  * @property {Verse[]} verses          ascending; verses the translation lacks are left out
  * @property {string} [copyright]      notice the source sends with this passage (APIs often do); shown under it
+ * @property {{ chapter: number, from?: number, to?: number }[]} [native]
+ *   Where this chapter sits in the translation's own numbering, when that differs from the
+ *   English numbering the site uses. English Psalm 23 in the Russian Synodal is
+ *   [{ chapter: 22 }]; English Psalm 10 is [{ chapter: 9, from: 22, to: 39 }].
  *
  * @typedef {object} TranslationProvider
  * @property {TranslationInfo} info

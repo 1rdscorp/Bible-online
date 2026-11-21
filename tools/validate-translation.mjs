@@ -55,6 +55,30 @@ export function validateTranslation(data) {
     if (book.chapters.length !== canonBook.chapters) {
       warnings.push(`${id}: has ${book.chapters.length} chapters; the standard count is ${canonBook.chapters}.`);
     }
+    // Optional: where chapters sit in the translation's own numbering
+    // (data/README.md, "Verse numbering"). { "23": [[22]], "10": [[9, 22, 39]] }
+    if (book.native !== undefined) {
+      if (!book.native || typeof book.native !== 'object' || Array.isArray(book.native)) {
+        errors.push(`${id}: "native" must be an object keyed by chapter number.`);
+      } else {
+        for (const [chapterKey, spans] of Object.entries(book.native)) {
+          const chapterNumber = Number(chapterKey);
+          if (!Number.isInteger(chapterNumber) || chapterNumber < 1 || chapterNumber > book.chapters.length) {
+            errors.push(`${id}: "native" lists chapter ${chapterKey}, which the book doesn't have.`);
+          }
+          const valid =
+            Array.isArray(spans) &&
+            spans.length > 0 &&
+            spans.every(
+              (span) =>
+                Array.isArray(span) &&
+                (span.length === 1 || (span.length === 3 && span[1] <= span[2])) &&
+                span.every((n) => Number.isInteger(n) && n >= 0),
+            );
+          if (!valid) errors.push(`${id} ${chapterKey}: "native" spans must be [chapter] or [chapter, fromVerse, toVerse].`);
+        }
+      }
+    }
     book.chapters.forEach((verses, c) => {
       if (!Array.isArray(verses)) {
         errors.push(`${id} ${c + 1}: a chapter must be an array of verse strings.`);

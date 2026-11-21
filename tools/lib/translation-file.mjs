@@ -121,14 +121,49 @@ export function buildBooks(verses, { fixes = [] } = {}) {
   return { books, fixCounts };
 }
 
-/** JSON with the metadata first and one chapter per line, so git diffs stay readable. */
+/**
+ * Source correction: split a verse that a source merged with the next one.
+ * `splits` maps a reference in the source's numbering to the phrase that
+ * starts the next verse, e.g. { "PSA 114:8": "Буду ходить" } (the Synodal
+ * source runs Psalm 114:8 and 9 together and leaves 9 empty).
+ */
+export function* splitVerses(verses, splits = {}) {
+  let carry = null; // the text moved to the next verse
+  for (const verse of verses) {
+    if (carry && !(verse.bookId === carry.bookId && verse.chapter === carry.chapter && verse.verse === carry.verse)) {
+      yield carry;
+      carry = null;
+    }
+    let { text } = verse;
+    if (carry) {
+      text = `${carry.text} ${text ?? ''}`.trim();
+      carry = null;
+    }
+    const phrase = splits[`${verse.bookId} ${verse.chapter}:${verse.verse}`];
+    const at = phrase ? text.indexOf(phrase) : -1;
+    if (phrase && at <= 0) throw new Error(`Split phrase not found in ${verse.bookId} ${verse.chapter}:${verse.verse}: "${phrase}"`);
+    if (at > 0) {
+      carry = { bookId: verse.bookId, chapter: verse.chapter, verse: verse.verse + 1, text: text.slice(at) };
+      text = text.slice(0, at).trim();
+    }
+    yield { ...verse, text };
+  }
+  if (carry) yield carry;
+}
+
+/**
+ * JSON with the metadata first and one chapter per line, so git diffs stay
+ * readable. A book's optional `native` spans go on their own line.
+ */
 export function serialize({ books, ...meta }) {
   const head = JSON.stringify({ formatVersion: FORMAT_VERSION, ...meta }).slice(0, -1);
   const bookLines = books.map(
     (book) =>
       `{"id":${JSON.stringify(book.id)},"name":${JSON.stringify(book.name)},"chapters":[\n` +
       book.chapters.map((chapter) => JSON.stringify(chapter)).join(',\n') +
-      '\n]}',
+      '\n]' +
+      (book.native ? `,\n"native":${JSON.stringify(book.native)}` : '') +
+      '}',
   );
   return `${head},"books":[\n${bookLines.join(',\n')}\n]}\n`;
 }
