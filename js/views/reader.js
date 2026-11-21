@@ -16,6 +16,7 @@ import { chapterHref, pageHref } from '../router.js';
 import { addColumn, MAX_COLUMNS, removeColumn, replaceColumn } from '../translations.js';
 import { el, icon, ICONS } from '../ui/dom.js';
 import { createTranslationSelect } from '../ui/translation-select.js';
+import { nativePsalmLabel } from './numbering.js';
 import { alignVerses } from './verse-alignment.js';
 
 // Side-by-side needs room for every column to be at least this wide (in em of
@@ -41,6 +42,9 @@ export function createReaderView({ book, chapter, columns, translations, query =
   const allIds = translations.map((info) => info.id);
 
   const heading = el('h1', { class: 'chapter-title', id: 'chapter-title', tabindex: '-1' }, title);
+  // Compare mode: one slot per column for that translation's own Psalm number
+  // ("Псалом 22"), filled in by show() once the text arrives.
+  const numberingLabels = columns.map(() => el('p', { class: 'column-numbering', hidden: true }));
   const loadingText = parallel ? `Loading ${columns.length} translations…` : `Loading the ${columns[0].name}…`;
   const content = el('div', { class: parallel ? 'parallel-rows' : 'scripture' }, status(loadingText));
   const notices = el('footer', { class: 'chapter-notices' });
@@ -120,9 +124,27 @@ export function createReaderView({ book, chapter, columns, translations, query =
               },
               icon(ICONS.close, { size: 18 }),
             ),
+          numberingLabels[index],
         ),
       ),
     );
+  }
+
+  // Show a column's own Psalm number where it differs from the English one.
+  function renderNumbering(results) {
+    results.forEach(({ info, chapter: data }, index) => {
+      const slot = numberingLabels[index];
+      const label = book.id === 'PSA' ? nativePsalmLabel(data?.native, info.numbering) : null;
+      if (!label) {
+        slot.hidden = true;
+        slot.replaceChildren();
+        return;
+      }
+      const name = info.numbering?.name ?? `${info.abbreviation} numbering`;
+      slot.title = name;
+      slot.replaceChildren(el('span', { class: 'visually-hidden' }, `${name}: `), el('span', { lang: info.language || null }, label));
+      slot.hidden = false;
+    });
   }
 
   /* -------- filling in the text -------- */
@@ -230,8 +252,12 @@ export function createReaderView({ book, chapter, columns, translations, query =
      * caller can scroll to it.
      */
     show(results, { verse = null } = {}) {
-      if (parallel) fillParallel(results);
-      else fillSingle(results[0]);
+      if (parallel) {
+        fillParallel(results);
+        renderNumbering(results);
+      } else {
+        fillSingle(results[0]);
+      }
       renderNotices(results);
       article.removeAttribute('aria-busy');
 

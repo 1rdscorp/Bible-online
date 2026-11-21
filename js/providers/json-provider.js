@@ -53,9 +53,10 @@ export function createJsonProvider(info, { fetchJson = (url, version) => transla
     },
 
     async getChapter(bookId, chapter) {
-      const verses = (await books()).get(bookId)?.[chapter - 1];
+      const book = (await books()).get(bookId);
+      const verses = book?.chapters[chapter - 1];
       if (!Array.isArray(verses)) return null;
-      return {
+      const result = {
         bookId,
         chapter,
         // Verse N is at index N-1. An empty string marks a verse this
@@ -64,6 +65,9 @@ export function createJsonProvider(info, { fetchJson = (url, version) => transla
           typeof text === 'string' && text !== '' ? [{ number: index + 1, text }] : [],
         ),
       };
+      const native = book.native?.[chapter];
+      if (Array.isArray(native)) result.native = native.map(([c, from, to]) => (from === undefined ? { chapter: c } : { chapter: c, from, to }));
+      return result;
     },
   };
 }
@@ -75,7 +79,7 @@ function indexBooks(data, info) {
   const byId = new Map();
   for (const book of data.books) {
     if (book && typeof book.id === 'string' && Array.isArray(book.chapters)) {
-      byId.set(book.id.toUpperCase(), book.chapters);
+      byId.set(book.id.toUpperCase(), { chapters: book.chapters, native: book.native ?? null });
     }
   }
   return byId;

@@ -22,6 +22,13 @@ test('getChapter returns numbered verses and skips missing ones', async () => {
   });
 });
 
+test('a chapter’s own numbering (native) is passed through when the file has it', async () => {
+  const data = { books: [{ id: 'PSA', chapters: [['a'], ['b']], native: { 2: [[1, 5, 9]] } }] };
+  const provider = createJsonProvider(info, { fetchJson: async () => data });
+  assert.deepEqual((await provider.getChapter('PSA', 2)).native, [{ chapter: 1, from: 5, to: 9 }]);
+  assert.equal((await provider.getChapter('PSA', 1)).native, undefined);
+});
+
 test('unknown books or chapters resolve to null', async () => {
   const provider = createJsonProvider(info, { fetchJson: async () => sample });
   assert.equal(await provider.getChapter('GEN', 1), null);

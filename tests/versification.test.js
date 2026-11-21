@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { createVersificationMapper, expandMappings, remapVerses } from '../tools/lib/versification.mjs';
+import { splitVerses } from '../tools/lib/translation-file.mjs';
+import { createVersificationMapper, expandMappings, nativeChapterSpans, remapVerses } from '../tools/lib/versification.mjs';
 
 // Small stand-ins for the Copenhagen Alliance files, modelled on real entries.
 const RSO = {
@@ -58,7 +59,53 @@ test('remapVerses joins verses that meet, and puts titles at the start of verse 
     { bookId: 'PSA', chapter: 50, verse: 4, text: 'Многократно омой меня…' },
   ];
   assert.deepEqual([...remapVerses(verses, map)], [
-    { bookId: 'PSA', chapter: 51, verse: 1, text: 'Начальнику хора. Псалом Давида, когда приходил к нему пророк Нафан… Помилуй меня, Боже…' },
-    { bookId: 'PSA', chapter: 51, verse: 2, text: 'Многократно омой меня…' },
+    {
+      bookId: 'PSA',
+      chapter: 51,
+      verse: 1,
+      text: 'Начальнику хора. Псалом Давида, когда приходил к нему пророк Нафан… Помилуй меня, Боже…',
+      sources: [
+        { chapter: 50, verse: 1 },
+        { chapter: 50, verse: 2 },
+        { chapter: 50, verse: 3 },
+      ],
+    },
+    { bookId: 'PSA', chapter: 51, verse: 2, text: 'Многократно омой меня…', sources: [{ chapter: 50, verse: 4 }] },
   ]);
+});
+
+test('remapVerses skips empty source verses', () => {
+  const verses = [
+    { bookId: 'JHN', chapter: 3, verse: 16, text: 'Ибо так возлюбил Бог мир…' },
+    { bookId: 'JHN', chapter: 3, verse: 17, text: '' },
+  ];
+  assert.deepEqual(
+    [...remapVerses(verses, map)].map((v) => v.verse),
+    [16],
+  );
+});
+
+test('nativeChapterSpans records chapters whose own numbering differs', () => {
+  // Verse counts in the source numbering: Psalm 1 has 1 verse here, 9 has 39, 22 has 6.
+  const max = { PSA: Array.from({ length: 151 }, (_, i) => ({ 1: '1', 9: '39', 22: '6' })[i + 1] ?? '10') };
+  const remapped = [
+    { bookId: 'PSA', chapter: 1, sources: [{ chapter: 1, verse: 1 }] }, // same: not recorded
+    ...Array.from({ length: 6 }, (_, i) => ({ bookId: 'PSA', chapter: 23, sources: [{ chapter: 22, verse: i + 1 }] })),
+    { bookId: 'PSA', chapter: 10, sources: [{ chapter: 9, verse: 22 }] },
+    { bookId: 'PSA', chapter: 10, sources: [{ chapter: 9, verse: 39 }] },
+  ];
+  assert.deepEqual(nativeChapterSpans(remapped, max), { PSA: { 23: [[22]], 10: [[9, 22, 39]] } });
+});
+
+test('splitVerses moves the rest of a run-together verse into the next one', () => {
+  const verses = [
+    { bookId: 'PSA', chapter: 114, verse: 8, text: 'Ты избавил душу мою от смерти. Буду ходить пред лицем Господним.' },
+    { bookId: 'PSA', chapter: 114, verse: 9, text: '' },
+    { bookId: 'PSA', chapter: 115, verse: 1, text: 'Я веровал…' },
+  ];
+  assert.deepEqual(
+    [...splitVerses(verses, { 'PSA 114:8': 'Буду ходить' })].map((v) => `${v.chapter}:${v.verse} ${v.text}`),
+    ['114:8 Ты избавил душу мою от смерти.', '114:9 Буду ходить пред лицем Господним.', '115:1 Я веровал…'],
+  );
+  assert.throws(() => [...splitVerses(verses, { 'PSA 114:8': 'нет такой фразы' })], /Split phrase not found/);
 });

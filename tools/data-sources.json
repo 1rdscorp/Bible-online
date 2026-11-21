@@ -34,6 +34,10 @@
   "rst": {
     "format": "scrollmapper",
     "url": "https://raw.githubusercontent.com/scrollmapper/bible_databases/59b18c5af5845728c275d5b7178ad0d024172b1f/formats/json/RusSynodal.json",
+    "_splitComment": "The source runs Psalm 114:8 and 9 together and leaves 9 empty; printed editions (and the Zefania copy) start verse 9 here.",
+    "splitVerses": {
+      "PSA 114:8": "Буду ходить пред лицем Господним"
+    },
     "versification": {
       "scheme": "rso",
       "_comment": "Corrections to rso.json, each checked against the Russian and English text (data/README.md, 'Verse numbering'). Like the mapping data they correct, offered under CC BY-SA 4.0.",
@@ -43,7 +47,8 @@
         "DAN 5:31": "DAN 6:1",
         "DAN 6:1-28": "DAN 6:2-29",
         "2CO 13:13": "2CO 13:14",
-        "3JN 1:15": "3JN 1:14"
+        "3JN 1:15": "3JN 1:14",
+        "PSA 114:9": "PSA 116:9"
       }
     },
     "fixes": ["russian-typography", "capitalize-chapter-start"]

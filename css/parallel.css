@@ -55,9 +55,27 @@
 
 .parallel-head-cell {
   display: flex;
+  flex-wrap: wrap;
+  /* Pack to the top, so pickers stay level when another column's heading is
+     taller (it has a numbering label underneath). */
+  align-content: flex-start;
   align-items: center;
   gap: 0.1rem;
   min-width: 0;
+}
+
+/* A column's own Psalm number ("Псалом 22"), under its dropdown. */
+.column-numbering {
+  flex-basis: 100%;
+  margin: 0.2rem 0 0 0.35rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-scripture);
+  font-size: 0.9rem;
+}
+
+.parallel:not(.is-side-by-side) .column-numbering {
+  text-align: center;
+  margin-left: 0;
 }
 
 .column-remove {
