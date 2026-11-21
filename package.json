@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node tools/serve.mjs",
     "test": "node --test",
-    "validate": "node tools/validate-translation.mjs data/kjv.json data/asv.json data/web.json data/ylt.json data/darby.json data/bbe.json data/rst.json",
+    "validate": "node tools/validate-translation.mjs data/kjv.json data/asv.json data/web.json data/ylt.json data/darby.json data/bbe.json data/rst.json data/lxx.json",
     "build-data": "node tools/build-data.mjs"
   },
   "engines": {

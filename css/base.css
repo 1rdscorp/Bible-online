@@ -8,6 +8,10 @@
      PT Serif (macOS, designed for Russian), then Sitka, Georgia, Noto Serif. */
   --font-scripture-latin: "Iowan Old Style", Charter, "Bitstream Charter", "Sitka Text", Georgia, Cambria, "Noto Serif", "Droid Serif", serif;
   --font-scripture-cyrillic: "PT Serif", "Sitka Text", Georgia, Cambria, "Noto Serif", "Droid Serif", serif;
+  /* Polytonic Greek (the Septuagint) needs fonts with the accented letters
+     (Greek Extended): Gentium and SBL Greek where installed, then Noto Serif
+     (Android), Palatino Linotype (Windows) and Times New Roman (Apple). */
+  --font-scripture-greek: "Gentium Plus", "Gentium Book Plus", "SBL Greek", "Noto Serif", "Palatino Linotype", "Times New Roman", serif;
   --font-scripture: var(--font-scripture-latin);
   --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 
@@ -35,6 +39,11 @@
 :lang(be),
 :lang(bg) {
   --font-scripture: var(--font-scripture-cyrillic);
+}
+
+:lang(grc),
+:lang(el) {
+  --font-scripture: var(--font-scripture-greek);
 }
 
 :lang(en) {

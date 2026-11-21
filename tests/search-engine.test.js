@@ -72,3 +72,12 @@ test('real data: KJV and the Synodal translation', () => {
   // ё and е match each other.
   assert.equal(search(rst, 'её').keys.length, search(rst, 'ее').keys.length);
 });
+
+test('real data: the Septuagint, searched without accents', () => {
+  const lxx = buildIndex(JSON.parse(readFileSync(new URL('../data/lxx.json', import.meta.url))));
+  const label = (key) => { const p = keyToPosition(key); return `${p.book.id} ${p.chapter}:${p.verse}`; };
+  const found = (text, mode = 'all', scope = 'all') => runSearch([{ index: lxx }], parseQuery(text, mode), scope).keys.map(label);
+  assert.deepEqual(found('κυριος ποιμαινει με', 'phrase'), ['PSA 23:1']);
+  assert.ok(found('"εν αρχη εποιησεν"').includes('GEN 1:1'));
+  assert.deepEqual(found('λογος', 'all', 'NT'), [], 'no New Testament');
+});

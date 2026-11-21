@@ -45,6 +45,10 @@ export const TEXT_FIXES = {
     [/(^|[\s(\[—:])"(?=\S)/g, '$1«'],
     [/"/g, '»'],
   ],
+  // Editorial square brackets the reader has no key to (Brenton's
+  // Septuagint brackets a few words). The words stay; a bracket pair split
+  // across verses by renumbering would otherwise dangle.
+  'drop-brackets': [[/\s*\[\s*/g, ' '], [/\s*\]\s*/g, ' '], [/ {2,}/g, ' '], [/^ | $/g, ''], [/ ([,.;:·])/g, '$1']],
   // Some sources start a chapter (often a Psalm title) in lower case.
   // A rule can also be a function of (text, { bookId, chapter, verse }).
   'capitalize-chapter-start': [
@@ -88,18 +92,25 @@ export function cleanText(text) {
 /**
  * Turn a stream of { bookId, chapter, verse, text } into the `books` array:
  * canon order, verse N at index N-1, gaps filled with "", trailing empty
- * verses dropped. Books outside the 66-book canon are ignored.
+ * verses dropped. Books outside the 66-book canon are ignored, and so are
+ * chapters past a book's last (the Septuagint's Psalm 151); `droppedChapters`
+ * lists those.
  *
- * @returns {{ books: object[], fixCounts: Record<string, number> }}
+ * @returns {{ books: object[], fixCounts: Record<string, number>, droppedChapters: string[] }}
  */
 export function buildBooks(verses, { fixes = [] } = {}) {
   checkFixNames(fixes);
-  const canonIds = new Set(BOOKS.map((book) => book.id));
+  const canon = new Map(BOOKS.map((book) => [book.id, book]));
   const fixCounts = {};
   const byBook = new Map();
+  const dropped = new Set();
 
   for (const { bookId, chapter, verse, text } of verses) {
-    if (!canonIds.has(bookId)) continue;
+    if (!canon.has(bookId)) continue;
+    if (chapter > canon.get(bookId).chapters) {
+      dropped.add(`${bookId} ${chapter}`);
+      continue;
+    }
     if (!Number.isInteger(chapter) || chapter < 1 || !Number.isInteger(verse) || verse < 1) {
       throw new Error(`Bad reference ${bookId} ${chapter}:${verse}.`);
     }
@@ -118,7 +129,50 @@ export function buildBooks(verses, { fixes = [] } = {}) {
       return list;
     }),
   }));
-  return { books, fixCounts };
+  return { books, fixCounts, droppedChapters: [...dropped] };
+}
+
+/**
+ * Source correction: give lettered verses ("22f", "22g"…) new numbers, in
+ * the source's own numbering, before versification. Brenton's Septuagint,
+ * for one, numbers Proverbs 30:1–14 as 24:22f–t:
+ *
+ *   { "PRO 24:22f-t": "PRO 30:1-14" }
+ *
+ * The lettered verses from the first letter to the last, in the order the
+ * source gives them, take the target verses one by one.
+ */
+export function* relabelVerses(verses, rules = {}) {
+  const parsed = Object.entries(rules).map(([from, to]) => {
+    const source = /^(\w+) (\d+):(\d+)([a-z])-([a-z])$/.exec(from);
+    const target = /^(\w+) (\d+):(\d+)-(\d+)$/.exec(to);
+    if (!source || !target) throw new Error(`relabel: can't read "${from}": "${to}".`);
+    return {
+      bookId: source[1], chapter: Number(source[2]), verse: Number(source[3]), first: source[4], last: source[5],
+      target: { bookId: target[1], chapter: Number(target[2]), from: Number(target[3]), to: Number(target[4]) },
+      next: 0, active: false, done: false,
+    };
+  });
+  for (const verse of verses) {
+    const rule = parsed.find((r) => !r.done && r.bookId === verse.bookId && r.chapter === verse.chapter && r.verse === verse.verse);
+    const letter = /^\d+([a-z])$/.exec(verse.label ?? '')?.[1];
+    if (rule && letter) {
+      if (letter === rule.first) rule.active = true;
+      if (rule.active) {
+        const number = rule.target.from + rule.next;
+        if (number > rule.target.to) throw new Error(`relabel: more lettered verses than ${rule.target.bookId} ${rule.target.chapter}:${rule.target.from}-${rule.target.to} has room for.`);
+        rule.next += 1;
+        if (letter === rule.last) rule.done = true;
+        yield { ...verse, bookId: rule.target.bookId, chapter: rule.target.chapter, verse: number, label: String(number) };
+        continue;
+      }
+    }
+    yield verse;
+  }
+  for (const rule of parsed) {
+    const expected = rule.target.to - rule.target.from + 1;
+    if (rule.next !== expected) throw new Error(`relabel: expected ${expected} verses ${rule.bookId} ${rule.chapter}:${rule.verse}${rule.first}-${rule.last}, found ${rule.next}.`);
+  }
 }
 
 /**

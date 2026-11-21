@@ -9,7 +9,9 @@
  * both "burnt offering" and "burnt-offering".
  *
  * Matching ignores case, and treats ё as е (Russian texts are inconsistent
- * about the dots). Other accents are kept on purpose: in Russian, й is a
+ * about the dots). In Greek words it also ignores accents, breathings and
+ * the elision mark, and treats final ς as σ, so "λογος" finds λόγος and
+ * "κατ" finds κατʼ. Other accents are kept on purpose: in Russian, й is a
  * different letter from и.
  *
  * No DOM, so it runs in Node tests and in a Web Worker.
@@ -21,9 +23,15 @@ const WORD = /[\p{L}\p{N}\p{M}]+/gu;
 // of the Bible to be useful.
 export const MIN_PREFIX_LENGTH = 2;
 
-/** "LORD" → "lord", "Ёлка" → "елка" */
+const GREEK = /[\u0370-\u03ff\u1f00-\u1fff]/;
+
+/** "LORD" → "lord", "Ёлка" → "елка", "Λόγος" → "λογοσ" */
 export function normalizeWord(word) {
-  return word.normalize('NFC').toLowerCase().replace(/ё/g, 'е');
+  const lower = word.normalize('NFC').toLowerCase().replace(/ё/g, 'е');
+  if (!GREEK.test(lower)) return lower;
+  // Greek: drop the diacritics (decomposed, they are combining marks) and the
+  // elision mark ʼ, and write every sigma the same way.
+  return lower.normalize('NFD').replace(/[\p{M}\u02bc\u1fbd\u1fbf]/gu, '').replace(/ς/g, 'σ').normalize('NFC');
 }
 
 /** The normalized words of `text`, in order (repeats kept). */

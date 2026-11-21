@@ -12,6 +12,18 @@ test('words: any script, case-insensitive, ё = е, apostrophes and hyphens spli
   assert.deepEqual(tokenize('мой'), ['мой']);
 });
 
+test('Greek: accents, breathings, elision and final sigma are ignored', () => {
+  assert.deepEqual(tokenize('ἘΝ ἀρχῇ ἐποίησεν ὁ Θεὸς'), ['εν', 'αρχη', 'εποιησεν', 'ο', 'θεοσ']);
+  assert.equal(normalizeWord('λόγος'), normalizeWord('ΛΟΓΟΣ'));
+  assert.equal(normalizeWord('λόγος'), normalizeWord('λογος'));
+  assert.equal(normalizeWord('Ἀλληλούϊα'), 'αλληλουια');
+  assert.equal(normalizeWord('μετʼ'), 'μετ');
+  assert.equal(normalizeWord('мой'), 'мой', 'Cyrillic й untouched');
+  const text = 'Ἐν ἀρχῇ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν πρὸς τὸν Θεόν.';
+  assert.deepEqual(highlightRanges(text, parseQuery('λογος θεον')).map(([a, b]) => text.slice(a, b)), ['λόγος', 'λόγος', 'Θεόν']);
+  assert.deepEqual(highlightRanges(text, parseQuery('"εν αρχη"')).map(([a, b]) => text.slice(a, b)), ['Ἐν ἀρχῇ']);
+});
+
 test('query: words, "phrases", prefixes', () => {
   assert.deepEqual(parseQuery('faith hope love'), {
     mode: 'all',

@@ -4,12 +4,17 @@
   "kjv": {
     "format": "scrollmapper",
     "url": "https://raw.githubusercontent.com/scrollmapper/bible_databases/19e966337b1d27fc454d06d3d1d4a723e4760ca5/json/t_kjv.json",
-    "fixes": ["typography"]
+    "fixes": [
+      "typography"
+    ]
   },
   "asv": {
     "format": "scrollmapper",
     "url": "https://raw.githubusercontent.com/scrollmapper/bible_databases/59b18c5af5845728c275d5b7178ad0d024172b1f/formats/json/ASV.json",
-    "fixes": ["typography", "selah"]
+    "fixes": [
+      "typography",
+      "selah"
+    ]
   },
   "web": {
     "format": "usfx",
@@ -19,17 +24,24 @@
   "ylt": {
     "format": "scrollmapper",
     "url": "https://raw.githubusercontent.com/scrollmapper/bible_databases/59b18c5af5845728c275d5b7178ad0d024172b1f/formats/json/YLT.json",
-    "fixes": ["typography"]
+    "fixes": [
+      "typography"
+    ]
   },
   "darby": {
     "format": "scrollmapper",
     "url": "https://raw.githubusercontent.com/scrollmapper/bible_databases/59b18c5af5845728c275d5b7178ad0d024172b1f/formats/json/Darby.json",
-    "fixes": ["typography", "darby-god"]
+    "fixes": [
+      "typography",
+      "darby-god"
+    ]
   },
   "bbe": {
     "format": "scrollmapper",
     "url": "https://raw.githubusercontent.com/scrollmapper/bible_databases/59b18c5af5845728c275d5b7178ad0d024172b1f/formats/json/BBE.json",
-    "fixes": ["typography"]
+    "fixes": [
+      "typography"
+    ]
   },
   "rst": {
     "format": "scrollmapper",
@@ -51,6 +63,41 @@
         "PSA 114:9": "PSA 116:9"
       }
     },
-    "fixes": ["russian-typography", "capitalize-chapter-start"]
+    "fixes": [
+      "russian-typography",
+      "capitalize-chapter-start"
+    ]
+  },
+  "lxx": {
+    "format": "usfx-zip",
+    "url": "https://ebible.org/Scriptures/grcbrent_usfx.zip",
+    "entry": "grcbrent_usfx.xml",
+    "_sourceComment": "eBible.org doesn't version its downloads, so the SHA-256 of the zip used is recorded; build-data warns if it changes.",
+    "sha256": "aea14a058c2142dc04c7ba0597e7550fbe8b61a85782c3ec65c4bf90d3485ab1",
+    "testaments": [
+      "OT"
+    ],
+    "_relabelComment": "Brenton numbers Proverbs 30:1–14 (the words of Agur, placed after 24:22 in the Septuagint) as lettered verses 24:22f–t. 24:22a–e are Septuagint additions and stay with 24:22.",
+    "relabel": {
+      "PRO 24:22f-t": "PRO 30:1-14"
+    },
+    "versification": {
+      "scheme": "lxx",
+      "_comment": "Corrections to lxx.json where Brenton's numbering differs from it, or where the mapping is incomplete; each checked against the Greek text (data/README.md, 'Verse numbering'). Brenton numbers Deuteronomy 29 as English Bibles do. It continues Proverbs 24 with 30:15–33 and 31:1–9 as 24:35–62. 3 Kingdoms (1 Kings) 20 and 21 are swapped (the mapping moves only 21). Nehemiah 7:73 (2 Esdras 17:73) is missing from the mapping. Exodus 36–39 are arranged differently in Greek and the mapping covers only part of that, so they keep the Greek's own numbering (no two passages are merged). The Prayer of Azariah and Song of the Three (Daniel 3:24–90), which have no English verse numbers, are kept with 3:23, where they stand in the Greek. Offered under CC BY-SA 4.0, like the mapping data they correct.",
+      "corrections": {
+        "DEU 29:1": "DEU 28:69",
+        "DEU 29:2-29": "DEU 29:1-28",
+        "PRO 24:35-53": "PRO 30:15-33",
+        "PRO 24:54-62": "PRO 31:1-9",
+        "1KI 20:1-29": "1KI 21:1-29",
+        "EZR 17:73": "NEH 7:73",
+        "EXO 36:9-38": "EXO 36:9-38",
+        "DAG 3:24-90": "DAN 3:23"
+      }
+    },
+    "fixes": [
+      "drop-brackets",
+      "capitalize-chapter-start"
+    ]
   }
 }

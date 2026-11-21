@@ -8,6 +8,11 @@
  * What's dropped: footnotes <f>, cross-references <x>, book headers, and
  * anything outside a verse, except Psalm titles (see below).
  *
+ * Each verse also carries its `label` as the source writes it: usually the
+ * number ("16"), but the Septuagint has lettered verses ("22a", "22b"…).
+ * Their number is the verse they belong to, so by default they join it;
+ * build-data's "relabel" option can move them elsewhere.
+ *
  * Psalm titles (<d>) sit before verse 1. They're prefixed to verse 1, as the
  * other sources in this project already do ("A Psalm by David. Yahweh is my
  * shepherd…"). One-word headings such as Psalm 119's "ALEPH" are dropped.
@@ -39,6 +44,7 @@ export function* readUsfx(xml) {
   let bookId = null;
   let chapter = null;
   let verse = null;
+  let label = null;
   let text = '';
   let skipDepth = 0;
   let inTitle = false;
@@ -46,8 +52,9 @@ export function* readUsfx(xml) {
 
   // Yield the verse collected so far, if any.
   function* flush() {
-    if (bookId && chapter && verse) yield { bookId, chapter, verse, text };
+    if (bookId && chapter && verse) yield { bookId, chapter, verse, label, text };
     verse = null;
+    label = null;
     text = '';
   }
 
@@ -84,7 +91,8 @@ export function* readUsfx(xml) {
     } else if (name === 'v') {
       yield* flush();
       // "15-16" style ranges only occur in the Apocrypha, which is skipped.
-      verse = Number.parseInt(attribute(attrs, 'id'), 10);
+      label = attribute(attrs, 'id');
+      verse = Number.parseInt(label, 10);
       const title = pendingTitle.replace(/\s+/g, ' ').trim();
       if (title && !/^[A-Z]+$/.test(title)) text = `${title} `;
       pendingTitle = '';
