@@ -60,6 +60,7 @@ In the repository, go to **Settings → Pages → Build and deployment**. Set **
 | `#/timeline` | The Bible timeline (`?event=crucifixion` brings one event into view) |
 | `#/maps` | The maps; `#/maps/paul?place=a5feb15` opens one with a place selected |
 | `#/explore` | Interactive studies; `#/explore/daniel-statue?part=legs&reading=traditional` opens the statue of Daniel 2 at a part |
+| `#/commentary` | Adventist commentary: the books; `#/commentary/desire-of-ages` one book's contents (`?book=daniel` only its chapters on Daniel); `#/commentary/desire-of-ages/17` a chapter; `#/commentary/daniel-and-the-revelation/dan-2?v=31` opens Smith's Daniel 2 at verse 31 |
 
 A link without `?t=` opens in the translations you used last. Abbreviations redirect to the canonical URL (`#/jn/3` → `#/john/3?t=…`). Opening the site with no `#…` resumes the last chapter read.
 
@@ -141,9 +142,10 @@ No paid translation API is used: its key would be public on a static site, and t
 
 ## Research: cross-references and word study
 
-Select a verse (tap its number) and choose **Research**. A panel opens on the right (on phones, from the bottom), so the chapter stays in view. It has two tabs:
+Select a verse (tap its number) and choose **Research**. A panel opens on the right (on phones, from the bottom), so the chapter stays in view. It has three tabs:
 
 - **Cross-references:** related passages for each selected verse, best first, with their text quoted. There are 340,000 references from [OpenBible.info](https://www.openbible.info/labs/cross-references/), ranked by readers' votes. Following one opens it in the reader and leaves the panel as it was.
+- **Commentary:** the Adventist commentary on the selected verses (see below). Uriah Smith's sections on them are quoted in part; Ellen G. White's chapters that tell the passage show their opening lines. Each links to the full text.
 - **Word study:** in **KJV+**, tap any word, or pick one from the selected verse's list. The panel shows the Hebrew or Greek word, its transliteration and pronunciation, Strong's definition, how the KJV renders it, and its origin, with links to related entries. Below that it shows how often the word is used, the English words it's translated by, and every verse that uses it, with the word marked. In other translations, the tab offers to open the passage in KJV+.
 
 Word highlights work in KJV+ as elsewhere, and the words stay tappable.
@@ -171,6 +173,14 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
   - **Time and place:** a time bar shows the kingdoms and key events. A zoomable map flies to each kingdom and shades its approximate extent, clipped to the coast, with its cities and historical sites such as Persepolis, Gaugamela and Constantinople.
   - **Play the dream:** the stone strikes, the statue turns to dust, and the stone grows into a mountain (Daniel 2:34–35).
 
+- **Adventist commentary** (`#/commentary`), linked next to Interactive studies on the book list. It holds classic Seventh-day Adventist books that are now in the public domain:
+  - Ellen G. White's **Conflict of the Ages**, which retells the Bible story chapter by chapter: *Patriarchs and Prophets* (1890; the 1913 edition), *Prophets and Kings* (1917), *The Desire of Ages* (1898) and *The Acts of the Apostles* (1911).
+  - Uriah Smith's **Daniel and the Revelation** (1897), a verse-by-verse commentary on both books.
+
+  Each chapter says which Bible passages it's based on, and every Bible chapter it covers lists it under the text ("Adventist commentary: The Desire of Ages: 17. Nicodemus"). Smith's chapters quote the KJV verses each section is on. Ellen White's show the printed book's page numbers in the margin, for citing. Bible references inside the text are links. The books are in English, also in the Russian interface, which says so.
+
+  The *Seventh-day Adventist Bible Commentary* (1953–1957, revised 1976–1980) is still under copyright, so it isn't included.
+
 The pages are built from reusable templates (`js/views/templates/study-page.js`: page, facts, tags, outline, quotes, link cards; `era-bar.js`: periods on a time axis) and data files (`data/study/`), so new pages such as topics or reading plans follow the same pattern.
 
 ## Interface language
@@ -190,7 +200,8 @@ To add another interface language:
 ```
 index.html            App shell: header, settings panel, <main> where views render
 css/                  themes.css (colour tokens), base, layout, picker, reader, parallel, translate,
-                      search, study, research (the Research panel), pages (study pages, maps)
+                      search, study, research (the Research panel), pages (study pages, maps),
+                      explore (the statue), commentary
 js/
   main.js             Entry point: routes → views, translation choice, keyboard, last-read
   i18n.js             Interface language: t('key'), book names, RUS | ENG (text in locales/)
@@ -201,7 +212,8 @@ js/
   study/              Highlights, notes, bookmarks: the model (verse ranges, one colour per
                       verse), the store, note markup, copy formats, backup files
   research/           Research data: loading it (data.js), references ("ROM 5:8"),
-                      Strong's helpers, the concordance (run in the search worker)
+                      Strong's helpers, the concordance (run in the search worker), commentary
+                      lookups (which chapters discuss a verse)
   geo/                Maps: projection and label placement (projection.js), zoom and pan (view.js),
                       the SVG map (map.js)
   canon.js            The 66 books: USFM ids, names, URL slugs, chapter counts
@@ -216,13 +228,14 @@ js/
                       docks them), toasts
   views/              Book/chapter picker, reader (single + parallel), verse alignment,
                       search page, My Study, Translations page, book introductions, timeline,
-                      maps, messages; templates/ holds the study-page building blocks; explore/
-                      holds the interactive studies (the statue of Daniel 2)
+                      maps, commentary, messages; templates/ holds the study-page building blocks;
+                      explore/ holds the interactive studies (the statue of Daniel 2)
 data/                 translations.json + one JSON file per translation; research.json lists the
                       research data: xref/ (cross-references), strongs/ (dictionaries), geo/
-                      (places, basemap), study/ (introductions, timeline, maps). See data/README.md
+                      (places, basemap), study/ (introductions, timeline, maps), commentary/.
+                      See data/README.md
 tools/                serve, build-data (download → convert → validate), build-xref, build-strongs,
-                      build-geo, build-study, converters, validator
+                      build-geo, build-study, build-commentary, converters, validator
 tests/                node --test suites
 ```
 
@@ -242,5 +255,5 @@ tests/                node --test suites
 - [x] **Stage 4:** personal study tools: tap or select verses for an action bar (5 highlight colours, notes, bookmarks, two copy formats, share), a Notes panel with a rich-ish editor, tags and search, a My Study page with filters, highlights kept by verse reference across translations, and JSON backup export/import
   - Added later: word-level highlights (in the translation they were made in), and searching for selected words
 - [x] **Stage 5:** research and study pages: a Research side panel with cross-references (OpenBible.info) and Strong's word study in KJV+ (Hebrew/Greek word, transliteration, definition, every verse using it); book introductions for all 66 books, a timeline and SVG maps of key places, built as reusable page templates; English and Russian
-  - Added later: zoomable, interactive maps; the interactive statue of Daniel 2 (`#/explore`)
+  - Added later: zoomable, interactive maps; the interactive statue of Daniel 2 (`#/explore`); public-domain Adventist commentary (`#/commentary`): Ellen G. White's Conflict of the Ages and Uriah Smith's Daniel and the Revelation
 - [ ] Later: reading plans, topical lookups, offline support, cloud sync

@@ -27,13 +27,17 @@
 
 .research-tab {
   min-height: 2.75rem;
-  padding: 0 0.75rem;
+  padding: 0.25rem 0.6rem;
   border: 0;
   border-bottom: 3px solid transparent;
   background: none;
   color: var(--color-text-muted);
   font: inherit;
+  /* Three tabs fit on one line in English; longer labels wrap evenly. */
+  font-size: 0.875rem;
   font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
   cursor: pointer;
 }
 

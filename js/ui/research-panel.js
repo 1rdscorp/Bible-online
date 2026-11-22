@@ -1,10 +1,11 @@
 /**
- * The Research panel: cross references for the selected verses, and word
- * study (Strong's numbers) for the words of KJV+.
+ * The Research panel: cross references for the selected verses, the
+ * Adventist commentary on them, and word study (Strong's numbers) for the
+ * words of KJV+.
  *
  * It shares the side-panel place with Notes (side-panels.js): docked on the
  * right on wide screens, so the chapter stays in view while researching; a
- * sheet from the bottom on phones. It's a non-modal dialog with two tabs
+ * sheet from the bottom on phones. It's a non-modal dialog with three tabs
  * (WAI-ARIA tabs: ←/→ move between them). Following a reference opens that
  * passage in the reader and leaves the panel as it was, so the list stays
  * at hand.
@@ -13,9 +14,11 @@
  */
 import { getBook } from '../canon.js';
 import { chapterTitle, t } from '../i18n.js';
+import { blocksText, partsFor, sectionsFor } from '../research/commentary.js';
 import { formatRef, refChapters } from '../research/refs.js';
 import { linkStrongs, scriptRuns, strongsLanguage } from '../research/strongs.js';
-import { chapterHref } from '../router.js';
+import { chapterHref, commentaryHref } from '../router.js';
+import { partLabel, passageText as commentaryPassage, workTitle } from '../views/commentary.js';
 import { truncate, verseRangeLabel } from '../translate/text.js';
 import { el, icon, ICONS } from './dom.js';
 import { registerSidePanel } from './side-panels.js';
@@ -23,6 +26,8 @@ import { registerSidePanel } from './side-panels.js';
 const XREF_SHOWN = 8; // per verse, before "Show all"
 const CONCORDANCE_PAGE = 25;
 const RENDERINGS_SHOWN = 8;
+const COMMENTARY_EXCERPT = 360; // characters of each commentary shown in the panel
+const TAB_ORDER = ['xref', 'commentary', 'words'];
 
 /**
  * @param {object} options
@@ -44,34 +49,30 @@ export function initResearchPanel({ data, getProvider, concordance, strongsTrans
 
   const heading = el('h2', { class: 'research-title', id: 'research-title', tabindex: '-1' });
   const closeButton = el('button', { type: 'button', class: 'icon-button research-close', onclick: () => close() }, icon(ICONS.close, { size: 18 }));
-  const tabs = {
-    xref: el('button', { type: 'button', role: 'tab', id: 'research-tab-xref', 'aria-controls': 'research-xref', class: 'research-tab' }),
-    words: el('button', { type: 'button', role: 'tab', id: 'research-tab-words', 'aria-controls': 'research-words', class: 'research-tab' }),
-  };
-  const tabList = el('div', { class: 'research-tabs', role: 'tablist' }, tabs.xref, tabs.words);
-  const panes = {
-    xref: el('div', { class: 'research-pane', role: 'tabpanel', id: 'research-xref', 'aria-labelledby': 'research-tab-xref', tabindex: '0' }),
-    words: el('div', { class: 'research-pane', role: 'tabpanel', id: 'research-words', 'aria-labelledby': 'research-tab-words', tabindex: '0' }),
-  };
+  const tabButton = (name) => el('button', { type: 'button', role: 'tab', id: `research-tab-${name}`, 'aria-controls': `research-${name}`, class: 'research-tab' });
+  const tabPane = (name) => el('div', { class: 'research-pane', role: 'tabpanel', id: `research-${name}`, 'aria-labelledby': `research-tab-${name}`, tabindex: '0' });
+  const tabs = Object.fromEntries(TAB_ORDER.map((name) => [name, tabButton(name)]));
+  const tabList = el('div', { class: 'research-tabs', role: 'tablist' }, TAB_ORDER.map((name) => tabs[name]));
+  const panes = Object.fromEntries(TAB_ORDER.map((name) => [name, tabPane(name)]));
   const panel = el(
     'div',
     { class: 'side-panel research-panel', role: 'dialog', 'aria-modal': 'false', 'aria-labelledby': 'research-title', hidden: true },
     el('div', { class: 'research-head' }, heading, closeButton),
     tabList,
-    panes.xref,
-    panes.words,
+    TAB_ORDER.map((name) => panes[name]),
   );
   document.body.append(panel);
   const dock = registerSidePanel({ isOpen: () => !panel.hidden, close: (options) => close(options) });
 
   for (const [name, button] of Object.entries(tabs)) button.addEventListener('click', () => selectTab(name));
   tabList.addEventListener('keydown', (event) => {
-    const order = ['xref', 'words'];
-    const index = order.indexOf(tab);
-    const next = { ArrowRight: index + 1, ArrowLeft: index - 1, Home: 0, End: order.length - 1 }[event.key];
+    // From the tab that has focus (normally the selected one).
+    const focused = TAB_ORDER.find((name) => tabs[name] === document.activeElement) ?? tab;
+    const index = TAB_ORDER.indexOf(focused);
+    const next = { ArrowRight: index + 1, ArrowLeft: index - 1, Home: 0, End: TAB_ORDER.length - 1 }[event.key];
     if (next === undefined) return;
     event.preventDefault();
-    selectTab(order[(next + order.length) % order.length]);
+    selectTab(TAB_ORDER[(next + TAB_ORDER.length) % TAB_ORDER.length]);
     tabs[tab].focus();
   });
   panel.addEventListener('keydown', (event) => {
@@ -87,6 +88,7 @@ export function initResearchPanel({ data, getProvider, concordance, strongsTrans
     heading.textContent = t('research.title');
     closeButton.setAttribute('aria-label', t('research.close'));
     tabs.xref.textContent = t('research.xrefTab');
+    tabs.commentary.textContent = t('research.commentaryTab');
     tabs.words.textContent = t('research.wordsTab');
     for (const [name, button] of Object.entries(tabs)) {
       const on = name === tab;
@@ -104,6 +106,7 @@ export function initResearchPanel({ data, getProvider, concordance, strongsTrans
 
   function render() {
     if (tab === 'xref') renderXref();
+    else if (tab === 'commentary') renderCommentary();
     else renderWords();
   }
 
@@ -196,6 +199,98 @@ export function initResearchPanel({ data, getProvider, concordance, strongsTrans
       attribution('research.xrefSource', 'OpenBible.info', 'https://www.openbible.info/labs/cross-references/', 'CC BY'),
     );
   }
+
+  /* -------- commentary -------- */
+
+  /**
+   * The commentary on the selected verses: for a verse-by-verse book
+   * (Smith), the sections on them, quoted in part; for the chapter-by-chapter
+   * books (Ellen White), the chapters that tell the passage, with their
+   * opening lines.
+   */
+  async function renderCommentary() {
+    const id = ++renderId;
+    if (!subject) {
+      panes.commentary.replaceChildren(note(t('research.commentaryHint')));
+      return;
+    }
+    const { book, chapter, verses } = subject;
+    const title = el('h3', { class: 'research-subject' }, t('research.commentaryFor', { ref: `${chapterTitle(book, chapter)}:${verseRangeLabel(verses)}` }));
+    panes.commentary.replaceChildren(title, note(t('research.loading')));
+    let index;
+    try {
+      index = await data.commentary();
+    } catch (error) {
+      if (id === renderId) panes.commentary.replaceChildren(title, failure(error, renderCommentary));
+      return;
+    }
+    if (id !== renderId) return;
+    // Every part on any of the verses, once each.
+    const seen = new Set();
+    const found = verses.flatMap((verse) => partsFor(index, book.id, chapter, verse)).filter(({ work, part }) => {
+      const key = `${work.id}/${part.id}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+    const footer = el(
+      'p',
+      { class: 'research-source' },
+      `${t('research.commentarySource')} `,
+      el('a', { href: commentaryHref() }, t('research.commentaryLibrary')),
+    );
+    if (!found.length) {
+      panes.commentary.replaceChildren(title, note(t('research.commentaryNone')), footer);
+      return;
+    }
+    panes.commentary.replaceChildren(title, el('ul', { class: 'commentary-results', role: 'list' }, found.map(({ work, part }) => commentaryItem(work, part, verses, id))), footer);
+  }
+
+  function commentaryItem(work, part, verses, id) {
+    const { book, chapter } = subject;
+    const excerpt = el('div', { class: 'commentary-result-text', lang: 'en' });
+    const verse = verses[0];
+    const href = commentaryHref(work.id, part.id, work.kind === 'verses' ? `v=${verse}` : '');
+    const item = el(
+      'li',
+      { class: 'commentary-result' },
+      el('p', { class: 'commentary-result-work' }, workTitle(work), part.passages.length ? ` · ${part.passages.map(commentaryPassage).join('; ')}` : ''),
+      el('a', { class: 'commentary-result-title', href }, el('span', { lang: 'en' }, partLabel(part))),
+      excerpt,
+    );
+    data
+      .commentaryPart(work.id, part.id)
+      .then((partData) => {
+        if (id !== renderId || !partData) return;
+        if (work.kind === 'verses') {
+          // The sections on the chosen verses, each with its opening lines.
+          const sections = [...new Set(verses.flatMap((v) => sectionsFor(partData, book.id, chapter, v)))];
+          excerpt.replaceChildren(
+            ...sections.map((section, i) =>
+              el(
+                'div',
+                { class: 'commentary-result-section' },
+                el('p', { class: 'commentary-result-verses' }, commentaryPassage(section.ref)),
+                el('p', {}, blocksText(section.blocks, COMMENTARY_EXCERPT)),
+                i === sections.length - 1
+                  ? el('a', { class: 'text-button research-more', href: commentaryHref(work.id, part.id, `v=${parseVerse(section.ref)}`) }, t('research.commentaryRead'))
+                  : '',
+              ),
+            ),
+          );
+        } else {
+          const first = partData.sections[0]?.blocks ?? [];
+          excerpt.replaceChildren(el('p', {}, blocksText(first.slice(0, 2), COMMENTARY_EXCERPT)), el('a', { class: 'text-button research-more', href }, t('research.commentaryChapter')));
+        }
+      })
+      .catch(() => {
+        // The excerpt is extra: without it the link to the chapter still works.
+      });
+    return item;
+  }
+
+  /** The first verse of a reference ("DAN 2:31-35" → 31). */
+  const parseVerse = (ref) => Number(/:(\d+)/.exec(ref)?.[1] ?? 1);
 
   /* -------- word study -------- */
 

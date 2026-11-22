@@ -1,0 +1,359 @@
+/* ---------- Commentary (js/views/commentary.js) ----------
+   The library and contents pages reuse the study-page styles (pages.css).
+   A chapter reads like the scripture: the serif, at the reader's chosen
+   size, with generous line spacing; references and page numbers stay
+   quiet. */
+
+.commentary-about-text {
+  margin-top: 0.6rem;
+  line-height: 1.6;
+}
+
+.commentary-source {
+  line-height: 1.5;
+}
+
+/* ---------- Contents ---------- */
+
+.commentary-filter {
+  margin-top: 0.5rem;
+  color: var(--color-text-muted);
+}
+
+.commentary-group {
+  margin-top: 1.5rem;
+}
+
+.commentary-group > h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.commentary-contents {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.commentary-contents li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.75rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.commentary-contents-link {
+  font-family: var(--font-scripture);
+  font-size: 1.05rem;
+  text-decoration: none;
+}
+
+.commentary-contents-link:hover {
+  text-decoration: underline;
+}
+
+.commentary-contents-passages {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+/* ---------- A chapter ---------- */
+
+.commentary-reading {
+  max-width: 42rem;
+}
+
+.commentary-meta,
+.commentary-language {
+  margin-top: 0.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.commentary-meta a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.commentary-text {
+  margin-top: 1.5rem;
+  font-family: var(--font-scripture);
+  font-size: calc(var(--reader-font-size) * 0.95);
+  line-height: 1.75;
+}
+
+.commentary-text p {
+  margin: 0;
+}
+
+.commentary-text p + p,
+.commentary-text p + blockquote,
+.commentary-text blockquote + p {
+  margin-top: 0.9em;
+}
+
+.commentary-section + .commentary-section {
+  margin-top: 2em;
+}
+
+/* Smith: each section opens with the verses it's on. */
+.commentary-verses-title {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+
+.commentary-verses-title:focus,
+.commentary-anchor:focus,
+.commentary-notes li:focus {
+  outline: none;
+}
+
+.commentary-scripture {
+  margin: 0.5em 0 1em;
+  padding: 0.6em 1em;
+  border-left: 3px solid var(--color-border-strong);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--color-surface);
+}
+
+.commentary-scripture .verse-num {
+  color: var(--color-verse-number);
+  font-family: var(--font-ui);
+  font-size: 0.65em;
+  font-weight: 600;
+}
+
+.commentary-scripture footer {
+  margin-top: 0.4em;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+}
+
+.commentary-scripture footer a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.commentary-quote {
+  margin: 0.9em 0;
+  padding-left: 1.25em;
+  border-left: 2px solid var(--color-border);
+}
+
+.commentary-quote p + p {
+  margin-top: 0.15em;
+}
+
+.commentary-footnote {
+  padding: 0.5em 0.8em;
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  font-size: 0.85em;
+  line-height: 1.55;
+}
+
+.commentary-footnote-label,
+.commentary-side-head {
+  font-weight: 600;
+}
+
+/* Bible references inside the text: links, but quieter than the words. */
+.commentary-ref,
+.commentary-xlink {
+  color: var(--color-accent);
+  font-size: 0.88em;
+  text-decoration: none;
+}
+
+.commentary-ref:hover,
+.commentary-xlink:hover {
+  text-decoration: underline;
+}
+
+/* The printed book's page numbers, for citing: small, out of the way. */
+.page-mark {
+  display: inline-block;
+  margin: 0 0.2em;
+  padding: 0 0.3em;
+  border-radius: 0.6em;
+  background: var(--color-surface-hover);
+  color: var(--color-verse-number);
+  font-family: var(--font-ui);
+  font-size: 0.6em;
+  font-weight: 600;
+  line-height: 1.6;
+  vertical-align: 0.25em;
+}
+
+.note-mark {
+  text-decoration: none;
+}
+
+.note-mark sup {
+  font-family: var(--font-ui);
+  font-size: 0.65em;
+  font-weight: 600;
+}
+
+.commentary-notes {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.95rem;
+}
+
+.commentary-notes h2 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.commentary-notes ol {
+  margin: 0.5rem 0 0;
+  padding-left: 1.5rem;
+  line-height: 1.55;
+}
+
+.commentary-notes li + li {
+  margin-top: 0.35rem;
+}
+
+/* Previous / next chapter. */
+.commentary-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+}
+
+.commentary-nav a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  text-decoration: none;
+}
+
+.commentary-nav a:hover {
+  border-color: var(--color-border-strong);
+}
+
+.commentary-nav-next {
+  text-align: right;
+}
+
+.commentary-nav-label {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 32rem) {
+  .commentary-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .commentary-nav-next {
+    text-align: left;
+  }
+}
+
+/* ---------- Under a Bible chapter ---------- */
+
+.chapter-commentary {
+  max-width: 34rem;
+  margin: 1.5em auto 0;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.chapter-commentary-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.chapter-commentary ul {
+  margin: 0.35rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chapter-commentary li {
+  padding: 0.2rem 0;
+  line-height: 1.5;
+}
+
+/* Links in a line, each tall enough to tap. */
+.chapter-commentary-link {
+  display: inline-block;
+  padding: 0.35rem 0;
+  text-decoration: none;
+}
+
+.chapter-commentary-sep {
+  color: var(--color-text-muted);
+}
+
+.chapter-commentary-link:hover {
+  text-decoration: underline;
+}
+
+.chapter-commentary-work {
+  color: var(--color-text-muted);
+}
+
+/* ---------- In the research panel ---------- */
+
+.commentary-results {
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.commentary-result + .commentary-result {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.commentary-result-work,
+.commentary-result-verses {
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+}
+
+.commentary-result-title {
+  display: inline-block;
+  margin-top: 0.15rem;
+  font-family: var(--font-scripture);
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.commentary-result-text {
+  margin-top: 0.35rem;
+  font-family: var(--font-scripture);
+  line-height: 1.6;
+}
+
+.commentary-result-section + .commentary-result-section {
+  margin-top: 0.6rem;
+}
