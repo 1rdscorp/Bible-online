@@ -37,7 +37,9 @@ Markers inside the text must all stay, unchanged (`check` compares them):
 - **Faithful, literary Russian.** Translate everything, sentence by sentence; don't summarise, shorten, modernise the argument or add explanations. Keep the authors' solemn 19th-century tone, but write natural Russian, not word-for-word English.
 - **Bible quotations: the Synodal translation.** When the text quotes the Bible, use the Synodal wording for that verse (`verse "DAN 2:31"` prints it), adapting only its grammar to the sentence. If a quotation follows the KJV where the Synodal differs in sense, still use the Synodal. Smith's verse quotations themselves aren't in the job: the site shows the Synodal text for them.
 - **Pronouns for God and Christ are capitalised**, as in Russian Adventist books: Он, Его, Ему, Им, Сам, Свой.
-- **Quotation marks** «…», inside them „…“. Dashes: « — » with spaces.
+- **Quotation marks** «…», inside them „…“. Dashes: « — » with spaces. A quotation running over several paragraphs opens each paragraph with « and closes only at its end, as Russian books do.
+- **Spelling:** use ё (also inside Synodal quotations; only the spelling changes). «Божий, Божьего, Божью» rather than «Божия». сатана in lower case.
+- **Echoes of Scripture** that the English doesn't mark as quotations: use the Synodal wording, without quotation marks.
 - **Dates:** "B.C. 538" → «538 г. до н. э.», "A.D. 1798" → «1798 г.» (or «1798 г. н. э.» where both eras are near). Smith's "the 2300 days" → «2300 дней».
 - **Quotations from historians** (Gibbon, Rollin, Prideaux, Clarke…): translate them like the rest, keeping the source line ("—Gibbon, Decline and Fall, chap. 38" → «— Гиббон, «История упадка и разрушения Римской империи», гл. 38»).
 - **Leave English** only for titles of English books where a Russian rendering would mislead, in «» with a translation in brackets if useful.
@@ -79,3 +81,6 @@ Use the Synodal forms of Bible names and these terms throughout, for consistency
 | Heruli, Ostrogoths, Vandals, Lombards, Huns, Franks; Odoacer, Theodoric, Genseric, Alaric, Attila, Belisarius | герулы, остготы, вандалы, лангобарды, гунны, франки; Одоакр, Теодорих, Гензерих, Аларих, Аттила, Велизарий |
 | the Saracens, Mohammed, the Ottoman (Turkish) power, the sultan | сарацины, Мухаммед, Османская (турецкая) держава, султан |
 | Gibbon, Rollin, Prideaux, Dr. (Adam) Clarke, Barnes, Bishop Newton, Josephus, William Miller | Гиббон, Роллен, Придо, д-р (Адам) Кларк, Барнс, епископ Ньютон, Иосиф Флавий, Уильям Миллер |
+| Jehovah; the plain of Dura; the Watcher, the Holy One (Dan 4) | Иегова; поле Деир; Бодрствующий, Святый (in quotations), Страж (in Ellen White's own words) |
+| the time of trouble; the Hebrew worthies; Providence; Infinite Wisdom | время скорби; еврейские праведники; Провидение; Бесконечная Премудрость |
+| King of kings and Lord of lords | Царь царей и Господь господствующих |
