@@ -208,7 +208,12 @@ export function correctScans(texts, dictionary) {
   return { paragraphs: corrected, changed, known };
 }
 
-/** Apply the corrections list: each `from` must occur exactly once. */
+/**
+ * Apply the corrections list: each `from` must occur exactly once. A line
+ * break in `to` starts a new paragraph there (OCR sometimes runs a chapter's
+ * heading and opening paragraph into the last paragraph of the one before;
+ * "\n§CHAPTER\n" puts the heading back).
+ */
 export function applyCorrections(paragraphs, corrections) {
   const out = [...paragraphs];
   for (const [from, to] of corrections) {
@@ -217,7 +222,7 @@ export function applyCorrections(paragraphs, corrections) {
     if (count !== 1) throw new Error(`Smith correction "${from}" occurs ${count} times (expected once)`);
     out[hits[0]] = out[hits[0]].replace(from, to);
   }
-  return out;
+  return out.flatMap((text) => text.split('\n'));
 }
 
 async function smithWork(work, { dictionary, lastVerse, verseText }) {

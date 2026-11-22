@@ -255,6 +255,8 @@ describe('Daniel and the Revelation’s structure (smith.mjs)', () => {
   test('corrections must each match exactly once', () => {
     assert.deepEqual(applyCorrections(['HAT the book of Daniel'], [['HAT the book', 'That the book']]), ['That the book of Daniel']);
     assert.throws(() => applyCorrections(['a', 'a'], [['a', 'b']]), /occurs 2 times/);
+    // A line break starts a new paragraph: a chapter's opening run into the chapter before.
+    assert.deepEqual(applyCorrections(['x', 'it was spoken, CHAPTER: Li. a ee in the first'], [['spoken, CHAPTER: Li. a ee in', 'spoken.\n§CHAPTER\nHaving, in']]), ['x', 'it was spoken.', '§CHAPTER', 'Having, in the first']);
   });
 });
 
