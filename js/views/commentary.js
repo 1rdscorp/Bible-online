@@ -10,20 +10,44 @@
  * quotations and poetry, { t: "n", c } notes; runs are strings, links to
  * Bible passages ({ r, x }), italics ({ i }), bold ({ b }), page marks of
  * the printed book ({ pg }), note marks ({ fn }) and links within the book
- * ({ to: "appendix#note-5", x }). The books are in English, so their text is
- * marked lang="en" for screen readers whatever the interface language.
+ * ({ to: "appendix#note-5", x }).
+ *
+ * Russian: chapters translated for the site (data/commentary/ru/, an AI
+ * translation, said so on the page) open in Russian in the Russian
+ * interface, with a switch to the English original (?lang=en / ?lang=ru).
+ * Their references have no printed text ({ r } only), so they're labelled
+ * with Russian book names. Each Ellen White chapter also links to the
+ * official Russian edition in EGW Writings. Text is marked with its
+ * language (lang="en" / "ru") for screen readers.
  */
 import { getBook } from '../canon.js';
-import { bookName, chapterTitle, t } from '../i18n.js';
+import { bookName, chapterTitle, getLanguage, t } from '../i18n.js';
+import ruLocale from '../locales/ru.js';
 import { neighbours, parsePassage, passageLabel, refCovers } from '../research/commentary.js';
 import { chapterHref, commentaryHref } from '../router.js';
 import { el, icon, ICONS } from '../ui/dom.js';
 import { linkCards, studyPage } from './templates/study-page.js';
 
 const names = { bookName, chapterTitle };
+// Russian book names whatever the interface language, for Russian text.
+const russianNames = {
+  bookName: (book) => ruLocale.books[book.id] ?? book.name,
+  chapterTitle: (book, chapter) => `${book.id === 'PSA' ? ruLocale.psalm : ruLocale.books[book.id]} ${chapter}`,
+};
 
 /** A passage label in the interface language: "Luke 2:1–20", "Genesis 39–41". */
 export const passageText = (passage) => passageLabel(passage, names);
+
+/** Is the interface in Russian? */
+const russianInterface = () => getLanguage() === 'ru';
+
+/** A chapter's title to show: our Russian title in the Russian interface, when it's translated. */
+export function localTitle(part) {
+  return russianInterface() && part.ru ? part.ru.title : part.title;
+}
+
+/** The language of localTitle(part). */
+export const titleLang = (part) => (russianInterface() && part.ru ? 'ru' : 'en');
 
 /** A passage as a link into the reader (verses highlighted when it's part of a chapter). */
 export function passageLink(passage, { className = 'commentary-passage', label = null } = {}) {
@@ -47,9 +71,10 @@ const workAbout = (work) => {
   return text === key ? '' : text;
 };
 
-/** "4. Unto You a Saviour"; introductions and the appendix have no number. */
+/** "4. Unto You a Saviour" (in Russian when translated and the interface is Russian); introductions and the appendix have no number. */
 export function partLabel(part) {
-  return /^\d+$/.test(part.id) ? `${part.id}. ${part.title}` : part.title;
+  const title = localTitle(part);
+  return /^\d+$/.test(part.id) ? `${part.id}. ${title}` : title;
 }
 
 /** Facts about a book: "First published 1898 · The Conflict of the Ages, volume 3". */
@@ -63,12 +88,16 @@ function workFacts(work) {
 /** The book's chapters, not counting introductions and appendices. */
 const chapterCount = (work) => work.parts.filter((part) => /^\d+$/.test(part.id) || part.chapter).length;
 
+/** How many of a book's parts are translated into Russian. */
+export const translatedCount = (work) => work.parts.filter((part) => part.ru).length;
+
 function workCard(work) {
   const linked = chapterCount(work);
+  const ru = translatedCount(work);
   return {
     href: commentaryHref(work.id),
     title: workTitle(work),
-    text: [workAbout(work), `${work.year} · ${t('commentary.chapterCount', { n: linked })}`].filter(Boolean).join(' '),
+    text: [workAbout(work), [work.year, t('commentary.chapterCount', { n: linked }), ru ? t('commentary.translatedCount', { n: ru, total: work.parts.length }) : ''].filter(Boolean).join(' · ')].filter(Boolean).join(' '),
     icon: icon(ICONS.commentary, { size: 22, className: 'icon link-card-icon' }),
   };
 }
@@ -110,8 +139,9 @@ export function renderCommentaryWork({ work, bookId = null }) {
   // Groups: consecutive parts with the same section (or Bible book, for verse-by-verse books).
   const groups = [];
   for (const part of parts) {
-    const name = work.kind === 'verses' ? bookName(getBook(part.book)) : part.section ?? '';
-    if (!groups.length || groups.at(-1).name !== name) groups.push({ name, parts: [] });
+    const local = russianInterface() && part.ru?.section;
+    const name = work.kind === 'verses' ? bookName(getBook(part.book)) : (local || part.section) ?? '';
+    if (!groups.length || groups.at(-1).name !== name) groups.push({ name, lang: work.kind === 'verses' ? null : local ? 'ru' : 'en', parts: [] });
     groups.at(-1).parts.push(part);
   }
   const list = (items) =>
@@ -122,26 +152,35 @@ export function renderCommentaryWork({ work, bookId = null }) {
         el(
           'li',
           {},
-          el('a', { class: 'commentary-contents-link', href: commentaryHref(work.id, part.id) }, el('span', { lang: 'en' }, partLabel(part))),
+          el('a', { class: 'commentary-contents-link', href: commentaryHref(work.id, part.id) }, el('span', { lang: titleLang(part) }, partLabel(part))),
           part.passages.length ? el('span', { class: 'commentary-contents-passages' }, part.passages.map(passageText).join('; ')) : '',
+          // In the English interface, a quiet mark on the chapters that can be read in Russian.
+          part.ru && !russianInterface() ? el('span', { class: 'commentary-ru-badge', title: t('commentary.inRussian') }, 'RU') : '',
         ),
       ),
     );
   const content = groups.map((group) =>
     group.name && groups.length > 1
-      ? el('section', { class: 'commentary-group' }, el('h3', { lang: work.kind === 'verses' ? null : 'en' }, group.name), list(group.parts))
+      ? el('section', { class: 'commentary-group' }, el('h3', { lang: group.lang }, group.name), list(group.parts))
       : list(group.parts),
   );
   const filterNote = filterBook
     ? el('p', { class: 'commentary-filter' }, t('commentary.onBook', { book: bookName(filterBook) }), ' · ', el('a', { href: commentaryHref(work.id) }, t('commentary.showAll')))
     : '';
+  const ru = translatedCount(work);
+  const russian = [
+    ru ? el('p', { class: 'commentary-ru-note' }, `${t('commentary.translatedCount', { n: ru, total: work.parts.length })}. ${t('commentary.aiNotice')}`) : '',
+    work.ruEdition
+      ? el('p', { class: 'commentary-ru-note' }, `${t('commentary.officialRu')} `, el('a', { href: work.ruEdition.url, rel: 'noopener', target: '_blank', lang: 'ru' }, `«${work.ruEdition.title}»`), ` (${work.ruEdition.source})`)
+      : '',
+  ];
   return studyPage({
     back: { href: commentaryHref(), label: t('commentary.back') },
     kicker: work.author,
     title: workTitle(work),
     lead: [workAbout(work), workFacts(work)].filter(Boolean).join(' '),
     className: 'commentary-page',
-    sections: [{ id: 'commentary-contents', title: t('commentary.contents'), content: [filterNote, ...content] }],
+    sections: [{ id: 'commentary-contents', title: t('commentary.contents'), content: [...russian, filterNote, ...content] }],
     footer: sourceLine(work),
   });
 }
@@ -161,11 +200,15 @@ function sourceLine(work) {
 /* One chapter                                                         */
 /* ------------------------------------------------------------------ */
 
-/** Runs as DOM nodes. `noteId(n)`: the id of the note a note mark ({ fn }) jumps to. */
-export function renderRuns(runs, { workId, noteId = (n) => `commentary-note-${n}` } = {}) {
+/**
+ * Runs as DOM nodes. `noteId(n)`: the id of the note a note mark ({ fn })
+ * jumps to. `lang`: the text's language; a reference without its printed
+ * text ({ r } in a translation) is labelled in it.
+ */
+export function renderRuns(runs, { workId, noteId = (n) => `commentary-note-${n}`, lang = 'en' } = {}) {
   return runs.map((run) => {
     if (typeof run === 'string') return run;
-    if (run.r) return passageLink(run.r, { className: 'commentary-ref', label: run.x });
+    if (run.r) return passageLink(run.r, { className: 'commentary-ref', label: run.x ?? passageLabel(run.r, lang === 'ru' ? russianNames : names) });
     if (run.to) {
       const [partId, anchor] = run.to.split('#');
       const note = /^note-(\d+)$/.exec(anchor ?? '')?.[1];
@@ -204,8 +247,8 @@ function versesLabel(ref) {
   return parsed.endVerse > parsed.verse ? t('commentary.verses', { from: parsed.verse, to: parsed.endVerse }) : t('commentary.verse', { n: parsed.verse });
 }
 
-/** The verses a section of Smith's commentary is on, in the KJV he quotes. */
-function quoteBlock(section) {
+/** The verses a section of Smith's commentary is on: in the KJV he quotes, or the Synodal for the Russian. */
+function quoteBlock(section, lang) {
   return el(
     'blockquote',
     { class: 'commentary-scripture' },
@@ -214,16 +257,45 @@ function quoteBlock(section) {
       {},
       section.quote.flatMap(([verse, text], index) => [index ? ' ' : '', el('sup', { class: 'verse-num' }, String(verse)), ' ', text]),
     ),
-    el('footer', {}, passageLink(section.ref, { label: `${passageText(section.ref)} (KJV)` })),
+    el('footer', {}, passageLink(section.ref, { label: `${passageText(section.ref)} (${t(lang === 'ru' ? 'commentary.synodal' : 'commentary.kjv')})` })),
   );
+}
+
+/** "«Желание веков», глава 4: «Вам родился Спаситель»": the chapter in the official Russian edition, as a link. */
+function officialLink(work, part) {
+  if (!work.ruEdition || !part.ruEdition) return null;
+  const { para, title } = part.ruEdition;
+  const label = /^\d+$/.test(part.id) ? t('commentary.officialChapter', { book: work.ruEdition.title, n: part.id, title }) : t('commentary.officialPart', { book: work.ruEdition.title, title });
+  return el(
+    'p',
+    { class: 'commentary-official' },
+    `${t('commentary.officialRu')} `,
+    el('a', { href: `${work.ruEdition.url}.${para}`, rel: 'noopener', target: '_blank', lang: 'ru' }, label),
+    ` (${work.ruEdition.source})`,
+  );
+}
+
+/**
+ * The language switch of a translated chapter: links to it in Russian and
+ * in English (the choice is in the URL, ?lang=, and carried to the next chapter).
+ */
+function languageSwitch(work, part, lang) {
+  const option = (code, label) =>
+    el(
+      'a',
+      { class: 'commentary-lang-option', href: commentaryHref(work.id, part.id, `lang=${code}`), lang: code, 'aria-current': code === lang ? 'true' : null },
+      label,
+    );
+  return el('nav', { class: 'commentary-lang', 'aria-label': t('commentary.langSwitch') }, option('ru', 'Русский'), option('en', 'English'));
 }
 
 /**
  * #/commentary/<book>/<chapter>. Returns { element, target } where target is
  * the element to scroll to for ?v= or ?note=, if any.
  */
-export function renderCommentaryPart({ work, part, data, verse = null, note = null }) {
-  const options = { workId: work.id };
+export function renderCommentaryPart({ work, part, data, verse = null, note = null, keepLang = null }) {
+  const lang = data.lang ?? 'en';
+  const options = { workId: work.id, lang };
   let target = null;
   const sections = data.sections.map((section, index) => {
     const body = renderBlocks(section.blocks, options);
@@ -233,7 +305,7 @@ export function renderCommentaryPart({ work, part, data, verse = null, note = nu
       'section',
       { class: 'commentary-section commentary-verses', 'aria-labelledby': id },
       el('h2', { class: 'commentary-verses-title', id, tabindex: '-1' }, versesLabel(section.ref)),
-      quoteBlock(section),
+      quoteBlock(section, lang),
       body,
     );
     const ref = parsePassage(section.ref);
@@ -245,29 +317,35 @@ export function renderCommentaryPart({ work, part, data, verse = null, note = nu
         'aside',
         { class: 'commentary-notes', 'aria-labelledby': 'commentary-notes-title' },
         el('h2', { id: 'commentary-notes-title' }, t('commentary.notes')),
-        el('ol', {}, data.notes.map((item) => el('li', { id: `commentary-note-${item.n}`, tabindex: '-1', lang: 'en' }, renderRuns(item.c, options)))),
+        el('ol', {}, data.notes.map((item) => el('li', { id: `commentary-note-${item.n}`, tabindex: '-1', lang }, renderRuns(item.c, options)))),
       )
     : '';
   const { prev, next } = neighbours(work, part.id);
+  // A language chosen on the switch carries on to the next chapter.
+  const query = keepLang ? `lang=${keepLang}` : '';
   const nav = el(
     'nav',
     { class: 'commentary-nav', 'aria-label': t('commentary.contents') },
-    prev ? el('a', { class: 'commentary-nav-prev', href: commentaryHref(work.id, prev.id), rel: 'prev' }, el('span', { class: 'commentary-nav-label' }, `← ${t('commentary.prev')}`), el('span', { lang: 'en' }, partLabel(prev))) : el('span'),
-    next ? el('a', { class: 'commentary-nav-next', href: commentaryHref(work.id, next.id), rel: 'next' }, el('span', { class: 'commentary-nav-label' }, `${t('commentary.next')} →`), el('span', { lang: 'en' }, partLabel(next))) : el('span'),
+    prev ? el('a', { class: 'commentary-nav-prev', href: commentaryHref(work.id, prev.id, query), rel: 'prev' }, el('span', { class: 'commentary-nav-label' }, `← ${t('commentary.prev')}`), el('span', { lang: titleLang(prev) }, partLabel(prev))) : el('span'),
+    next ? el('a', { class: 'commentary-nav-next', href: commentaryHref(work.id, next.id, query), rel: 'next' }, el('span', { class: 'commentary-nav-label' }, `${t('commentary.next')} →`), el('span', { lang: titleLang(next) }, partLabel(next))) : el('span'),
   );
   const meta = [];
   if (part.passages.length) meta.push(el('span', {}, `${t('commentary.basedOn')} `, part.passages.flatMap((passage, i) => [i ? '; ' : '', passageLink(passage)])));
   if (data.pages) meta.push(el('span', {}, t('commentary.pageRange', { from: data.pages[0], to: data.pages[1] })));
-  const english = t('commentary.englishOnly');
+  // About the language: the AI translation note, or (Russian interface, English
+  // text) that it's English; and the official Russian edition, where there is one.
+  const languageNote = lang === 'ru' ? t('commentary.aiNotice') : part.ru ? '' : t('commentary.englishOnly');
   const element = el(
     'article',
     { class: 'page commentary-reading', 'aria-labelledby': 'view-title' },
     el('p', { class: 'back' }, el('a', { class: 'back-link', href: commentaryHref(work.id) }, el('span', { 'aria-hidden': 'true' }, '←'), workTitle(work))),
     el('p', { class: 'study-kicker' }, /^\d+$/.test(part.id) ? `${work.author} · ${t('commentary.chapterN', { n: part.id })}` : work.author),
-    el('h1', { class: 'view-title', id: 'view-title', tabindex: '-1', lang: 'en' }, part.title),
+    el('h1', { class: 'view-title', id: 'view-title', tabindex: '-1', lang }, data.title),
     meta.length ? el('p', { class: 'commentary-meta' }, meta.flatMap((item, i) => [i ? ' · ' : '', item])) : '',
-    english ? el('p', { class: 'commentary-language' }, english) : '',
-    el('div', { class: 'commentary-text', lang: 'en' }, sections),
+    part.ru ? languageSwitch(work, part, lang) : '',
+    languageNote ? el('p', { class: 'commentary-language' }, languageNote) : '',
+    officialLink(work, part) ?? '',
+    el('div', { class: 'commentary-text', lang }, sections),
     notes,
     nav,
     el('footer', { class: 'study-footer' }, sourceLine(work)),
@@ -302,7 +380,7 @@ export function chapterCommentaryLinks(found, { book, chapter }) {
           el('span', { class: 'chapter-commentary-work' }, `${workTitle(work)}: `),
           parts.flatMap((part, i) => [
             i ? el('span', { class: 'chapter-commentary-sep', 'aria-hidden': 'true' }, ' · ') : '',
-            el('a', { class: 'chapter-commentary-link', href: commentaryHref(work.id, part.id), lang: 'en' }, partLabel(part)),
+            el('a', { class: 'chapter-commentary-link', href: commentaryHref(work.id, part.id), lang: titleLang(part) }, partLabel(part)),
           ]),
         ),
       ),

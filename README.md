@@ -181,6 +181,10 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
 
   The *Seventh-day Adventist Bible Commentary* (1953–1957, revised 1976–1980) is still under copyright, so it isn't included.
 
+  **In Russian.** The published Russian translations of these books are under copyright too, so:
+  - **Official edition links:** every Ellen White chapter links to the same chapter in the official Russian edition in [EGW Writings](https://m.egwwritings.org/ru), the White Estate's free online reader («Желание веков», глава 17: «Никодим»).
+  - **The site's own translation:** the chapters on Daniel and the Revelation (Uriah Smith's whole book, and Ellen White's chapters on Daniel and on John's Revelation) are translated from English by AI (Claude) for the site. Bible quotations follow the Synodal translation, and Smith's verses are shown in it. In the Russian interface these chapters open in Russian, with a switch to the English original (`?lang=en` / `?lang=ru`) and a note that the translation is the site's own, not an official one. Lists and the Research panel use the Russian titles and text where there are some. How to translate more chapters: `tools/commentary-ru/README.md`.
+
 The pages are built from reusable templates (`js/views/templates/study-page.js`: page, facts, tags, outline, quotes, link cards; `era-bar.js`: periods on a time axis) and data files (`data/study/`), so new pages such as topics or reading plans follow the same pattern.
 
 ## Interface language

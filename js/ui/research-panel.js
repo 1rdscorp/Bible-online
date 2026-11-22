@@ -13,12 +13,12 @@
  * Opened from the verse action bar ("Research") or by tapping a word in KJV+.
  */
 import { getBook } from '../canon.js';
-import { chapterTitle, t } from '../i18n.js';
+import { chapterTitle, getLanguage, t } from '../i18n.js';
 import { blocksText, partsFor, sectionsFor } from '../research/commentary.js';
 import { formatRef, refChapters } from '../research/refs.js';
 import { linkStrongs, scriptRuns, strongsLanguage } from '../research/strongs.js';
 import { chapterHref, commentaryHref } from '../router.js';
-import { partLabel, passageText as commentaryPassage, workTitle } from '../views/commentary.js';
+import { partLabel, passageText as commentaryPassage, titleLang, workTitle } from '../views/commentary.js';
 import { truncate, verseRangeLabel } from '../translate/text.js';
 import { el, icon, ICONS } from './dom.js';
 import { registerSidePanel } from './side-panels.js';
@@ -248,18 +248,20 @@ export function initResearchPanel({ data, getProvider, concordance, strongsTrans
 
   function commentaryItem(work, part, verses, id) {
     const { book, chapter } = subject;
-    const excerpt = el('div', { class: 'commentary-result-text', lang: 'en' });
+    // In the Russian interface, a translated chapter is quoted in Russian.
+    const lang = getLanguage() === 'ru' && part.ru ? 'ru' : 'en';
+    const excerpt = el('div', { class: 'commentary-result-text', lang });
     const verse = verses[0];
     const href = commentaryHref(work.id, part.id, work.kind === 'verses' ? `v=${verse}` : '');
     const item = el(
       'li',
       { class: 'commentary-result' },
       el('p', { class: 'commentary-result-work' }, workTitle(work), part.passages.length ? ` · ${part.passages.map(commentaryPassage).join('; ')}` : ''),
-      el('a', { class: 'commentary-result-title', href }, el('span', { lang: 'en' }, partLabel(part))),
+      el('a', { class: 'commentary-result-title', href }, el('span', { lang: titleLang(part) }, partLabel(part))),
       excerpt,
     );
     data
-      .commentaryPart(work.id, part.id)
+      .commentaryPart(work.id, part.id, lang)
       .then((partData) => {
         if (id !== renderId || !partData) return;
         if (work.kind === 'verses') {

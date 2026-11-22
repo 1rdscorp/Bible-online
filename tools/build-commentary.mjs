@@ -15,15 +15,24 @@
  * Which Bible passages each chapter covers: the book's own note where it
  * has one, otherwise tools/commentary-passages.json.
  *
+ * Russian: chapters translated in tools/commentary-ru/<book>/<chapter>.txt
+ * (see its README) are checked against the English and built into
+ * data/commentary/ru/; tools/commentary-official-ru.json (from
+ * tools/fetch-official-ru.mjs) links each Ellen White chapter to the
+ * official Russian edition in EGW Writings.
+ *
  * Output:
  *   data/commentary/index.json            the books and their chapters
  *   data/commentary/<book>/<chapter>.json one chapter's text
+ *   data/commentary/ru/<book>/<chapter>.json  its Russian translation, if there is one
  * Formats: data/README.md. tests/commentary.test.js checks the output.
  */
+import { existsSync } from 'node:fs';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { checkPinned, download } from './lib/download.mjs';
+import { fromJob } from './lib/commentary-job.mjs';
 import { linkRefs, mendOcr, sideHeading, tidyOcrText } from './lib/commentary-runs.mjs';
 import { readGutenbergBook } from './lib/gutenberg.mjs';
 import { alignTokens, normWord, NOTE_MARK, ocrParagraphs, tokenize, voteTokens } from './lib/ocr.mjs';
@@ -290,14 +299,49 @@ export function partFile(workId, part) {
   return `${headText},"sections":[\n${lines.join(',\n')}\n]${notesText}}\n`;
 }
 
-/** What the index lists about a chapter. */
-function indexEntry(part) {
+/**
+ * What the index lists about a chapter. `official`: where it is in the
+ * official Russian edition ({ para, title }); `ru`: our translation's title
+ * (and section).
+ */
+function indexEntry(part, { official = null, ru = null } = {}) {
   const entry = { id: part.id, title: part.title };
   if (part.section) entry.section = part.section;
   if (part.book) entry.book = part.book;
   if (part.chapter) entry.chapter = part.chapter;
   entry.passages = part.passages;
+  if (ru) entry.ru = ru;
+  if (official) entry.ruEdition = official;
   return entry;
+}
+
+/**
+ * A chapter's Russian translation (tools/commentary-ru/<work>/<part>.txt),
+ * checked against the English and built like it; Smith's verses quoted in
+ * the Synodal translation. Null if the chapter isn't translated.
+ */
+export async function russianPart(workId, part, { synodal }) {
+  const file = join(ROOT, 'tools', 'commentary-ru', workId, `${part.id}.txt`);
+  if (!existsSync(file)) return null;
+  const { data, errors } = fromJob(await readFile(file, 'utf8'), part, { section: part.section });
+  if (errors.length) throw new Error(`Russian translation of ${workId}/${part.id}:\n  ${errors.slice(0, 10).join('\n  ')}`);
+  const sections = data.sections.map((section, index) => {
+    const original = part.sections[index];
+    if (!original.quote) return section;
+    const ref = /^(\S+) (\d+):/.exec(original.ref);
+    return { ref: original.ref, quote: original.quote.map(([verse]) => [verse, synodal(ref[1], Number(ref[2]), verse) ?? '']), blocks: section.blocks };
+  });
+  return {
+    id: part.id,
+    lang: 'ru',
+    title: data.title,
+    ...(data.section ? { section: data.section } : {}),
+    ...(part.book ? { book: part.book, chapter: part.chapter } : {}),
+    passages: part.passages,
+    ...(part.pages ? { pages: part.pages } : {}),
+    sections,
+    ...(data.notes ? { notes: data.notes } : {}),
+  };
 }
 
 /** The words of the clean texts and the KJV: what the OCR is checked against. */
@@ -312,6 +356,8 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const curated = JSON.parse(await readFile(join(ROOT, 'tools', 'commentary-passages.json'), 'utf8'));
   const kjv = JSON.parse(await readFile(join(ROOT, 'data', 'kjv.json'), 'utf8'));
   const { lastVerse, verseText } = kjvHelpers(kjv);
+  const { verseText: synodal } = kjvHelpers(JSON.parse(await readFile(join(ROOT, 'data', 'rst.json'), 'utf8')));
+  const officialRu = JSON.parse(await readFile(join(ROOT, 'tools', 'commentary-official-ru.json'), 'utf8'));
 
   await rm(OUT_DIR, { recursive: true, force: true });
   const index = { formatVersion: COMMENTARY_FORMAT_VERSION, works: [] };
@@ -326,11 +372,24 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
       for (const part of parts) cleanTexts.push(JSON.stringify(part.sections));
     }
     await mkdir(join(OUT_DIR, work.id), { recursive: true });
+    const official = officialRu.works[work.id] ?? null;
+    const entries = [];
+    let translated = 0;
     for (const part of parts) {
       const file = partFile(work.id, part);
       await writeFile(join(OUT_DIR, work.id, `${part.id}.json`), file);
       all += file;
       bytes += Buffer.byteLength(file);
+      const ru = await russianPart(work.id, part, { synodal });
+      if (ru) {
+        const ruFile = partFile(work.id, ru);
+        await mkdir(join(OUT_DIR, 'ru', work.id), { recursive: true });
+        await writeFile(join(OUT_DIR, 'ru', work.id, `${part.id}.json`), ruFile);
+        all += ruFile;
+        bytes += Buffer.byteLength(ruFile);
+        translated += 1;
+      }
+      entries.push(indexEntry(part, { official: official?.chapters[part.id] ?? null, ru: ru ? { title: ru.title, ...(ru.section ? { section: ru.section } : {}) } : null }));
     }
     const { id, title, author, year, edition, abbr, series, volume, source } = work;
     index.works.push({
@@ -345,10 +404,11 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
       tradition: 'adventist',
       license: 'Public domain',
       source,
-      parts: parts.map(indexEntry),
+      ...(official ? { ruEdition: { title: official.title, url: `${officialRu.source.url}/book/${official.book}`, source: officialRu.source.name } } : {}),
+      parts: entries,
     });
     const linked = parts.filter((part) => part.passages.length).length;
-    console.log(`  ${parts.length} chapters (${linked} linked to Bible passages)`);
+    console.log(`  ${parts.length} chapters (${linked} linked to Bible passages${translated ? `, ${translated} in Russian` : ''})`);
   }
   const indexText = `${JSON.stringify(index)}\n`;
   await writeFile(join(OUT_DIR, 'index.json'), indexText);

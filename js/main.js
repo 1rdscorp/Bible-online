@@ -509,18 +509,22 @@ async function showCommentaryPage(route, isCurrent, rerender) {
     mount(element, { title: workTitle(work), preserve: rerender });
     return;
   }
+  // The text's language: ?lang= if given, otherwise Russian in the Russian
+  // interface when the chapter is translated, otherwise the English original.
+  const asked = ['ru', 'en'].includes(route.params.lang) ? route.params.lang : null;
+  const lang = (asked ?? (getLanguage() === 'ru' ? 'ru' : 'en')) === 'ru' && part.ru ? 'ru' : 'en';
   let data;
   try {
-    data = await researchData.commentaryPart(work.id, part.id);
+    data = await researchData.commentaryPart(work.id, part.id, lang);
   } catch (error) {
     if (isCurrent()) showStudyLoadFailure(error, route);
     return;
   }
   if (!isCurrent()) return;
   const verse = Number.parseInt(route.params.v, 10);
-  const { element, target } = renderCommentaryPart({ work, part, data, verse: verse > 0 ? verse : null, note: route.params.note ?? null });
+  const { element, target } = renderCommentaryPart({ work, part, data, verse: verse > 0 ? verse : null, note: route.params.note ?? null, keepLang: asked });
   enableJumpLinks(element);
-  mount(element, { title: `${part.title} · ${workTitle(work)}`, preserve: rerender });
+  mount(element, { title: `${data.title} · ${workTitle(work)}`, preserve: rerender });
   // ?v=31 or ?note=5: open at that verse's section or that note.
   if (target && !rerender) {
     target.scrollIntoView({ block: 'start' });

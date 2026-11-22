@@ -310,6 +310,12 @@ Public-domain Seventh-day Adventist books, one file per chapter, built by `tools
 
 **Smith's OCR.** `tools/lib/ocr.mjs` drops running heads, page numbers and engraving noise, mends words hyphenated across lines and pages, and sets footnotes apart. It then lines up the three scans word by word, anchored on word sequences that occur once in each, and corrects the first where the other two agree, or where it isn't a word and theirs is. Words in the KJV and in Ellen White's books (about 23,000) count as known. About 1,000 words are corrected this way. `tools/lib/smith.mjs` finds each quotation by its "VERSE 31." label and the KJV text after it, so every verse of Daniel and the Revelation falls in exactly one section. The chapter openings OCR loses (the large first letter) are restored by the `corrections` list in `tools/commentary-sources.json`. A few misread words remain, so the site says so.
 
+**Russian.**
+- `ru/<work>/<part>.json` holds a chapter's Russian translation, in the same format with `lang: "ru"`. Its references are `{ r }` only, so the site labels them with Russian book names, and Smith's `quote` is the Synodal text from `rst.json`.
+- The translations are made by AI and kept as plain text in `tools/commentary-ru/<work>/<part>.txt`, in the job format of `tools/lib/commentary-job.mjs`. The build checks each against the English (the same blocks, the same markers, Russian text) and fails if one doesn't match.
+- In the index, a translated chapter has `ru: { title, section? }`.
+- An Ellen White chapter has `ruEdition: { para, title }`, its place in the official Russian edition in EGW Writings; the book has `ruEdition: { title, url, source }`, so the link is `<url>.<para>`. These come from `tools/commentary-official-ru.json`, which `tools/fetch-official-ru.mjs` writes from the Russian books' tables of contents. Only the contents are read, not the text.
+
 `tests/commentary.test.js` checks the files:
 - every passage and reference names verses that exist;
 - every link points to a chapter and note that exist;
@@ -333,6 +339,6 @@ Public-domain Seventh-day Adventist books, one file per chapter, built by `tools
 - **Commentary:** Ellen G. White's and Uriah Smith's books were first published before 1931 and are in the public domain in the United States.
   - The text of *Patriarchs and Prophets* is Project Gutenberg's; their licence asks only that Project Gutenberg's name and trademark not be used for modified copies, and none is used here.
   - The other three Ellen White books come from CCEL's editions. CCEL allows use for personal, educational or non-profit purposes. Only the public-domain text is used, not CCEL's introductions or descriptions.
-  - Russian translations of these books are modern and under copyright, so the text is English only.
+  - Russian translations of these books are modern and under copyright. They aren't copied: the site links to them in EGW Writings, and its own Russian translations are AI translations of the public-domain English text, labelled as such.
   - The *Seventh-day Adventist Bible Commentary* (1953–1957, revised 1976–1980) is under copyright and isn't included.
 - **NIV, ESV, NASB, NLT** and other modern translations are copyrighted. Don't add their text here; serve them through a licensed API provider (see `js/providers/README.md`).

@@ -116,13 +116,17 @@ export function createResearchData({ fetchJson = (url, version) => translationCa
       return load(`${commentary.url}index.json`, commentary.version);
     },
 
-    /** One chapter of a commentary book, or null if there's no such chapter. */
-    async commentaryPart(workId, partId) {
+    /**
+     * One chapter of a commentary book, or null if there's no such chapter.
+     * `lang` "ru": its Russian translation (null if it has none).
+     */
+    async commentaryPart(workId, partId, lang = 'en') {
       const { commentary } = await manifest();
       const index = await this.commentary();
       const work = index.works.find((entry) => entry.id === workId);
-      if (!work?.parts.some((part) => part.id === partId)) return null;
-      return load(`${commentary.url}${workId}/${partId}.json`, commentary.version);
+      const part = work?.parts.find((entry) => entry.id === partId);
+      if (!part || (lang === 'ru' && !part.ru)) return null;
+      return load(`${commentary.url}${lang === 'ru' ? 'ru/' : ''}${workId}/${partId}.json`, commentary.version);
     },
   };
 }
