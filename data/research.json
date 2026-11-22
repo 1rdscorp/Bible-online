@@ -122,5 +122,11 @@
       "JUD",
       "REV"
     ]
+  },
+  "commentary": {
+    "url": "data/commentary/",
+    "version": "73920d9c84de",
+    "works": 5,
+    "license": "Public domain"
   }
 }

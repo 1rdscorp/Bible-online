@@ -1,6 +1,6 @@
 /**
  * The research data (data/research.json lists it): cross references,
- * Strong's dictionaries, places and study content. Files are fetched on
+ * Strong's dictionaries, places, study content and commentary. Files are fetched on
  * first use, kept in memory, and stored on the device through the same
  * cache as the translations (providers/translation-cache.js), keyed by each
  * data set's content version.
@@ -107,6 +107,22 @@ export function createResearchData({ fetchJson = (url, version) => translationCa
     async maps() {
       const { study } = await manifest();
       return (await load(`${study.url}maps.json`, study.version)).maps;
+    },
+
+    /** The commentary books and their chapters (js/research/commentary.js reads it). */
+    async commentary() {
+      const { commentary } = await manifest();
+      if (!commentary) return { works: [] };
+      return load(`${commentary.url}index.json`, commentary.version);
+    },
+
+    /** One chapter of a commentary book, or null if there's no such chapter. */
+    async commentaryPart(workId, partId) {
+      const { commentary } = await manifest();
+      const index = await this.commentary();
+      const work = index.works.find((entry) => entry.id === workId);
+      if (!work?.parts.some((part) => part.id === partId)) return null;
+      return load(`${commentary.url}${workId}/${partId}.json`, commentary.version);
     },
   };
 }

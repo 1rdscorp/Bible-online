@@ -7,13 +7,14 @@
  * what they need. New features (search, notes…) can then be added as new
  * routes and views without reworking existing ones.
  */
-import { adjacentChapter, getBook, isValidChapter } from './canon.js';
+import { adjacentChapter, findBook, getBook, isValidChapter } from './canon.js';
 import { bookName, chapterTitle, getLanguage, localizeTranslation, resolveLanguage, setLanguage, t } from './i18n.js';
 import { getDefaultTranslationId, getProvider, listTranslations } from './providers/registry.js';
 import { translationCache } from './providers/translation-cache.js';
 import { bookHref, chapterHref, introHref, mapHref, navigate, pageHref, PAGES, replaceHash, startRouter } from './router.js';
 import { createSearchClient, isSearchable } from './search/client.js';
 import { ALL_TRANSLATIONS, readSearchParams, searchHref } from './search/params.js';
+import { partsFor } from './research/commentary.js';
 import { researchData } from './research/data.js';
 import { bookOnly, parseReference } from './search/reference.js';
 import { parseQuery } from './search/text.js';
@@ -50,6 +51,7 @@ import { renderBookIntro } from './views/book-intro.js';
 import { renderMapPage, renderMapsIndex } from './views/maps.js';
 import { renderTimelinePage } from './views/timeline.js';
 import { exploreCard, exploreHref, renderExploreIndex, VIEWS as EXPLORE_VIEWS } from './views/explore.js';
+import { chapterCommentaryLinks, renderCommentaryLibrary, renderCommentaryPart, renderCommentaryWork, workTitle } from './views/commentary.js';
 import { enableJumpLinks } from './views/templates/study-page.js';
 import { renderTranslationsPage } from './views/translations.js';
 
@@ -365,6 +367,8 @@ async function handleRoute(route, { rerender = false } = {}) {
       return showMapsPage(route, isCurrent, rerender);
     case 'explore':
       return showExplorePage(route, isCurrent, rerender);
+    case 'commentary':
+      return showCommentaryPage(route, isCurrent, rerender);
     default:
       return showNotFound(route, rerender);
   }
@@ -459,6 +463,69 @@ async function addExploreLinks(view, book, chapter) {
   links.querySelector('.explore-link')?.remove();
   const page = pages.find((entry) => entry.chapters.includes(`${book.id} ${chapter}`));
   if (page) links.append(el('a', { class: 'text-button explore-link', href: exploreHref(page.id) }, icon(ICONS[page.icon] ?? ICONS.research, { size: 16 }), localizeText(page.title)));
+}
+
+/**
+ * Under a chapter, the Adventist commentary on it ("The Desire of Ages ·
+ * 17. Nicodemus"), once the commentary index has loaded.
+ */
+async function addCommentaryLinks(view, book, chapter) {
+  let index;
+  try {
+    index = await researchData.commentary();
+  } catch {
+    return; // offline before the index was stored: no links
+  }
+  if (!main.contains(view.element)) return;
+  view.element.querySelector('.chapter-commentary')?.remove();
+  const nav = chapterCommentaryLinks(partsFor(index, book.id, chapter), { book, chapter });
+  const links = view.element.querySelector('.chapter-study');
+  if (nav && links) links.after(nav);
+}
+
+/** #/commentary, a commentary book (#/commentary/<id>) or one of its chapters. */
+async function showCommentaryPage(route, isCurrent, rerender) {
+  let index;
+  try {
+    index = await researchData.commentary();
+  } catch (error) {
+    if (isCurrent()) showStudyLoadFailure(error, route);
+    return;
+  }
+  if (!isCurrent()) return;
+  if (!route.workId) {
+    mount(renderCommentaryLibrary({ index }), { title: t('commentary.title'), preserve: rerender });
+    return;
+  }
+  const work = index.works.find((entry) => entry.id === route.workId);
+  const part = route.partId ? work?.parts.find((entry) => entry.id === route.partId) : null;
+  if (!work || (route.partId && !part)) {
+    showNotFound({ ...route, reason: 'page' }, rerender);
+    return;
+  }
+  if (!part) {
+    // ?book=daniel: only the chapters on that book of the Bible.
+    const element = renderCommentaryWork({ work, bookId: route.params.book ? findBook(route.params.book)?.id ?? null : null });
+    mount(element, { title: workTitle(work), preserve: rerender });
+    return;
+  }
+  let data;
+  try {
+    data = await researchData.commentaryPart(work.id, part.id);
+  } catch (error) {
+    if (isCurrent()) showStudyLoadFailure(error, route);
+    return;
+  }
+  if (!isCurrent()) return;
+  const verse = Number.parseInt(route.params.v, 10);
+  const { element, target } = renderCommentaryPart({ work, part, data, verse: verse > 0 ? verse : null, note: route.params.note ?? null });
+  enableJumpLinks(element);
+  mount(element, { title: `${part.title} · ${workTitle(work)}`, preserve: rerender });
+  // ?v=31 or ?note=5: open at that verse's section or that note.
+  if (target && !rerender) {
+    target.scrollIntoView({ block: 'start' });
+    target.focus({ preventScroll: true });
+  }
 }
 
 /** A study page's data failed to load: say so, with a way to try again. */
@@ -615,6 +682,7 @@ async function showReader(route, isCurrent) {
     };
     reader = { book, chapter, verse, verseEnd, ids, view, paint };
     paint();
+    addCommentaryLinks(view, book, chapter);
     selectionTranslate.setContext({ book, chapter, shownIds: ids });
     verseActions.setContext({ book, chapter, view, columns, query });
     notesPanel.setContext({ book, chapter, query });

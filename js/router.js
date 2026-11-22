@@ -21,6 +21,9 @@
  *   #/maps/paul   maps      one map (route.mapId = "paul")
  *   #/explore     explore   interactive studies
  *   #/explore/daniel-statue  explore  one of them (route.pageId)
+ *   #/commentary  commentary  the commentary library
+ *   #/commentary/desire-of-ages     commentary  one book's chapters (route.workId)
+ *   #/commentary/desire-of-ages/4   commentary  one chapter (route.partId)
  *
  * Anything after "?" is parsed into `route.params`. The reader uses ?t= for
  * its translations (#/john/3?t=kjv,asv); see js/translations.js.
@@ -57,6 +60,7 @@ export const PAGES = Object.freeze({
   timeline: 'timeline',
   maps: 'maps',
   explore: 'explore',
+  commentary: 'commentary',
 });
 
 export function pageHref(name) {
@@ -71,6 +75,15 @@ export function introHref(book) {
 /** One map (#/maps/paul), or the list of maps. `query` e.g. "place=a15257a". */
 export function mapHref(id = null, query = '') {
   return `${pageHref(PAGES.maps)}${id ? `/${id}` : ''}${query ? `?${query}` : ''}`;
+}
+
+/**
+ * The commentary library (#/commentary), a book (#/commentary/desire-of-ages)
+ * or a chapter (#/commentary/desire-of-ages/4). `query` e.g. "v=31".
+ */
+export function commentaryHref(workId = null, partId = null, query = '') {
+  const path = [pageHref(PAGES.commentary), workId, workId && partId].filter(Boolean).join('/');
+  return `${path}${query ? `?${query}` : ''}`;
 }
 
 /** Split a location.hash into path segments and query parameters. */
@@ -124,6 +137,15 @@ export function resolveRoute(hash) {
     const pageId = chapterPart.toLowerCase();
     if (!/^[a-z0-9-]+$/.test(pageId)) return { ...base, view: 'not-found', reason: 'page', query: chapterPart };
     return withCanonical({ ...base, view: page, pageId }, `${pageHref(page)}/${pageId}${suffix}`, raw);
+  }
+  if (page === PAGES.commentary && chapterPart) {
+    // Book and chapter ids are lower-case words; whether they exist is checked when the index loads.
+    const workId = chapterPart.toLowerCase();
+    const partId = versePart?.toLowerCase() ?? null;
+    if (!/^[a-z0-9-]+$/.test(workId) || (partId !== null && !/^[a-z0-9-]+$/.test(partId)) || segments.length > 3) {
+      return { ...base, view: 'not-found', reason: 'page', query: segments.slice(1).join('/') };
+    }
+    return withCanonical({ ...base, view: page, workId, partId }, commentaryHref(workId, partId) + suffix, raw);
   }
   if (page) return withCanonical({ ...base, view: page }, pageHref(page) + suffix, raw);
 

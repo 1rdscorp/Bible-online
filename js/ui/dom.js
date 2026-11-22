@@ -91,5 +91,7 @@ export const ICONS = Object.freeze({
   // A standing figure (the statue of Daniel 2; interactive studies).
   statue: 'M12 2.5l1.5 1.5-1.5 1.5-1.5-1.5zM12 6.5a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM8.5 11.5h7l-.8 5h-5.4zM10 16.5l-.5 5M14 16.5l.5 5M8 21.5h8',
   timeline: 'M4 12h16M7 8v8M12 6v12M17 9v6',
+  // An open book with lines of text: commentary.
+  commentary: 'M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5C17 4 14 4.5 12 6zM12 6v14.5M6.5 8.5c1.2-.2 2.3 0 3.3.4M6.5 12c1.2-.2 2.3 0 3.3.4M14.2 8.9c1-.4 2.1-.6 3.3-.4M14.2 12.4c1-.4 2.1-.6 3.3-.4',
   info: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 11v6M12 7.5h.01',
 });
