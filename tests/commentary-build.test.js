@@ -75,6 +75,12 @@ humanity. <scripRef osisRef="Bible:Phil.2.7">Phil. 2:7</scripRef>.<pb n="44"/> H
     assert.deepEqual(read[0].pages, [44, 45]);
   });
 
+  test('where CCEL’s markup disagrees with the printed reference, the printed one wins', () => {
+    const wrong = `<ThML.body><div1 title="Chapter 43. The Unseen Watcher"><p>“The earth mourneth.” <scripRef osisRef="Bible:Isa.26.1-Isa.26.6">Isaiah 24:1–6</scripRef>; <scripRef osisRef="Bible:John.1.9">9</scripRef>.</p></div1></ThML.body>`;
+    const [chapter] = readThml(wrong, { lastVerse });
+    assert.deepEqual(chapter.blocks[0].c.filter((run) => run.r).map((run) => run.r), ['ISA 24:1-6', 'JHN 1:9']);
+  });
+
   test('paragraphs with italics, references and page marks; quotations keep their lines', () => {
     assert.deepEqual(read[0].blocks[0], {
       t: 'p',

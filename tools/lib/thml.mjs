@@ -16,7 +16,9 @@
  *   { i: "text" }                          italics
  *   { pg: 44 }                             page 44 of the print edition starts here
  */
+import { mergeRefs } from './commentary-runs.mjs';
 import { osisToRefs } from './osis.mjs';
+import { parseRefList } from './ref-list.mjs';
 
 const ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
 
@@ -85,16 +87,28 @@ export function scripRefTarget(attrs, lastVerse) {
  * leaving out any to a verse that doesn't exist (CCEL has a few typos,
  * such as Genesis 16:18).
  */
-export function scripRefTargets(attrs, lastVerse) {
+export function scripRefTargets(attrs, lastVerse, shown = '') {
   const exists = (ref) => {
     const m = /^(\S+) (\d+):(\d+)/.exec(ref);
     return Boolean(m) && lastVerse(m[1], Number(m[2])) >= Number(m[3]);
   };
-  return String(attrs.osisRef ?? '')
+  const marked = String(attrs.osisRef ?? '')
     .split(/\s+/)
     .filter(Boolean)
     .flatMap((part) => scripRefTarget({ osisRef: part }, lastVerse) ?? [])
     .filter(exists);
+  // The printed reference wins where CCEL's markup disagrees with it
+  // ("Isaiah 24:1–6" marked up as Isaiah 26:1-6). A partial one ("14:1–11",
+  // after "Matt. 11:1–11;") is read in the marked-up reference's book.
+  const book = /^(\S+) /.exec(marked[0] ?? '')?.[1];
+  // (Only a printed chapter and verse counts: a bare "9" is too little to go on.)
+  const [piece] = book && /\d:\s?\d/.test(shown) ? parseRefList(String(shown).replace(/–/g, '-'), lastVerse, { book }) : [];
+  const printed = piece?.refs.length ? mergeRefs(piece.refs, lastVerse) : null;
+  if (printed && exists(printed) && printed.split(' ')[0] === book) {
+    const chapterOf = (ref) => ref.split(' ')[1].split(':')[0];
+    if (chapterOf(printed) !== chapterOf(marked[0])) return [printed, ...marked.slice(1)];
+  }
+  return marked;
 }
 
 const CHAPTER_TITLE = /^\s*Chapter\s+(\d+)\.?\s*(.*)$/i;
@@ -240,8 +254,8 @@ export function readThml(xml, { lastVerse, introductions = [] } = {}) {
       if (tag === 'scripRef') {
         if (!close) ref = { attrs, text: '' };
         else if (ref) {
-          const all = scripRefTargets(ref.attrs, lastVerse);
           const text = ref.text.replace(/\s+/g, ' ');
+          const all = scripRefTargets(ref.attrs, lastVerse, text);
           ref = null;
           // A reference to a verse that doesn't exist stays plain text.
           push(all.length ? { r: all[0], x: text, all } : text);
