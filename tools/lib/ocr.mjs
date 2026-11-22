@@ -325,7 +325,22 @@ export function voteTokens(primary, others, { inDictionary, known }) {
   // ("ninth.chapter") split differently in each scan, so their readings
   // don't line up one for one.
   const plain = (token) => /^[\p{L}][\p{L}'’-]*$/u.test(core(token.w));
+  // Chapter and verse ("8:20,") are voted on only where the other scans read
+  // the same numbers, in the same form, differing by digits OCR confuses
+  // (8 for 3, 7 for 1…): "Dan. 8:20" where both others read "3:20".
+  const CONFUSED = new Set(['38', '83', '17', '71', '56', '65', '09', '90', '35', '53', '68', '86']);
+  const verseNumber = (word) => /^\d+:\d+[.,;:)]?$/.test(word);
+  const misread = (ours, theirs) =>
+    ours.length === theirs.length && [...ours].every((ch, k) => ch === theirs[k] || CONFUSED.has(ch + theirs[k]));
   const out = primary.map((token, i) => {
+    if (verseNumber(token.w)) {
+      const readings = others.map(({ tokens, map }) => (map[i] >= 0 ? tokens[map[i]] : null)).filter(Boolean);
+      if (readings.length >= 2 && readings.every((reading) => reading.w === readings[0].w) && verseNumber(readings[0].w) && readings[0].w !== token.w && misread(token.w, readings[0].w)) {
+        changed += 1;
+        return { ...token, w: readings[0].w, n: readings[0].n };
+      }
+      return token;
+    }
     if (!plain(token)) return token;
     const readings = others
       .map(({ tokens, map }) => (map[i] >= 0 ? tokens[map[i]] : null))

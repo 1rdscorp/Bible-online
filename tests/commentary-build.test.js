@@ -75,6 +75,12 @@ humanity. <scripRef osisRef="Bible:Phil.2.7">Phil. 2:7</scripRef>.<pb n="44"/> H
     assert.deepEqual(read[0].pages, [44, 45]);
   });
 
+  test('where CCEL’s markup disagrees with the printed reference, the printed one wins', () => {
+    const wrong = `<ThML.body><div1 title="Chapter 43. The Unseen Watcher"><p>“The earth mourneth.” <scripRef osisRef="Bible:Isa.26.1-Isa.26.6">Isaiah 24:1–6</scripRef>; <scripRef osisRef="Bible:John.1.9">9</scripRef>.</p></div1></ThML.body>`;
+    const [chapter] = readThml(wrong, { lastVerse });
+    assert.deepEqual(chapter.blocks[0].c.filter((run) => run.r).map((run) => run.r), ['ISA 24:1-6', 'JHN 1:9']);
+  });
+
   test('paragraphs with italics, references and page marks; quotations keep their lines', () => {
     assert.deepEqual(read[0].blocks[0], {
       t: 'p',
@@ -189,6 +195,20 @@ describe('OCR clean-up and correction (ocr.mjs)', () => {
   });
 });
 
+describe('verse numbers in the scans', () => {
+  test('a chapter and verse misread in one scan is corrected when the others agree (8 for 3), not otherwise', () => {
+    const scan = (text) => tokenize([text]);
+    const words = (text) => new Set(text.toLowerCase().match(/[a-z]+/g));
+    const ours = scan('the king was cast into the furnace see Dan. 8:20, and also Heb. 4:15 for this reason');
+    const l = scan('the king was cast into the furnace see Dan. 3:20, and also Heb. 4:1; for this reason');
+    const p = scan('the king was cast into the furnace see Dan. 3:20, and also Heb. 4:1; for this reason');
+    const others = [l, p].map((tokens) => ({ tokens, map: alignTokens(ours, tokens, { k: 3 }) }));
+    const known = (n) => words('the king was cast into the furnace see dan and also heb for this reason').has(n);
+    const { tokens } = voteTokens(ours, others, { inDictionary: known, known });
+    assert.equal(tokens.map((token) => token.w).join(' '), 'the king was cast into the furnace see Dan. 3:20, and also Heb. 4:15 for this reason');
+  });
+});
+
 describe('Daniel and the Revelation’s structure (smith.mjs)', () => {
   test('labels however OCR read them, and chapter headings', () => {
     assert.deepEqual(verseLabel('VERSE 31. Thou, O king'), { number: 31, skip: 2 });
@@ -235,6 +255,8 @@ describe('Daniel and the Revelation’s structure (smith.mjs)', () => {
   test('corrections must each match exactly once', () => {
     assert.deepEqual(applyCorrections(['HAT the book of Daniel'], [['HAT the book', 'That the book']]), ['That the book of Daniel']);
     assert.throws(() => applyCorrections(['a', 'a'], [['a', 'b']]), /occurs 2 times/);
+    // A line break starts a new paragraph: a chapter's opening run into the chapter before.
+    assert.deepEqual(applyCorrections(['x', 'it was spoken, CHAPTER: Li. a ee in the first'], [['spoken, CHAPTER: Li. a ee in', 'spoken.\n§CHAPTER\nHaving, in']]), ['x', 'it was spoken.', '§CHAPTER', 'Having, in the first']);
   });
 });
 

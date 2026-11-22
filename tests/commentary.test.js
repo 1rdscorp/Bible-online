@@ -22,6 +22,9 @@ const { commentary } = JSON.parse(readText('data/research.json'));
 const indexText = readText(`${commentary.url}index.json`);
 const index = JSON.parse(indexText);
 const partText = (work, part) => readText(`${commentary.url}${work.id}/${part.id}.json`);
+const ruText = (work, part) => readText(`${commentary.url}ru/${work.id}/${part.id}.json`);
+const rst = JSON.parse(readText('data/rst.json'));
+const rstChapters = new Map(rst.books.map((book) => [book.id, book.chapters]));
 const kjv = JSON.parse(readText('data/kjv.json'));
 const kjvChapters = new Map(kjv.books.map((book) => [book.id, book.chapters]));
 const lastVerse = (book, chapter) => (kjvChapters.get(book)?.[chapter - 1] ?? []).filter(Boolean).length;
@@ -127,8 +130,53 @@ describe('commentary data (data/commentary/)', () => {
 
   test('"version" matches the files (run `node tools/build-commentary.mjs` after editing)', () => {
     let all = indexText;
-    for (const work of index.works) for (const part of work.parts) all += partText(work, part);
+    for (const work of index.works) {
+      for (const part of work.parts) {
+        all += partText(work, part);
+        if (part.ru) all += ruText(work, part);
+      }
+    }
     assert.equal(commentary.version, contentVersion(all));
+  });
+
+  test('Ellen White’s chapters link to the official Russian edition', () => {
+    for (const work of index.works.filter((entry) => entry.author === 'Ellen G. White')) {
+      assert.match(work.ruEdition.url, /^https:\/\/m\.egwwritings\.org\/ru\/book\/\d+$/, work.id);
+      assert.match(work.ruEdition.title, /^[А-Яа-яЁё ]+$/);
+      for (const part of work.parts) {
+        if (part.id === 'appendix') continue; // the Russian edition has no appendix
+        assert.ok(Number.isInteger(part.ruEdition?.para) && part.ruEdition.para > 0, `${work.id}/${part.id}`);
+        assert.match(part.ruEdition.title, /[А-Яа-яЁё]/, `${work.id}/${part.id}`);
+      }
+    }
+    assert.equal(index.works.find((work) => work.kind === 'verses').ruEdition, undefined, 'Smith has no Russian edition there');
+  });
+
+  test('Russian translations: the same blocks as the English, references kept, Smith’s verses in the Synodal', () => {
+    let translated = 0;
+    for (const work of index.works) {
+      for (const part of work.parts.filter((entry) => entry.ru)) {
+        translated += 1;
+        const en = JSON.parse(partText(work, part));
+        const ru = JSON.parse(ruText(work, part));
+        assert.equal(ru.lang, 'ru');
+        assert.equal(ru.title, part.ru.title);
+        assert.match(ru.title, /[А-Яа-яЁё]/);
+        assert.equal(ru.sections.length, en.sections.length, `${work.id}/${part.id}`);
+        ru.sections.forEach((section, i) => {
+          const original = en.sections[i];
+          assert.equal(section.ref, original.ref);
+          assert.deepEqual(section.blocks.map((block) => block.t), original.blocks.map((block) => block.t), `${work.id}/${part.id} section ${i + 1}`);
+          const refs = (blocks) => blocks.flatMap((block) => [...allRuns(block)]).filter((run) => run?.r).map((run) => run.r).sort();
+          assert.deepEqual(refs(section.blocks), refs(original.blocks), `${work.id}/${part.id} section ${i + 1}: references`);
+          if (section.quote) {
+            const ref = parseRef(section.ref);
+            for (const [verse, text] of section.quote) assert.equal(text, rstChapters.get(ref.book)[ref.chapter - 1][verse - 1]);
+          }
+        });
+      }
+    }
+    assert.equal(translated, index.works.reduce((n, work) => n + work.parts.filter((part) => part.ru).length, 0));
   });
 
   test('spot checks', () => {
