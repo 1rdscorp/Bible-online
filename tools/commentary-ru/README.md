@@ -38,7 +38,7 @@ Markers inside the text must all stay, unchanged (`check` compares them):
 - **Bible quotations: the Synodal translation.** When the text quotes the Bible, use the Synodal wording for that verse (`verse "DAN 2:31"` prints it), adapting only its grammar to the sentence. If a quotation follows the KJV where the Synodal differs in sense, still use the Synodal. Smith's verse quotations themselves aren't in the job: the site shows the Synodal text for them.
 - **Pronouns for God and Christ are capitalised**, as in Russian Adventist books: Он, Его, Ему, Им, Сам, Свой.
 - **Quotation marks** «…», inside them „…“. Dashes: « — » with spaces. A quotation running over several paragraphs opens each paragraph with « and closes only at its end, as Russian books do.
-- **Spelling:** use ё (also inside Synodal quotations; only the spelling changes). «Божий, Божьего, Божью» rather than «Божия». сатана in lower case.
+- **Spelling:** write е, not ё, as the Synodal translation does (the assembled files are normalised to е). «Божий, Божьего, Божью» rather than «Божия». сатана in lower case.
 - **Echoes of Scripture** that the English doesn't mark as quotations: use the Synodal wording, without quotation marks.
 - **Dates:** "B.C. 538" → «538 г. до н. э.», "A.D. 1798" → «1798 г.» (or «1798 г. н. э.» where both eras are near). Smith's "the 2300 days" → «2300 дней».
 - **Quotations from historians** (Gibbon, Rollin, Prideaux, Clarke…): translate them like the rest, keeping the source line ("—Gibbon, Decline and Fall, chap. 38" → «— Гиббон, «История упадка и разрушения Римской империи», гл. 38»).
@@ -84,3 +84,9 @@ Use the Synodal forms of Bible names and these terms throughout, for consistency
 | Jehovah; the plain of Dura; the Watcher, the Holy One (Dan 4) | Иегова; поле Деир; Бодрствующий, Святый (in quotations), Страж (in Ellen White's own words) |
 | the time of trouble; the Hebrew worthies; Providence; Infinite Wisdom | время скорби; еврейские праведники; Провидение; Бесконечная Премудрость |
 | King of kings and Lord of lords | Царь царей и Господь господствующих |
+| Nimrod, Nineveh, Croesus, Xerxes, Cambyses, Darius Hystaspes, Artaxerxes Longimanus, Darius Codomannus | Нимрод, Ниневия, Крез, Ксеркс, Камбиз, Дарий Гистасп, Артаксеркс Лонгиман, Дарий Кодоман |
+| Arbela, Persepolis, Seleucus Nicator, Ptolemy's canon | Арбела, Персеполь, Селевк Никатор, канон Птолемея |
+| Visigoths, Suevi, Burgundians, Anglo-Saxons | вестготы, свевы, бургунды, англосаксы |
+| Romanists; Spiritualism; the kingdom of God | католики; спиритизм; Царство Божье |
+| leopard (Dan 7); legs, feet, toes of the image | барс; голени, ноги, пальцы (as in the Synodal) |
+| Matthew Henry, Rawlinson | Мэтью Генри, Роулинсон |

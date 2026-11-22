@@ -109,7 +109,7 @@
         "rev-21": "The New Jerusalem",
         "rev-22": "The Tree and the River of Life"
       },
-      "_correctionsComment": "Fixes the scans can't make by themselves: the opening word of each chapter, whose large first letter OCR loses (the letter sometimes turns up further on), and a few lines lost to engravings, restored from the other scans. Each 'from' must occur exactly once in the corrected text.",
+      "_correctionsComment": "Fixes the scans can't make by themselves: the opening word of each chapter, whose large first letter OCR loses (the letter sometimes turns up further on); a few lines lost to engravings, restored from the other scans; and a footnote that runs over a page break (Daniel 2's ten kingdoms), whose second paragraph had leaked into the text, restored from the 1904 scan. Each 'from' must occur exactly once in the corrected text.",
       "corrections": [
         ["HAT the book of Daniel", "That the book of Daniel"],
         ["ITH a directness", "With a directness"],
@@ -147,7 +147,11 @@
         ["te event with which this chapter opens", "The event with which this chapter opens"],
         ["HE burden of this chapter, commencing with verse 2, is i the New", "The burden of this chapter, commencing with verse 2, is the New"],
         ["HE angel continues", "The angel continues"],
-        ["these matchless glories", "these matchless glories. Even so, come, Lord Jesus."]
+        ["these matchless glories", "these matchless glories. Even so, come, Lord Jesus."],
+        ["earlier than A. D. 451", "earlier than A. D. 351"],
+        ["namely, A. D. 351 and 476,", "namely, A. D. 351 and 476. The ten nations which were most instrumental in breaking up the Roman empire, and which at some time in their history held respectively portions of Roman territory as separate and independent kingdoms, may be enumerated (without respect to the time of their establishment) as follows: The Huns, Ostrogoths, Visigoths, Franks, Vandals, Suevi, Burgundians, Heruli, Anglo-Saxons, and Lombards. The connection between these and some of the modern nations of Europe, is still traceable in the names, as England, Burgundy, Lombardy, France, etc. Such authorities as Calmet, Faber, Lloyd, Hales, Scott, Barnes, etc., concur in the foregoing enumeration. (See Barnes’s concluding notes on Daniel 7.)"],
+        ["The ten nations which were most instrumental in breaking up the Roman empire, and which at some time in their history held respectively portions of As an objection", "As an objection"],
+        ["separating into its eastern Roman cents separate and independent kingdoms, may be enumerated (withcone Souee ome Poe cpap ienen) as follows: The Huns, Ostrogoths, Be als, Suevi urgundians, Heruli, Anglo-t: en these and some of the modern nati going enumeration. (See Barnes’s concluding notes Gm eegeL Tyne a a and western divisions", "separating into its eastern and western divisions"]
       ],
       "_poemsComment": "Long poems the book quotes, set as quotations: the paragraphs from the one containing 'from' to the one containing 'to'. (OCR keeps a poem's stanzas but loses its line breaks.)",
       "poems": [
