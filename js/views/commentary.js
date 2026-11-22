@@ -65,6 +65,13 @@ export function workTitle(work) {
   return local === key ? work.title : local;
 }
 
+/** The author's name in the interface language ("Урия Смит"). */
+export function authorName(work) {
+  const key = `commentary.author.${work.author.toLowerCase().replace(/[^a-z]+/g, '-')}`;
+  const local = t(key);
+  return local === key ? work.author : local;
+}
+
 const workAbout = (work) => {
   const key = `commentary.about.${work.id}`;
   const text = t(key);
@@ -176,7 +183,7 @@ export function renderCommentaryWork({ work, bookId = null }) {
   ];
   return studyPage({
     back: { href: commentaryHref(), label: t('commentary.back') },
-    kicker: work.author,
+    kicker: authorName(work),
     title: workTitle(work),
     lead: [workAbout(work), workFacts(work)].filter(Boolean).join(' '),
     className: 'commentary-page',
@@ -339,7 +346,7 @@ export function renderCommentaryPart({ work, part, data, verse = null, note = nu
     'article',
     { class: 'page commentary-reading', 'aria-labelledby': 'view-title' },
     el('p', { class: 'back' }, el('a', { class: 'back-link', href: commentaryHref(work.id) }, el('span', { 'aria-hidden': 'true' }, '←'), workTitle(work))),
-    el('p', { class: 'study-kicker' }, /^\d+$/.test(part.id) ? `${work.author} · ${t('commentary.chapterN', { n: part.id })}` : work.author),
+    el('p', { class: 'study-kicker' }, /^\d+$/.test(part.id) ? `${authorName(work)} · ${t('commentary.chapterN', { n: part.id })}` : authorName(work)),
     el('h1', { class: 'view-title', id: 'view-title', tabindex: '-1', lang }, data.title),
     meta.length ? el('p', { class: 'commentary-meta' }, meta.flatMap((item, i) => [i ? ' · ' : '', item])) : '',
     part.ru ? languageSwitch(work, part, lang) : '',

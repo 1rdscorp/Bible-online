@@ -44,6 +44,11 @@ Markers inside the text must all stay, unchanged (`check` compares them):
 - **Quotations from historians** (Gibbon, Rollin, Prideaux, Clarke…): translate them like the rest, keeping the source line ("—Gibbon, Decline and Fall, chap. 38" → «— Гиббон, «История упадка и разрушения Римской империи», гл. 38»).
 - **Leave English** only for titles of English books where a Russian rendering would mislead, in «» with a translation in brackets if useful.
 - **OCR slips:** Smith's text comes from scans, and a few words may be misread. Translate the evident meaning; don't reproduce garbled words.
+- **Unreadable text:** where the scan is garbled beyond recovery, translate what is clear and mark the gap […]; a block that is only noise (a running head, a stray caption) becomes «[…]». A picture caption run into a sentence goes in [square brackets] after the sentence. Text never moves between blocks, even when the scan split a sentence or a footnote across two.
+- **When the argument rests on the English Bible:** keep the Synodal wording in the quotation and keep the author's argument. If the reader can't follow it otherwise, say «в английском переводе …», or add a short note in brackets, «[Примечание переводчика: …]» (as at Revelation 1:10, where the Synodal reads «в день воскресный»).
+- **Side headings the scan lost the bold of** stay plain text («Заголовок. — …»): markers can't be added. Numbers in plain-text references keep the English (KJV) numbering, as the site does.
+- **Capitals:** «ангел» in the author's own words; Synodal forms («Ангел», «Божия») may stay inside quotations from it.
+- **Titles:** books are translated («История субботы»); periodicals are transliterated («Эдвент геральд»), with a translation in brackets if useful.
 
 ## Names and terms
 
@@ -90,3 +95,15 @@ Use the Synodal forms of Bible names and these terms throughout, for consistency
 | Romanists; Spiritualism; the kingdom of God | католики; спиритизм; Царство Божье |
 | leopard (Dan 7); legs, feet, toes of the image | барс; голени, ноги, пальцы (as in the Synodal) |
 | Matthew Henry, Rawlinson | Мэтью Генри, Роулинсон |
+| dispensation; the gospel age | эпоха (домостроительство); евангельская эпоха |
+| type / antitype; the typical service; first / second apartment; most holy place | прообраз / антитип; прообразовательное служение; первое / второе отделение; Святое святых |
+| the Lord's day; the day of the Lord | день Господень; день Господа |
+| translation (of the living saints) | взятие на небо (живыми) |
+| the Revelator; the seer | Тайнозритель; тайновидец |
+| the leopard beast; lamblike; the seven-headed, ten-horned beast | барсоподобный зверь; агнцеподобный; семиглавый и десятирогий зверь |
+| Spiritualism, Spiritualists; Mohammedanism; Mohammed II | спиритизм, спириты; магометанство; Мехмед II |
+| the advent message / movement; the midnight cry; the seventh-month movement | адвентистская весть / адвентистское движение; полуночный крик; движение седьмого месяца |
+| the Sunday sabbath; the National Reform Association | воскресная «суббота» (in quotes); Ассоциация национальной реформы |
+| the scapegoat; Azazel | козел отпущения; Азазел |
+| Elder (an Adventist minister); Rev. | пастор; преподобный |
+| Keith, Litch, Elliott, Mosheim, Hengstenberg, Gesenius | Кейт, Литч, Эллиот, Мосгейм, Генгстенберг, Гезениус |

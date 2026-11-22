@@ -348,6 +348,8 @@ export default {
     'commentary.aboutSdabc': 'The Seventh-day Adventist Bible Commentary (1953–1957, revised 1976–1980) is still under copyright, so it can’t be published here.',
     'commentary.aboutLanguage': 'The chapters on Daniel and the Revelation can also be read in Russian, translated from English by AI for this site. Each Ellen G. White chapter links to its official Russian translation in EGW Writings, the White Estate’s free online reader.',
     'commentary.aboutOcr': 'Daniel and the Revelation comes from scans of its 1904 and 1907 printings, corrected by comparing three scans word by word. A few misread words may remain.',
+    'commentary.author.ellen-g-white': 'Ellen G. White',
+    'commentary.author.uriah-smith': 'Uriah Smith',
     'commentary.work.patriarchs-and-prophets': 'Patriarchs and Prophets',
     'commentary.work.prophets-and-kings': 'Prophets and Kings',
     'commentary.work.desire-of-ages': 'The Desire of Ages',
