@@ -190,6 +190,7 @@ Each set is built from pinned sources in `tools/research-sources.json`. Each bui
 | `node tools/build-geo.mjs` | `geo/` | OpenBible.info Bible Geocoding Data (CC BY 4.0); Natural Earth 1:10m (public domain) |
 | `node tools/build-study.mjs` | the `study` version | the hand-written files in `study/` |
 | `node tools/build-commentary.mjs` | `commentary/` | public-domain Adventist books (see below and `tools/commentary-sources.json`) |
+| `node tools/build-audio.mjs` | `audio/` | the audio Bibles in `tools/audio-sources.json`: which recording is which chapter (the recordings stay on the source's site) |
 
 ### Cross-references: `xref/<BOOK>.json`
 
@@ -324,6 +325,19 @@ Public-domain Seventh-day Adventist books, one file per chapter, built by `tools
 
 `tests/commentary-build.test.js` checks the readers and repairs on samples.
 
+### Audio: `audio/<source>.json`
+
+Which recorded chapter is which, for each audio Bible in `tools/audio-sources.json`. The recordings themselves aren't copied: the player streams them, unchanged, from the source's site.
+
+- **In `research.json`:** `audio.sources: [{ id, translation, language, title, url, version, tracks, seconds, readers, reader, page, credit: { name, url, terms } }]`. A chapter shown in `translation` gets a Listen button.
+- **The file:** `{ formatVersion, source, base, pageBase, tracks }`, one track per recorded chapter in canon order: `{ book, n, chapter, chapters?, src, page, seconds, reader? }`.
+  - `n` is the chapter as the recording numbers it, `chapter` the site (KJV-numbered) chapter it belongs to, and `chapters` every site chapter it covers when that's more than one. The file is `base + src`, its page on the source's site `pageBase + page`.
+  - `reader` names the reader where it isn't the source's usual one.
+- **Matching the numbering:** the build reads the translation's own numbering from its data file (`native` in `rst.json`, see "Verse numbering" above). A recorded chapter belongs to the first site chapter holding at least a quarter of it, so a verse that crosses a boundary doesn't move it. That puts the Synodal Psalm 22 on Psalm 23, and the Synodal Psalms 114 and 115 both on Psalm 116.
+- **Checks:** the build stops if a book's recorded chapters don't run 1, 2, 3… in the source's numbering, or a book is missing, so a change on the source's page is caught. Titles the source gets wrong are fixed by `fixes` in `tools/audio-sources.json` (Numbers 15 is titled "Глава 13" on predanie.ru). `tests/audio.test.js` checks that every chapter of the 66 books has a recording, the order, the Psalm numbering and the version.
+
+**The Synodal recording** is predanie.ru's *Библия. Синодальный перевод. Читает Александр Бондаренко*: 1,360 files, of which the 1,189 in the 66-book canon are used (the build leaves out the deuterocanonical books and the Prayer of Manasseh). Bondarenko didn't record 15 Old Testament books; for those the page uses Ilya Prudovsky's reading of the Synodal (Chicago, 1989). In the 66 books that's 2 Kings, 1–2 Chronicles and the Song of Songs.
+
 ## Licensing
 
 - **KJV (1769), ASV (1901), YLT (1898), Darby (1890), Russian Synodal (1876):** public domain. The Synodal text here uses modern (post-1918) spelling.
@@ -341,4 +355,5 @@ Public-domain Seventh-day Adventist books, one file per chapter, built by `tools
   - The other three Ellen White books come from CCEL's editions. CCEL allows use for personal, educational or non-profit purposes. Only the public-domain text is used, not CCEL's introductions or descriptions.
   - Russian translations of these books are modern and under copyright. They aren't copied: the site links to them in EGW Writings, and its own Russian translations are AI translations of the public-domain English text, labelled as such.
   - The *Seventh-day Adventist Bible Commentary* (1953–1957, revised 1976–1980) is under copyright and isn't included.
+- **Audio:** the Synodal recording is used under predanie.ru's terms (https://predanie.ru/page/tos/, 2.2.1): free non-commercial use without written consent, with a clearly visible link to the source and to the page the material comes from, at the beginning, naming «Предание.ру», in type no smaller than the text around it (3.1.3); no changes to the material (2.2.2). Commercial use needs a contract with the Предание Foundation (2.3). The files aren't copied or altered: they stream from predanie.ru, and the player shows the credit first. The terms also say that for material whose rights belong to third parties, users should contact those rights holders (3.1.4); the recording's page names none.
 - **NIV, ESV, NASB, NLT** and other modern translations are copyrighted. Don't add their text here; serve them through a licensed API provider (see `js/providers/README.md`).

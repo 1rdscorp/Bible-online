@@ -128,6 +128,17 @@ export function createResearchData({ fetchJson = (url, version) => translationCa
       if (!part || (lang === 'ru' && !part.ru)) return null;
       return load(`${commentary.url}${lang === 'ru' ? 'ru/' : ''}${workId}/${partId}.json`, commentary.version);
     },
+
+    /** The audio Bibles: [{ id, translation, title, url, version, readers, reader, page, credit }]. */
+    async audioSources() {
+      const { audio } = await manifest();
+      return audio?.sources ?? [];
+    },
+
+    /** One audio Bible's recorded chapters: { base, pageBase, tracks } (see js/audio/sources.js). */
+    async audioTracks(source) {
+      return load(source.url, source.version);
+    },
   };
 }
 

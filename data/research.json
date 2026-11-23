@@ -128,5 +128,36 @@
     "version": "8b922d62cce7",
     "works": 5,
     "license": "Public domain"
+  },
+  "audio": {
+    "sources": [
+      {
+        "id": "rst-bondarenko",
+        "translation": "rst",
+        "language": "ru",
+        "title": "Библия. Синодальный перевод",
+        "url": "data/audio/rst-bondarenko.json",
+        "version": "7a19146bb4b1",
+        "tracks": 1189,
+        "seconds": 361028,
+        "readers": {
+          "bondarenko": {
+            "ru": "Александр Бондаренко",
+            "en": "Alexander Bondarenko"
+          },
+          "prudovsky": {
+            "ru": "Илья Прудовский",
+            "en": "Ilya Prudovsky"
+          }
+        },
+        "reader": "bondarenko",
+        "page": "https://predanie.ru/bez-avtora/bibliya-sinodalnyy-perevod-chitaet-aleksandr-bondarenko/",
+        "credit": {
+          "name": "Предание.ру",
+          "url": "https://predanie.ru/",
+          "terms": "https://predanie.ru/page/tos/"
+        }
+      }
+    ]
   }
 }

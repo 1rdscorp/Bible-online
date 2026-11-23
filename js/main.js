@@ -36,6 +36,7 @@ import { el, icon, ICONS } from './ui/dom.js';
 import { initLanguageSwitch } from './ui/language-switch.js';
 import { initNotesPanel } from './ui/notes-panel.js';
 import { initResearchPanel } from './ui/research-panel.js';
+import { initAudioPlayer } from './ui/audio-player.js';
 import { initSelectionTranslate } from './ui/selection-translate.js';
 import { initSettingsPanel } from './ui/settings-panel.js';
 import { paintStudyMarks } from './ui/study-marks.js';
@@ -67,6 +68,7 @@ let selectionTranslate;
 let toaster;
 let notesPanel;
 let researchPanel;
+let audioPlayer;
 let verseActions;
 let currentRoute = null;
 
@@ -692,6 +694,7 @@ async function showReader(route, isCurrent) {
     notesPanel.setContext({ book, chapter, query });
     researchPanel.setContext({ book, chapter, columns, query });
     showStrongsTip(view, columns);
+    audioPlayer.setChapter({ view, book, chapter, ids });
     document.title = `${title} (${columns.map((c) => c.abbreviation).join(', ')}) · ${t('app.name')}`;
     if (results.some((r) => r.chapter)) saveLastRead(book, chapter);
   };
@@ -1047,6 +1050,15 @@ async function boot() {
     strongsTranslation,
     strongsHref: (book, chapter, verse) => chapterHref(book, chapter, verse, selectionQuery([STRONGS_ID])),
   });
+  audioPlayer = initAudioPlayer({
+    data: researchData,
+    // The recording moved on from the chapter on screen: turn the page with
+    // it, unless the reader has gone elsewhere meanwhile.
+    onFollow: ({ from, to }) => {
+      if (currentRoute?.view !== 'reader' || currentRoute.book.id !== from.book.id || currentRoute.chapter !== from.chapter) return;
+      navigate(chapterHref(to.book, to.chapter, null, selectionQuery(currentRoute.ids)));
+    },
+  });
   verseActions = initVerseActions({
     root: main,
     store: studyStore,
@@ -1088,6 +1100,7 @@ async function boot() {
     languageSwitch.update(language);
     notesPanel.refresh();
     researchPanel.refresh();
+    audioPlayer.refresh();
     if (currentRoute) handleRoute(currentRoute, { rerender: true });
   });
 
