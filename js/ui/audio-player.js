@@ -5,8 +5,8 @@
  * A chapter whose translation has a recording (data/research.json "audio")
  * gets a Listen button in its header. Playing continues into the next
  * chapter by itself; if the reader is still on the chapter that just ended,
- * the page turns with it (onFollow). The place, speed and chapter are
- * remembered, so Listen on the same chapter later carries on from there.
+ * the page turns with it (onFollow). The place, speed, volume and chapter
+ * are remembered, so Listen on the same chapter later carries on from there.
  *
  * The recordings stream unchanged from the source's site. Its terms
  * (predanie.ru, 2.2.1, 3.1.3) ask for a clearly visible link to the source and
@@ -32,7 +32,14 @@ const PLAYER_ICONS = {
   previous: 'M6 5v14M18 5l-9 7 9 7z',
   next: 'M18 5v14M6 5l9 7-9 7z',
   back: 'M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4 4v4h4',
+  volume: 'M4 9h4l5-4v14l-5-4H4zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12',
+  volumeLow: 'M4 9h4l5-4v14l-5-4H4zM16.5 8.5a5 5 0 0 1 0 7',
+  muted: 'M4 9h4l5-4v14l-5-4H4zM16 9.5l5 5M21 9.5l-5 5',
 };
+
+const VOLUME_STEP = 0.05;
+/** A volume the player can use (0–1), or the default. */
+const validVolume = (value) => (typeof value === 'number' && value >= 0 && value <= 1 ? value : 1);
 
 /**
  * @param {object} options
@@ -43,6 +50,14 @@ const PLAYER_ICONS = {
 export function initAudioPlayer({ data, onFollow = () => {} }) {
   const audio = new Audio();
   audio.preload = 'metadata';
+  // Some browsers (Safari on iPhone and iPad) leave the volume to the device's
+  // buttons: setting it does nothing. They get the mute button only.
+  const canSetVolume = (() => {
+    audio.volume = 0.5;
+    const settable = audio.volume === 0.5;
+    audio.volume = 1;
+    return settable;
+  })();
 
   let source = null; // the audio source of the track playing
   let tracks = null; // its data: { base, pageBase, tracks }
@@ -50,6 +65,8 @@ export function initAudioPlayer({ data, onFollow = () => {} }) {
   let partial = false; // the chapter asked for is only part of this recording
   let asked = null; // { bookId, chapter }: the site chapter Listen was pressed on, followed as playing moves on
   let rate = 1;
+  let volume = 1;
+  let muted = false;
   let resumeAt = 0;
   let lastSave = 0;
   let saved = null;
@@ -59,6 +76,10 @@ export function initAudioPlayer({ data, onFollow = () => {} }) {
   const ready = storage.get(STORAGE_KEY, null).then((value) => {
     saved = value;
     if (RATES.includes(value?.rate)) rate = value.rate;
+    volume = canSetVolume ? validVolume(value?.volume) : 1;
+    muted = value?.muted === true;
+    audio.volume = volume;
+    audio.muted = muted;
   });
 
   /* -------- the bar -------- */
@@ -80,6 +101,8 @@ export function initAudioPlayer({ data, onFollow = () => {} }) {
   const seek = el('input', { type: 'range', class: 'audio-seek', min: 0, max: 0, step: 1, value: 0 });
   const time = el('span', { class: 'audio-time', 'aria-hidden': 'true' }, '0:00 / 0:00');
   const rateButton = el('button', { type: 'button', class: 'audio-rate', onclick: nextRate });
+  const muteButton = el('button', { type: 'button', class: 'audio-icon-button audio-mute', onclick: toggleMute });
+  const volumeSlider = el('input', { type: 'range', class: 'audio-volume-slider', min: 0, max: 100, step: VOLUME_STEP * 100, value: 100, hidden: !canSetVolume });
   const message = el('p', { class: 'audio-message', role: 'alert', hidden: true });
   const live = el('span', { class: 'visually-hidden', 'aria-live': 'polite' });
 
@@ -89,7 +112,17 @@ export function initAudioPlayer({ data, onFollow = () => {} }) {
     el('div', { class: 'audio-inner' },
       el('div', { class: 'audio-head' }, credit, closeButton),
       el('p', { class: 'audio-now' }, title, byline, numbering),
-      el('div', { class: 'audio-controls' }, previousButton, backButton, playButton, nextButton, seek, time, rateButton),
+      el(
+        'div',
+        { class: 'audio-controls' },
+        previousButton,
+        backButton,
+        playButton,
+        nextButton,
+        el('div', { class: 'audio-progress' }, seek, time),
+        el('div', { class: 'audio-volume' }, muteButton, volumeSlider),
+        rateButton,
+      ),
       message,
       live,
     ),
@@ -171,6 +204,26 @@ export function initAudioPlayer({ data, onFollow = () => {} }) {
     save(true);
   }
 
+  /** Mute, or unmute to the volume before (half volume if the slider was down to 0). */
+  function toggleMute() {
+    muted = !(muted || volume === 0);
+    if (!muted && volume === 0) volume = 0.5;
+    applyVolume();
+  }
+
+  function setVolume(value) {
+    volume = validVolume(value);
+    muted = volume === 0;
+    applyVolume();
+  }
+
+  function applyVolume() {
+    audio.volume = volume;
+    audio.muted = muted;
+    renderVolume();
+    save(true);
+  }
+
   function close() {
     audio.pause();
     save(true);
@@ -190,7 +243,7 @@ export function initAudioPlayer({ data, onFollow = () => {} }) {
     if (!track || !source) return;
     if (!now && Date.now() - lastSave < SAVE_EVERY_MS) return;
     lastSave = Date.now();
-    saved = { source: source.id, book: track.book, n: track.n, position: Math.floor(audio.currentTime || resumeAt || 0), rate };
+    saved = { source: source.id, book: track.book, n: track.n, position: Math.floor(audio.currentTime || resumeAt || 0), rate, volume, muted };
     storage.set(STORAGE_KEY, saved);
   }
 
@@ -241,6 +294,7 @@ export function initAudioPlayer({ data, onFollow = () => {} }) {
     audio.currentTime = Number(seek.value);
     renderTime();
   });
+  volumeSlider.addEventListener('input', () => setVolume(Number(volumeSlider.value) / 100));
 
   /* -------- rendering -------- */
 
@@ -283,7 +337,22 @@ export function initAudioPlayer({ data, onFollow = () => {} }) {
     renderPlaying();
     renderTime();
     renderRate();
+    renderVolume();
     renderButton();
+  }
+
+  /** The mute button's icon and label, and the slider (at 0 while muted). */
+  function renderVolume() {
+    const silent = muted || volume === 0;
+    muteButton.replaceChildren(icon(silent ? PLAYER_ICONS.muted : volume < 0.5 ? PLAYER_ICONS.volumeLow : PLAYER_ICONS.volume, { size: 20 }));
+    const label = silent ? t('audio.unmute') : t('audio.mute');
+    muteButton.setAttribute('aria-label', label);
+    muteButton.title = label;
+    muteButton.setAttribute('aria-pressed', silent ? 'true' : 'false');
+    const shown = silent ? 0 : volume;
+    volumeSlider.value = String(Math.round(shown * 100));
+    volumeSlider.setAttribute('aria-label', t('audio.volume'));
+    volumeSlider.setAttribute('aria-valuetext', new Intl.NumberFormat(getLanguage(), { style: 'percent' }).format(shown));
   }
 
   function renderPlaying() {
