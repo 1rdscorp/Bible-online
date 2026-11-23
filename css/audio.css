@@ -1,0 +1,201 @@
+/* ==========================================================================
+   The audio player (js/ui/audio-player.js): a bar along the bottom of the
+   screen, and the Listen button in a chapter's header.
+   ========================================================================== */
+
+.audio-listen {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  font-family: var(--font-ui);
+}
+
+.audio-player {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 23; /* under the verse action bar (24), side panels and toasts */
+  padding-bottom: env(safe-area-inset-bottom);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: 0 -6px 24px var(--color-shadow);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  /* One size for the whole bar: the source's terms ask that its credit be no
+     smaller than the text beside it. */
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.audio-player[hidden] {
+  display: none;
+}
+
+.audio-inner {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0.45rem 1rem 0.5rem;
+}
+
+.audio-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.audio-credit {
+  margin: 0;
+}
+
+.audio-credit-link {
+  color: var(--color-accent);
+  white-space: nowrap;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.audio-now {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.6rem;
+  margin: 0.1rem 0 0.2rem;
+}
+
+.audio-title {
+  font-weight: 600;
+}
+
+.audio-byline,
+.audio-numbering {
+  color: var(--color-text-muted);
+}
+
+.audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.audio-icon-button {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.audio-icon-button:hover {
+  background: var(--color-surface-hover);
+}
+
+.audio-icon-button:disabled {
+  color: var(--color-text-muted);
+  opacity: 0.45;
+  background: transparent;
+  cursor: default;
+}
+
+.audio-play,
+.audio-play:hover {
+  background: var(--color-accent);
+  color: var(--color-surface);
+}
+
+.audio-close {
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-right: -0.4rem;
+}
+
+.audio-seek {
+  flex: 1;
+  min-width: 5rem;
+  height: 2.75rem;
+  margin: 0 0.25rem;
+  accent-color: var(--color-accent);
+}
+
+.audio-time {
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.audio-rate {
+  flex: none;
+  min-width: 3.4rem;
+  height: 2.25rem;
+  margin-left: 0.25rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.audio-rate:hover {
+  background: var(--color-surface-hover);
+}
+
+.audio-message {
+  margin: 0.3rem 0 0;
+}
+
+.audio-message .text-button {
+  min-height: 2.25rem;
+}
+
+/* Room for the bar: the page scrolls clear of it, and the verse action bar,
+   toasts and status messages sit above it. */
+.has-audio-player main {
+  padding-bottom: calc(var(--audio-player-height, 8rem) + 1rem);
+}
+
+.has-audio-player .verse-actions {
+  bottom: calc(var(--audio-player-height, 8rem) + 0.75rem);
+}
+
+.has-audio-player .toast-region,
+.has-audio-player .app-status {
+  bottom: calc(var(--audio-player-height, 8rem) + 1rem);
+}
+
+/* Phones: the position slider gets a row of its own, above the buttons. */
+@media (max-width: 34rem) {
+  .audio-inner {
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+  }
+
+  .audio-controls {
+    flex-wrap: wrap;
+    gap: 0.15rem;
+  }
+
+  .audio-seek {
+    order: -1;
+    flex-basis: 100%;
+    height: 1.75rem;
+    margin: 0;
+  }
+
+  .audio-icon-button {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .audio-time {
+    margin-left: auto;
+  }
+}

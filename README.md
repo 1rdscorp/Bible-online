@@ -37,7 +37,7 @@ npm test
 
 This runs two groups of tests:
 - **Unit tests:** canon, router, translation selection, verse alignment, versification remapping, the provider contract, the cache, the registry, interface languages, search (tokenizing and queries, the index, references, search URLs), and study tools (verse ranges and highlight splitting, note markup, copy formats, backups, the store).
-- **Data checks:** every translation in `data/translations.json` is validated, version-checked and scanned for leftover markup. The research data (cross-references, Strong's dictionaries, places, basemap) and the study content (introductions, timeline, maps) are checked too: every reference must exist and every outline must cover its book.
+- **Data checks:** every translation in `data/translations.json` is validated, version-checked and scanned for leftover markup. The research data (cross-references, Strong's dictionaries, places, basemap), the audio data (every chapter has a recording, the Psalm numbering) and the study content (introductions, timeline, maps) are checked too: every reference must exist and every outline must cover its book.
 
 ## Deploy to GitHub Pages
 
@@ -187,6 +187,19 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
 
 The pages are built from reusable templates (`js/views/templates/study-page.js`: page, facts, tags, outline, quotes, link cards; `era-bar.js`: periods on a time axis) and data files (`data/study/`), so new pages such as topics or reading plans follow the same pattern.
 
+## Audio Bible
+
+Chapters of the Russian Synodal can be heard read aloud. A chapter shown in the Synodal (alone or as a compare column) has a **Listen** button under its title. It opens a player at the bottom of the screen that keeps playing while you move around the site.
+
+- **The recording:** the Synodal Bible read by Alexander Bondarenko, with four books he didn't record (2 Kings, 1 and 2 Chronicles, the Song of Songs) read by Ilya Prudovsky: 1,189 chapters, about 100 hours. The player names the reader.
+- **From predanie.ru:** the files stream unchanged from [Предание.ру](https://predanie.ru/bez-avtora/bibliya-sinodalnyy-perevod-chitaet-aleksandr-bondarenko/), whose [terms](https://predanie.ru/page/tos/) (2.2.1) allow free non-commercial use with a clearly visible link to the source and to the page the recording comes from. The player's first line is that credit («Источник: Предание.ру · страница записи», linking to the site and to the chapter's own page), in the same size as the rest of the bar. **The site must stay non-commercial for this:** ads or sales would need a contract with the Предание Foundation.
+- **Controls:** play/pause, previous and next chapter, back 15 seconds, a position slider, speed (0.75× to 2×), close. Phones and keyboards' media keys and the lock screen control it too (Media Session).
+- **Continuous:** at the end of a chapter the next one plays. If you're still on the chapter that ended, the page turns with it; if you've gone elsewhere, your page stays put.
+- **Remembered:** the chapter, place and speed are saved on the device, so Listen on the same chapter later carries on where you stopped.
+- **Numbering:** the recording follows the printed Synodal Bible, so Psalm 23 plays the Synodal Psalm 22 and the player says so ("По синодальной нумерации: Псалом 22"). Psalm 116 plays Synodal Psalms 114 and 115; Psalm 10, which is the second half of Synodal Psalm 9, plays that recording from its start, with a note.
+
+Another recording (another reader, language or host) is an entry in `tools/audio-sources.json` plus `node tools/build-audio.mjs`; the player reads any source in the same shape (`js/audio/sources.js`).
+
 ## Interface language
 
 The whole interface is in **English** or **Russian**, switched with the **RUS | ENG** buttons in the top-right corner:
@@ -205,7 +218,7 @@ To add another interface language:
 index.html            App shell: header, settings panel, <main> where views render
 css/                  themes.css (colour tokens), base, layout, picker, reader, parallel, translate,
                       search, study, research (the Research panel), pages (study pages, maps),
-                      explore (the statue), commentary
+                      explore (the statue), commentary, audio (the player)
 js/
   main.js             Entry point: routes → views, translation choice, keyboard, last-read
   i18n.js             Interface language: t('key'), book names, RUS | ENG (text in locales/)
@@ -218,6 +231,7 @@ js/
   research/           Research data: loading it (data.js), references ("ROM 5:8"),
                       Strong's helpers, the concordance (run in the search worker), commentary
                       lookups (which chapters discuss a verse)
+  audio/              Audio Bibles: which recording plays a chapter, what comes next (sources.js)
   geo/                Maps: projection and label placement (projection.js), zoom and pan (view.js),
                       the SVG map (map.js)
   canon.js            The 66 books: USFM ids, names, URL slugs, chapter counts
@@ -229,17 +243,17 @@ js/
                       device cache, base for API sources (see its README)
   ui/                 DOM helper, header, settings panel, translation dropdown + Compare,
                       verse actions bar, study marks, Notes and Research panels (side-panels.js
-                      docks them), toasts
+                      docks them), the audio player, toasts
   views/              Book/chapter picker, reader (single + parallel), verse alignment,
                       search page, My Study, Translations page, book introductions, timeline,
                       maps, commentary, messages; templates/ holds the study-page building blocks;
                       explore/ holds the interactive studies (the statue of Daniel 2)
 data/                 translations.json + one JSON file per translation; research.json lists the
                       research data: xref/ (cross-references), strongs/ (dictionaries), geo/
-                      (places, basemap), study/ (introductions, timeline, maps), commentary/.
+                      (places, basemap), study/ (introductions, timeline, maps), commentary/, audio/.
                       See data/README.md
 tools/                serve, build-data (download → convert → validate), build-xref, build-strongs,
-                      build-geo, build-study, build-commentary, converters, validator
+                      build-geo, build-study, build-commentary, build-audio, converters, validator
 tests/                node --test suites
 ```
 
@@ -260,4 +274,5 @@ tests/                node --test suites
   - Added later: word-level highlights (in the translation they were made in), and searching for selected words
 - [x] **Stage 5:** research and study pages: a Research side panel with cross-references (OpenBible.info) and Strong's word study in KJV+ (Hebrew/Greek word, transliteration, definition, every verse using it); book introductions for all 66 books, a timeline and SVG maps of key places, built as reusable page templates; English and Russian
   - Added later: zoomable, interactive maps; the interactive statue of Daniel 2 (`#/explore`); public-domain Adventist commentary (`#/commentary`): Ellen G. White's Conflict of the Ages and Uriah Smith's Daniel and the Revelation, with links to the official Russian editions and the site's own Russian translation of the chapters on Daniel and the Revelation
+- [x] **Audio:** the Russian Synodal read aloud (Alexander Bondarenko, from predanie.ru), in a player that follows the reader from chapter to chapter
 - [ ] Later: reading plans, topical lookups, offline support, cloud sync
