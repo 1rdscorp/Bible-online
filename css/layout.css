@@ -83,6 +83,10 @@
   text-decoration: none;
 }
 
+.location-link[hidden] {
+  display: none;
+}
+
 .location-link:hover {
   background: var(--color-surface-hover);
 }
@@ -379,7 +383,8 @@
 
   /* On a reader page, the chapter name needs the room more than the logo
      does (Russian book names are long). Home stays reachable through the
-     chapter grid's "All books"; browsers without :has() keep the logo. */
+     chapter grid's "All books"; browsers without :has() keep the logo.
+     The home page, with only the translation controls here, is home. */
   .app-header-inner:has(> .location:not([hidden])) > .brand {
     display: none;
   }

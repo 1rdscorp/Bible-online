@@ -133,8 +133,27 @@ function changeTranslations(ids, focusKey = null) {
   navigate(href);
 }
 
+/**
+ * The header's controls off the reader (the home page): save the choice, so
+ * every book opens in it, and show it.
+ */
+async function savePickerSelection(choose) {
+  const { translations, knownIds, prefs } = await translationState();
+  const ids = choose(selectionFromPrefs(prefs), prefs, knownIds);
+  await savePrefs(prefsWithSelection(prefs, ids));
+  if (currentRoute?.view === 'books') translationControl.update({ translations, ids });
+}
+
+function selectTranslation(id) {
+  if (currentRoute?.view === 'reader') changeTranslations([id], 'header-translation');
+  else savePickerSelection(() => [id]);
+}
+
 async function toggleCompare() {
-  if (currentRoute?.view !== 'reader') return;
+  if (currentRoute?.view !== 'reader') {
+    savePickerSelection((ids, prefs, knownIds) => (ids.length > 1 ? stopComparing(ids) : startComparing(ids, prefs, knownIds)));
+    return;
+  }
   const { knownIds, prefs } = await translationState();
   const ids = currentRoute.ids;
   changeTranslations(ids.length > 1 ? stopComparing(ids) : startComparing(ids, prefs, knownIds), 'compare-toggle');
@@ -332,8 +351,13 @@ async function handleRoute(route, { rerender = false } = {}) {
       return;
     }
     case 'books': {
-      const lastRead = await getLastRead();
-      if (isCurrent()) mount(renderBookList({ lastRead, studyCount: studyStore.all().length }), { title: null, preserve: rerender });
+      // The header's translation controls show here too: they choose what
+      // the books open in. Without the list of translations (offline before
+      // the first visit), the books still show, without them.
+      const [lastRead, state] = await Promise.all([getLastRead(), translationState().catch(() => null)]);
+      if (!isCurrent()) return;
+      if (state) translationControl.update({ translations: state.translations, ids: selectionFromPrefs(state.prefs) });
+      mount(renderBookList({ lastRead, studyCount: studyStore.all().length }), { title: null, controls: Boolean(state), preserve: rerender });
       return;
     }
     case 'chapters': {
@@ -980,11 +1004,11 @@ function showLoadFailure(error) {
  * screen-reader users hear where they've arrived (as on a full page load).
  * `preserve` (a language change) keeps the scroll position and focus instead.
  */
-function mount(node, { title, location = null, preserve = false }) {
+function mount(node, { title, location = null, controls = false, preserve = false }) {
   const scrollY = window.scrollY;
   main.replaceChildren(node);
   document.title = title ? `${title} · ${t('app.name')}` : t('app.name');
-  header.setLocation(location);
+  header.setLocation(location, { controls });
   if (preserve) {
     window.scrollTo(0, scrollY);
     return;
@@ -1086,7 +1110,7 @@ async function boot() {
     if (link) searchClickedHref = link.getAttribute('href');
   });
   translationControl = initTranslationControl(document.getElementById('translation-control'), {
-    onSelect: (id) => changeTranslations([id], 'header-translation'),
+    onSelect: selectTranslation,
     onToggleCompare: toggleCompare,
   });
 

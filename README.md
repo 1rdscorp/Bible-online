@@ -47,7 +47,7 @@ In the repository, go to **Settings → Pages → Build and deployment**. Set **
 
 | URL | Shows |
 |---|---|
-| `#/` | Book list (Old/New Testament) |
+| `#/` | Book list (Old/New Testament); the header's translation dropdown and Compare choose what the books open in |
 | `#/john` | Chapter grid for John |
 | `#/john/3?t=kjv` | John 3 in the KJV |
 | `#/john/3?t=kjv,asv,web` | John 3 in three translations side by side (2–4) |

@@ -1,7 +1,8 @@
 /**
  * App header: the current location ("John 3 ⌄", linking to the chapter
- * grid), the reader's translation controls (ui/translation-control.js, which
- * sit inside the location area), and hide-on-scroll.
+ * grid), the translation controls (ui/translation-control.js, which sit
+ * inside the location area: in the reader, and alone on the home page), and
+ * hide-on-scroll.
  *
  * To keep reading distraction-free, the sticky header slides away while you
  * scroll down and comes back as soon as you scroll up. It never hides while
@@ -37,17 +38,19 @@ export function initHeader(root, { isPinned = () => false } = {}) {
   window.addEventListener('scroll', onScroll, { passive: true });
 
   return {
-    /** Show "John 3" and the translation controls (or hide both with null). */
-    setLocation(position) {
-      if (!position) {
-        location.hidden = true;
-        return;
-      }
+    /**
+     * Show "John 3" and the translation controls, or hide both with null.
+     * `controls: true` with no position shows the translation controls alone
+     * (the home page, where they choose what the books open in).
+     */
+    setLocation(position, { controls = false } = {}) {
+      locationLink.hidden = !position;
+      location.hidden = !position && !controls;
+      if (!position) return;
       const title = chapterTitle(position.book, position.chapter);
       locationText.textContent = title;
       locationLink.href = bookHref(position.book);
       locationLink.setAttribute('aria-label', t('location.choose', { title }));
-      location.hidden = false;
     },
 
     reveal() {
