@@ -133,6 +133,12 @@ function changeTranslations(ids, focusKey = null) {
   navigate(href);
 }
 
+/** The home page's chooser: read `id` alone from now on (Compare off). */
+async function chooseTranslation(id) {
+  const { prefs } = await translationState();
+  await savePrefs(prefsWithSelection(prefs, [id]));
+}
+
 async function toggleCompare() {
   if (currentRoute?.view !== 'reader') return;
   const { knownIds, prefs } = await translationState();
@@ -332,8 +338,15 @@ async function handleRoute(route, { rerender = false } = {}) {
       return;
     }
     case 'books': {
-      const lastRead = await getLastRead();
-      if (isCurrent()) mount(renderBookList({ lastRead, studyCount: studyStore.all().length }), { title: null, preserve: rerender });
+      // The translation chooser needs the list of translations; without it
+      // (offline before the first visit), the books still show.
+      const [lastRead, state] = await Promise.all([getLastRead(), translationState().catch(() => null)]);
+      const translation = state && {
+        translations: state.translations,
+        ids: selectionFromPrefs(state.prefs),
+        onChange: chooseTranslation,
+      };
+      if (isCurrent()) mount(renderBookList({ lastRead, studyCount: studyStore.all().length, translation }), { title: null, preserve: rerender });
       return;
     }
     case 'chapters': {

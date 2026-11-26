@@ -8,16 +8,21 @@ import { booksInTestament, TESTAMENTS } from '../canon.js';
 import { bookName, chapterTitle, t, testamentName } from '../i18n.js';
 import { bookHref, chapterHref, commentaryHref, introHref, mapHref, pageHref, PAGES } from '../router.js';
 import { el, icon, ICONS } from '../ui/dom.js';
+import { createTranslationSelect } from '../ui/translation-select.js';
 
 /**
- * @param {{ lastRead?: { book, chapter } | null, studyCount?: number }} options
- * studyCount: highlights, notes and bookmarks saved (shows a My Study link)
+ * @param {object} options
+ * @param {{ book, chapter } | null} [options.lastRead]
+ * @param {number} [options.studyCount]  highlights, notes and bookmarks saved (shows a My Study link)
+ * @param {{ translations: object[], ids: string[], onChange: (id: string) => void } | null} [options.translation]
+ *   the translation the books open in (null while the list of translations can't load)
  */
-export function renderBookList({ lastRead = null, studyCount = 0 } = {}) {
+export function renderBookList({ lastRead = null, studyCount = 0, translation = null } = {}) {
   return el(
     'section',
     { class: 'picker', 'aria-labelledby': 'view-title' },
     el('h1', { class: 'view-title', id: 'view-title', tabindex: '-1' }, t('books.title')),
+    translation && translationChoice(translation),
     (lastRead || studyCount > 0) &&
       el('p', { class: 'continue' }, lastRead && continueLink(lastRead), studyCount > 0 && studyLink(studyCount)),
     TESTAMENTS.map((testament) =>
@@ -67,6 +72,36 @@ export function renderBookList({ lastRead = null, studyCount = 0 } = {}) {
       el('p', {}, t('home.creditBti'), ' ', el('span', { lang: 'ru' }, '«Институт перевода Библии им. М. П. Кулакова»'), `, 2024. ${t('home.creditPermission')}`),
       el('p', {}, el('a', { href: pageHref('translations') }, t('reader.about'))),
     ),
+  );
+}
+
+/**
+ * "Translation: KJV · King James Version ⌄". The choice is saved as the
+ * reader's translation, so every book, chapter and the Continue link open in
+ * it. With Compare on, a note names the columns; choosing one translation
+ * here reads it alone.
+ */
+function translationChoice({ translations, ids, onChange }) {
+  const comparing = ids.length > 1;
+  const abbreviations = ids.map((id) => translations.find((info) => info.id === id)?.abbreviation).filter(Boolean);
+  const note = comparing ? el('span', { class: 'home-translation-note' }, t('home.comparing', { list: abbreviations.join(', ') })) : null;
+  const select = createTranslationSelect({
+    translations,
+    value: ids[0],
+    label: t('home.translation'),
+    focusKey: 'home-translation',
+    showName: true,
+    onChange: (id) => {
+      note?.remove();
+      onChange(id);
+    },
+  });
+  return el(
+    'p',
+    { class: 'home-translation' },
+    el('span', { class: 'home-translation-label', 'aria-hidden': 'true' }, t('home.translation')),
+    select.element,
+    note,
   );
 }
 

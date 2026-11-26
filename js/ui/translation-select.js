@@ -16,10 +16,15 @@ import { el, icon, ICONS } from './dom.js';
  * @param {string[]} [options.disabledIds] ids shown greyed out (already in another column)
  * @param {string} options.label           accessible name, e.g. "Translation"
  * @param {string} [options.focusKey]      lets main.js restore focus after a re-render
+ * @param {boolean} [options.showName]     label "KJV · King James Version" where there's room (home page)
  * @param {(id: string) => void} options.onChange
  */
-export function createTranslationSelect({ translations, value, disabledIds = [], label, focusKey, onChange }) {
-  const abbreviation = (id) => translations.find((t) => t.id === id)?.abbreviation ?? '';
+export function createTranslationSelect({ translations, value, disabledIds = [], label, focusKey, showName = false, onChange }) {
+  const abbreviation = (id) => {
+    const info = translations.find((t) => t.id === id);
+    if (!info) return '';
+    return showName ? `${info.abbreviation} · ${info.name}` : info.abbreviation;
+  };
   const display = el('span', { class: 'tselect-value', 'aria-hidden': 'true' }, abbreviation(value));
 
   const select = el(
@@ -36,7 +41,7 @@ export function createTranslationSelect({ translations, value, disabledIds = [],
   });
 
   return {
-    element: el('span', { class: 'tselect' }, display, icon(ICONS.chevronDown, { size: 14, className: 'tselect-chevron' }), select),
+    element: el('span', { class: `tselect${showName ? ' tselect-named' : ''}` }, display, icon(ICONS.chevronDown, { size: 14, className: 'tselect-chevron' }), select),
     select,
     setValue(id) {
       select.value = id;
