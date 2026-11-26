@@ -35,10 +35,10 @@ test('every translation has Russian metadata for the Russian interface', () => {
   }
 });
 
-test('the public-domain translations are all present', () => {
+test('the public-domain translations are all present, and the licensed BTI', () => {
   assert.deepEqual(
     manifest.translations.map((t) => t.id),
-    ['kjv', 'asv', 'web', 'ylt', 'darby', 'bbe', 'rst', 'lxx', 'kjvs'],
+    ['kjv', 'asv', 'web', 'ylt', 'darby', 'bbe', 'rst', 'bti', 'lxx', 'kjvs'],
   );
 });
 
@@ -211,6 +211,36 @@ describe('spot checks', () => {
     const open = verses.join('').split('«').length - 1;
     const close = verses.join('').split('»').length - 1;
     assert.equal(open, close, '« and » balance');
+  });
+
+  test('BTI: the Institute’s text as written, with its formatting, renumbered to English verse numbers', () => {
+    const bti = load('bti');
+    const book = (id) => bti.books.find((b) => b.id === id);
+    assert.equal(verse(bti, 'JHN', 3, 16), 'Бог ведь так полюбил этот мир, что пожертвовал Сыном Своим единственным, чтобы всякий, кто верит в Него, не погиб, но обрел жизнь вечную.');
+    // Its own dashes and quotation marks, untouched (no typography fixes).
+    assert.ok(bti.books.flatMap((b) => b.chapters.flat()).some((text) => text.includes(' – ')));
+    // Psalms in the Synodal numbering: its Psalm 22, with its title, is English Psalm 23.
+    assert.match(verse(bti, 'PSA', 23, 1), /^Псалом Давида Господь – Пастырь мой/);
+    assert.match(book('PSA').marks[22][0], /^0\.t 14\.q1/);
+    assert.deepEqual(book('PSA').native['23'], [[22]]);
+    // Daniel 3–4 in the Hebrew numbering: its 3:31 is English 4:1.
+    assert.match(verse(bti, 'DAN', 4, 1), /^«От царя Навуходоносора/);
+    // Verses translated together ("11–12"): the text in the first, the second empty.
+    assert.deepEqual(book('MAT').ranges[19], [[11, 12]]);
+    assert.equal(verse(bti, 'MAT', 20, 12), '');
+    // Formatting: small capitals for «Господь», italics for added words, bold for Old Testament quotations.
+    const marked = (id, c, v, kind) => book(id).marks[c - 1][v - 1].split(' ').filter((m) => m.endsWith(`.${kind}`)).map((m) => {
+      const [start, length] = m.split('.').map(Number);
+      return verse(bti, id, c, v).slice(start, start + length);
+    });
+    assert.deepEqual(marked('RUT', 1, 6, 'sc'), ['Господь']);
+    assert.ok(marked('RUT', 1, 1, 'i').includes('в Израиле'));
+    assert.ok(marked('MAT', 1, 23, 'b').some((text) => text.startsWith('И вот дева')));
+    // Headings and footnotes, each in its verse.
+    assert.deepEqual(book('JHN').headings[2][0], [1, 'Беседа с Никодимом']);
+    const [v, at, label, ref, text] = book('RUT').notes[0][0];
+    assert.deepEqual([v, label, ref, text], [1, 'а', '1:1', 'Букв.: судили.']);
+    assert.equal(verse(bti, 'RUT', 1, 1).slice(0, at), 'Во времена, когда в Израиле правили');
   });
 
   test('BBE', () => {

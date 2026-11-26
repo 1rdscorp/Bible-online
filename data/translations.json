@@ -191,6 +191,37 @@
       }
     },
     {
+      "id": "bti",
+      "abbreviation": "BTI",
+      "name": "Modern Russian Translation (Bible Translation Institute, Kulakov)",
+      "year": "2024",
+      "language": "ru",
+      "direction": "ltr",
+      "provider": "json",
+      "url": "data/bti.json",
+      "version": "3fa5b396f683",
+      "license": "© Institute for Bible Translation named after M. P. Kulakov; used with permission",
+      "copyright": "© Institute for Bible Translation named after M. P. Kulakov, 2024. «Библия. Книги Священного Писания Ветхого и Нового Завета в современном русском переводе», 3rd revised edition, translated by the Institute and edited by M. P. Kulakov and M. M. Kulakov. Used on this site by permission of the Institute; it may not be copied from here or reused elsewhere.",
+      "formatted": true,
+      "numbering": {
+        "name": "BTI numbering",
+        "psalm": "Псалом",
+        "psalms": "Псалмы"
+      },
+      "description": "A modern Russian translation from the Hebrew, Aramaic and Greek by the Institute for Bible Translation in Zaoksky (complete Bible 2015; this is the 3rd revised edition, 2024). Shown as the Institute printed it: section headings, footnotes (tap a mark to read the note), words the translators added in italics, «Господь» in small capitals where the Hebrew has God's name, Old Testament quotations in bold in the New Testament, and poetry set in lines. Square brackets mark words modern scholarship doesn't consider certainly original. The Psalms are numbered as in Russian Bibles (Псалом 22 is English Psalm 23); here the verses follow English numbering, so they line up with the other translations.",
+      "i18n": {
+        "ru": {
+          "name": "Современный русский перевод (Кулаков)",
+          "license": "© Институт перевода Библии им. М. П. Кулакова; с разрешения",
+          "copyright": "© Институт перевода Библии им. М. П. Кулакова, 2024. «Библия. Книги Священного Писания Ветхого и Нового Завета в современном русском переводе», издание третье, переработанное и дополненное; перевод Института перевода Библии под редакцией М. П. Кулакова и М. М. Кулакова. Размещается на этом сайте с разрешения Института; копирование и использование текста отсюда не допускается.",
+          "description": "Современный перевод с древнееврейского, арамейского и греческого, выполненный Институтом перевода Библии в Заокском (полная Библия — 2015 год; здесь третье, переработанное издание, 2024). Текст дан так, как его издал Институт: с подзаголовками, примечаниями (нажмите на значок, чтобы прочитать примечание), курсивом для слов, добавленных переводчиками, словом «Господь» малыми прописными там, где в еврейском тексте имя Бога, цитатами из Ветхого Завета полужирным в Новом Завете и поэтическими отрывками по строкам. В квадратные скобки заключены слова, подлинность которых современная библеистика считает не вполне доказанной. Псалмы пронумерованы, как в русских Библиях (Псалом 22 — это английский Псалом 23); здесь стихи следуют английской нумерации, чтобы совпадать с другими переводами.",
+          "numbering": {
+            "name": "Нумерация перевода ИПБ"
+          }
+        }
+      }
+    },
+    {
       "id": "lxx",
       "abbreviation": "LXX",
       "name": "Septuagint",

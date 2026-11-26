@@ -258,6 +258,8 @@ export function* splitVerses(verses, splits = {}) {
  * JSON with the metadata first and one chapter per line, so git diffs stay
  * readable. A book's optional `native` spans go on their own line.
  */
+export const OPTIONAL_CHAPTER_FIELDS = ['tags', 'marks', 'notes', 'headings', 'ranges'];
+
 export function serialize({ books, ...meta }) {
   const head = JSON.stringify({ formatVersion: FORMAT_VERSION, ...meta }).slice(0, -1);
   const bookLines = books.map(
@@ -265,7 +267,11 @@ export function serialize({ books, ...meta }) {
       `{"id":${JSON.stringify(book.id)},"name":${JSON.stringify(book.name)},"chapters":[\n` +
       book.chapters.map((chapter) => JSON.stringify(chapter)).join(',\n') +
       '\n]' +
-      (book.tags ? `,\n"tags":[\n${book.tags.map((chapter) => JSON.stringify(chapter)).join(',\n')}\n]` : '') +
+      // Optional fields shaped like "chapters" (one chapter per line): Strong's
+      // tags, and a formatted text's marks, notes, headings and verse ranges.
+      OPTIONAL_CHAPTER_FIELDS.filter((field) => book[field])
+        .map((field) => `,\n${JSON.stringify(field)}:[\n${book[field].map((chapter) => JSON.stringify(chapter)).join(',\n')}\n]`)
+        .join('') +
       (book.native ? `,\n"native":${JSON.stringify(book.native)}` : '') +
       '}',
   );
