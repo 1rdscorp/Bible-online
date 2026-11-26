@@ -36,43 +36,6 @@
 }
 
 /* "Continue reading John 3" */
-/* The translation the books open in (js/views/picker.js). */
-.home-translation {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem 0.75rem;
-  margin-top: 1rem;
-}
-
-.home-translation-label {
-  color: var(--color-text-muted);
-  font-size: 0.9rem;
-}
-
-/* Room for the full name; a long one is cut short rather than pushing
-   the page sideways on a phone. */
-.tselect-named {
-  flex: 0 1 auto;
-  min-width: 0;
-  max-width: 100%;
-  min-height: 2.75rem;
-  padding: 0 0.75rem 0 1rem;
-  font-size: 0.9rem;
-  letter-spacing: 0.01em;
-}
-
-.tselect-named .tselect-value {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.home-translation-note {
-  flex-basis: 100%;
-  color: var(--color-text-muted);
-  font-size: 0.85rem;
-}
-
 .continue {
   display: flex;
   flex-wrap: wrap;

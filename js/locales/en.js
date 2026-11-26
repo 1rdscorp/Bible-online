@@ -65,8 +65,6 @@ export default {
     'reader.noteGoTo': 'Note {label}: go to verse {verse}',
     'home.creditBti': 'Modern Russian Translation (BTI): translated by, and ©',
     'home.creditPermission': 'Used by permission of the Institute.',
-    'home.translation': 'Translation',
-    'home.comparing': 'Comparing {list}. Choose one to read it alone.',
     'reader.about': 'About these translations',
     'reader.chapterNav': 'Chapter',
     'reader.previous': 'Previous',

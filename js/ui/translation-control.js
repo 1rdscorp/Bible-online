@@ -1,6 +1,7 @@
 /**
- * The header's translation controls (reader only): the translation dropdown
- * and the Compare toggle.
+ * The header's translation controls: the translation dropdown and the
+ * Compare toggle. In the reader they change what's on screen; on the home
+ * page they choose what the books open in.
  *
  * With one translation, the dropdown picks it. With Compare on, each column
  * has its own picker in the reader (views/reader.js), so the header dropdown

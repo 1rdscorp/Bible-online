@@ -130,8 +130,6 @@ export default {
     'reader.noteGoTo': 'Примечание {label}: перейти к стиху {verse}',
     'home.creditBti': 'Современный русский перевод (BTI): перевод и ©',
     'home.creditPermission': 'Размещается с разрешения Института.',
-    'home.translation': 'Перевод',
-    'home.comparing': 'Сравнение: {list}. Выберите один перевод, чтобы читать только его.',
     'reader.about': 'Об этих переводах',
     'reader.chapterNav': 'Главы',
     'reader.previous': 'Предыдущая',
