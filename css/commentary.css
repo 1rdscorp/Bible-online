@@ -99,7 +99,7 @@
   margin-top: 2em;
 }
 
-/* Smith: each section opens with the verses it's on. */
+/* A verse-by-verse commentary: each section opens with the verses it's on. */
 .commentary-verses-title {
   font-family: var(--font-ui);
   font-size: 0.85rem;

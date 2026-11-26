@@ -9,7 +9,7 @@
  *
  *   @title The Great Image                       the chapter's title
  *   @section From Strength to Weakness            the book's section (if any)
- *   @block 2.1 p DAN 2:1                         section 2, block 1: a paragraph (Smith: on Daniel 2:1)
+ *   @block 2.1 p DAN 2:1                         section 2, block 1: a paragraph (in a verse-by-verse commentary: on Daniel 2:1)
  *   Daniel was carried into captivity …           its text
  *   @block 2.4 q                                 a quotation: one line per line of the original
  *   @note 1                                      a chapter note

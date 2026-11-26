@@ -60,7 +60,7 @@ In the repository, go to **Settings → Pages → Build and deployment**. Set **
 | `#/timeline` | The Bible timeline (`?event=crucifixion` brings one event into view) |
 | `#/maps` | The maps; `#/maps/paul?place=a5feb15` opens one with a place selected |
 | `#/explore` | Interactive studies; `#/explore/daniel-statue?part=legs&reading=traditional` opens the statue of Daniel 2 at a part |
-| `#/commentary` | Adventist commentary: the books; `#/commentary/desire-of-ages` one book's contents (`?book=daniel` only its chapters on Daniel); `#/commentary/desire-of-ages/17` a chapter; `#/commentary/daniel-and-the-revelation/dan-2?v=31` opens Smith's Daniel 2 at verse 31 |
+| `#/commentary` | Adventist commentary: the books; `#/commentary/desire-of-ages` one book's contents (`?book=daniel` only its chapters on Daniel); `#/commentary/desire-of-ages/17` a chapter (`?v=3` scrolls to where verse 3 is discussed, in a verse-by-verse commentary) |
 
 A link without `?t=` opens in the translations you used last. Abbreviations redirect to the canonical URL (`#/jn/3` → `#/john/3?t=…`). Opening the site with no `#…` resumes the last chapter read.
 
@@ -145,7 +145,7 @@ No paid translation API is used: its key would be public on a static site, and t
 Select a verse (tap its number) and choose **Research**. A panel opens on the right (on phones, from the bottom), so the chapter stays in view. It has three tabs:
 
 - **Cross-references:** related passages for each selected verse, best first, with their text quoted. There are 340,000 references from [OpenBible.info](https://www.openbible.info/labs/cross-references/), ranked by readers' votes. Following one opens it in the reader and leaves the panel as it was.
-- **Commentary:** the Adventist commentary on the selected verses (see below). Uriah Smith's sections on them are quoted in part; Ellen G. White's chapters that tell the passage show their opening lines. Each links to the full text.
+- **Commentary:** the Adventist commentary on the selected verses (see below): Ellen G. White's chapters that tell the passage, with their opening lines. Each links to the full text.
 - **Word study:** in **KJV+**, tap any word, or pick one from the selected verse's list. The panel shows the Hebrew or Greek word, its transliteration and pronunciation, Strong's definition, how the KJV renders it, and its origin, with links to related entries. Below that it shows how often the word is used, the English words it's translated by, and every verse that uses it, with the word marked. In other translations, the tab offers to open the passage in KJV+.
 
 Word highlights work in KJV+ as elsewhere, and the words stay tappable.
@@ -175,15 +175,14 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
 
 - **Adventist commentary** (`#/commentary`), linked next to Interactive studies on the book list. It holds classic Seventh-day Adventist books that are now in the public domain:
   - Ellen G. White's **Conflict of the Ages**, which retells the Bible story chapter by chapter: *Patriarchs and Prophets* (1890; the 1913 edition), *Prophets and Kings* (1917), *The Desire of Ages* (1898) and *The Acts of the Apostles* (1911).
-  - Uriah Smith's **Daniel and the Revelation** (1897), a verse-by-verse commentary on both books.
 
-  Each chapter says which Bible passages it's based on, and every Bible chapter it covers lists it under the text ("Adventist commentary: The Desire of Ages: 17. Nicodemus"). Smith's chapters quote the KJV verses each section is on. Ellen White's show the printed book's page numbers in the margin, for citing. Bible references inside the text are links. The books are in English; in the Russian interface, a chapter that has no Russian translation yet says so.
+  Each chapter says which Bible passages it's based on, and every Bible chapter it covers lists it under the text ("Adventist commentary: The Desire of Ages: 17. Nicodemus"). They show the printed book's page numbers in the margin, for citing. Bible references inside the text are links. The books are in English; in the Russian interface, a chapter that has no Russian translation yet says so.
 
   The *Seventh-day Adventist Bible Commentary* (1953–1957, revised 1976–1980) is still under copyright, so it isn't included.
 
   **In Russian.** The published Russian translations of these books are under copyright too, so:
   - **Official edition links:** every Ellen White chapter links to the same chapter in the official Russian edition in [EGW Writings](https://m.egwwritings.org/ru), the White Estate's free online reader («Желание веков», глава 17: «Никодим»).
-  - **The site's own translation:** the 45 chapters on Daniel and the Revelation (all 36 of Uriah Smith's book, *Prophets and Kings* 39–45 on Daniel, and *The Acts of the Apostles* 56–57 on John and the Revelation) are translated from English by AI (Claude) for the site. Bible quotations follow the Synodal translation, and Smith's verses are shown in it; where his argument turns on the English Bible's wording, a short translator's note says so (Revelation 1:10, «в день воскресный»). Gaps where the scan is unreadable are marked […], as in the English. In the Russian interface these chapters open in Russian, with a switch to the English original (`?lang=en` / `?lang=ru`) and a note that the translation is the site's own, not an official one. Lists and the Research panel use the Russian titles and text where there are some. How to translate more chapters: `tools/commentary-ru/README.md`.
+  - **The site's own translation:** the 9 chapters on Daniel and the Revelation (*Prophets and Kings* 39–45 on Daniel, and *The Acts of the Apostles* 56–57 on John and the Revelation) are translated from English by AI (Claude) for the site. Bible quotations follow the Synodal translation. In the Russian interface these chapters open in Russian, with a switch to the English original (`?lang=en` / `?lang=ru`) and a note that the translation is the site's own, not an official one. Lists and the Research panel use the Russian titles and text where there are some. How to translate more chapters: `tools/commentary-ru/README.md`.
 
 The pages are built from reusable templates (`js/views/templates/study-page.js`: page, facts, tags, outline, quotes, link cards; `era-bar.js`: periods on a time axis) and data files (`data/study/`), so new pages such as topics or reading plans follow the same pattern.
 
@@ -288,7 +287,7 @@ tests/                node --test suites
 - [x] **Stage 4:** personal study tools: tap or select verses for an action bar (5 highlight colours, notes, bookmarks, two copy formats, share), a Notes panel with a rich-ish editor, tags and search, a My Study page with filters, highlights kept by verse reference across translations, and JSON backup export/import
   - Added later: word-level highlights (in the translation they were made in), and searching for selected words
 - [x] **Stage 5:** research and study pages: a Research side panel with cross-references (OpenBible.info) and Strong's word study in KJV+ (Hebrew/Greek word, transliteration, definition, every verse using it); book introductions for all 66 books, a timeline and SVG maps of key places, built as reusable page templates; English and Russian
-  - Added later: zoomable, interactive maps; the interactive statue of Daniel 2 (`#/explore`); public-domain Adventist commentary (`#/commentary`): Ellen G. White's Conflict of the Ages and Uriah Smith's Daniel and the Revelation, with links to the official Russian editions and the site's own Russian translation of the chapters on Daniel and the Revelation
+  - Added later: zoomable, interactive maps; the interactive statue of Daniel 2 (`#/explore`); public-domain Adventist commentary (`#/commentary`): Ellen G. White's Conflict of the Ages, with links to the official Russian editions and the site's own Russian translation of the chapters on Daniel and the Revelation
 - [x] **Licensed translation:** the modern Russian translation of the Institute for Bible Translation named after M. P. Kulakov (BTI), with its headings, footnotes, italics, small capitals and poetry lines
 - [x] **Audio:** the Russian Synodal read aloud (Alexander Bondarenko, from predanie.ru), in a player that follows the reader from chapter to chapter
 - [ ] Later: reading plans, topical lookups, offline support, cloud sync

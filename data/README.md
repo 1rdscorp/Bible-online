@@ -306,20 +306,17 @@ Public-domain Seventh-day Adventist books, one file per chapter, built by `tools
 |---|---|
 | Ellen G. White, *Patriarchs and Prophets* (1890; 1913 edition) | [Project Gutenberg](https://www.gutenberg.org/ebooks/79498) plain text (downloaded from its mirror, gutenberg.pglaf.org) |
 | Ellen G. White, *Prophets and Kings* (1917), *The Desire of Ages* (1898), *The Acts of the Apostles* (1911) | the [Christian Classics Ethereal Library](https://www.ccel.org/ccel/white/)'s ThML editions, which mark every Bible reference and the print edition's pages |
-| Uriah Smith, *Daniel and the Revelation* (1897) | the Internet Archive's OCR text of three scans (Nashville 1907, Battle Creek 1904, Washington 1907) |
 
-- **`index.json`:** `{ formatVersion, works: [{ id, title, author, year, edition?, abbr, series?, volume?, kind, tradition, license, source, parts }] }`. `kind` is `"chapters"` (Ellen White: a chapter tells a passage) or `"verses"` (Smith: verse by verse). Each part is `{ id, title, section?, book?, chapter?, passages }`. Passages are whole chapters in short form (`"GEN 39-41"`, `"LUK 2"`) or verse ranges (`"LUK 2:1-20"`). Introductions, topical chapters and the appendix have none: they're in the library but not linked from a Bible chapter.
+- **`index.json`:** `{ formatVersion, works: [{ id, title, author, year, edition?, abbr, series?, volume?, kind, tradition, license, source, parts }] }`. `kind` is `"chapters"` (Ellen White: a chapter tells a passage); the site also reads `"verses"`, a verse-by-verse commentary (none at present; set `"kind": "verses"` on a source). Each part is `{ id, title, section?, book?, chapter?, passages }`. Passages are whole chapters in short form (`"GEN 39-41"`, `"LUK 2"`) or verse ranges (`"LUK 2:1-20"`). Introductions, topical chapters and the appendix have none: they're in the library but not linked from a Bible chapter.
 - **`<work>/<part>.json`:** `{ formatVersion, work, id, title, passages, pages?, sections, notes? }`.
-  - A section is `{ blocks }`, or for Smith `{ ref: "DAN 2:31-35", quote: [[31, "Thou, O king…"], …], blocks }`, where `quote` is the KJV text he quotes (from `kjv.json`, not the OCR).
-  - Blocks: `{ t: "p", c: runs }` paragraphs (with an `id` where something links to them, such as `"note-5"` in the appendix), `{ t: "q", lines: [runs] }` block quotations and poems, `{ t: "n", c: runs }` Smith's footnotes.
+  - A section is `{ blocks }`, or in a verse-by-verse commentary `{ ref: "DAN 2:31-35", quote: [[31, "Thou, O king…"], …], blocks }`, where `quote` is the KJV text of the verses (from `kjv.json`).
+  - Blocks: `{ t: "p", c: runs }` paragraphs (with an `id` where something links to them, such as `"note-5"` in the appendix), `{ t: "q", lines: [runs] }` block quotations and poems, `{ t: "n", c: runs }` footnotes.
   - Runs: strings, `{ r: "LUK 2:1-20", x: "Luke 2:1–20" }` Bible references as printed, `{ i }` italics, `{ b }` bold side headings, `{ pg: 44 }` where a page of the printed book starts, `{ fn: 1 }` a note mark (the note is in `notes`), and `{ to: "appendix#note-5", x }` a link within the book.
 
 **Which passages a chapter covers.** CCEL's editions carry the publisher's "This chapter is based on …" note for most chapters. The others, and all of *Patriarchs and Prophets*, whose 1913 text has no such notes, are in `tools/commentary-passages.json`. They were matched by reading each chapter and the passages it cites, and they also correct CCEL's few misprints.
 
-**Smith's OCR.** `tools/lib/ocr.mjs` drops running heads, page numbers and engraving noise, mends words hyphenated across lines and pages, and sets footnotes apart. It then lines up the three scans word by word, anchored on word sequences that occur once in each, and corrects the first where the other two agree, or where it isn't a word and theirs is. Words in the KJV and in Ellen White's books (about 23,000) count as known. About 1,000 words are corrected this way. `tools/lib/smith.mjs` finds each quotation by its "VERSE 31." label and the KJV text after it, so every verse of Daniel and the Revelation falls in exactly one section. The `corrections` list in `tools/commentary-sources.json` fixes what the vote can't: the chapter openings OCR loses (the large first letter); numbers and references misread the same way in all three scans ("2800 days" for 2300, "Job 23:38" for 23:3: 3 and 8 are the usual confusion), most found while translating; a footnote leaked into the text; and the opening of Revelation 2, which had run into the end of chapter 1 (a line break in a correction starts a new paragraph, and `§CHAPTER` a chapter). A few misread words remain, so the site says so.
-
 **Russian.**
-- `ru/<work>/<part>.json` holds a chapter's Russian translation, in the same format with `lang: "ru"`. Its references are `{ r }` only, so the site labels them with Russian book names, and Smith's `quote` is the Synodal text from `rst.json`.
+- `ru/<work>/<part>.json` holds a chapter's Russian translation, in the same format with `lang: "ru"`. Its references are `{ r }` only, so the site labels them with Russian book names, and a verse-by-verse section's `quote` is the Synodal text from `rst.json`.
 - The translations are made by AI and kept as plain text in `tools/commentary-ru/<work>/<part>.txt`, in the job format of `tools/lib/commentary-job.mjs`. The build checks each against the English (the same blocks, the same markers, Russian text) and fails if one doesn't match.
 - In the index, a translated chapter has `ru: { title, section? }`.
 - An Ellen White chapter has `ruEdition: { para, title }`, its place in the official Russian edition in EGW Writings; the book has `ruEdition: { title, url, source }`, so the link is `<url>.<para>`. These come from `tools/commentary-official-ru.json`, which `tools/fetch-official-ru.mjs` writes from the Russian books' tables of contents. Only the contents are read, not the text.
@@ -327,7 +324,6 @@ Public-domain Seventh-day Adventist books, one file per chapter, built by `tools
 `tests/commentary.test.js` checks the files:
 - every passage and reference names verses that exist;
 - every link points to a chapter and note that exist;
-- Smith's sections cover Daniel and the Revelation verse by verse, quoting the KJV;
 - the version is current.
 
 `tests/commentary-build.test.js` checks the readers and repairs on samples.
@@ -368,7 +364,7 @@ Which recorded chapter is which, for each audio Bible in `tools/audio-sources.js
 - **Strong's dictionaries:** Open Scriptures' edition of Strong's 1890/1894 dictionaries, under CC BY-SA. The Research panel credits it.
 - **Basemap:** Natural Earth, public domain.
 - **Study content** (introductions, timeline, maps): written for this site.
-- **Commentary:** Ellen G. White's and Uriah Smith's books were first published before 1931 and are in the public domain in the United States.
+- **Commentary:** Ellen G. White's books were first published before 1931 and are in the public domain in the United States.
   - The text of *Patriarchs and Prophets* is Project Gutenberg's; their licence asks only that Project Gutenberg's name and trademark not be used for modified copies, and none is used here.
   - The other three Ellen White books come from CCEL's editions. CCEL allows use for personal, educational or non-profit purposes. Only the public-domain text is used, not CCEL's introductions or descriptions.
   - Russian translations of these books are modern and under copyright. They aren't copied: the site links to them in EGW Writings, and its own Russian translations are AI translations of the public-domain English text, labelled as such.

@@ -1,8 +1,7 @@
 /**
  * The commentary in data/commentary/ (tools/build-commentary.mjs), checked
  * against data/research.json and the KJV: files present and well formed,
- * every reference readable and pointing at verses that exist, Smith's
- * sections covering Daniel and the Revelation verse by verse, and the
+ * every reference readable and pointing at verses that exist, and the
  * version (the cache key) up to date. Also the lookups in
  * js/research/commentary.js and the routes.
  */
@@ -43,9 +42,9 @@ function* allRuns(block) {
 }
 
 describe('commentary data (data/commentary/)', () => {
-  test('the index: five books, Ellen White’s in series order, then Smith', () => {
+  test('the index: Ellen White’s four books, in series order', () => {
     assert.equal(index.formatVersion, 1);
-    assert.deepEqual(index.works.map((work) => work.id), ['patriarchs-and-prophets', 'prophets-and-kings', 'desire-of-ages', 'acts-of-the-apostles', 'daniel-and-the-revelation']);
+    assert.deepEqual(index.works.map((work) => work.id), ['patriarchs-and-prophets', 'prophets-and-kings', 'desire-of-ages', 'acts-of-the-apostles']);
     assert.deepEqual(index.works.filter((work) => work.series).map((work) => work.volume), [1, 2, 3, 4]);
     assert.equal(commentary.works, index.works.length);
     for (const work of index.works) {
@@ -56,7 +55,7 @@ describe('commentary data (data/commentary/)', () => {
       assert.equal(new Set(work.parts.map((part) => part.id)).size, work.parts.length, `${work.id}: unique chapter ids`);
     }
     const counts = Object.fromEntries(index.works.map((work) => [work.id, work.parts.length]));
-    assert.deepEqual(counts, { 'patriarchs-and-prophets': 74, 'prophets-and-kings': 61, 'desire-of-ages': 87, 'acts-of-the-apostles': 58, 'daniel-and-the-revelation': 36 });
+    assert.deepEqual(counts, { 'patriarchs-and-prophets': 74, 'prophets-and-kings': 61, 'desire-of-ages': 87, 'acts-of-the-apostles': 58 });
   });
 
   test('every chapter’s passages name verses that exist', () => {
@@ -67,7 +66,7 @@ describe('commentary data (data/commentary/)', () => {
         if (part.passages.length) linked += 1;
       }
     }
-    assert.ok(linked >= 280, `${linked} chapters linked to passages`);
+    assert.ok(linked >= 240, `${linked} chapters linked to passages`);
   });
 
   test('each chapter’s file: well-formed blocks and runs; links to verses and notes that exist', () => {
@@ -107,27 +106,6 @@ describe('commentary data (data/commentary/)', () => {
     assert.deepEqual([...kinds].sort(), ['b', 'fn', 'i', 'pg', 'r+x', 'to+x']);
   });
 
-  test('Smith: every verse of Daniel and the Revelation in exactly one section, quoted from the KJV', () => {
-    const smith = index.works.find((work) => work.kind === 'verses');
-    for (const [book, count] of [['DAN', 12], ['REV', 22]]) {
-      for (let chapter = 1; chapter <= count; chapter += 1) {
-        const part = smith.parts.find((entry) => entry.book === book && entry.chapter === chapter);
-        assert.ok(part, `${book} ${chapter}`);
-        const file = JSON.parse(partText(smith, part));
-        const seen = [];
-        for (const section of file.sections.filter((entry) => entry.ref)) {
-          const ref = parseRef(section.ref);
-          assert.equal(ref.book, book);
-          assert.equal(ref.chapter, chapter);
-          for (let verse = ref.verse; verse <= ref.endVerse; verse += 1) seen.push(verse);
-          assert.deepEqual(section.quote.map(([verse]) => verse), seen.slice(-(ref.endVerse - ref.verse + 1)));
-          for (const [verse, text] of section.quote) assert.equal(text, kjvChapters.get(book)[chapter - 1][verse - 1]);
-        }
-        assert.deepEqual(seen, Array.from({ length: lastVerse(book, chapter) }, (_, i) => i + 1), `${book} ${chapter}`);
-      }
-    }
-  });
-
   test('"version" matches the files (run `node tools/build-commentary.mjs` after editing)', () => {
     let all = indexText;
     for (const work of index.works) {
@@ -149,10 +127,9 @@ describe('commentary data (data/commentary/)', () => {
         assert.match(part.ruEdition.title, /[А-Яа-яЁё]/, `${work.id}/${part.id}`);
       }
     }
-    assert.equal(index.works.find((work) => work.kind === 'verses').ruEdition, undefined, 'Smith has no Russian edition there');
   });
 
-  test('Russian translations: the same blocks as the English, references kept, Smith’s verses in the Synodal', () => {
+  test('Russian translations: the same blocks as the English, references kept (quoted verses in the Synodal)', () => {
     let translated = 0;
     for (const work of index.works) {
       for (const part of work.parts.filter((entry) => entry.ru)) {
@@ -187,8 +164,6 @@ describe('commentary data (data/commentary/)', () => {
     const pp = JSON.parse(partText({ id: 'patriarchs-and-prophets' }, { id: '2' }));
     assert.equal(pp.title, 'The Creation');
     assert.deepEqual(pp.passages, ['GEN 1-2']);
-    const dan2 = JSON.parse(partText({ id: 'daniel-and-the-revelation' }, { id: 'dan-2' }));
-    assert.match(dan2.sections[0].blocks[0].c[0], /^Daniel was carried into captivity in the first year of Nebuchadnezzar\./);
   });
 });
 
@@ -219,7 +194,7 @@ describe('commentary lookups (js/research/commentary.js)', () => {
   test('which chapters discuss a passage, the closest first', () => {
     const ids = (found) => found.map(({ work, part }) => `${work.id}/${part.id}`);
     assert.deepEqual(ids(partsFor(index, 'JHN', 3, 16)), ['desire-of-ages/17']);
-    assert.deepEqual(ids(partsFor(index, 'DAN', 2)), ['prophets-and-kings/40', 'daniel-and-the-revelation/dan-2']);
+    assert.deepEqual(ids(partsFor(index, 'DAN', 2)), ['prophets-and-kings/40']);
     assert.deepEqual(ids(partsFor(index, 'LUK', 2, 30)), ['desire-of-ages/5']);
     assert.deepEqual(ids(partsFor(index, 'PSA', 119)), []);
     // Acts 13: the chapters telling it come before those based on whole letters.
@@ -230,13 +205,13 @@ describe('commentary lookups (js/research/commentary.js)', () => {
     assert.deepEqual(cor, ['acts-of-the-apostles/29', 'acts-of-the-apostles/30']);
   });
 
-  test('Smith’s sections on a verse; neighbouring chapters; excerpts', () => {
-    const smith = index.works.find((work) => work.kind === 'verses');
-    const dan2 = JSON.parse(partText(smith, { id: 'dan-2' }));
-    assert.deepEqual(sectionsFor(dan2, 'DAN', 2, 33).map((section) => section.ref), ['DAN 2:31-35']);
-    assert.deepEqual(neighbours(smith, 'dan-intro').prev, null);
-    assert.equal(neighbours(smith, 'dan-2').next.id, 'dan-3');
-    assert.equal(neighbours(smith, 'rev-22').next, null);
+  test('a verse-by-verse commentary’s sections on a verse; neighbouring chapters; excerpts', () => {
+    const part = { sections: [{ blocks: [] }, { ref: 'DAN 2:1-30', blocks: [] }, { ref: 'DAN 2:31-35', blocks: [] }] };
+    assert.deepEqual(sectionsFor(part, 'DAN', 2, 33).map((section) => section.ref), ['DAN 2:31-35']);
+    const pk = index.works.find((work) => work.id === 'prophets-and-kings');
+    assert.equal(neighbours(pk, pk.parts[0].id).prev, null);
+    assert.equal(neighbours(pk, '40').next.id, '41');
+    assert.equal(neighbours(pk, pk.parts.at(-1).id).next, null);
     const excerpt = blocksText([{ t: 'p', c: ['A long ', { i: 'sentence' }, ' that goes on and on.'] }, { t: 'n', c: ['note'] }], 20);
     assert.equal(excerpt, 'A long sentence…');
   });
@@ -246,7 +221,7 @@ describe('commentary routes', () => {
   test('#/commentary, a book, a chapter', () => {
     assert.deepEqual(resolveRoute('#/commentary'), { params: {}, view: 'commentary' });
     assert.deepEqual(resolveRoute('#/commentary/desire-of-ages'), { params: {}, view: 'commentary', workId: 'desire-of-ages', partId: null });
-    assert.deepEqual(resolveRoute('#/commentary/daniel-and-the-revelation/dan-2?v=31'), { params: { v: '31' }, view: 'commentary', workId: 'daniel-and-the-revelation', partId: 'dan-2' });
+    assert.deepEqual(resolveRoute('#/commentary/prophets-and-kings/40?v=31'), { params: { v: '31' }, view: 'commentary', workId: 'prophets-and-kings', partId: '40' });
     assert.equal(resolveRoute('#/Commentary/Desire-of-Ages/4').redirect, '#/commentary/desire-of-ages/4');
     assert.equal(resolveRoute('#/commentary/a/b/c').view, 'not-found');
     assert.equal(resolveRoute('#/commentary/a_b').view, 'not-found');

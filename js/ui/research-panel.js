@@ -204,7 +204,7 @@ export function initResearchPanel({ data, getProvider, concordance, strongsTrans
 
   /**
    * The commentary on the selected verses: for a verse-by-verse book
-   * (Smith), the sections on them, quoted in part; for the chapter-by-chapter
+   * (a verse-by-verse commentary), the sections on them, quoted in part; for the chapter-by-chapter
    * books (Ellen White), the chapters that tell the passage, with their
    * opening lines.
    */
