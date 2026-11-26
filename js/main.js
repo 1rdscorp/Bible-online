@@ -37,6 +37,7 @@ import { initLanguageSwitch } from './ui/language-switch.js';
 import { initNotesPanel } from './ui/notes-panel.js';
 import { initResearchPanel } from './ui/research-panel.js';
 import { initAudioPlayer } from './ui/audio-player.js';
+import { initFootnotes } from './ui/footnotes.js';
 import { initSelectionTranslate } from './ui/selection-translate.js';
 import { initSettingsPanel } from './ui/settings-panel.js';
 import { paintStudyMarks } from './ui/study-marks.js';
@@ -1050,6 +1051,7 @@ async function boot() {
     strongsTranslation,
     strongsHref: (book, chapter, verse) => chapterHref(book, chapter, verse, selectionQuery([STRONGS_ID])),
   });
+  initFootnotes();
   audioPlayer = initAudioPlayer({
     data: researchData,
     // The recording moved on from the chapter on screen: turn the page with

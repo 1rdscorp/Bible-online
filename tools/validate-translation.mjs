@@ -107,6 +107,7 @@ export function validateTranslation(data) {
         if (bad.length) errors.push(`${id}: unreadable "tags" at ${bad.slice(0, 5).join(', ')}${bad.length > 5 ? '…' : ''}.`);
       }
     }
+    validateFormatting(book, id, errors);
     book.chapters.forEach((verses, c) => {
       if (!Array.isArray(verses)) {
         errors.push(`${id} ${c + 1}: a chapter must be an array of verse strings.`);
@@ -138,6 +139,53 @@ export function validateTranslation(data) {
 }
 
 /** Print a validation result. Returns true when there were no errors. */
+const MARK = /^(\d+)\.(p|q1|q2|t)$|^(\d+)\.(\d+)\.(i|sc|b)$/;
+
+/** Marks that all fit in `text` ("0.p 12.7.i"; data/README.md, "Formatting"). */
+function marksFit(marks, text) {
+  if (typeof marks !== 'string') return false;
+  if (marks === '') return true;
+  return marks.split(' ').every((mark) => {
+    const m = MARK.exec(mark);
+    if (!m) return false;
+    if (m[1] !== undefined) return Number(m[1]) <= text.length;
+    return Number(m[4]) > 0 && Number(m[3]) + Number(m[4]) <= text.length;
+  });
+}
+
+/**
+ * Optional formatting, shaped like "chapters" (data/README.md, "Formatting"):
+ * "marks" (one string per verse), "notes" ([verse, at, label, ref, text, marks]),
+ * "headings" ([verse, text]) and "ranges" ([from, to]) per chapter.
+ */
+function validateFormatting(book, id, errors) {
+  const perChapter = (field) => book[field] === undefined || (Array.isArray(book[field]) && book[field].length === book.chapters.length && book[field].every(Array.isArray));
+  for (const field of ['marks', 'notes', 'headings', 'ranges']) {
+    if (!perChapter(field)) errors.push(`${id}: "${field}" must have one array per chapter.`);
+  }
+  const bad = [];
+  book.chapters.forEach((texts, c) => {
+    if (!Array.isArray(texts)) return;
+    const verse = (v) => (Number.isInteger(v) && v >= 1 && v <= texts.length ? texts[v - 1] : null);
+    if (Array.isArray(book.marks?.[c])) {
+      if (book.marks[c].length !== texts.length) bad.push(`marks ${c + 1}`);
+      else book.marks[c].forEach((marks, v) => !marksFit(marks, texts[v]) && bad.push(`marks ${c + 1}:${v + 1}`));
+    }
+    for (const note of book.notes?.[c] ?? []) {
+      const [v, at, label, ref, text, marks] = Array.isArray(note) ? note : [];
+      const host = verse(v);
+      if (host === null || !Number.isInteger(at) || at < 0 || at > host.length || typeof label !== 'string' || typeof ref !== 'string' || typeof text !== 'string' || !text || !marksFit(marks ?? '', text)) bad.push(`note ${c + 1}:${v}`);
+    }
+    for (const heading of book.headings?.[c] ?? []) {
+      if (!Array.isArray(heading) || verse(heading[0]) === null || typeof heading[1] !== 'string' || !heading[1]) bad.push(`heading ${c + 1}:${heading?.[0]}`);
+    }
+    for (const range of book.ranges?.[c] ?? []) {
+      if (!Array.isArray(range) || verse(range[0]) === null || verse(range[1]) === null || range[1] <= range[0]) bad.push(`range ${c + 1}:${range?.[0]}`);
+    }
+  });
+  if (bad.length) errors.push(`${id}: formatting that doesn't fit its verses at ${bad.slice(0, 5).join(', ')}${bad.length > 5 ? '…' : ''}.`);
+}
+
 export function printReport(label, { errors, warnings, stats }, log = console.log) {
   const limit = 20;
   log(`${label}: ${stats.books} books, ${stats.chapters} chapters, ${stats.verses} verses`);

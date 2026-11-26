@@ -28,6 +28,7 @@
  *   Interface-language versions of the fields above, e.g. i18n.ru = { name, license, copyright,
  *   description, numbering: { name } }. Applied by i18n.js localizeTranslation().
  * @property {boolean} [strongs]       its verses carry `words` (Strong's numbers): words can be studied
+ * @property {boolean} [formatted]     its verses carry `format` (headings, footnotes, italics…; BTI)
  * @property {string} [basedOn]        the id of the translation whose text this one shares (KJV+ → "kjv");
  *   "All translations" search leaves it out, so the same text isn't listed twice
  * @property {string} [url]            json provider: the data file
@@ -37,6 +38,14 @@
  * @property {number} number
  * @property {string} text             plain text, no markup
  * @property {WordTag[]} [words]       words tagged with Strong's numbers (KJV+), in order
+ * @property {number} [to]             the last verse, for verses translated together ("11–12": number 11, to 12)
+ * @property {VerseFormat} [format]    the printed layout of a formatted text (BTI), beside the plain `text`
+ *
+ * @typedef {object} VerseFormat
+ * @property {string} marks            "0.p 14.q1 20.7.sc": where lines start (p paragraph, q1/q2 poetry, t Psalm title)
+ *   and styled ranges (start.length.i italics, .sc small capitals, .b bold); data/README.md, "Formatting"
+ * @property {{ at: number, label: string, ref: string, text: string, marks: string }[]} notes
+ *   footnotes: where the mark goes in `text`, its label ("а", "*"), the reference as printed, the note
  *
  * @typedef {object} WordTag
  * @property {number} start            offsets into `text` (UTF-16 code units)
@@ -48,6 +57,7 @@
  * @property {number} chapter
  * @property {Verse[]} verses          ascending; verses the translation lacks are left out
  * @property {string} [copyright]      notice the source sends with this passage (APIs often do); shown under it
+ * @property {{ verse: number, text: string }[]} [headings]  section headings, before the verse they open (BTI)
  * @property {{ chapter: number, from?: number, to?: number }[]} [native]
  *   Where this chapter sits in the translation's own numbering, when that differs from the
  *   English numbering the site uses. English Psalm 23 in the Russian Synodal is

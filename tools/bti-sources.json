@@ -1,0 +1,170 @@
+{
+  "_comment": "The Institute for Bible Translation's (Zaoksky) Word files, and the books each holds, in its order. The files aren't in the repository: put the Institute's .doc files, converted to .docx, in .cache/sources/bti/ (see data/README.md) and run node tools/build-bti.mjs.",
+  "files": {
+    "001 Genesis": [
+      "GEN"
+    ],
+    "002 Exodus": [
+      "EXO"
+    ],
+    "003 Leviticus": [
+      "LEV"
+    ],
+    "004 Numbers": [
+      "NUM"
+    ],
+    "005 Deuteronomy": [
+      "DEU"
+    ],
+    "006 Joshua": [
+      "JOS"
+    ],
+    "007 Judges": [
+      "JDG"
+    ],
+    "008 Ruth": [
+      "RUT"
+    ],
+    "009 1 Kings": [
+      "1SA"
+    ],
+    "010 2 Kings": [
+      "2SA"
+    ],
+    "011 3 Kings": [
+      "1KI"
+    ],
+    "012 4 Kings": [
+      "2KI"
+    ],
+    "013 1 Chr": [
+      "1CH"
+    ],
+    "014 2 Chr": [
+      "2CH"
+    ],
+    "015 Ezra": [
+      "EZR"
+    ],
+    "016 Nehemiah": [
+      "NEH"
+    ],
+    "017 Esther": [
+      "EST"
+    ],
+    "018 Job": [
+      "JOB"
+    ],
+    "019 Psalms": [
+      "PSA"
+    ],
+    "020 Proverbs": [
+      "PRO"
+    ],
+    "021 Ecclesiastes": [
+      "ECC"
+    ],
+    "022 Song of Songs": [
+      "SNG"
+    ],
+    "023 Isaiah": [
+      "ISA"
+    ],
+    "024 Jeremiah": [
+      "JER"
+    ],
+    "025 Lamentation": [
+      "LAM"
+    ],
+    "026 Ezekiel": [
+      "EZK"
+    ],
+    "027 Daniel": [
+      "DAN"
+    ],
+    "028-039 Hosea-Malachi": [
+      "HOS",
+      "JOL",
+      "AMO",
+      "OBA",
+      "JON",
+      "MIC",
+      "NAM",
+      "HAB",
+      "ZEP",
+      "HAG",
+      "ZEC",
+      "MAL"
+    ],
+    "001 Matthew": [
+      "MAT"
+    ],
+    "002 Mark": [
+      "MRK"
+    ],
+    "003 Luke": [
+      "LUK"
+    ],
+    "004 John": [
+      "JHN"
+    ],
+    "005 Acts": [
+      "ACT"
+    ],
+    "006 James-012 Jude": [
+      "JAS",
+      "1PE",
+      "2PE",
+      "1JN",
+      "2JN",
+      "3JN",
+      "JUD"
+    ],
+    "013-015 Romans-2 Corinthians": [
+      "ROM",
+      "1CO",
+      "2CO"
+    ],
+    "016-021 Galatians-2 Thessalonians": [
+      "GAL",
+      "EPH",
+      "PHP",
+      "COL",
+      "1TH",
+      "2TH"
+    ],
+    "022-025 1 Timothy-Philemon": [
+      "1TI",
+      "2TI",
+      "TIT",
+      "PHM"
+    ],
+    "026 Hebrews": [
+      "HEB"
+    ],
+    "027 Revelation": [
+      "REV"
+    ]
+  },
+  "_numberFixesComment": "Verse numbers misprinted in the files (the words are untouched): in that chapter, the number `number` right after verse `after` is verse `is`.",
+  "numberFixes": [
+    {
+      "book": "NEH",
+      "chapter": 10,
+      "after": 24,
+      "number": 26,
+      "is": 25,
+      "why": "«Рехум, Хашавна, Маасея» is 10:25; the next line is numbered 26 again"
+    }
+  ],
+  "_schemesComment": "How each chapter is numbered, where its verse count doesn't say: the Psalms follow the Synodal (Greek) numbering throughout; Daniel 3–4 the Hebrew (3:31–33 is the English 4:1–3). Elsewhere each chapter is matched to the English or the Synodal scheme by its verse count (tools/build-bti.mjs).",
+  "schemes": {
+    "PSA": "rso",
+    "DAN 3": "org",
+    "DAN 4": "org"
+  },
+  "_rsoCorrectionsComment": "The same corrections to rso.json as the Synodal translation's (tools/data-sources.json).",
+  "rsoCorrections": {
+    "PSA 114:9": "PSA 116:9"
+  }
+}

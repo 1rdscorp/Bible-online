@@ -12,12 +12,12 @@
  * main.js fills in the text with show() once the providers respond.
  */
 import { adjacentChapter } from '../canon.js';
-import { chapterTitle, t } from '../i18n.js';
+import { chapterTitle, getLanguage, t } from '../i18n.js';
 import { chapterHref, pageHref } from '../router.js';
 import { formatWordTags } from '../providers/json-provider.js';
 import { addColumn, MAX_COLUMNS, removeColumn, replaceColumn } from '../translations.js';
 import { el, icon, ICONS } from '../ui/dom.js';
-import { verseNodes } from '../ui/text-ranges.js';
+import { parseMarks, verseNodes } from '../ui/text-ranges.js';
 import { createTranslationSelect } from '../ui/translation-select.js';
 import { nativePsalmLabel } from './numbering.js';
 import { alignVerses } from './verse-alignment.js';
@@ -51,6 +51,8 @@ export function createReaderView({ book, chapter, columns, translations, query =
   const loadingText = parallel ? t('reader.loadingMany', { n: columns.length }) : t('reader.loadingOne', { name: columns[0].name });
   const content = el('div', { class: parallel ? 'parallel-rows' : 'scripture' }, status(loadingText));
   const notices = el('footer', { class: 'chapter-notices' });
+  // A formatted text's footnotes, listed under the chapter (filled by show()).
+  const notesList = el('section', { class: 'chapter-notes', hidden: true });
 
   let body = content;
   if (parallel) {
@@ -69,6 +71,7 @@ export function createReaderView({ book, chapter, columns, translations, query =
     },
     el('header', { class: 'chapter-header' }, heading, parallel && toolbar()),
     body,
+    notesList,
     notices,
     chapterNav(book, chapter, query),
   );
@@ -170,17 +173,60 @@ export function createReaderView({ book, chapter, columns, translations, query =
     // Which translation the text is (used by "translate selection").
     content.dataset.translation = info.id;
     content.replaceChildren(
-      ...data.verses.map((v) =>
+      ...data.verses.flatMap((v) => [
+        // A formatted text's section headings, before the verse they open.
+        ...headingsFor(data, v.number).map((text) => el('h2', { class: 'section-heading' }, text)),
         el(
           'p',
-          { class: 'verse', id: `v${v.number}`, 'data-verse': v.number },
-          verseButton('vnum', v.number),
+          { class: verseClass('verse', v), id: `v${v.number}`, 'data-verse': v.number },
+          verseButton('vnum', v.number, v.to),
           // This space separates number and text for screen readers and
           // copy/paste. The number is absolutely positioned in the margin, so
           // the space falls at the start of the line and CSS drops it.
           ' ',
           // The words alone, so a highlight paints the text, not the margin.
-          verseText(v.text, v.words),
+          verseText(v.text, v.words, v.format),
+        ),
+      ]),
+    );
+    fillNotes(data);
+  }
+
+  const headingsFor = (data, number) => (data?.headings ?? []).filter((h) => h.verse === number).map((h) => h.text);
+
+  // How a formatted verse begins: a new paragraph, or poetry set in lines.
+  function verseClass(base, v) {
+    const first = v.format ? parseMarks(v.format.marks).breaks.find(([at]) => at === 0)?.[1] : null;
+    if (first === 'p') return `${base} is-para`;
+    if (first && first !== 'flow') return `${base} is-poetry`;
+    return base;
+  }
+
+  // The chapter's footnotes in a list under the text: "а 1:1 Букв.: судили."
+  function fillNotes(data) {
+    const items = data.verses.flatMap((v) => (v.format?.notes ?? []).map((note) => ({ ...note, verse: v.number })));
+    notesList.hidden = items.length === 0;
+    if (!items.length) {
+      notesList.replaceChildren();
+      return;
+    }
+    notesList.lang = columns[0].language || '';
+    notesList.replaceChildren(
+      el('h2', { class: 'chapter-notes-title', lang: getLanguage() }, t('reader.notes')),
+      el(
+        'ol',
+        { class: 'chapter-notes-list' },
+        items.map((note) =>
+          el(
+            'li',
+            { class: 'chapter-note' },
+            // Goes to the verse (a button: the address's # is the router's).
+            el('button', { type: 'button', class: 'chapter-note-label', 'data-verse': note.verse, 'aria-label': t('reader.noteGoTo', { label: note.label === '*' ? '' : note.label, verse: note.verse }).replace(/\s+/g, ' ') }, note.label),
+            ' ',
+            el('span', { class: 'chapter-note-ref' }, note.ref || `${chapter}:${note.verse}`),
+            ' ',
+            el('span', { class: 'chapter-note-text' }, verseNodes(note.text, [], [], { marks: note.marks, notes: [] })),
+          ),
         ),
       ),
     );
@@ -206,16 +252,17 @@ export function createReaderView({ book, chapter, columns, translations, query =
         'div',
         { class: 'prow', id: `v${row.number}`, 'data-verse': row.number },
         verseButton('pnum', row.number),
-        row.cells.map((text, index) => cell(results[index].info, text, row.words[index])),
+        row.cells.map((text, index) => cell(results[index].info, text, row.words[index], row.verses[index], headingsFor(results[index].chapter, row.number))),
       ),
     );
     content.replaceChildren(...problems, ...rows);
+    notesList.hidden = true;
   }
 
   // Each cell carries a translation label. It's visible when columns stack
   // (on phones), and visually hidden but still read aloud when they're side
   // by side under the column headings.
-  function cell(info, text, words) {
+  function cell(info, text, words, verse = null, headings = []) {
     const missing = text === null;
     return el(
       'div',
@@ -225,16 +272,22 @@ export function createReaderView({ book, chapter, columns, translations, query =
         lang: info.language || null,
         dir: info.direction === 'rtl' ? 'rtl' : null,
       },
+      headings.map((heading) => el('span', { class: 'pcell-heading' }, heading)),
       el('span', { class: 'pcell-label' }, info.abbreviation),
       ' ',
-      missing ? [el('span', { 'aria-hidden': 'true' }, '—'), el('span', { class: 'visually-hidden' }, t('reader.missingVerse'))] : verseText(text, words),
+      // Verses this translation gives as one ("11–12").
+      verse?.to ? [el('span', { class: 'pcell-range' }, `${verse.number}–${verse.to}`), ' '] : null,
+      missing ? [el('span', { 'aria-hidden': 'true' }, '—'), el('span', { class: 'visually-hidden' }, t('reader.missingVerse'))] : verseText(text, words, verse?.format),
     );
   }
 
   // A verse's words. In KJV+ each tagged word is a <span class="w">, and the
   // tags stay on the element so highlights can be repainted around them
   // (js/ui/text-ranges.js).
-  function verseText(text, words) {
+  function verseText(text, words, format = null) {
+    // A formatted text (BTI): its layout rides along on the element, so
+    // highlights can be repainted around it (js/ui/text-ranges.js).
+    if (format) return el('span', { class: 'vtext', 'data-format': format.marks, 'data-notes': JSON.stringify(format.notes) }, verseNodes(text, [], [], format));
     if (!words?.length) return el('span', { class: 'vtext' }, text);
     return el('span', { class: 'vtext', 'data-tags': formatWordTags(words) }, verseNodes(text, [], words));
   }
@@ -242,8 +295,9 @@ export function createReaderView({ book, chapter, columns, translations, query =
   // The verse number is a button: it selects the verse for highlighting,
   // notes and the rest (js/ui/verse-actions.js, which also manages which
   // number is in the Tab order).
-  function verseButton(className, number) {
-    return el('button', { type: 'button', class: className, tabindex: '-1', 'aria-label': t('study.verse', { n: number }), 'aria-pressed': 'false' }, String(number));
+  function verseButton(className, number, to = null) {
+    const label = to ? `${number}–${to}` : String(number);
+    return el('button', { type: 'button', class: className, tabindex: '-1', 'aria-label': t('study.verse', { n: label }), 'aria-pressed': 'false' }, label);
   }
 
   function renderNotices(results) {
