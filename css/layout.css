@@ -184,6 +184,10 @@
   cursor: pointer;
 }
 
+.compare-toggle[hidden] {
+  display: none;
+}
+
 .compare-toggle:hover {
   background: var(--color-surface-hover);
 }
