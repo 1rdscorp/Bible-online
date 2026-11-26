@@ -41,7 +41,7 @@ export function refCovers(text, bookId, chapter, verse = null) {
 /**
  * The chapters of each book that discuss a Bible chapter (or one verse of
  * it): [{ work, part }] in the index's order (Ellen White's books in their
- * series order, then Smith). A chapter based on a whole Bible book (the
+ * series order, then any others). A chapter based on a whole Bible book (the
  * Epistle to the Romans) comes after those based on a passage of this
  * chapter, so the closest commentary is listed first.
  */
@@ -82,7 +82,7 @@ export function passageLabel(text, { bookName, chapterTitle }) {
   return ref.endVerse > ref.verse ? `${head}–${ref.endVerse}` : head;
 }
 
-/** In a verse-by-verse part (Smith), the sections whose verses include this one. */
+/** In a verse-by-verse part, the sections whose verses include this one. */
 export function sectionsFor(partData, bookId, chapter, verse) {
   return (partData?.sections ?? []).filter((section) => section.ref && refCovers(section.ref, bookId, chapter, verse));
 }

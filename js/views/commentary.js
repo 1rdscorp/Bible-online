@@ -65,7 +65,7 @@ export function workTitle(work) {
   return local === key ? work.title : local;
 }
 
-/** The author's name in the interface language ("Урия Смит"). */
+/** The author's name in the interface language ("Эллен Г. Уайт"). */
 export function authorName(work) {
   const key = `commentary.author.${work.author.toLowerCase().replace(/[^a-z]+/g, '-')}`;
   const local = t(key);
@@ -88,7 +88,7 @@ export function partLabel(part) {
 function workFacts(work) {
   const facts = [t('commentary.published', { year: work.year })];
   if (work.series === 'conflict') facts.push(t('commentary.series', { n: work.volume }));
-  if (work.edition) facts.push(t(work.kind === 'verses' ? 'commentary.printings' : 'commentary.edition', { edition: work.edition }));
+  if (work.edition) facts.push(t('commentary.edition', { edition: work.edition }));
   return facts.join(' · ');
 }
 
@@ -117,7 +117,6 @@ export function renderCommentaryLibrary({ index }) {
     t('commentary.aboutPublicDomain'),
     t('commentary.aboutSdabc'),
     t('commentary.aboutLanguage'),
-    others.some((work) => work.kind === 'verses') ? t('commentary.aboutOcr') : '',
   ].filter(Boolean);
   return studyPage({
     kicker: t('page.study'),
@@ -126,7 +125,7 @@ export function renderCommentaryLibrary({ index }) {
     className: 'commentary-page',
     sections: [
       white.length && { id: 'commentary-white', title: t('commentary.whiteGroup'), content: linkCards(white.map(workCard)) },
-      others.length && { id: 'commentary-smith', title: t('commentary.smithGroup'), content: linkCards(others.map(workCard)) },
+      others.length && { id: 'commentary-other', title: t('commentary.otherGroup'), content: linkCards(others.map(workCard)) },
       { id: 'commentary-about', title: t('commentary.aboutTitle'), content: about.map((text) => el('p', { class: 'commentary-about-text' }, text)) },
     ],
   });
@@ -137,7 +136,7 @@ const partOnBook = (part, bookId) => part.passages.some((passage) => parsePassag
 
 /**
  * #/commentary/<book>: its chapters, grouped by the book's own sections (or,
- * for Smith, by Daniel and the Revelation), each with the passages it's
+ * for a verse-by-verse commentary, by Bible book), each with the passages it's
  * based on. `bookId` limits it to the chapters on one Bible book.
  */
 export function renderCommentaryWork({ work, bookId = null }) {
@@ -199,7 +198,6 @@ function sourceLine(work) {
     `${t('commentary.publicDomain')} ${t('commentary.source')} `,
     el('a', { href: work.source.url, rel: 'noopener', target: '_blank' }, work.source.name),
     '.',
-    work.kind === 'verses' ? ` ${t('commentary.ocrNote')}` : '',
   );
 }
 
@@ -254,7 +252,7 @@ function versesLabel(ref) {
   return parsed.endVerse > parsed.verse ? t('commentary.verses', { from: parsed.verse, to: parsed.endVerse }) : t('commentary.verse', { n: parsed.verse });
 }
 
-/** The verses a section of Smith's commentary is on: in the KJV he quotes, or the Synodal for the Russian. */
+/** The verses a section of a verse-by-verse commentary is on: in the KJV, or the Synodal for the Russian. */
 function quoteBlock(section, lang) {
   return el(
     'blockquote',

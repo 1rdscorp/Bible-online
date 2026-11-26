@@ -2,7 +2,7 @@
 
 The published Russian translations of these books are under copyright, so the site has its own: translated from the public-domain English text by an AI (Claude), chapter by chapter, and shown with a note saying so and a link to the official Russian edition. This folder holds the translations; `node tools/build-commentary.mjs` checks them against the English and builds `data/commentary/ru/`.
 
-One file per chapter: `<work>/<part>.txt`, e.g. `prophets-and-kings/40.txt`, `daniel-and-the-revelation/dan-2.txt`.
+One file per chapter: `<work>/<part>.txt`, e.g. `prophets-and-kings/40.txt`.
 
 ## Workflow
 
@@ -29,21 +29,20 @@ Markers inside the text must all stay, unchanged (`check` compares them):
 | `⟦DAN 2:31-35⟧` | a Bible reference (the site shows it in Russian) | keep it where the reference belongs, usually after the quotation it gives |
 | `⟦p492⟧` | page 492 of the printed English book starts here | keep it at about the same point of the paragraph |
 | `⟦n1⟧` | the mark of note 1 | keep it after the word it belongs to |
-| `<i>…</i>`, `<b>…</b>` | italics, bold (Smith's side headings) | translate the words inside |
+| `<i>…</i>`, `<b>…</b>` | italics, bold (side headings) | translate the words inside |
 | `<a appendix#note-5>Appendix, Note 5</a>` | a link within the book | translate the words inside ("Приложение, примечание 5") |
 
 ## Style
 
 - **Faithful, literary Russian.** Translate everything, sentence by sentence; don't summarise, shorten, modernise the argument or add explanations. Keep the authors' solemn 19th-century tone, but write natural Russian, not word-for-word English.
-- **Bible quotations: the Synodal translation.** When the text quotes the Bible, use the Synodal wording for that verse (`verse "DAN 2:31"` prints it), adapting only its grammar to the sentence. If a quotation follows the KJV where the Synodal differs in sense, still use the Synodal. Smith's verse quotations themselves aren't in the job: the site shows the Synodal text for them.
+- **Bible quotations: the Synodal translation.** When the text quotes the Bible, use the Synodal wording for that verse (`verse "DAN 2:31"` prints it), adapting only its grammar to the sentence. If a quotation follows the KJV where the Synodal differs in sense, still use the Synodal. In a verse-by-verse commentary, the verses each section is on aren't in the job: the site shows the Synodal text for them.
 - **Pronouns for God and Christ are capitalised**, as in Russian Adventist books: Он, Его, Ему, Им, Сам, Свой.
 - **Quotation marks** «…», inside them „…“. Dashes: « — » with spaces. A quotation running over several paragraphs opens each paragraph with « and closes only at its end, as Russian books do.
 - **Spelling:** write е, not ё, as the Synodal translation does (the assembled files are normalised to е). «Божий, Божьего, Божью» rather than «Божия». сатана in lower case.
 - **Echoes of Scripture** that the English doesn't mark as quotations: use the Synodal wording, without quotation marks.
-- **Dates:** "B.C. 538" → «538 г. до н. э.», "A.D. 1798" → «1798 г.» (or «1798 г. н. э.» where both eras are near). Smith's "the 2300 days" → «2300 дней».
+- **Dates:** "B.C. 538" → «538 г. до н. э.», "A.D. 1798" → «1798 г.» (or «1798 г. н. э.» where both eras are near). "The 2300 days" → «2300 дней».
 - **Quotations from historians** (Gibbon, Rollin, Prideaux, Clarke…): translate them like the rest, keeping the source line ("—Gibbon, Decline and Fall, chap. 38" → «— Гиббон, «История упадка и разрушения Римской империи», гл. 38»).
 - **Leave English** only for titles of English books where a Russian rendering would mislead, in «» with a translation in brackets if useful.
-- **OCR slips:** Smith's text comes from scans, and a few words may be misread. Translate the evident meaning; don't reproduce garbled words.
 - **Unreadable text:** where the scan is garbled beyond recovery, translate what is clear and mark the gap […]; a block that is only noise (a running head, a stray caption) becomes «[…]». A picture caption run into a sentence goes in [square brackets] after the sentence. Text never moves between blocks, even when the scan split a sentence or a footnote across two.
 - **When the argument rests on the English Bible:** keep the Synodal wording in the quotation and keep the author's argument. If the reader can't follow it otherwise, say «в английском переводе …», or add a short note in brackets, «[Примечание переводчика: …]» (as at Revelation 1:10, where the Synodal reads «в день воскресный»).
 - **Side headings the scan lost the bold of** stay plain text («Заголовок. — …»): markers can't be added. Numbers in plain-text references keep the English (KJV) numbering, as the site does.
