@@ -59,6 +59,14 @@ export function renderBookList({ lastRead = null, studyCount = 0 } = {}) {
       el('a', { class: 'study-link', href: pageHref(PAGES.explore) }, icon(ICONS.statue, { size: 18 }), t('explore.title')),
       el('a', { class: 'study-link', href: commentaryHref() }, icon(ICONS.commentary, { size: 18 }), t('commentary.title')),
     ),
+    // Credit for the licensed translation, on the site's title page, as its
+    // licence asks (the Institute named as the author).
+    el(
+      'footer',
+      { class: 'home-credits' },
+      el('p', {}, t('home.creditBti'), ' ', el('span', { lang: 'ru' }, '«Институт перевода Библии им. М. П. Кулакова»'), `, 2024. ${t('home.creditPermission')}`),
+      el('p', {}, el('a', { href: pageHref('translations') }, t('reader.about'))),
+    ),
   );
 }
 

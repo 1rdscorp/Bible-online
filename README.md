@@ -2,9 +2,9 @@
 
 A calm, fast, distraction-free Bible reader. It is a static site: HTML, CSS and vanilla JavaScript modules with no build step and no backend. It is built to be hosted on GitHub Pages.
 
-Nine public-domain translations can be read one at a time or 2–4 side by side, with verses aligned:
-- **English:** KJV, ASV, WEB, YLT, Darby, BBE, and KJV+ (the KJV with Strong's numbers, for word study)
-- **Russian:** the Synodal translation (RST), renumbered to English verse numbers so it lines up
+Ten translations can be read one at a time or 2–4 side by side, with verses aligned:
+- **English:** KJV, ASV, WEB, YLT, Darby, BBE, and KJV+ (the KJV with Strong's numbers, for word study), all public domain
+- **Russian:** the Synodal translation (RST), public domain, renumbered to English verse numbers so it lines up; and the modern Russian translation of the Institute for Bible Translation named after M. P. Kulakov (BTI, 3rd edition, 2024), used by permission of the Institute, with its section headings, footnotes and printed layout
 - **Greek:** the Septuagint (LXX), the ancient Greek Old Testament, in Brenton's 1851 text, renumbered the same way
 
 Full-text search covers one translation or all of them, and typing a reference such as "Jn 3:16" opens the passage.
@@ -187,6 +187,18 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
 
 The pages are built from reusable templates (`js/views/templates/study-page.js`: page, facts, tags, outline, quotes, link cards; `era-bar.js`: periods on a time axis) and data files (`data/study/`), so new pages such as topics or reading plans follow the same pattern.
 
+## The BTI translation (Kulakov)
+
+The Institute for Bible Translation named after M. P. Kulakov (Zaoksky) licensed its modern Russian translation for this site. It is shown as the Institute printed it:
+- **Section headings** between verses, and each verse's place in a **paragraph** or a **poetry line** (continuations indented; Psalm titles above their first lines).
+- **Footnotes:** a small letter (а, б…) or * after a word. Tapping it, or pressing Enter on it, opens the note beside it; all the chapter's notes are also listed under the text, each linked to its verse.
+- **Italics** for words the translators added for sense, **«Господь» in small capitals** where the Hebrew has God's name, and **bold** for Old Testament quotations in the New Testament.
+- **Verses translated together** are numbered as one ("11–12").
+
+The verse text itself stays plain, so search, copying, highlights (also of single words) and notes work as in the other translations.
+
+**The licence's conditions** (agreement of 25 November 2026, five years): the text may not be changed or edited; the Institute is named as the author on the site's title pages (the home page credits it, and so do the Translations page and the line under every chapter); the site stays free for everyone, with no advertising of any kind; and the rights can't be passed on to anyone else. So the text in this repository may not be copied or reused elsewhere. How the text is built from the Institute's Word files: [data/README.md](data/README.md).
+
 ## Audio Bible
 
 Chapters of the Russian Synodal can be heard read aloud. A chapter shown in the Synodal (alone or as a compare column) has a **Listen** button under its title. It opens a player at the bottom of the screen that keeps playing while you move around the site.
@@ -218,7 +230,8 @@ To add another interface language:
 index.html            App shell: header, settings panel, <main> where views render
 css/                  themes.css (colour tokens), base, layout, picker, reader, parallel, translate,
                       search, study, research (the Research panel), pages (study pages, maps),
-                      explore (the statue), commentary, audio (the player)
+                      explore (the statue), commentary, audio (the player), formatting (a formatted
+                      text's headings, poetry, footnotes)
 js/
   main.js             Entry point: routes → views, translation choice, keyboard, last-read
   i18n.js             Interface language: t('key'), book names, RUS | ENG (text in locales/)
@@ -243,7 +256,7 @@ js/
                       device cache, base for API sources (see its README)
   ui/                 DOM helper, header, settings panel, translation dropdown + Compare,
                       verse actions bar, study marks, Notes and Research panels (side-panels.js
-                      docks them), the audio player, toasts
+                      docks them), the audio player, footnotes (a formatted text's notes), toasts
   views/              Book/chapter picker, reader (single + parallel), verse alignment,
                       search page, My Study, Translations page, book introductions, timeline,
                       maps, commentary, messages; templates/ holds the study-page building blocks;
@@ -253,7 +266,9 @@ data/                 translations.json + one JSON file per translation; researc
                       (places, basemap), study/ (introductions, timeline, maps), commentary/, audio/.
                       See data/README.md
 tools/                serve, build-data (download → convert → validate), build-xref, build-strongs,
-                      build-geo, build-study, build-commentary, build-audio, converters, validator
+                      build-geo, build-study, build-commentary, build-audio, build-bti (the licensed
+                      BTI text, from the Institute's Word files: lib/docx.mjs, lib/bti.mjs),
+                      converters, validator
 tests/                node --test suites
 ```
 
@@ -274,5 +289,6 @@ tests/                node --test suites
   - Added later: word-level highlights (in the translation they were made in), and searching for selected words
 - [x] **Stage 5:** research and study pages: a Research side panel with cross-references (OpenBible.info) and Strong's word study in KJV+ (Hebrew/Greek word, transliteration, definition, every verse using it); book introductions for all 66 books, a timeline and SVG maps of key places, built as reusable page templates; English and Russian
   - Added later: zoomable, interactive maps; the interactive statue of Daniel 2 (`#/explore`); public-domain Adventist commentary (`#/commentary`): Ellen G. White's Conflict of the Ages and Uriah Smith's Daniel and the Revelation, with links to the official Russian editions and the site's own Russian translation of the chapters on Daniel and the Revelation
+- [x] **Licensed translation:** the modern Russian translation of the Institute for Bible Translation named after M. P. Kulakov (BTI), with its headings, footnotes, italics, small capitals and poetry lines
 - [x] **Audio:** the Russian Synodal read aloud (Alexander Bondarenko, from predanie.ru), in a player that follows the reader from chapter to chapter
 - [ ] Later: reading plans, topical lookups, offline support, cloud sync

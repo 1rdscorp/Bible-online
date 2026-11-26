@@ -29,5 +29,7 @@ export function alignVerses(chapters) {
       number,
       cells: columns.map((byNumber) => byNumber.get(number)?.text ?? null),
       words: columns.map((byNumber) => byNumber.get(number)?.words ?? null),
+      // The whole verse objects, for what else a translation gives (formatting, "11–12").
+      verses: columns.map((byNumber) => byNumber.get(number) ?? null),
     }));
 }

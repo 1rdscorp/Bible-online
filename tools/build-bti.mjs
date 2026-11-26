@@ -179,6 +179,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     direction: 'ltr',
     license: '© Институт перевода Библии им. М. П. Кулакова',
     source: 'Институт перевода Библии им. М. П. Кулакова (Заокский), по лицензии для этого сайта',
+    copyright: '© Институт перевода Библии им. М. П. Кулакова, 2024. Not public domain: used by permission of the Institute on this site only. Do not copy or reuse this text. / Используется с разрешения Института только на этом сайте; копирование и использование текста запрещены.',
     nativeVersification: 'bti',
     books,
   };

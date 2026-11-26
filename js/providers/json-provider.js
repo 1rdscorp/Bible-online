@@ -73,6 +73,20 @@ export function createJsonProvider(info, { fetchJson = (url, version) => transla
           if (words.length) verse.words = words;
         }
       }
+      // A formatted text (BTI): each verse's marks ("0.p 12.7.i") and footnotes,
+      // verses translated together ("11–12": `to`), and the section headings.
+      const marks = book.marks?.[chapter - 1];
+      const notes = book.notes?.[chapter - 1] ?? [];
+      const ranges = new Map((book.ranges?.[chapter - 1] ?? []).map(([from, to]) => [from, to]));
+      if (Array.isArray(marks)) {
+        for (const verse of result.verses) {
+          const verseNotes = notes.filter((note) => note[0] === verse.number).map(([, at, label, ref, text, noteMarks]) => ({ at, label, ref, text, marks: noteMarks ?? '' }));
+          const verseMarks = marks[verse.number - 1] ?? '';
+          if (verseMarks || verseNotes.length) verse.format = { marks: verseMarks, notes: verseNotes };
+          if (ranges.has(verse.number)) verse.to = ranges.get(verse.number);
+        }
+        result.headings = (book.headings?.[chapter - 1] ?? []).map(([verse, text]) => ({ verse, text }));
+      }
       const native = book.native?.[chapter];
       if (Array.isArray(native)) result.native = native.map(([c, from, to]) => (from === undefined ? { chapter: c } : { chapter: c, from, to }));
       return result;
@@ -87,7 +101,16 @@ function indexBooks(data, info) {
   const byId = new Map();
   for (const book of data.books) {
     if (book && typeof book.id === 'string' && Array.isArray(book.chapters)) {
-      byId.set(book.id.toUpperCase(), { chapters: book.chapters, native: book.native ?? null, tags: book.tags ?? null });
+      byId.set(book.id.toUpperCase(), {
+        chapters: book.chapters,
+        native: book.native ?? null,
+        tags: book.tags ?? null,
+        // A formatted text's layout (BTI): see getChapter.
+        marks: book.marks ?? null,
+        notes: book.notes ?? null,
+        headings: book.headings ?? null,
+        ranges: book.ranges ?? null,
+      });
     }
   }
   return byId;

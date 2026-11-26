@@ -238,7 +238,8 @@ export function initVerseActions({ root, store, toaster, onNote, onTranslate, re
   root.addEventListener('click', (event) => {
     if (!context || !context.view.textRoot.contains(event.target)) return;
     const verseEl = event.target.closest(VERSE);
-    if (!verseEl || event.target.closest('a, .study-marks')) return;
+    // Links, study marks and footnote marks (formatted texts) do their own thing.
+    if (!verseEl || event.target.closest('a, .study-marks, .fn')) return;
     const onNumber = Boolean(event.target.closest(NUMBER));
     const extend = event.shiftKey && anchor !== null;
     // A click on the words that ends a drag, or the 2nd click of a

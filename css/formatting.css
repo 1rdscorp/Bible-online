@@ -1,0 +1,216 @@
+/* ==========================================================================
+   A formatted text's printed layout (BTI; js/ui/text-ranges.js builds it):
+   section headings, paragraphs and poetry lines, the words the translators
+   added, «Господь» in small capitals, quotations in bold, and footnotes.
+   ========================================================================== */
+
+/* «Господь» where the Hebrew has God's name. */
+.sc {
+  font-variant-caps: small-caps;
+}
+
+/* Words the translators added (italics), Old Testament quotations in the New (bold). */
+.fmt-i {
+  font-style: italic;
+}
+
+.fmt-b {
+  font-weight: 700;
+}
+
+/* A verse that opens a paragraph gets a little more room above it. */
+.verse.is-para:not(:first-child) {
+  margin-top: 0.85em;
+}
+
+/* Poetry: one line per printed line; a continuation is indented, and a
+   long line wraps with a hanging indent. */
+.vline {
+  display: block;
+  padding-inline-start: 1.25em;
+  text-indent: -1.25em;
+}
+
+.vline-q2 {
+  padding-inline-start: 2.75em;
+}
+
+.vline-p {
+  margin-top: 0.35em;
+}
+
+/* A Psalm's title ("Псалом Давида"), above its first lines. */
+.vline-t {
+  color: var(--color-text-muted);
+  font-size: 0.88em;
+  font-style: italic;
+}
+
+.vline-t + .vline:not(.vline-t) {
+  margin-top: 0.2em;
+}
+
+/* Section headings: not part of the text, set like the interface. */
+.section-heading {
+  margin: 1.4em 0 0.6em;
+  padding-inline-start: 2em;
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+}
+
+.section-heading:first-child {
+  margin-top: 0;
+}
+
+.pcell-heading {
+  display: block;
+  margin-bottom: 0.3em;
+  font-family: var(--font-ui);
+  font-size: 0.8em;
+  font-weight: 700;
+}
+
+.pcell-range {
+  color: var(--color-verse-number);
+  font-family: var(--font-ui);
+  font-size: 0.75em;
+}
+
+/* Footnote marks: an inline element acting as a button, with no text; its
+   label is drawn here, so the verse's text (and highlight offsets) stay
+   as they are. */
+.fn {
+  padding: 0 0.12em;
+  border-radius: 3px;
+  color: var(--color-accent);
+  font-family: var(--font-ui);
+  font-size: 0.68em;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: super;
+  cursor: pointer;
+  user-select: none;
+}
+
+.fn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 1px;
+}
+
+.fn::after {
+  content: attr(data-label);
+}
+
+.fn:hover,
+.fn[aria-expanded="true"] {
+  background: var(--color-accent-soft);
+}
+
+/* The note, opened beside its mark. */
+.fn-box {
+  position: absolute;
+  z-index: 45;
+  width: max-content;
+  max-width: min(24rem, calc(100vw - 2rem));
+  padding: 0.6rem 2.4rem 0.65rem 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  box-shadow: 0 10px 30px var(--color-shadow);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.fn-box:focus {
+  outline: none;
+}
+
+.fn-box:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.fn-box-text {
+  margin: 0;
+}
+
+.fn-box-ref {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.fn-box-close {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.fn-box-close:hover {
+  background: var(--color-surface-hover);
+}
+
+/* The chapter's footnotes, listed under the text. */
+.chapter-notes {
+  margin-top: 2em;
+  padding-top: 1em;
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.chapter-notes-title {
+  margin: 0 0 0.5em;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.chapter-notes-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chapter-note {
+  margin: 0 0 0.3em;
+}
+
+.chapter-note-label {
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  padding: 0 0.2rem;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--color-accent);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.chapter-note-label:hover {
+  background: var(--color-accent-soft);
+}
+
+.chapter-note-ref {
+  font-weight: 600;
+}
