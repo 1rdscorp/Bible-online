@@ -1,7 +1,7 @@
 /**
  * The header's translation controls: the translation dropdown and the
  * Compare toggle. In the reader they change what's on screen; on the home
- * page they choose what the books open in.
+ * page the dropdown alone (no Compare) chooses what the books open in.
  *
  * With one translation, the dropdown picks it. With Compare on, each column
  * has its own picker in the reader (views/reader.js), so the header dropdown
@@ -40,8 +40,9 @@ export function initTranslationControl(root, { onSelect, onToggleCompare }) {
     /**
      * Show the current selection (ids: 1 = single, 2–4 = comparing).
      * `translations` are already in the interface language (main.js).
+     * `compare: false` hides the Compare toggle and always shows the dropdown.
      */
-    update({ translations, ids }) {
+    update({ translations, ids, compare = true }) {
       compareText.textContent = t('compare.button');
       toggle.title = t('compare.title');
 
@@ -61,7 +62,8 @@ export function initTranslationControl(root, { onSelect, onToggleCompare }) {
       }
       select.setValue(ids[0]);
       const comparing = ids.length > 1;
-      slot.hidden = comparing;
+      slot.hidden = comparing && compare;
+      toggle.hidden = !compare;
       toggle.setAttribute('aria-pressed', String(comparing));
     },
   };

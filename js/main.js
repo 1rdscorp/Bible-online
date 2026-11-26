@@ -134,26 +134,20 @@ function changeTranslations(ids, focusKey = null) {
 }
 
 /**
- * The header's controls off the reader (the home page): save the choice, so
- * every book opens in it, and show it.
+ * The home page's dropdown: read `id` alone from now on (Compare off), so
+ * every book opens in it.
  */
-async function savePickerSelection(choose) {
-  const { translations, knownIds, prefs } = await translationState();
-  const ids = choose(selectionFromPrefs(prefs), prefs, knownIds);
-  await savePrefs(prefsWithSelection(prefs, ids));
-  if (currentRoute?.view === 'books') translationControl.update({ translations, ids });
-}
-
-function selectTranslation(id) {
-  if (currentRoute?.view === 'reader') changeTranslations([id], 'header-translation');
-  else savePickerSelection(() => [id]);
+async function selectTranslation(id) {
+  if (currentRoute?.view === 'reader') {
+    changeTranslations([id], 'header-translation');
+    return;
+  }
+  const { prefs } = await translationState();
+  await savePrefs(prefsWithSelection(prefs, [id]));
 }
 
 async function toggleCompare() {
-  if (currentRoute?.view !== 'reader') {
-    savePickerSelection((ids, prefs, knownIds) => (ids.length > 1 ? stopComparing(ids) : startComparing(ids, prefs, knownIds)));
-    return;
-  }
+  if (currentRoute?.view !== 'reader') return;
   const { knownIds, prefs } = await translationState();
   const ids = currentRoute.ids;
   changeTranslations(ids.length > 1 ? stopComparing(ids) : startComparing(ids, prefs, knownIds), 'compare-toggle');
@@ -351,12 +345,12 @@ async function handleRoute(route, { rerender = false } = {}) {
       return;
     }
     case 'books': {
-      // The header's translation controls show here too: they choose what
-      // the books open in. Without the list of translations (offline before
+      // The header's translation dropdown shows here too (without Compare):
+      // it chooses what the books open in. Without the list of translations (offline before
       // the first visit), the books still show, without them.
       const [lastRead, state] = await Promise.all([getLastRead(), translationState().catch(() => null)]);
       if (!isCurrent()) return;
-      if (state) translationControl.update({ translations: state.translations, ids: selectionFromPrefs(state.prefs) });
+      if (state) translationControl.update({ translations: state.translations, ids: selectionFromPrefs(state.prefs), compare: false });
       mount(renderBookList({ lastRead, studyCount: studyStore.all().length }), { title: null, controls: Boolean(state), preserve: rerender });
       return;
     }
