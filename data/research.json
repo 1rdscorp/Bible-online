@@ -170,5 +170,18 @@
       "gospels-30",
       "psalms-proverbs-31"
     ]
+  },
+  "topics": {
+    "url": "data/topics/",
+    "version": "73d602852206",
+    "topics": 623,
+    "references": 38571,
+    "license": "Public domain",
+    "source": {
+      "name": "Torrey's New Topical Textbook",
+      "author": "R. A. Torrey",
+      "year": 1897,
+      "url": "https://www.ccel.org/ccel/torrey/ttt.html"
+    }
   }
 }

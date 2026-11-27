@@ -1,0 +1,261 @@
+/* ==========================================================================
+   Topics (js/views/topics.js): the list of topics with its search box, a
+   topic's statements with their references and verses, and the Research
+   panel's Topics tab.
+   ========================================================================== */
+
+.topics-page {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+  font-family: var(--font-ui);
+}
+
+/* ---------- The list ---------- */
+
+.topic-search {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 1.25rem;
+}
+
+.topic-search-label {
+  font-weight: 600;
+}
+
+.topic-search-input {
+  width: 100%;
+  max-width: 28rem;
+  min-height: 2.75rem;
+  padding: 0 0.85rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 1rem;
+}
+
+.topic-count {
+  margin-top: 0.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.topic-letters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 1rem 0 0.5rem;
+}
+
+.topic-letter-link {
+  display: grid;
+  place-items: center;
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.topic-letter-link:hover {
+  background: var(--color-surface-hover);
+}
+
+.topic-group {
+  margin-top: 1.25rem;
+}
+
+.topic-letter {
+  margin: 0 0 0.35rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 1.1rem;
+  scroll-margin-top: 4.5rem;
+}
+
+.topic-list {
+  columns: 2 15rem;
+  column-gap: 2rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topic-list li {
+  break-inside: avoid;
+}
+
+.topic-link {
+  display: block;
+  padding: 0.4rem 0;
+  text-decoration: none;
+}
+
+.topic-link:hover {
+  text-decoration: underline;
+}
+
+.topic-link-count {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+.topic-source {
+  margin-top: 2.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+/* ---------- A topic ---------- */
+
+.topic-english {
+  margin-top: 0.2rem;
+  color: var(--color-text-muted);
+}
+
+.topic-language-note {
+  margin-top: 0.75rem;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.topic-lines {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topic-lines--sub {
+  margin: 0.35rem 0 0.25rem;
+  padding-inline-start: 1.25rem;
+  border-inline-start: 2px solid var(--color-border);
+}
+
+.topic-line {
+  padding: 0.45rem 0;
+  scroll-margin-top: 5rem;
+}
+
+.topic-lines > .topic-line + .topic-line {
+  border-top: 1px solid var(--color-border);
+}
+
+.topic-line.is-focus > .topic-statement {
+  margin-inline: -0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  background: var(--color-accent-soft);
+}
+
+.topic-statement {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.topic-statement-text {
+  font-weight: 600;
+}
+
+.topic-line.is-heading > .topic-statement .topic-statement-text {
+  color: var(--color-text-muted);
+}
+
+.topic-dash {
+  color: var(--color-text-muted);
+}
+
+.topic-refs a {
+  display: inline-block;
+  padding: 0.15rem 0;
+  text-decoration: none;
+}
+
+.topic-refs a:hover {
+  text-decoration: underline;
+}
+
+.topic-see {
+  margin: 0.25rem 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.topic-show {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 2.5rem;
+  font-size: 0.85rem;
+}
+
+.topic-show[aria-expanded="true"] .topic-show-icon {
+  transform: rotate(180deg);
+}
+
+.topic-verses {
+  margin: 0.25rem 0 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  list-style: none;
+}
+
+.topic-verse {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-scripture);
+  line-height: 1.6;
+}
+
+.topic-verse-ref {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.topic-verse-text.is-missing,
+.topic-verse-loading,
+.topic-verse-source {
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+}
+
+/* ---------- The Research panel's Topics tab ---------- */
+
+.topic-results {
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topic-result + .topic-result {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.topic-result-title {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.topic-result-lines {
+  margin: 0.25rem 0 0;
+  padding-inline-start: 1rem;
+  font-size: 0.9rem;
+}
+
+.topic-result-lines a {
+  display: inline-block;
+  padding: 0.15rem 0;
+  color: var(--color-text);
+}
+
+.topic-result-more {
+  color: var(--color-text-muted);
+  list-style: none;
+}

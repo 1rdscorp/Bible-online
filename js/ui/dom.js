@@ -97,4 +97,6 @@ export const ICONS = Object.freeze({
   // A calendar page (reading plans) and a tick (read).
   calendar: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4M8 14h2M14 14h2M8 17h2',
   check: 'M5 12.5l4.5 4.5L19 7.5',
+  // A tag (topics).
+  topics: 'M3.5 12.5V4.5a1 1 0 0 1 1-1h8l8 8-9 9zM8 8h.01',
 });

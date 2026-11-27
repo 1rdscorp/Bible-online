@@ -11,7 +11,7 @@ Full-text search covers one translation or all of them, and typing a reference s
 
 Highlights, notes and bookmarks are saved on the device, listed on a My Study page, and can be backed up to a file. Reading plans (the Bible in a year, the New Testament in 90 days and others) show each day's reading and tick off chapters as you read.
 
-For research, a side panel shows each verse's cross-references, and in KJV+ the Hebrew or Greek word behind any English word, with every verse that uses it. Study pages introduce each book of the Bible and include a timeline and maps of Bible places.
+For research, a side panel shows each verse's cross-references, the topics that cite it, and in KJV+ the Hebrew or Greek word behind any English word, with every verse that uses it. A topical index covers 623 subjects (Torrey's New Topical Textbook). Study pages introduce each book of the Bible and include a timeline and maps of Bible places.
 
 It works offline and installs on a phone's home screen like an app: everything already opened on the device keeps working without a connection.
 
@@ -38,8 +38,8 @@ npm test
 ```
 
 This runs two groups of tests:
-- **Unit tests:** canon, router, translation selection, verse alignment, versification remapping, the provider contract, the cache, the registry, interface languages, search (tokenizing and queries, the index, references, search URLs), study tools (verse ranges and highlight splitting, note markup, copy formats, backups, the store), reading plans (dates, schedule, progress, the store), and offline support (`sw.js` lists the current files, the app manifest and icons).
-- **Data checks:** every translation in `data/translations.json` is validated, version-checked and scanned for leftover markup. The research data (cross-references, Strong's dictionaries, places, basemap), the audio data (every chapter has a recording, the Psalm numbering), the reading plans (every chapter once, in order, balanced days) and the study content (introductions, timeline, maps) are checked too: every reference must exist and every outline must cover its book.
+- **Unit tests:** canon, router, translation selection, verse alignment, versification remapping, the provider contract, the cache, the registry, interface languages, search (tokenizing and queries, the index, references, search URLs), study tools (verse ranges and highlight splitting, note markup, copy formats, backups, the store), reading plans (dates, schedule, progress, the store), topic lookups (search, verse → topics), and offline support (`sw.js` lists the current files, the app manifest and icons).
+- **Data checks:** every translation in `data/translations.json` is validated, version-checked and scanned for leftover markup. The research data (cross-references, Strong's dictionaries, places, basemap), the audio data (every chapter has a recording, the Psalm numbering), the reading plans (every chapter once, in order, balanced days), the topics (every reference a real verse, the reverse index, Russian titles) and the study content (introductions, timeline, maps) are checked too: every reference must exist and every outline must cover its book.
 
 ## Deploy to GitHub Pages
 
@@ -62,6 +62,7 @@ In the repository, go to **Settings → Pages → Build and deployment**. Set **
 | `#/timeline` | The Bible timeline (`?event=crucifixion` brings one event into view) |
 | `#/maps` | The maps; `#/maps/paul?place=a5feb15` opens one with a place selected |
 | `#/explore` | Interactive studies; `#/explore/daniel-statue?part=legs&reading=traditional` opens the statue of Daniel 2 at a part |
+| `#/topics` | Topics (`?q=prayer` fills the search box); `#/topics/faith` one topic (`?s=12` opens at its 13th statement, with its verses shown) |
 | `#/plans` | Reading plans; `#/plans/bible-year` one plan: start it, today's reading, progress, every day |
 | `#/commentary` | Adventist commentary: the books; `#/commentary/desire-of-ages` one book's contents (`?book=daniel` only its chapters on Daniel); `#/commentary/desire-of-ages/17` a chapter (`?v=3` scrolls to where verse 3 is discussed, in a verse-by-verse commentary) |
 
@@ -145,13 +146,33 @@ No paid translation API is used: its key would be public on a static site, and t
 
 ## Research: cross-references and word study
 
-Select a verse (tap its number) and choose **Research**. A panel opens on the right (on phones, from the bottom), so the chapter stays in view. It has three tabs:
+Select a verse (tap its number) and choose **Research**. A panel opens on the right (on phones, from the bottom), so the chapter stays in view. It has four tabs:
 
 - **Cross-references:** related passages for each selected verse, best first, with their text quoted. There are 340,000 references from [OpenBible.info](https://www.openbible.info/labs/cross-references/), ranked by readers' votes. Following one opens it in the reader and leaves the panel as it was.
 - **Commentary:** the Adventist commentary on the selected verses (see below): Ellen G. White's chapters that tell the passage, with their opening lines. Each links to the full text.
+- **Topics:** the topics whose statements cite the selected verses (see "Topics" below), each with up to three of those statements. A statement opens the topic at that point, with its verses shown.
 - **Word study:** in **KJV+**, tap any word, or pick one from the selected verse's list. The panel shows the Hebrew or Greek word, its transliteration and pronunciation, Strong's definition, how the KJV renders it, and its origin, with links to related entries. Below that it shows how often the word is used, the English words it's translated by, and every verse that uses it, with the word marked. In other translations, the tab offers to open the passage in KJV+.
 
 Word highlights work in KJV+ as elsewhere, and the words stay tappable.
+
+## Topics
+
+**Topics** (`#/topics`, linked under the books on the home page) is a topical index: what the Bible says on 623 subjects, from R. A. Torrey's *New Topical Textbook* (1897, public domain), as CCEL publishes it.
+
+- **The list:** A–Z in English, А–Я in Russian, with letters to jump to and a search box. The search matches word starts in the English or the Russian title ("hol spi", "вер", "святой дух") and ignores case, accents and ё/е.
+- **A topic:** Torrey's statements, each with its references written compactly as he does ("John 10:7, 9; 14:6; Romans 5:2"). Statements that head a group (Faith → "The objects of, are" → God, Christ…) have their sub-statements nested under them.
+  - **Show verses** under a statement quotes its verses in the translation you read last (falling back to the KJV), naming the translation.
+  - Every reference links to the passage in the reader. "See Prayer" becomes a link to that topic.
+- **In the Research panel:** the Topics tab (above).
+- **Russian:** the 623 titles are translated in Synodal wording (`tools/topics-ru.json`). Torrey's 23,550 statements are in English and marked `lang="en"`, with a note saying so; the verses are quoted in the Russian translation being read.
+- **Offline:** like the other study data, each file is saved the first time it's opened.
+
+**How it's built:** `node tools/build-topics.mjs` (`npm run build-topics`) reads CCEL's ThML file (cached in `.cache/sources/`) and writes `data/topics/`: `index.json` (titles and counts), one file per topic, and `refs.json` (which statements cite each passage, for the Research panel). It mends CCEL's mistakes where they can be told:
+- references to one-chapter books are split in CCEL's markup ("Jude 1" tagged, ":20" left outside), and are read back together;
+- four topics carry the wrong title ("B" is Beasts, "Arts of The" is Arts, and a second "Communion With God" and "Early Rising" are really Compassion and Sympathy, and Earth);
+- references to verses that don't exist are left out.
+
+`tests/topics-data.test.js` checks every reference against the KJV, the See links, the reverse index and the Russian titles; `tests/topics.test.js` checks the search and lookups.
 
 ## Study pages
 
@@ -287,7 +308,7 @@ manifest.webmanifest  The installed app's name, icons and look; icons/ holds the
 css/                  themes.css (colour tokens), base, layout, picker, reader, parallel, translate,
                       search, study, research (the Research panel), pages (study pages, maps),
                       explore (the statue), commentary, audio (the player), formatting (a formatted
-                      text's headings, poetry, footnotes), plans (reading plans)
+                      text's headings, poetry, footnotes), plans (reading plans), topics
 js/
   main.js             Entry point: routes → views, translation choice, keyboard, last-read
   offline.js          Offline support: registers sw.js, update and offline messages, Install app
@@ -301,7 +322,7 @@ js/
                       verse), the store, note markup, copy formats, backup files
   research/           Research data: loading it (data.js), references ("ROM 5:8"),
                       Strong's helpers, the concordance (run in the search worker), commentary
-                      lookups (which chapters discuss a verse)
+                      lookups (which chapters discuss a verse), topic lookups (search, verse → topics)
   audio/              Audio Bibles: which recording plays a chapter, what comes next (sources.js)
   geo/                Maps: projection and label placement (projection.js), zoom and pan (view.js),
                       the SVG map (map.js)
@@ -317,7 +338,7 @@ js/
                       docks them), the audio player, footnotes (a formatted text's notes), toasts
   views/              Book/chapter picker, reader (single + parallel), verse alignment,
                       search page, My Study, Translations page, book introductions, timeline,
-                      maps, commentary, reading plans, messages; templates/ holds the study-page building blocks;
+                      maps, commentary, reading plans, topics, messages; templates/ holds the study-page building blocks;
                       explore/ holds the interactive studies (the statue of Daniel 2)
 data/                 translations.json + one JSON file per translation; research.json lists the
                       research data: xref/ (cross-references), strongs/ (dictionaries), geo/
@@ -327,7 +348,8 @@ tools/                serve, build-data (download → convert → validate), bui
                       build-geo, build-study, build-commentary, build-audio, build-bti (the licensed
                       BTI text, from the Institute's Word files: lib/docx.mjs, lib/bti.mjs),
                       build-offline (sw.js's file list), build-icons (app icons), build-plans (reading
-                      plans), converters, validator
+                      plans), build-topics (the topical index; Russian titles in topics-ru.json),
+                      converters, validator
 tests/                node --test suites
 ```
 
@@ -352,4 +374,5 @@ tests/                node --test suites
 - [x] **Audio:** the Russian Synodal read aloud (Alexander Bondarenko, from predanie.ru), in a player that follows the reader from chapter to chapter
 - [x] **Offline support:** the site opens and works without a connection (everything already opened on the device), installs as an app on phones and computers, and offers new versions with a Reload message
 - [x] **Reading plans:** five plans balanced by reading time, a plan page with progress and every day, "Mark as read · Next" under each chapter of the reading, today's reading on the home page, in backups and offline
-- [ ] Later: topical lookups, cloud sync
+- [x] **Topics:** Torrey's New Topical Textbook (623 topics, 38,571 references) with Russian titles, a searchable list, topic pages that quote the verses in your translation, and a Topics tab in the Research panel
+- [ ] Later: cloud sync

@@ -24,6 +24,8 @@
  *   #/commentary  commentary  the commentary library
  *   #/commentary/desire-of-ages     commentary  one book's chapters (route.workId)
  *   #/commentary/desire-of-ages/4   commentary  one chapter (route.partId)
+ *   #/topics      topics    the topical index (Torrey's New Topical Textbook)
+ *   #/topics/faith  topics  one topic (route.topicId); ?s=12 opens at its 13th statement
  *   #/plans       plans     reading plans
  *   #/plans/bible-year  plans  one plan (route.planId)
  *
@@ -64,6 +66,7 @@ export const PAGES = Object.freeze({
   explore: 'explore',
   commentary: 'commentary',
   plans: 'plans',
+  topics: 'topics',
 });
 
 export function pageHref(name) {
@@ -92,6 +95,11 @@ export function commentaryHref(workId = null, partId = null, query = '') {
 /** The reading plans (#/plans), or one plan (#/plans/bible-year). */
 export function planHref(planId = null) {
   return `${pageHref(PAGES.plans)}${planId ? `/${planId}` : ''}`;
+}
+
+/** The topical index (#/topics), or one topic (#/topics/faith); `query` e.g. "s=12". */
+export function topicHref(topicId = null, query = '') {
+  return `${pageHref(PAGES.topics)}${topicId ? `/${topicId}` : ''}${query ? `?${query}` : ''}`;
 }
 
 /** Split a location.hash into path segments and query parameters. */
@@ -154,6 +162,11 @@ export function resolveRoute(hash) {
       return { ...base, view: 'not-found', reason: 'page', query: segments.slice(1).join('/') };
     }
     return withCanonical({ ...base, view: page, workId, partId }, commentaryHref(workId, partId) + suffix, raw);
+  }
+  if (page === PAGES.topics && chapterPart) {
+    const topicId = chapterPart.toLowerCase();
+    if (!/^[a-z0-9-]+$/.test(topicId) || segments.length > 2) return { ...base, view: 'not-found', reason: 'page', query: segments.slice(1).join('/') };
+    return withCanonical({ ...base, view: page, topicId }, topicHref(topicId) + suffix, raw);
   }
   if (page === PAGES.plans && chapterPart) {
     // Plan ids are lower-case words; whether one exists is checked when the plans load.

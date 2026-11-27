@@ -13,6 +13,7 @@
 | `geo/places.json` `geo/basemap.json` | Bible places (1,309, with the verses that name them), and coastlines, lakes and rivers for the maps |
 | `geo/basemap-wide.json` | A coarser basemap from Spain and Britain to the Indus (58 kB), for maps of empires |
 | `study/books/<BOOK>.json` `study/timeline.json` `study/maps.json` | Hand-written study pages: book introductions, the timeline, the maps' places and journeys |
+| `topics/index.json` `topics/<id>.json` `topics/refs.json` | The topical index (Torrey's New Topical Textbook): titles in English and Russian, each topic's statements and references, and which statements cite each passage |
 | `plans.json` | Reading plans: each plan's days (passages such as `"GEN 1-3"`) and minutes per day, built by `tools/build-plans.mjs` |
 | `study/explore.json` `study/explore/<id>.json` | Interactive studies: the list, and each one's content (the statue of Daniel 2) |
 
@@ -198,6 +199,7 @@ Each set is built from pinned sources in `tools/research-sources.json`. Each bui
 | `node tools/build-geo.mjs` | `geo/` | OpenBible.info Bible Geocoding Data (CC BY 4.0); Natural Earth 1:10m (public domain) |
 | `node tools/build-study.mjs` | the `study` version | the hand-written files in `study/` |
 | `node tools/build-commentary.mjs` | `commentary/` | public-domain Adventist books (see below and `tools/commentary-sources.json`) |
+| `node tools/build-topics.mjs` | `topics/` | R. A. Torrey's *New Topical Textbook* (1897, public domain) from CCEL; Russian titles from `tools/topics-ru.json` |
 | `node tools/build-plans.mjs` | `plans.json` | the reading plans defined in that file, balanced by the KJV's word counts |
 | `node tools/build-audio.mjs` | `audio/` | the audio Bibles in `tools/audio-sources.json`: which recording is which chapter (the recordings stay on the source's site) |
 
@@ -366,6 +368,7 @@ Which recorded chapter is which, for each audio Bible in `tools/audio-sources.js
 - **Strong's dictionaries:** Open Scriptures' edition of Strong's 1890/1894 dictionaries, under CC BY-SA. The Research panel credits it.
 - **Basemap:** Natural Earth, public domain.
 - **Study content** (introductions, timeline, maps): written for this site.
+- **Topics:** R. A. Torrey's *New Topical Textbook* (1897), public domain, from CCEL's edition (CCEL allows use for personal, educational or non-profit purposes; only Torrey's public-domain text is used). The Russian titles were written for this site.
 - **Commentary:** Ellen G. White's books were first published before 1931 and are in the public domain in the United States.
   - The text of *Patriarchs and Prophets* is Project Gutenberg's; their licence asks only that Project Gutenberg's name and trademark not be used for modified copies, and none is used here.
   - The other three Ellen White books come from CCEL's editions. CCEL allows use for personal, educational or non-profit purposes. Only the public-domain text is used, not CCEL's introductions or descriptions.

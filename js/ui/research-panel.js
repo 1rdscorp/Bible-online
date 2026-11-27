@@ -1,11 +1,11 @@
 /**
  * The Research panel: cross references for the selected verses, the
- * Adventist commentary on them, and word study (Strong's numbers) for the
- * words of KJV+.
+ * Adventist commentary on them, the topics that cite them (Torrey's New
+ * Topical Textbook), and word study (Strong's numbers) for the words of KJV+.
  *
  * It shares the side-panel place with Notes (side-panels.js): docked on the
  * right on wide screens, so the chapter stays in view while researching; a
- * sheet from the bottom on phones. It's a non-modal dialog with three tabs
+ * sheet from the bottom on phones. It's a non-modal dialog with four tabs
  * (WAI-ARIA tabs: ←/→ move between them). Following a reference opens that
  * passage in the reader and leaves the panel as it was, so the list stays
  * at hand.
@@ -17,9 +17,11 @@ import { chapterTitle, getLanguage, t } from '../i18n.js';
 import { errorText } from '../offline.js';
 import { blocksText, partsFor, sectionsFor } from '../research/commentary.js';
 import { formatRef, refChapters } from '../research/refs.js';
+import { topicsForVerse } from '../research/topics.js';
 import { linkStrongs, scriptRuns, strongsLanguage } from '../research/strongs.js';
-import { chapterHref, commentaryHref } from '../router.js';
+import { chapterHref, commentaryHref, topicHref } from '../router.js';
 import { partLabel, passageText as commentaryPassage, titleLang, workTitle } from '../views/commentary.js';
+import { topicTitle } from '../views/topics.js';
 import { truncate, verseRangeLabel } from '../translate/text.js';
 import { el, icon, ICONS } from './dom.js';
 import { registerSidePanel } from './side-panels.js';
@@ -28,7 +30,8 @@ const XREF_SHOWN = 8; // per verse, before "Show all"
 const CONCORDANCE_PAGE = 25;
 const RENDERINGS_SHOWN = 8;
 const COMMENTARY_EXCERPT = 360; // characters of each commentary shown in the panel
-const TAB_ORDER = ['xref', 'commentary', 'words'];
+const TAB_ORDER = ['xref', 'commentary', 'topics', 'words'];
+const TOPIC_STATEMENTS_SHOWN = 3; // per topic, before "and N more"
 
 /**
  * @param {object} options
@@ -90,6 +93,7 @@ export function initResearchPanel({ data, getProvider, concordance, strongsTrans
     closeButton.setAttribute('aria-label', t('research.close'));
     tabs.xref.textContent = t('research.xrefTab');
     tabs.commentary.textContent = t('research.commentaryTab');
+    tabs.topics.textContent = t('research.topicsTab');
     tabs.words.textContent = t('research.wordsTab');
     for (const [name, button] of Object.entries(tabs)) {
       const on = name === tab;
@@ -108,6 +112,7 @@ export function initResearchPanel({ data, getProvider, concordance, strongsTrans
   function render() {
     if (tab === 'xref') renderXref();
     else if (tab === 'commentary') renderCommentary();
+    else if (tab === 'topics') renderTopics();
     else renderWords();
   }
 
@@ -199,6 +204,58 @@ export function initResearchPanel({ data, getProvider, concordance, strongsTrans
       ...groups,
       attribution('research.xrefSource', 'OpenBible.info', 'https://www.openbible.info/labs/cross-references/', 'CC BY'),
     );
+  }
+
+  /* -------- topics -------- */
+
+  /** The topics whose statements cite the selected verses, each with those statements. */
+  async function renderTopics() {
+    const id = ++renderId;
+    if (!subject) {
+      panes.topics.replaceChildren(note(t('research.topicsHint')));
+      return;
+    }
+    const { book, chapter, verses } = subject;
+    const title = el('h3', { class: 'research-subject' }, t('research.topicsFor', { ref: `${chapterTitle(book, chapter)}:${verseRangeLabel(verses)}` }));
+    panes.topics.replaceChildren(title, note(t('research.loading')));
+    let index;
+    let byTopic;
+    try {
+      const [topicIndex, refs] = await Promise.all([data.topicsIndex(), data.topicRefs()]);
+      index = topicIndex;
+      // Statements on any of the verses, grouped by topic.
+      byTopic = new Map();
+      for (const verse of verses) {
+        for (const { topic, line } of topicsForVerse(refs, book.id, chapter, verse)) {
+          if (!byTopic.has(topic)) byTopic.set(topic, new Set());
+          byTopic.get(topic).add(line);
+        }
+      }
+    } catch (error) {
+      if (id === renderId) panes.topics.replaceChildren(title, failure(error, renderTopics));
+      return;
+    }
+    if (id !== renderId) return;
+    const footer = el('p', { class: 'research-source' }, `${t('research.topicsSource')} `, el('a', { href: topicHref() }, t('topics.title')), '.');
+    if (!byTopic.size) {
+      panes.topics.replaceChildren(title, note(t('research.topicsNone')), footer);
+      return;
+    }
+    const items = [...byTopic].map(([topicIndex, lines]) => topicItem(index.topics[topicIndex], [...lines].sort((a, b) => a - b), id));
+    panes.topics.replaceChildren(title, el('ul', { class: 'topic-results', role: 'list' }, items), footer);
+  }
+
+  function topicItem(entry, lines, id) {
+    const statements = el('ul', { class: 'topic-result-lines', role: 'list' });
+    // The statements' words come from the topic's own file.
+    data.topic(entry.id).then((topic) => {
+      if (id !== renderId) return;
+      const shown = lines.slice(0, TOPIC_STATEMENTS_SHOWN);
+      const items = shown.map((line) => el('li', {}, el('a', { href: topicHref(entry.id, `s=${line}`), lang: 'en' }, topic.lines[line]?.t ?? '')));
+      if (lines.length > shown.length) items.push(el('li', { class: 'topic-result-more' }, t('research.topicsMore', { n: lines.length - shown.length })));
+      statements.replaceChildren(...items);
+    }, () => {});
+    return el('li', { class: 'topic-result' }, el('a', { class: 'topic-result-title', href: topicHref(entry.id, `s=${lines[0]}`) }, topicTitle(entry)), statements);
   }
 
   /* -------- commentary -------- */

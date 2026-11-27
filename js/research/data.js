@@ -129,6 +129,24 @@ export function createResearchData({ fetchJson = (url, version) => translationCa
       return load(`${commentary.url}${lang === 'ru' ? 'ru/' : ''}${workId}/${partId}.json`, commentary.version);
     },
 
+    /** The topical index (data/topics/index.json): { source, topics: [{ id, en, ru, refs }] }. */
+    async topicsIndex() {
+      const { topics } = await manifest();
+      return load(`${topics.url}index.json`, topics.version);
+    },
+
+    /** One topic: { id, en, ru, lines: [{ l, t, r, see }] }. */
+    async topic(id) {
+      const { topics } = await manifest();
+      return load(`${topics.url}${id}.json`, topics.version);
+    },
+
+    /** Which statements cite each passage: { GEN: [[chapter, verse, endChapter, endVerse, topic, line]] }. */
+    async topicRefs() {
+      const { topics } = await manifest();
+      return load(`${topics.url}refs.json`, topics.version);
+    },
+
     /** The reading plans (data/plans.json): { wordsPerMinute, plans: [{ id, name, description, days, minutes }] }. */
     async plans() {
       const { plans } = await manifest();
