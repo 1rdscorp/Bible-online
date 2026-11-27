@@ -383,6 +383,7 @@ export default {
     'offline.notSaved': "You're offline, and this isn't saved on this device yet. Open it once with an internet connection; after that it works offline too.",
     'appInstall.title': 'App',
     'appInstall.offline': "Works offline: the translations and pages you've opened are saved on this device. Install it to open it from your home screen like an app.",
+    'appInstall.menu': "Works offline: the translations and pages you've opened are saved on this device. To install it as an app, open your browser's menu (⋮ or ☰) and choose “Install app” or “Add to Home screen”.",
     'appInstall.ios': 'Works offline: the translations and pages you\'ve opened are saved on this device. To add it to your home screen, tap Share, then “Add to Home Screen”.',
     'appInstall.installed': "Installed. Works offline: the translations and pages you've opened are saved on this device.",
     'appInstall.button': 'Install app',
