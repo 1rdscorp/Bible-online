@@ -173,8 +173,9 @@
   },
   "topics": {
     "url": "data/topics/",
-    "version": "73d602852206",
-    "topics": 623,
+    "version": "ca1b6bc636cd",
+    "topics": 624,
+    "translated": 624,
     "references": 38571,
     "license": "Public domain",
     "source": {

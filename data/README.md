@@ -199,7 +199,7 @@ Each set is built from pinned sources in `tools/research-sources.json`. Each bui
 | `node tools/build-geo.mjs` | `geo/` | OpenBible.info Bible Geocoding Data (CC BY 4.0); Natural Earth 1:10m (public domain) |
 | `node tools/build-study.mjs` | the `study` version | the hand-written files in `study/` |
 | `node tools/build-commentary.mjs` | `commentary/` | public-domain Adventist books (see below and `tools/commentary-sources.json`) |
-| `node tools/build-topics.mjs` | `topics/` | R. A. Torrey's *New Topical Textbook* (1897, public domain) from CCEL; Russian titles from `tools/topics-ru.json` |
+| `node tools/build-topics.mjs` | `topics/` | R. A. Torrey's *New Topical Textbook* (1897, public domain) from CCEL; Russian titles from `tools/topics-ru.json`, Russian statements (an AI translation) from `tools/topics-ru/` |
 | `node tools/build-plans.mjs` | `plans.json` | the reading plans defined in that file, balanced by the KJV's word counts |
 | `node tools/build-audio.mjs` | `audio/` | the audio Bibles in `tools/audio-sources.json`: which recording is which chapter (the recordings stay on the source's site) |
 
@@ -368,7 +368,7 @@ Which recorded chapter is which, for each audio Bible in `tools/audio-sources.js
 - **Strong's dictionaries:** Open Scriptures' edition of Strong's 1890/1894 dictionaries, under CC BY-SA. The Research panel credits it.
 - **Basemap:** Natural Earth, public domain.
 - **Study content** (introductions, timeline, maps): written for this site.
-- **Topics:** R. A. Torrey's *New Topical Textbook* (1897), public domain, from CCEL's edition (CCEL allows use for personal, educational or non-profit purposes; only Torrey's public-domain text is used). The Russian titles were written for this site.
+- **Topics:** R. A. Torrey's *New Topical Textbook* (1897), public domain, from CCEL's edition (CCEL allows use for personal, educational or non-profit purposes; only Torrey's public-domain text is used). The Russian titles and the AI translation of the statements were made for this site.
 - **Commentary:** Ellen G. White's books were first published before 1931 and are in the public domain in the United States.
   - The text of *Patriarchs and Prophets* is Project Gutenberg's; their licence asks only that Project Gutenberg's name and trademark not be used for modified copies, and none is used here.
   - The other three Ellen White books come from CCEL's editions. CCEL allows use for personal, educational or non-profit purposes. Only the public-domain text is used, not CCEL's introductions or descriptions.

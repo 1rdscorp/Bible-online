@@ -249,9 +249,11 @@
   font-size: 0.9rem;
 }
 
-.topic-result-lines a {
-  display: inline-block;
+.topic-result-lines li {
   padding: 0.15rem 0;
+}
+
+.topic-result-lines a {
   color: var(--color-text);
 }
 
