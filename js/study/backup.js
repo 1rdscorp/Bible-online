@@ -9,16 +9,20 @@
  *       "study":        { "items": [ … highlights, notes, bookmarks … ] },
  *       "settings":     { "theme": "sepia", "fontScale": 110, "language": "ru" },
  *       "translations": { … which translations were last shown … },
- *       "lastRead":     { "bookId": "JHN", "chapter": 3 }
+ *       "lastRead":     { "bookId": "JHN", "chapter": 3 },
+ *       "plans":        [ … reading-plan progress (js/plans/model.js records) … ]
  *     }
  *   }
  *
  * Importing never trusts the file: every study item is checked
  * (model.js sanitizeItem) and bad ones are skipped and counted; settings and
- * translation choices are cleaned by their own modules when applied.
+ * translation choices are cleaned by their own modules when applied; plan
+ * records are checked by js/plans/model.js sanitizeRecord. Backups made
+ * before reading plans existed simply have no "plans".
  *
  * Pure: unit-tested in tests/study-backup.test.js.
  */
+import { sanitizeRecord } from '../plans/model.js';
 import { applyHighlight, sanitizeItem } from './model.js';
 
 export const BACKUP_FORMAT = 'bible-online-backup';
@@ -27,12 +31,12 @@ export const BACKUP_VERSION = 1;
 // few megabytes at most).
 export const MAX_BACKUP_BYTES = 20 * 1024 * 1024;
 
-export function makeBackup({ items = [], settings = null, translations = null, lastRead = null }, now = new Date().toISOString()) {
+export function makeBackup({ items = [], settings = null, translations = null, lastRead = null, plans = [] }, now = new Date().toISOString()) {
   return {
     format: BACKUP_FORMAT,
     version: BACKUP_VERSION,
     exported: now,
-    data: { study: { items }, settings, translations, lastRead },
+    data: { study: { items }, settings, translations, lastRead, plans },
   };
 }
 
@@ -43,7 +47,7 @@ export function backupFileName(now = new Date()) {
 
 /**
  * Read a backup file's text. Returns
- *   { ok: true, items, skipped, settings, translations, lastRead, exported }
+ *   { ok: true, items, skipped, settings, translations, lastRead, plans, exported }
  * or { ok: false, error: 'json' | 'format' | 'version' | 'size' }.
  */
 export function readBackup(text) {
@@ -80,6 +84,7 @@ export function readBackup(text) {
     settings: object(file.data.settings),
     translations: object(file.data.translations),
     lastRead: object(file.data.lastRead),
+    plans: (Array.isArray(file.data.plans) ? file.data.plans : []).map((raw) => sanitizeRecord(raw)).filter(Boolean),
     exported: typeof file.exported === 'string' ? file.exported : null,
   };
 }

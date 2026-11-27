@@ -19,6 +19,8 @@ import { researchData } from './research/data.js';
 import { bookOnly, parseReference } from './search/reference.js';
 import { parseQuery } from './search/text.js';
 import { studyStore } from './study/store.js';
+import { chapterKey, dayForChapter, isDayDone, localDate, nextChapter } from './plans/model.js';
+import { planStore } from './plans/store.js';
 import { getSettings, loadSettings, onSettingsChange, updateSettings } from './settings.js';
 import { storage } from './storage.js';
 import {
@@ -57,6 +59,7 @@ import { exploreCard, exploreHref, renderExploreIndex, VIEWS as EXPLORE_VIEWS } 
 import { chapterCommentaryLinks, renderCommentaryLibrary, renderCommentaryPart, renderCommentaryWork, workTitle } from './views/commentary.js';
 import { enableJumpLinks } from './views/templates/study-page.js';
 import { renderTranslationsPage } from './views/translations.js';
+import { planName, renderPlanBar, renderPlanPage, renderPlansList, todaysReadings } from './views/plans.js';
 
 const LAST_READ_KEY = 'lastRead';
 const STRONGS_ID = 'kjvs'; // KJV+, opened by "Open in KJV+" in the Research panel
@@ -273,7 +276,7 @@ async function strongsTranslation() {
 /** For the backup file, besides the study items (js/study/backup.js). */
 async function backupData() {
   const { prefs } = await translationState();
-  return { settings: getSettings(), translations: prefs, lastRead: await storage.get(LAST_READ_KEY, null) };
+  return { settings: getSettings(), translations: prefs, lastRead: await storage.get(LAST_READ_KEY, null), plans: planStore.all() };
 }
 
 /**
@@ -281,8 +284,9 @@ async function backupData() {
  * cleaned by its own module (settings.js sanitizes, translations.js
  * normalizes on load); an unknown book or chapter is ignored.
  */
-async function applyBackupExtras({ settings, translations, lastRead }) {
+async function applyBackupExtras({ settings, translations, lastRead, plans = [], mode = 'merge' }) {
   if (translations) await savePrefs(translations);
+  if (plans.length || mode === 'replace') await planStore.importRecords(plans, mode);
   const book = lastRead && getBook(lastRead.bookId);
   if (book && isValidChapter(book, lastRead.chapter)) saveLastRead(book, lastRead.chapter);
   if (settings) updateSettings({ theme: settings.theme, fontScale: settings.fontScale, language: settings.language ?? null });
@@ -349,10 +353,10 @@ async function handleRoute(route, { rerender = false } = {}) {
       // The header's translation dropdown shows here too (without Compare):
       // it chooses what the books open in. Without the list of translations (offline before
       // the first visit), the books still show, without them.
-      const [lastRead, state] = await Promise.all([getLastRead(), translationState().catch(() => null)]);
+      const [lastRead, state, readings] = await Promise.all([getLastRead(), translationState().catch(() => null), homeReadings()]);
       if (!isCurrent()) return;
       if (state) translationControl.update({ translations: state.translations, ids: selectionFromPrefs(state.prefs), compare: false });
-      mount(renderBookList({ lastRead, studyCount: studyStore.all().length }), { title: null, controls: Boolean(state), preserve: rerender });
+      mount(renderBookList({ lastRead, studyCount: studyStore.all().length, readings }), { title: null, controls: Boolean(state), preserve: rerender });
       return;
     }
     case 'chapters': {
@@ -391,6 +395,8 @@ async function handleRoute(route, { rerender = false } = {}) {
       return showExplorePage(route, isCurrent, rerender);
     case 'commentary':
       return showCommentaryPage(route, isCurrent, rerender);
+    case 'plans':
+      return showPlansPage(route, isCurrent, rerender);
     default:
       return showNotFound(route, rerender);
   }
@@ -503,6 +509,114 @@ async function addCommentaryLinks(view, book, chapter) {
   const nav = chapterCommentaryLinks(partsFor(index, book.id, chapter), { book, chapter });
   const links = view.element.querySelector('.chapter-study');
   if (nav && links) links.after(nav);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Reading plans                                                           */
+/* ---------------------------------------------------------------------- */
+
+/** The plans data, or null (offline before it was ever loaded). */
+const loadPlans = () => researchData.plans().then((data) => data.plans).catch(() => null);
+
+/** The home page's "Today's reading" links, one per unfinished plan. */
+async function homeReadings() {
+  if (planStore.all().length === 0) return [];
+  const plans = await loadPlans();
+  return plans ? todaysReadings({ plans, records: planStore.all(), today: localDate() }) : [];
+}
+
+// The day a plan page's reading card stays on after it was ticked there.
+let planCard = null; // { plan, day }
+
+/** #/plans and #/plans/<id>. */
+async function showPlansPage(route, isCurrent, rerender) {
+  if (!rerender || planCard?.plan !== route.planId) planCard = null;
+  let data;
+  try {
+    data = await researchData.plans();
+  } catch (error) {
+    if (isCurrent()) showStudyLoadFailure(error, route);
+    return;
+  }
+  if (!isCurrent()) return;
+  const today = localDate();
+  // A re-render (progress changed) keeps focus on the same control.
+  const focusKey = rerender ? document.activeElement?.dataset?.focusKey : null;
+  if (!route.planId) {
+    mount(renderPlansList({ plans: data.plans, records: planStore.all(), today }), { title: t('plans.title'), preserve: rerender });
+  } else {
+    const plan = data.plans.find((entry) => entry.id === route.planId);
+    if (!plan) {
+      showNotFound({ ...route, reason: 'page' }, rerender);
+      return;
+    }
+    const record = planStore.get(plan.id);
+    const actions = {
+      start: (date) => planStore.start(plan.id, date),
+      toggle: (day, keys, read, fromCard) => {
+        planCard = fromCard ? { plan: plan.id, day } : planCard;
+        return setPlanRead(plan, day, keys, read);
+      },
+      nextDay: async () => {
+        planCard = null;
+        await handleRoute(currentRoute, { rerender: true });
+        main.querySelector('.plan-next .plan-tick')?.focus();
+      },
+      // Behind: move the start so that the next unread day is today; ticks stay.
+      reschedule: () => {
+        const current = planStore.get(plan.id);
+        const next = plan.days.findIndex((_, i) => !isDayDone(plan, current, i));
+        planStore.restore({ ...current, started: addDaysToToday(-Math.max(0, next)), updated: new Date().toISOString() });
+      },
+      stop: async () => {
+        const removed = await planStore.stop(plan.id);
+        if (removed) toaster.show(t('plans.stopped', { name: planName(plan) }), { action: { label: t('study.undo'), onClick: () => planStore.restore(removed) } });
+      },
+    };
+    const cardDay = record && planCard ? planCard.day : null;
+    mount(renderPlanPage({ plan, record, today, cardDay, actions }), { title: planName(plan), preserve: rerender });
+  }
+  if (focusKey) main.querySelector(`[data-focus-key="${CSS.escape(focusKey)}"]`)?.focus({ preventScroll: true });
+}
+
+function addDaysToToday(n) {
+  const date = new Date();
+  date.setDate(date.getDate() + n);
+  return localDate(date);
+}
+
+/** Tick or untick chapters; a day finished gets a short "Day 12 done". */
+async function setPlanRead(plan, day, keys, read) {
+  const wasDone = isDayDone(plan, planStore.get(plan.id), day);
+  await planStore.setRead(plan.id, day, keys, read);
+  const record = planStore.get(plan.id);
+  if (read && !wasDone && record && isDayDone(plan, record, day)) toaster.show(t('plans.dayDoneToast', { day: day + 1 }));
+}
+
+/**
+ * Under a chapter that belongs to a started plan's reading (today's, or one
+ * the reader is catching up on): "Bible in a year · Day 12 [Mark as read]",
+ * and once read, a link to the next chapter of the plan.
+ */
+async function addPlanBars(view, book, chapter) {
+  const records = planStore.all();
+  const focusKey = view.element.contains(document.activeElement) ? document.activeElement?.dataset?.focusKey : null;
+  const plans = records.length ? await loadPlans() : null;
+  if (!main.contains(view.element)) return;
+  view.element.querySelector('.chapter-plans')?.remove();
+  if (!plans) return;
+  const today = localDate();
+  const key = chapterKey(book.id, chapter);
+  const bars = records.flatMap((record) => {
+    const plan = plans.find((p) => p.id === record.plan);
+    const day = plan && dayForChapter(plan, record, key, today);
+    if (day === null || day === undefined) return [];
+    return [renderPlanBar({ plan, record, day, key, next: nextChapter(plan, record, day, key), onToggle: (read) => setPlanRead(plan, day, [key], read) })];
+  });
+  if (!bars.length) return;
+  const section = el('section', { class: 'chapter-plans', 'aria-label': t('plans.title') }, bars);
+  (view.element.querySelector('.chapter-study') ?? view.actionsSlot).before(section);
+  if (focusKey) section.querySelector(`[data-focus-key="${CSS.escape(focusKey)}"]`)?.focus({ preventScroll: true });
 }
 
 /** #/commentary, a commentary book (#/commentary/<id>) or one of its chapters. */
@@ -708,6 +822,7 @@ async function showReader(route, isCurrent) {
     };
     reader = { book, chapter, verse, verseEnd, ids, view, paint };
     paint();
+    addPlanBars(view, book, chapter);
     addCommentaryLinks(view, book, chapter);
     selectionTranslate.setContext({ book, chapter, shownIds: ids });
     verseActions.setContext({ book, chapter, view, columns, query });
@@ -1094,6 +1209,11 @@ async function boot() {
   // Highlights, notes and bookmarks are painted with the first chapter, so
   // they're read before routing starts (a quick read from this device).
   await studyStore.load();
+  await planStore.load();
+  planStore.subscribe(() => {
+    if (reader && main.contains(reader.view.element)) addPlanBars(reader.view, reader.book, reader.chapter);
+    if (currentRoute?.view === 'plans' || currentRoute?.view === 'books') handleRoute(currentRoute, { rerender: true });
+  });
   studyStore.subscribe((items, change) => {
     if (reader && main.contains(reader.view.element)) reader.paint();
     verseActions.refresh();

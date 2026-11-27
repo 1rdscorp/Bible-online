@@ -159,5 +159,16 @@
         }
       }
     ]
+  },
+  "plans": {
+    "url": "data/plans.json",
+    "version": "c9ec60cf5ae4",
+    "plans": [
+      "bible-year",
+      "ot-nt-year",
+      "nt-90",
+      "gospels-30",
+      "psalms-proverbs-31"
+    ]
   }
 }

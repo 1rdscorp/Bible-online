@@ -11,7 +11,8 @@
     "build-data": "node tools/build-data.mjs",
     "build-research": "node tools/build-xref.mjs && node tools/build-strongs.mjs && node tools/build-geo.mjs && node tools/build-study.mjs",
     "build-commentary": "node tools/build-commentary.mjs",
-    "build-offline": "node tools/build-offline.mjs"
+    "build-offline": "node tools/build-offline.mjs",
+    "build-plans": "node tools/build-plans.mjs"
   },
   "engines": {
     "node": ">=20"

@@ -9,7 +9,7 @@ Ten translations can be read one at a time or 2–4 side by side, with verses al
 
 Full-text search covers one translation or all of them, and typing a reference such as "Jn 3:16" opens the passage.
 
-Highlights, notes and bookmarks are saved on the device, listed on a My Study page, and can be backed up to a file.
+Highlights, notes and bookmarks are saved on the device, listed on a My Study page, and can be backed up to a file. Reading plans (the Bible in a year, the New Testament in 90 days and others) show each day's reading and tick off chapters as you read.
 
 For research, a side panel shows each verse's cross-references, and in KJV+ the Hebrew or Greek word behind any English word, with every verse that uses it. Study pages introduce each book of the Bible and include a timeline and maps of Bible places.
 
@@ -38,8 +38,8 @@ npm test
 ```
 
 This runs two groups of tests:
-- **Unit tests:** canon, router, translation selection, verse alignment, versification remapping, the provider contract, the cache, the registry, interface languages, search (tokenizing and queries, the index, references, search URLs), and study tools (verse ranges and highlight splitting, note markup, copy formats, backups, the store), and offline support (`sw.js` lists the current files, the app manifest and icons).
-- **Data checks:** every translation in `data/translations.json` is validated, version-checked and scanned for leftover markup. The research data (cross-references, Strong's dictionaries, places, basemap), the audio data (every chapter has a recording, the Psalm numbering) and the study content (introductions, timeline, maps) are checked too: every reference must exist and every outline must cover its book.
+- **Unit tests:** canon, router, translation selection, verse alignment, versification remapping, the provider contract, the cache, the registry, interface languages, search (tokenizing and queries, the index, references, search URLs), study tools (verse ranges and highlight splitting, note markup, copy formats, backups, the store), reading plans (dates, schedule, progress, the store), and offline support (`sw.js` lists the current files, the app manifest and icons).
+- **Data checks:** every translation in `data/translations.json` is validated, version-checked and scanned for leftover markup. The research data (cross-references, Strong's dictionaries, places, basemap), the audio data (every chapter has a recording, the Psalm numbering), the reading plans (every chapter once, in order, balanced days) and the study content (introductions, timeline, maps) are checked too: every reference must exist and every outline must cover its book.
 
 ## Deploy to GitHub Pages
 
@@ -62,6 +62,7 @@ In the repository, go to **Settings → Pages → Build and deployment**. Set **
 | `#/timeline` | The Bible timeline (`?event=crucifixion` brings one event into view) |
 | `#/maps` | The maps; `#/maps/paul?place=a5feb15` opens one with a place selected |
 | `#/explore` | Interactive studies; `#/explore/daniel-statue?part=legs&reading=traditional` opens the statue of Daniel 2 at a part |
+| `#/plans` | Reading plans; `#/plans/bible-year` one plan: start it, today's reading, progress, every day |
 | `#/commentary` | Adventist commentary: the books; `#/commentary/desire-of-ages` one book's contents (`?book=daniel` only its chapters on Daniel); `#/commentary/desire-of-ages/17` a chapter (`?v=3` scrolls to where verse 3 is discussed, in a verse-by-verse commentary) |
 
 A link without `?t=` opens in the translations you used last. Abbreviations redirect to the canonical URL (`#/jn/3` → `#/john/3?t=…`). Opening the site with no `#…` resumes the last chapter read.
@@ -213,6 +214,38 @@ Chapters of the Russian Synodal can be heard read aloud. A chapter shown in the 
 
 Another recording (another reader, language or host) is an entry in `tools/audio-sources.json` plus `node tools/build-audio.mjs`; the player reads any source in the same shape (`js/audio/sources.js`).
 
+## Reading plans
+
+**Reading plans** (`#/plans`, linked under the books on the home page) read the Bible a little every day:
+
+| Plan | Days | A day |
+|---|---|---|
+| The Bible in a year: Genesis to Revelation in book order | 365 | about 11 min |
+| Old and New Testament in a year: the Old every day, the New on most days, side by side | 365 | about 11 min |
+| The New Testament in 90 days | 90 | about 10 min |
+| The Gospels in 30 days | 30 | about 14 min |
+| Psalms and Proverbs in a month: a few Psalms and a chapter of Proverbs a day | 31 | about 9 min |
+
+- **Starting:** **Start today**, or on another date. A date in the past joins a plan others began earlier, such as on 1 January.
+- **A plan's page:** where you are ("Day 12 of 365 · 3% done · on schedule", or "2 days behind"), a progress bar, the next day's reading with a tick per passage and **Read**, and every day with its date, in fold-out groups of 30.
+  - **Behind:** **Move the schedule** makes today your next day, keeping your ticks.
+  - **Ticking off a day there:** the card stays on that day, ticked, with **Next day**, so it doesn't change under your finger.
+  - **Stop this plan:** removes its progress, with Undo.
+- **In the reader:** a chapter in your reading (the next day's, or one you're catching up on) has a bar at its end: "The Bible in a year · Day 12 [Mark as read]". Once it's read, **Next: Genesis 35 →** goes on to the plan's next chapter, and finishing a day says "Day 12 done". A chapter further ahead in the plan has no bar.
+- **Home page:** "Today's reading · The Bible in a year · Day 12: Genesis 34–36", opening at the first chapter not yet read.
+- **Several plans at once** are fine: each has its own progress and its own bar.
+- **Saved** on the device through `js/storage.js` (key `plans`), kept in step between open tabs, included in My Study's backup file, and working offline.
+- **Translation:** the links open in the translations you read last, like any link without `?t=`.
+
+**How the plans are made:** `node tools/build-plans.mjs` (`npm run build-plans`) writes `data/plans.json` from the plan definitions in that file. Each plan reads whole chapters in order, and its days are balanced by length (the KJV's word count per chapter, read at 200 words a minute), not by number of chapters. Psalm 117 and Psalm 119 aren't each a day. Where a plan has more days than chapters (the New Testament's 260 chapters over a year), the chapters are spread evenly and some days have none. `tests/plans-data.test.js` checks that every plan reads each of its chapters once, in order, with no day twice the usual length.
+
+**Code:**
+- `js/plans/model.js`: the schedule logic (dates, today's day, the next reading, behind and ahead, which day a chapter belongs to). It's pure, and tested in `tests/plans.test.js`.
+- `js/plans/store.js`: progress, one record per plan, `{ plan, started, read: { day: [chapters] }, updated }`.
+- `js/views/plans.js`: the pages, the bar and the home links.
+
+Adding a plan is a definition in `tools/build-plans.mjs`: its id, days, chapters (one or more tracks read side by side) and names in English and Russian.
+
 ## Offline and installing as an app
 
 The site works without an internet connection, and online as usual whenever there is one.
@@ -254,10 +287,11 @@ manifest.webmanifest  The installed app's name, icons and look; icons/ holds the
 css/                  themes.css (colour tokens), base, layout, picker, reader, parallel, translate,
                       search, study, research (the Research panel), pages (study pages, maps),
                       explore (the statue), commentary, audio (the player), formatting (a formatted
-                      text's headings, poetry, footnotes)
+                      text's headings, poetry, footnotes), plans (reading plans)
 js/
   main.js             Entry point: routes → views, translation choice, keyboard, last-read
   offline.js          Offline support: registers sw.js, update and offline messages, Install app
+  plans/              Reading plans: the schedule logic (model.js) and progress (store.js)
   i18n.js             Interface language: t('key'), book names, RUS | ENG (text in locales/)
   translate/          Translate-selection helpers: on-device machine translation, Yandex
                       Translate link, clipboard, text tidying
@@ -283,7 +317,7 @@ js/
                       docks them), the audio player, footnotes (a formatted text's notes), toasts
   views/              Book/chapter picker, reader (single + parallel), verse alignment,
                       search page, My Study, Translations page, book introductions, timeline,
-                      maps, commentary, messages; templates/ holds the study-page building blocks;
+                      maps, commentary, reading plans, messages; templates/ holds the study-page building blocks;
                       explore/ holds the interactive studies (the statue of Daniel 2)
 data/                 translations.json + one JSON file per translation; research.json lists the
                       research data: xref/ (cross-references), strongs/ (dictionaries), geo/
@@ -292,7 +326,8 @@ data/                 translations.json + one JSON file per translation; researc
 tools/                serve, build-data (download → convert → validate), build-xref, build-strongs,
                       build-geo, build-study, build-commentary, build-audio, build-bti (the licensed
                       BTI text, from the Institute's Word files: lib/docx.mjs, lib/bti.mjs),
-                      build-offline (sw.js's file list), build-icons (app icons), converters, validator
+                      build-offline (sw.js's file list), build-icons (app icons), build-plans (reading
+                      plans), converters, validator
 tests/                node --test suites
 ```
 
@@ -316,4 +351,5 @@ tests/                node --test suites
 - [x] **Licensed translation:** the modern Russian translation of the Institute for Bible Translation named after M. P. Kulakov (BTI), with its headings, footnotes, italics, small capitals and poetry lines
 - [x] **Audio:** the Russian Synodal read aloud (Alexander Bondarenko, from predanie.ru), in a player that follows the reader from chapter to chapter
 - [x] **Offline support:** the site opens and works without a connection (everything already opened on the device), installs as an app on phones and computers, and offers new versions with a Reload message
-- [ ] Later: reading plans, topical lookups, cloud sync
+- [x] **Reading plans:** five plans balanced by reading time, a plan page with progress and every day, "Mark as read · Next" under each chapter of the reading, today's reading on the home page, in backups and offline
+- [ ] Later: topical lookups, cloud sync
