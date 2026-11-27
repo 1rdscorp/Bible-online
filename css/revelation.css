@@ -1,0 +1,723 @@
+/* ---------- Interactive studies: the animals of Revelation ----------
+   js/views/explore/revelation-animals.js. The page's frame (top bar, bands,
+   sources, footer, pager) is the statue page's, from explore.css. The plates
+   keep their own colours in every theme, like printed pictures; the rest
+   follows the site's themes. */
+
+.rv-page {
+  --rv-white: var(--statue-question); /* Ellen White's column and her citations */
+  --rv-red: #a3271d; /* the 1,260 years on the chart */
+  --rv-paper: #f1efe6; /* behind a plate while it loads */
+  --rv-ink: #1b1c20; /* the plates' outlines and numbered points */
+}
+
+:root[data-theme="dark"] .rv-page {
+  --rv-red: #f07a6a;
+}
+
+/* Auto: same value as the dark theme above. Keep the two blocks in sync. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .rv-page {
+    --rv-red: #f07a6a;
+  }
+}
+
+/* ---------- top: title, the note on the commentary, the gallery ---------- */
+
+.rv-hero {
+  padding-block: 2rem 0;
+}
+
+.rv-hero:focus {
+  outline: none;
+}
+
+.rv-hero-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 1.5rem clamp(1.5rem, 4vw, 3.75rem);
+  align-items: end;
+}
+
+/* The title block borrows the statue page's type (.statue-mast) but not its
+   place in that page's grid. */
+.rv-mast {
+  grid-area: auto;
+}
+
+.rv-about {
+  display: grid;
+  gap: 0.6rem;
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  border-left: 3px solid var(--rv-white);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.rv-about h2,
+.rv-parts-wrap h3,
+.rv-column h3,
+.rv-key thead th,
+.rv-where b {
+  font-family: var(--font-ui);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.rv-about h2 {
+  color: var(--rv-white);
+}
+
+.rv-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.3rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* How much Ellen White wrote: a full, half or empty square, and a colour. */
+.rv-level {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.rv-level::before {
+  content: "";
+  flex: none;
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1.5px solid currentColor;
+}
+
+.rv-level[data-level="detail"] {
+  color: var(--statue-ok);
+}
+
+.rv-level[data-level="detail"]::before {
+  background: currentColor;
+}
+
+.rv-level[data-level="brief"] {
+  color: var(--statue-question);
+}
+
+.rv-level[data-level="brief"]::before {
+  background: linear-gradient(90deg, currentColor 50%, transparent 50%);
+}
+
+.rv-gallery {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem 0.85rem;
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rv-thumb {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.rv-thumb-frame {
+  display: block;
+  aspect-ratio: 8 / 5;
+  overflow: hidden;
+  border: 1.5px solid var(--color-border-strong);
+  border-radius: 2px;
+  background: var(--rv-paper);
+}
+
+.rv-thumb-svg,
+.rv-plate-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.rv-thumb:hover .rv-thumb-frame {
+  border-color: var(--color-accent);
+}
+
+.rv-thumb[aria-pressed="true"] .rv-thumb-frame {
+  border-color: var(--color-accent);
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.rv-thumb-caption {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  padding-top: 0.4rem;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.rv-thumb-number {
+  min-width: 1.7em;
+  color: var(--color-accent);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- the selected creature ---------- */
+
+.rv-detail {
+  margin-top: 2.5rem;
+  padding-block: 2.5rem 3rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.rv-head {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.rv-head .statue-kicker {
+  margin-top: 0;
+}
+
+.rv-title {
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+  font-family: var(--font-scripture);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.rv-title:focus {
+  outline: none;
+}
+
+.rv-summary {
+  max-width: 60ch;
+  font-family: var(--font-scripture);
+  font-size: 1.14rem;
+  line-height: 1.55;
+}
+
+.rv-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.rv-where b {
+  margin-right: 0.2rem;
+  color: var(--color-text);
+}
+
+.rv-where a,
+.rv-part-refs a,
+.rv-key-refs a {
+  color: inherit;
+  text-decoration-color: var(--color-border-strong);
+  text-underline-offset: 0.18em;
+}
+
+.rv-where a:hover,
+.rv-part-refs a:hover,
+.rv-key-refs a:hover {
+  color: var(--color-accent);
+}
+
+.rv-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 1.5rem 1.75rem;
+  align-items: start;
+  margin-top: 1.5rem;
+}
+
+/* The plate stays in view beside its list. */
+.rv-figure {
+  position: sticky;
+  top: calc(var(--header-height) + 0.75rem);
+  margin: 0;
+}
+
+.rv-plate {
+  aspect-ratio: 8 / 5;
+  background: var(--rv-paper);
+}
+
+.rv-plate-wait {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  margin: 0;
+  padding: 1rem;
+  color: #5a5d63; /* on the plate's own paper, in every theme */
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.rv-plate-edge {
+  fill: none;
+  stroke: var(--rv-ink);
+  stroke-width: 2;
+}
+
+/* The numbered points keep the plates' colours: white on ink, gold when selected. */
+.rv-pin {
+  outline: none;
+  cursor: pointer;
+}
+
+.rv-pin-hit {
+  fill: transparent;
+}
+
+.rv-pin-dot {
+  fill: #fff;
+  stroke: var(--rv-ink);
+  stroke-width: 1.8;
+}
+
+.rv-pin text {
+  fill: var(--rv-ink);
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+.rv-pin-mark {
+  transition: transform 0.14s ease-out;
+}
+
+.rv-pin:hover .rv-pin-mark {
+  transform: scale(1.14);
+}
+
+.rv-pin.is-selected .rv-pin-mark {
+  transform: scale(1.28);
+}
+
+.rv-pin.is-selected .rv-pin-dot {
+  fill: var(--rv-ink);
+  stroke: #f2c744;
+  stroke-width: 3;
+}
+
+.rv-pin.is-selected text {
+  fill: #fff;
+}
+
+.rv-pin:focus-visible .rv-pin-dot {
+  stroke: #f2c744;
+  stroke-width: 4.5;
+}
+
+.rv-readout {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+  min-height: 5.6em;
+  margin-top: 0.6rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-accent);
+  background: var(--color-surface);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.rv-readout-text {
+  display: block;
+  margin-top: 0.15rem;
+}
+
+.rv-number {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 1.5px solid var(--color-text);
+  border-radius: 50%;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.rv-readout .rv-number,
+.rv-part.is-selected .rv-number {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+.rv-parts-wrap h3 {
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--color-border-strong);
+  color: var(--color-text-muted);
+}
+
+.rv-parts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Room on the left for the number, which the button pulls back into it. */
+.rv-part {
+  padding: 0.7rem 0.6rem 0.75rem 2.85rem;
+  border-bottom: 1px solid var(--color-border);
+  border-left: 4px solid transparent;
+}
+
+.rv-part.is-selected {
+  border-left-color: var(--color-accent);
+  background: var(--color-surface);
+}
+
+.rv-part-button {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  min-height: 1.75rem;
+  margin-left: -2.35rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.rv-part-title {
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.rv-part-refs {
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.rv-part-text {
+  margin-top: 0.2rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.rv-verse {
+  margin: 2rem 0 0;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.rv-verse-text {
+  max-width: 66ch;
+  min-height: 1.6em;
+  font-family: var(--font-scripture);
+  font-size: 1.14rem;
+  line-height: 1.6;
+}
+
+.rv-verse footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.9rem;
+  margin-top: 0.5rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+}
+
+.rv-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 2.75rem;
+  margin-top: 2rem;
+}
+
+.rv-column {
+  display: grid;
+  gap: 0.9rem;
+  align-content: start;
+}
+
+.rv-column h3 {
+  padding-top: 0.6rem;
+  border-top: 3px solid var(--color-accent);
+  color: var(--color-accent);
+}
+
+.rv-white h3 {
+  border-top-color: var(--rv-white);
+  color: var(--rv-white);
+}
+
+.rv-column p {
+  max-width: 62ch;
+}
+
+/* A citation of Ellen White's ("GC 438"); a link when the site has the chapter. */
+.rv-page .cite-ref {
+  padding: 0.05rem 0.35rem;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  color: var(--rv-white);
+  font-family: var(--font-ui);
+  font-size: 0.74rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.rv-page a.cite-ref:hover {
+  background: var(--color-accent-soft);
+}
+
+.rv-context {
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--color-border-strong);
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* ---------- the key, the chart ---------- */
+
+.rv-band > h2 {
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+
+.rv-scroll {
+  overflow-x: auto;
+}
+
+.rv-key {
+  width: 100%;
+  min-width: 34rem;
+  margin-top: 1.25rem;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+
+.rv-key th,
+.rv-key td {
+  padding: 0.6rem 1rem 0.6rem 0;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.rv-key thead th {
+  border-bottom-color: var(--color-border-strong);
+  color: var(--color-text-muted);
+}
+
+.rv-key tbody th {
+  width: 30%;
+  font-weight: 600;
+}
+
+.rv-key-refs {
+  width: 34%;
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+}
+
+/* One scale for every row: a year is the same distance from the left in each. */
+.rv-chart {
+  min-width: 40rem;
+  margin-top: 1.5rem;
+  padding-inline: 1.75rem;
+  font-family: var(--font-ui);
+}
+
+.rv-chart-row + .rv-chart-row {
+  margin-top: 0.4rem;
+}
+
+.rv-chart-label {
+  position: relative;
+  z-index: 1;
+  padding-block: 0.5rem 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.rv-chart-track {
+  position: relative;
+  height: 3.6rem;
+}
+
+.rv-chart-grid {
+  position: absolute;
+  top: -2.2rem;
+  bottom: -0.4rem;
+  width: 1px;
+  background: var(--color-border);
+}
+
+.rv-chart-bar {
+  position: absolute;
+  top: 0;
+  display: grid;
+  place-items: center;
+  height: 1.9rem;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.rv-chart-bar[data-kind="a"],
+.rv-chart-notes [data-kind="a"] i {
+  background: var(--rv-red);
+}
+
+.rv-chart-bar[data-kind="b"],
+.rv-chart-notes [data-kind="b"] i {
+  background: var(--rv-white);
+}
+
+.rv-chart-notes [data-kind="c"] i {
+  background: var(--color-accent);
+}
+
+.rv-chart-notes [data-kind="d"] i {
+  border: 1.5px dashed var(--color-text-muted);
+}
+
+.rv-chart-year {
+  position: absolute;
+  top: 2.1rem;
+  transform: translateX(-50%);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.rv-chart-axis {
+  position: relative;
+  height: 1.9rem;
+  margin-top: 0.4rem;
+  border-top: 2px solid var(--color-text);
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.rv-chart-axis span {
+  position: absolute;
+  top: 0.35rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.rv-chart-notes {
+  display: grid;
+  gap: 0.6rem;
+  max-width: 76ch;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.95rem;
+}
+
+.rv-chart-notes li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+}
+
+.rv-chart-notes i {
+  width: 0.85rem;
+  height: 0.85rem;
+  margin-top: 0.35em;
+  border-radius: 2px;
+}
+
+/* ---------- narrower screens ---------- */
+
+@media (max-width: 59.99rem) {
+  .rv-hero-top,
+  .rv-stage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rv-hero-top {
+    align-items: start;
+  }
+
+  /* The list is below the plate here, so the plate scrolls away with the page. */
+  .rv-figure {
+    position: static;
+  }
+}
+
+@media (max-width: 44rem) {
+  .rv-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem 0.6rem;
+  }
+
+  .rv-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* The plate is small on a phone: larger points, easier to tap. */
+  .rv-pin-mark,
+  .rv-pin:hover .rv-pin-mark {
+    transform: scale(1.35);
+  }
+
+  .rv-pin.is-selected .rv-pin-mark {
+    transform: scale(1.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-pin-mark {
+    transition: none;
+  }
+}

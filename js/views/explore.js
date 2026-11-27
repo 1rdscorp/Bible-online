@@ -8,11 +8,12 @@ import { t } from '../i18n.js';
 import { pageHref, PAGES } from '../router.js';
 import { icon, ICONS } from '../ui/dom.js';
 import { renderDanielStatue } from './explore/daniel-statue.js';
+import { renderRevelationAnimals } from './explore/revelation-animals.js';
 import { localize } from './maps.js';
 import { linkCards, studyPage } from './templates/study-page.js';
 
 /** Page id → its view: (options) => { element, destroy }. */
-export const VIEWS = Object.freeze({ 'daniel-statue': renderDanielStatue });
+export const VIEWS = Object.freeze({ 'daniel-statue': renderDanielStatue, 'revelation-animals': renderRevelationAnimals });
 
 export const exploreHref = (id = null, query = '') => `${pageHref(PAGES.explore)}${id ? `/${id}` : ''}${query ? `?${query}` : ''}`;
 
