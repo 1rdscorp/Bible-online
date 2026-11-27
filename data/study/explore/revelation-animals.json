@@ -405,14 +405,14 @@
     "ru": "Христос, распятый и воскресший. Он главное лицо книги: Агнцем Он назван почти тридцать раз."
    },
    "picture": {
-    "en": "A white lamb with seven horns and seven eyes and a red wound, standing on golden steps under an emerald rainbow, with a sealed scroll beside it.",
-    "ru": "Белый агнец с семью рогами, семью очами и красной раной стоит на золотых ступенях под изумрудной радугой; рядом запечатанный свиток."
+    "en": "A white lamb with golden horns, several eyes and a red wound at its throat, standing on golden steps under an emerald rainbow, with a sealed scroll beside it.",
+    "ru": "Белый агнец с золотыми рогами, несколькими очами и красной раной на шее стоит на золотых ступенях под изумрудной радугой; рядом запечатанный свиток."
    },
    "parts": [
     {
      "at": [
-      350,
-      196
+      332,
+      172
      ],
      "title": {
       "en": "As it had been slain",
@@ -429,8 +429,8 @@
     },
     {
      "at": [
-      424,
-      44
+      366,
+      58
      ],
      "title": {
       "en": "Seven horns",
@@ -447,8 +447,8 @@
     },
     {
      "at": [
-      486,
-      150
+      436,
+      98
      ],
      "title": {
       "en": "Seven eyes",
@@ -465,8 +465,8 @@
     },
     {
      "at": [
-      170,
-      346
+      270,
+      300
      ],
      "title": {
       "en": "In the midst of the throne",
@@ -483,8 +483,8 @@
     },
     {
      "at": [
-      548,
-      282
+      430,
+      292
      ],
      "title": {
       "en": "The sealed book",
@@ -531,7 +531,13 @@
      "en": "The marriage of the Lamb is Christ receiving his kingdom. The bride is the Holy City, the New Jerusalem, and his people are the guests at the marriage supper <span class=\"cite-ref\">GC 426–427</span>.",
      "ru": "Брак Агнца — это принятие Христом Своего царства. Невеста — святой город, Новый Иерусалим, а Его народ — гости на брачной вечере <span class=\"cite-ref\">GC 426–427</span>."
     }
-   ]
+   ],
+   "image": {
+    "src": "img/revelation/lamb.webp",
+    "thumb": "img/revelation/lamb-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
   },
   {
    "id": "four-horses",
@@ -558,14 +564,14 @@
     "ru": "Белый, рыжий, вороной и бледный кони выходят, когда Агнец снимает первые четыре печати."
    },
    "picture": {
-    "en": "Four riders in a row: a white horse with an archer, a red horse with a swordsman, a black horse with a man holding scales, and a pale horse ridden by Death with a dark figure behind and a wolf below.",
-    "ru": "Четыре всадника в ряд: белый конь с лучником, рыжий с меченосцем, вороной с человеком, держащим весы, и бледный, на котором сидит Смерть; за ним тёмная фигура, внизу волк."
+    "en": "Four riders galloping abreast across a dusty plain under a storm sky: a crowned archer on a white horse, a swordsman on a red horse, a hooded man holding scales on a black horse, and Death as a skeleton on a pale green horse, with two wolves running beside them.",
+    "ru": "Четыре всадника скачут в ряд по пыльной равнине под грозовым небом: лучник в венце на белом коне, меченосец на рыжем, человек в капюшоне с весами на вороном и Смерть в виде скелета на бледно-зелёном коне; рядом бегут два волка."
    },
    "parts": [
     {
      "at": [
-      120,
-      270
+      126,
+      208
      ],
      "title": {
       "en": "The white horse",
@@ -582,8 +588,8 @@
     },
     {
      "at": [
-      268,
-      252
+      267,
+      224
      ],
      "title": {
       "en": "The red horse",
@@ -600,8 +606,8 @@
     },
     {
      "at": [
-      416,
-      270
+      420,
+      219
      ],
      "title": {
       "en": "The black horse",
@@ -618,8 +624,8 @@
     },
     {
      "at": [
-      564,
-      252
+      547,
+      206
      ],
      "title": {
       "en": "The pale horse",
@@ -636,8 +642,8 @@
     },
     {
      "at": [
-      500,
-      372
+      479,
+      286
      ],
      "title": {
       "en": "The beasts of the earth",
@@ -684,6 +690,12 @@
    "context": {
     "en": "For context: Adventist teachers of her day read the white horse as the apostolic church in its purity and the first conquests of the gospel, and the darker horses as later stages of bloodshed, error and deadly persecution (Uriah Smith and James White, <cite>The Biblical Institute</cite>, 1878). That reading is theirs, not a statement of hers.",
     "ru": "Для справки: адвентистские учителя её времени видели в белом коне апостольскую церковь в её чистоте и первые победы Евангелия, а в тёмных конях — последующие времена кровопролития, заблуждений и смертельных гонений (Урия Смит и Джеймс Уайт, <cite>The Biblical Institute</cite>, 1878). Это их толкование, а не её слова."
+   },
+   "image": {
+    "src": "img/revelation/four-horses.webp",
+    "thumb": "img/revelation/four-horses-thumb.webp",
+    "width": 1600,
+    "height": 893
    }
   },
   {
@@ -711,14 +723,14 @@
     "ru": "Орёл встречается трижды: как четвёртое животное, как вестник трёх «горе» и как крылья, уносящие жену в безопасное место."
    },
    "picture": {
-    "en": "A great eagle flying above a woman, with three warning banners beside it; below, a desert with a cave and a palm, and a serpent whose flood runs into a crack in the earth.",
-    "ru": "Большой орёл летит над женой; рядом три ленты с восклицательными знаками. Внизу пустыня с пещерой и пальмой и змей, поток которого уходит в расселину земли."
+    "en": "A great eagle with outspread wings flying over a desert canyon. Below, a woman in white runs along the rocks, and behind her a red serpent pours a river of water from its mouth.",
+    "ru": "Большой орёл с распростёртыми крыльями летит над пустынным каньоном. Внизу по камням бежит жена в белом, а позади неё красный змей извергает из пасти поток воды."
    },
    "parts": [
     {
      "at": [
-      214,
-      150
+      199,
+      75
      ],
      "title": {
       "en": "Two wings of a great eagle",
@@ -735,8 +747,8 @@
     },
     {
      "at": [
-      548,
-      258
+      497,
+      189
      ],
      "title": {
       "en": "Into the wilderness, her place",
@@ -753,8 +765,8 @@
     },
     {
      "at": [
-      142,
-      40
+      219,
+      278
      ],
      "title": {
       "en": "A time, times, and half a time",
@@ -771,8 +783,8 @@
     },
     {
      "at": [
-      600,
-      120
+      362,
+      66
      ],
      "title": {
       "en": "Woe, woe, woe",
@@ -789,8 +801,8 @@
     },
     {
      "at": [
-      150,
-      312
+      306,
+      238
      ],
      "title": {
       "en": "The serpent’s flood",
@@ -833,7 +845,13 @@
      "en": "I found no comment from her on the eagle of Revelation 8:13.",
      "ru": "Высказываний Уайт об орле из Откровения 8:13 мне найти не удалось."
     }
-   ]
+   ],
+   "image": {
+    "src": "img/revelation/eagle.webp",
+    "thumb": "img/revelation/eagle-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
   },
   {
    "id": "locusts",
