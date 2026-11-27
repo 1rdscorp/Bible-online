@@ -201,31 +201,59 @@ describe('explore pages (data/study/explore.json)', () => {
     assert.deepEqual(problems, []);
   });
 
-  test('the statue of Daniel 2: parts, both readings, kingdoms, regions, places and eras', () => {
+  test('the statue of Daniel 2: parts, both readings, kingdoms, map, timeline, evidence, notes', () => {
     const statue = readJson('data/study/explore/daniel-statue.json');
     const problems = [];
     const readings = statue.readings.map((reading) => reading.id);
-    for (const reading of statue.readings) problems.push(...textProblems(reading.title, `reading ${reading.id}`), ...textProblems(reading.note, `reading ${reading.id}.note`));
-    problems.push(...textProblems(statue.title, 'title'), ...textProblems(statue.summary, 'summary'), ...textProblems(statue.note, 'note'), ...refProblems(statue.passage, 'passage'));
+    assert.deepEqual(readings, ['traditional', 'scholarly']);
     assert.deepEqual(statue.parts.map((part) => part.id), ['head', 'chest', 'belly', 'legs', 'feet', 'stone']);
 
-    const checkKingdom = (kingdom, label) => {
-      problems.push(...textProblems(kingdom.name, `${label}.name`), ...textProblems(kingdom.dates, `${label}.dates`));
+    // Rich text: the tags the page renders (js/views/templates/rich-html.js),
+    // the same markup in both languages, and verse links that exist.
+    const ALLOWED = /^<\/?(p|b|i|cite|sup|ul|li|h4|table|thead|tbody|tr|th|td|div)>$|^<(div|span|td) class="(cols|tscroll|sw-dot|num)">$|^<span class="dbar" data-value="[\d.]+">$|^<(th|td) data-metal="(gold|silver|bronze|iron|mix|stone)">$|^<a data-ref="[^"]+">$|^<\/(div|span|a)>$/;
+    const tags = (html) => html.match(/<[^>]+>/g) ?? [];
+    // A bibliography entry may stay in its own language (`latin`).
+    const rich = (value, label, { latin = false } = {}) => {
+      if (!value || typeof value.en !== 'string' || !value.en.trim()) return [`${label}.en is missing`];
+      const found = [];
+      if (typeof value.ru !== 'string' || !(latin ? value.ru.trim() : /[А-Яа-яЁё]/.test(value.ru))) found.push(`${label}.ru is missing or not in Russian`);
+      for (const tag of tags(value.en)) if (!ALLOWED.test(tag)) found.push(`${label}: tag ${tag} isn't allowed`);
+      if (tags(value.en).join('') !== tags(value.ru ?? '').join('')) found.push(`${label}: English and Russian markup differ`);
+      for (const [, ref] of value.en.matchAll(/data-ref="([^"]+)"/g)) found.push(...refProblems(ref, label));
+      return found;
+    };
+    const plain = (value, label) => textProblems(value, label);
+
+    problems.push(...plain(statue.title, 'title'), ...plain(statue.eyebrow, 'eyebrow'), ...rich(statue.summary, 'summary'), ...refProblems(statue.passage, 'passage'));
+    for (const reading of statue.readings) problems.push(...plain(reading.title, `reading ${reading.id}`), ...rich(reading.note, `reading ${reading.id}.note`));
+    problems.push(...rich(statue.stage.start, 'stage.start'), ...rich(statue.stage.fallen, 'stage.fallen'), ...plain(statue.stage.figure, 'stage.figure'));
+
+    const evidenceIds = new Set(statue.evidence.items.map((item) => item.id));
+    const checkKingdom = (part, kingdom, label) => {
+      for (const key of ['name', 'rail', 'full', 'dates']) problems.push(...plain(kingdom[key], `${label}.${key}`));
+      problems.push(...rich(kingdom.summary, `${label}.summary`), ...rich(kingdom.differ, `${label}.differ`));
+      if (typeof kingdom.agree !== 'boolean') problems.push(`${label}: agree is true or false`);
       if (!(kingdom.facts?.length >= 3)) problems.push(`${label}: at least 3 facts`);
-      kingdom.facts.forEach((fact, i) => problems.push(...textProblems(fact, `${label}.facts[${i}]`)));
-      for (const [i, parallel] of kingdom.parallels.entries()) problems.push(...refProblems(parallel.ref, `${label}.parallels[${i}]`), ...textProblems(parallel.text, `${label}.parallels[${i}]`));
+      kingdom.facts.forEach((fact, i) => problems.push(...rich(fact, `${label}.facts[${i}]`)));
+      kingdom.stats.forEach(([name, value], i) => problems.push(...plain(name, `${label}.stats[${i}]`), ...rich(value, `${label}.stats[${i}]`)));
+      for (const id of kingdom.evidence) if (!evidenceIds.has(id)) problems.push(`${label}: unknown evidence ${id}`);
       for (const id of kingdom.regions) if (!statue.regions[id]) problems.push(`${label}: unknown region ${id}`);
+      if (kingdom.regionMetals && kingdom.regionMetals.length !== kingdom.regions.length) problems.push(`${label}: a metal for each region`);
+      if (kingdom.mapNote) problems.push(...rich(kingdom.mapNote, `${label}.mapNote`));
       for (const id of kingdom.places) if (!places[id]?.ru) problems.push(`${label}: place ${id} missing or without a Russian name`);
       for (const id of kingdom.landmarks) if (!statue.landmarks[id]) problems.push(`${label}: unknown landmark ${id}`);
+      if (part.id !== 'stone' && !kingdom.regions.length) problems.push(`${label}: no region to show on the map`);
     };
     for (const part of statue.parts) {
-      problems.push(...textProblems(part.title, `${part.id}.title`), ...textProblems(part.material, `${part.id}.material`));
-      problems.push(...refProblems(part.refs.text, `${part.id}.refs.text`), ...refProblems(part.refs.meaning, `${part.id}.refs.meaning`));
-      if (part.kingdom) checkKingdom(part.kingdom, part.id);
-      else for (const reading of readings) part.kingdoms?.[reading] ? checkKingdom(part.kingdoms[reading], `${part.id}.${reading}`) : problems.push(`${part.id}: no kingdom for ${reading}`);
+      for (const key of ['title', 'short', 'label', 'refs']) problems.push(...plain(part[key], `${part.id}.${key}`));
+      if (!['gold', 'silver', 'bronze', 'iron', 'mix', 'stone'].includes(part.metal)) problems.push(`${part.id}: unknown metal ${part.metal}`);
+      if (!part.verses?.length) problems.push(`${part.id}: no verses`);
+      for (const ref of part.verses ?? []) problems.push(...refProblems(ref, `${part.id}.verses`));
+      if (part.kingdom) checkKingdom(part, part.kingdom, part.id);
+      else for (const reading of readings) part.kingdoms?.[reading] ? checkKingdom(part, part.kingdoms[reading], `${part.id}.${reading}`) : problems.push(`${part.id}: no kingdom for ${reading}`);
     }
     for (const [id, region] of Object.entries(statue.regions)) {
-      problems.push(...textProblems(region.title, `region ${id}`), ...textProblems(region.date, `region ${id}.date`));
+      problems.push(...plain(region.title, `region ${id}`), ...plain(region.date, `region ${id}.date`));
       if (!onMap(...region.label)) problems.push(`region ${id}: label off the wide basemap`);
       for (const ring of region.rings) {
         if (ring.length < 6 || ring.length % 2) problems.push(`region ${id}: a ring needs 3+ [lon, lat] pairs`);
@@ -233,21 +261,48 @@ describe('explore pages (data/study/explore.json)', () => {
       }
     }
     for (const [id, landmark] of Object.entries(statue.landmarks)) {
-      problems.push(...textProblems(landmark.name, `landmark ${id}`), ...textProblems(landmark.note, `landmark ${id}.note`));
+      problems.push(...plain(landmark.name, `landmark ${id}`), ...plain(landmark.note, `landmark ${id}.note`));
       if (!onMap(landmark.lon, landmark.lat)) problems.push(`landmark ${id}: off the wide basemap`);
     }
-    const [from, to] = statue.range;
+
+    const { timeline } = statue;
+    const [from, to] = timeline.range;
+    problems.push(...plain(timeline.title, 'timeline.title'), ...rich(timeline.intro, 'timeline.intro'));
+    const cats = timeline.categories.map((cat) => cat.id);
+    for (const cat of timeline.categories) problems.push(...plain(cat.label, `category ${cat.id}`));
     for (const reading of readings) {
-      for (const era of statue.eras[reading] ?? []) {
-        if (!statue.parts.some((part) => part.id === era.part)) problems.push(`eras.${reading}: unknown part ${era.part}`);
-        if (!(era.from < era.to && era.from >= from && era.to <= to)) problems.push(`eras.${reading}.${era.part}: ${era.from}–${era.to} outside ${from}–${to}`);
+      if (!timeline.bands[reading]?.length) problems.push(`timeline: no bars for ${reading}`);
+      for (const band of timeline.bands[reading] ?? []) {
+        if (!statue.parts.some((part) => part.id === band.part)) problems.push(`bands.${reading}: unknown part ${band.part}`);
+        if (!(band.from < band.to && band.from >= from && band.to <= to && (band.tail ?? band.to) <= to)) problems.push(`bands.${reading}.${band.part}: ${band.from}–${band.to} outside ${from}–${to}`);
+        problems.push(...plain(band.label, `bands.${reading}.${band.part}`));
       }
     }
-    for (const event of statue.events) {
-      if (!Number.isInteger(event.year) || event.year === 0 || event.year < from || event.year > to) problems.push(`event ${event.year}: a whole year within the range`);
-      problems.push(...textProblems(event.label, `event ${event.year}`));
-      if (event.ref) problems.push(...refProblems(event.ref, `event ${event.year}`));
+    timeline.events.forEach((event, i) => {
+      if (!Number.isInteger(event.year) || event.year < from || event.year > to) problems.push(`event ${i}: a whole year within the range`);
+      if (!cats.includes(event.cat) || event.cat === 'all') problems.push(`event ${i}: unknown category ${event.cat}`);
+      problems.push(...rich(event.title, `event ${i}.title`), ...rich(event.text, `event ${i}.text`));
+      if (event.when) problems.push(...plain(event.when, `event ${i}.when`));
+      if (event.ref) problems.push(...refProblems(event.ref, `event ${i}`));
+    });
+
+    const { evidence } = statue;
+    const groups = evidence.groups.map((group) => group.id);
+    for (const item of evidence.items) {
+      if (!groups.includes(item.group) || item.group === 'all') problems.push(`evidence ${item.id}: unknown group`);
+      if (!['tablet', 'cylinder', 'stele', 'scroll', 'book', 'arch', 'brick', 'rock'].includes(item.icon)) problems.push(`evidence ${item.id}: unknown icon`);
+      for (const kind of item.kinds) if (!evidence.kinds[kind]) problems.push(`evidence ${item.id}: unknown kind ${kind}`);
+      for (const key of ['title', 'meta', 'says', 'bears']) problems.push(...rich(item[key], `evidence ${item.id}.${key}`));
     }
+    for (const [kind, label] of Object.entries(evidence.kinds)) problems.push(...plain(label, `kind ${kind}`));
+
+    if (!(statue.notes.items.length >= 5)) problems.push('notes: at least 5');
+    statue.notes.items.forEach((note, i) => problems.push(...plain(note.title, `note ${i}.title`), ...rich(note.body, `note ${i}.body`)));
+    for (const group of statue.sources.groups) {
+      problems.push(...plain(group.title, 'sources group'));
+      group.items.forEach((item, i) => problems.push(...rich(item, `${group.title.en} ${i}`, { latin: true })));
+    }
+    statue.footer.forEach((paragraph, i) => problems.push(...rich(paragraph, `footer ${i}`)));
     assert.deepEqual(problems, []);
   });
 });
