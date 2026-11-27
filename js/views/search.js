@@ -15,6 +15,7 @@
  */
 import { booksInTestament, getBook } from '../canon.js';
 import { bookName, chapterTitle, t, testamentName } from '../i18n.js';
+import { errorText } from '../offline.js';
 import { bookHref, chapterHref } from '../router.js';
 import { ALL_TRANSLATIONS, searchHref } from '../search/params.js';
 import { highlightRanges, MATCH_MODES } from '../search/text.js';
@@ -375,7 +376,7 @@ export function createSearchView({ params, translations, onSubmit = () => {}, on
           'div',
           { class: 'load-error', role: 'alert' },
           el('p', {}, t('search.failed')),
-          el('p', { class: 'load-error-detail' }, error?.message ?? String(error)),
+          el('p', { class: 'load-error-detail' }, errorText(error)),
           el('button', { type: 'button', class: 'button', onclick: onRetry }, t('action.retry')),
         ),
       );

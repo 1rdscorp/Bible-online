@@ -14,6 +14,7 @@
  */
 import { getBook } from '../canon.js';
 import { chapterTitle, getLanguage, t } from '../i18n.js';
+import { errorText } from '../offline.js';
 import { blocksText, partsFor, sectionsFor } from '../research/commentary.js';
 import { formatRef, refChapters } from '../research/refs.js';
 import { linkStrongs, scriptRuns, strongsLanguage } from '../research/strongs.js';
@@ -301,7 +302,7 @@ export function initResearchPanel({ data, getProvider, concordance, strongsTrans
       'div',
       { class: 'research-error', role: 'alert' },
       el('p', {}, t('research.loadFailed')),
-      el('p', { class: 'research-error-detail' }, error?.message ?? String(error)),
+      el('p', { class: 'research-error-detail' }, errorText(error)),
       el('button', { type: 'button', class: 'button', onclick: () => retry() }, t('action.retry')),
     );
   }

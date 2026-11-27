@@ -13,6 +13,7 @@
  */
 import { adjacentChapter } from '../canon.js';
 import { chapterTitle, getLanguage, t } from '../i18n.js';
+import { errorText } from '../offline.js';
 import { chapterHref, pageHref } from '../router.js';
 import { formatWordTags } from '../providers/json-provider.js';
 import { addColumn, MAX_COLUMNS, removeColumn, replaceColumn } from '../translations.js';
@@ -314,7 +315,7 @@ export function createReaderView({ book, chapter, columns, translations, query =
       'div',
       { class: 'load-error', role: 'alert' },
       el('p', {}, message),
-      el('p', { class: 'load-error-detail' }, error?.message ?? String(error)),
+      el('p', { class: 'load-error-detail' }, errorText(error)),
       el('button', { type: 'button', class: 'button', onclick: onRetry }, t('action.retry')),
     );
   }

@@ -7,6 +7,12 @@
   <meta name="description" content="A calm, fast, distraction-free Bible reader.">
   <meta name="theme-color" content="#fbfaf7">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <!-- Installable app (js/offline.js, sw.js): name, icons, home-screen look. -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-title" content="Bible">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
 
   <!--
     Before the first paint, apply the saved theme, text size and interface
@@ -150,6 +156,13 @@
             </div>
             <button type="button" class="text-button" data-font-reset data-i18n="settings.reset">Reset</button>
           </div>
+        </div>
+
+        <!-- Offline use and installing as an app (js/offline.js). -->
+        <div class="settings-group settings-app" id="settings-app" role="group" aria-labelledby="settings-app-label" hidden>
+          <span class="settings-label" id="settings-app-label" data-i18n="appInstall.title">App</span>
+          <p class="settings-app-text" data-app-text></p>
+          <button type="button" class="button app-install-button" data-app-install data-i18n="appInstall.button" hidden>Install app</button>
         </div>
 
         <p class="settings-hint">

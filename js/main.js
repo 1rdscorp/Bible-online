@@ -42,6 +42,7 @@ import { initSelectionTranslate } from './ui/selection-translate.js';
 import { initSettingsPanel } from './ui/settings-panel.js';
 import { paintStudyMarks } from './ui/study-marks.js';
 import { createToaster } from './ui/toast.js';
+import { errorText, initOffline } from './offline.js';
 import { initTranslationControl } from './ui/translation-control.js';
 import { initVerseActions } from './ui/verse-actions.js';
 import { renderMessage } from './views/message.js';
@@ -985,7 +986,7 @@ function showLoadFailure(error) {
   mount(
     renderMessage({
       title: t('error.translations'),
-      text: error?.message ?? String(error),
+      text: errorText(error),
       actions: [{ label: t('action.retry'), onClick: () => handleRoute(currentRoute) }],
       links: [{ href: '#/', label: t('notFound.browse') }],
     }),
@@ -1060,6 +1061,7 @@ async function boot() {
   header = initHeader(document.getElementById('app-header'), { isPinned: settingsPanel.isOpen });
   selectionTranslate = initSelectionTranslate({ root: main, getRussianVerses });
   toaster = createToaster();
+  initOffline({ toaster, appSection: document.getElementById('settings-app') });
   notesPanel = initNotesPanel({ store: studyStore, toaster });
   searchClient = createSearchClient();
   researchPanel = initResearchPanel({
