@@ -254,14 +254,14 @@
     "ru": "Имя Христа — Царя-победителя из рода Иуды. Иоанн слышит «лев», оборачивается и видит Агнца."
    },
    "picture": {
-    "en": "A crowned lion roaring on a rock, a green shoot growing from a cut stump on the left, and a scroll with seven seals on the right.",
-    "ru": "Лев в венце рыкает на скале; слева из срубленного пня растёт зелёный побег, справа лежит свиток с семью печатями."
+    "en": "A crowned lion roaring on a rocky height under a dark, starry sky, with shafts of light falling on him. On the left a green shoot grows from a cut stump; on the right lies a scroll with a row of red wax seals.",
+    "ru": "Лев в венце рыкает на скалистой вершине под тёмным звёздным небом, на него падают лучи света. Слева из срубленного пня растёт зелёный побег, справа лежит свиток с рядом красных сургучных печатей."
    },
    "parts": [
     {
      "at": [
-      250,
-      196
+      261,
+      174
      ],
      "title": {
       "en": "The Lion",
@@ -278,8 +278,8 @@
     },
     {
      "at": [
-      408,
-      62
+      457,
+      45
      ],
      "title": {
       "en": "“Hath prevailed”",
@@ -296,8 +296,8 @@
     },
     {
      "at": [
-      112,
-      236
+      107,
+      268
      ],
      "title": {
       "en": "The Root of David",
@@ -314,8 +314,8 @@
     },
     {
      "at": [
-      566,
-      280
+      479,
+      333
      ],
      "title": {
       "en": "The book with seven seals",
@@ -332,8 +332,8 @@
     },
     {
      "at": [
-      548,
-      172
+      460,
+      129
      ],
      "title": {
       "en": "The lion’s roar",
@@ -372,7 +372,13 @@
      "en": "As Lion he will defend his chosen people and bring them through to victory, because they received him as the Lamb of God <span class=\"cite-ref\">CTr 315</span>. The Lion of Judah, so terrible to those who refuse his grace, will be the Lamb of God to the obedient and faithful <a class=\"cite-ref\" data-work=\"acts-of-the-apostles\" data-part=\"57\">AA 589</a>.",
      "ru": "Как Лев Он защитит Своих избранных и приведёт их к победе, потому что они приняли Его как Агнца Божьего <span class=\"cite-ref\">CTr 315</span>. Лев от колена Иудина, столь страшный для отвергающих Его благодать, для послушных и верных будет Агнцем Божьим <a class=\"cite-ref\" data-work=\"acts-of-the-apostles\" data-part=\"57\">AA 589</a>."
     }
-   ]
+   ],
+   "image": {
+    "src": "img/revelation/lion-of-judah.webp",
+    "thumb": "img/revelation/lion-of-judah-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
   },
   {
    "id": "lamb",
@@ -2995,8 +3001,8 @@
    "ru": "Мысли Эллен Уайт изложены в пересказе; дословно приведены четыре короткие фразы, они взяты в кавычки. Если её высказываний найти не удалось, это указано. Прежде чем цитировать, сверьте ссылку с книгой."
   },
   {
-   "en": "Plate I is a picture made with an AI image generator. The other plates are original drawings made for this site from the wording of the text. All of them are aids to memory, not reconstructions.",
-   "ru": "Рисунок I создан с помощью генератора изображений на основе искусственного интеллекта. Остальные рисунки выполнены специально для сайта по словам самого текста. Все они — памятки, а не реконструкции."
+   "en": "Some plates are pictures made with an AI image generator; the others are original drawings made for this site from the wording of the text. All of them are aids to memory, not reconstructions.",
+   "ru": "Часть рисунков создана с помощью генератора изображений на основе искусственного интеллекта; остальные выполнены специально для сайта по словам самого текста. Все они — памятки, а не реконструкции."
   }
  ]
 }
