@@ -13,7 +13,7 @@
 | `geo/places.json` `geo/basemap.json` | Bible places (1,309, with the verses that name them), and coastlines, lakes and rivers for the maps |
 | `geo/basemap-wide.json` | A coarser basemap from Spain and Britain to the Indus (58 kB), for maps of empires |
 | `study/books/<BOOK>.json` `study/timeline.json` `study/maps.json` | Hand-written study pages: book introductions, the timeline, the maps' places and journeys |
-| `topics/index.json` `topics/<id>.json` `topics/refs.json` | The topical index (Torrey's New Topical Textbook): titles in English and Russian, each topic's statements and references, and which statements cite each passage |
+| `topics/index.json` `topics/<id>.json` `topics/refs.json` `topics/statements.json` | The topical index (Torrey's New Topical Textbook): titles in English and Russian, each topic's statements and references, which statements cite each passage, and every statement's text for searching |
 | `plans.json` | Reading plans: each plan's days (passages such as `"GEN 1-3"`) and minutes per day, built by `tools/build-plans.mjs` |
 | `study/explore.json` `study/explore/<id>.json` | Interactive studies: the list, and each one's content (the statue of Daniel 2) |
 

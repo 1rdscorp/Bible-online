@@ -60,7 +60,8 @@ import { chapterCommentaryLinks, renderCommentaryLibrary, renderCommentaryPart, 
 import { enableJumpLinks } from './views/templates/study-page.js';
 import { renderTranslationsPage } from './views/translations.js';
 import { planName, renderPlanBar, renderPlanPage, renderPlansList, todaysReadings } from './views/plans.js';
-import { renderTopicPage, renderTopicsIndex, topicTitle } from './views/topics.js';
+import { renderTopicPage, renderTopicSuggestions, renderTopicsIndex, topicTitle } from './views/topics.js';
+import { topicQuery } from './research/topics.js';
 import { parseRef, refChapters } from './research/refs.js';
 
 const LAST_READ_KEY = 'lastRead';
@@ -548,6 +549,11 @@ async function showTopicsPage(route, isCurrent, rerender) {
     const element = renderTopicsIndex({
       index,
       query: route.params.q ?? '',
+      loadStatements: () =>
+        researchData.topicStatements().then((entries) => {
+          entries.byKey ??= new Map(entries.map((entry) => [`${entry[0]}.${entry[1]}`, entry]));
+          return entries;
+        }),
       // Typing doesn't add history entries; the URL just keeps the text for Back.
       onQuery: (q) => {
         const href = topicHref(null, q ? `q=${encodeURIComponent(q)}` : '');
@@ -1087,7 +1093,16 @@ async function runSearch({ limit = SEARCH_PAGE_SIZE } = {}) {
   const current = search;
   const { view, params, query, translations } = current;
   const book = bookOnly(params.q);
-  const bookSuggestion = book ? bookSuggestionLink(book) : null;
+  // Above the results: the book named, and topics whose titles match the words.
+  const topicBox = el('div', { class: 'search-topic-box' });
+  const bookSuggestion = [book ? bookSuggestionLink(book) : null, topicBox];
+  const words = book ? '' : topicQuery(params.q);
+  if (words) {
+    researchData
+      .topicsIndex()
+      .then((index) => topicBox.replaceChildren(renderTopicSuggestions(index.topics, words) ?? ''))
+      .catch(() => {}); // offline before the topics were saved: no suggestions
+  }
   if (query.clauses.length === 0) {
     view.setStatus('');
     view.showTips({ bookSuggestion });

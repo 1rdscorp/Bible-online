@@ -19,8 +19,9 @@ export function foldText(text) {
 
 /**
  * Topics whose English or Russian title has words starting with each word
- * typed ("hol spi" → "Holy Spirit, the Comforter" …), best first: a title
- * that starts with the query, then the rest in list order.
+ * typed ("hol spi" → "Holy Spirit, the Comforter" …), best first: the
+ * title that is the query, titles that start with it, then the rest, each
+ * in list order.
  */
 export function searchTopics(topics, query) {
   const words = foldText(query).split(' ').filter(Boolean);
@@ -32,11 +33,43 @@ export function searchTopics(topics, query) {
       const folded = foldText(title);
       const titleWords = folded.split(' ');
       if (!words.every((word) => titleWords.some((w) => w.startsWith(word)))) continue;
-      best = Math.max(best, folded.startsWith(words.join(' ')) ? 2 : 1);
+      const query = words.join(' ');
+      best = Math.max(best, folded === query ? 3 : folded.startsWith(query) ? 2 : 1);
     }
     if (best > 0) scored.push({ topic, best });
   }
   return scored.sort((a, b) => b.best - a.best).map((entry) => entry.topic);
+}
+
+/**
+ * The words of a Bible search worth looking up as topics: quotes, "*" and
+ * other search syntax removed. Empty for a reference or a long query.
+ */
+export function topicQuery(text) {
+  const words = foldText(String(text ?? '').replace(/[*"«»„“”]/g, ' ')).split(' ').filter(Boolean);
+  return words.length > 0 && words.length <= 4 && !/\d/.test(words.join('')) ? words.join(' ') : '';
+}
+
+/**
+ * Statements whose text has words starting with each word typed, in the
+ * interface language's text and in Torrey's English:
+ * [{ topic, line }] (indexes into the topic list and the topic's lines),
+ * in topic order, at most `limit`.
+ * `entries`: data/topics/statements.json's [[topic, line, en, ru], …].
+ */
+export function searchStatements(entries, query, { limit = 50 } = {}) {
+  const words = foldText(query).split(' ').filter(Boolean);
+  if (!words.length) return [];
+  const found = [];
+  for (const entry of entries) {
+    // Folded once per entry and kept (the list is searched as you type).
+    entry.folded ??= ` ${foldText(entry[2])} ${foldText(entry[3] ?? '')}`;
+    if (words.every((word) => entry.folded.includes(` ${word}`))) {
+      found.push({ topic: entry[0], line: entry[1] });
+      if (found.length >= limit) break;
+    }
+  }
+  return found;
 }
 
 /** The first letter a title is filed under ("Вера" → "В"). */

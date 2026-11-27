@@ -159,7 +159,8 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
 
 **Topics** (`#/topics`, linked under the books on the home page) is a topical index: what the Bible says on 624 subjects, from R. A. Torrey's *New Topical Textbook* (1897, public domain), as CCEL publishes it.
 
-- **The list:** A–Z in English, А–Я in Russian, with letters to jump to and a search box. The search matches word starts in the English or the Russian title ("hol spi", "вер", "святой дух") and ignores case, accents and ё/е.
+- **The list:** A–Z in English, А–Я in Russian, with letters to jump to and a search box. The search matches word starts in the English or the Russian title ("hol spi", "вер", "святой дух"), an exact title first, and ignores case, accents and ё/е. From three letters on it also finds the words inside topics: "In the topics: 8 statements" lists them ("Faith — Is the gift of God"), each opening its topic at that statement. Their text (`data/topics/statements.json`, about 0.6 MB as served) loads only on the first search.
+- **In the Bible search:** searching a word or two ("prayer", «молитва», "holy spirit") also shows **Topics:** with the topics whose titles match, up to six, the exact title first. A reference or a long query shows none.
 - **A topic:** Torrey's statements, each with its references written compactly as he does ("John 10:7, 9; 14:6; Romans 5:2"). Statements that head a group (Faith → "The objects of, are" → God, Christ…) have their sub-statements nested under them.
   - **Show verses** under a statement quotes its verses in the translation you read last (falling back to the KJV), naming the translation.
   - Every reference links to the passage in the reader. "See Prayer" becomes a link to that topic.

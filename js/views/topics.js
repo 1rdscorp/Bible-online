@@ -11,7 +11,7 @@
 import { getBook } from '../canon.js';
 import { chapterTitle, getLanguage, t } from '../i18n.js';
 import { parseRef } from '../research/refs.js';
-import { nestLines, searchTopics, titleLetter } from '../research/topics.js';
+import { nestLines, searchStatements, searchTopics, titleLetter } from '../research/topics.js';
 import { chapterHref, topicHref } from '../router.js';
 import { el, icon, ICONS } from '../ui/dom.js';
 
@@ -34,8 +34,10 @@ const collator = () => new Intl.Collator(getLanguage(), { sensitivity: 'base' })
  * @param {object} options.index      data/topics/index.json
  * @param {string} [options.query]    the search box's text (?q=)
  * @param {(query: string) => void} options.onQuery  remembers the text in the URL
+ * @param {() => Promise<any[]>} [options.loadStatements]  data/topics/statements.json, for
+ *   finding the words inside topics too (loaded on the first search)
  */
-export function renderTopicsIndex({ index, query = '', onQuery }) {
+export function renderTopicsIndex({ index, query = '', onQuery, loadStatements = null }) {
   const sorted = [...index.topics].sort((a, b) => collator().compare(topicTitle(a), topicTitle(b)));
   const input = el('input', {
     type: 'search',
@@ -49,12 +51,32 @@ export function renderTopicsIndex({ index, query = '', onQuery }) {
   const count = el('p', { class: 'topic-count', id: 'topic-count', role: 'status', 'aria-live': 'polite' });
   const results = el('div', { class: 'topic-results' });
 
+  let searchId = 0;
+
   function render() {
     const text = input.value.trim();
+    const id = ++searchId;
     if (text) {
       const found = searchTopics(sorted, text);
+      const inStatements = el('section', { class: 'topic-statement-results', 'aria-labelledby': 'topic-statements-title', hidden: true });
       count.textContent = found.length ? t('topics.found', { n: found.length }) : t('topics.none');
-      results.replaceChildren(el('ul', { class: 'topic-list', role: 'list' }, found.map(topicLink)));
+      results.replaceChildren(found.length ? el('ul', { class: 'topic-list', role: 'list' }, found.map(topicLink)) : '', inStatements);
+      // The words inside topics too, from three letters on.
+      if (loadStatements && text.length >= 3) {
+        loadStatements()
+          .then((entries) => {
+            if (id !== searchId) return;
+            const hits = searchStatements(entries, text, { limit: STATEMENT_HITS });
+            if (!hits.length) return;
+            inStatements.hidden = false;
+            inStatements.replaceChildren(
+              el('h2', { class: 'topic-statements-title', id: 'topic-statements-title' }, t('topics.inStatements', { n: hits.length })),
+              el('ul', { class: 'topic-statement-list', role: 'list' }, hits.map(({ topic, line }) => statementLink(index.topics[topic], entries, topic, line))),
+            );
+            if (!found.length) count.textContent = t('topics.foundStatements', { n: hits.length });
+          })
+          .catch(() => {});
+      }
       return;
     }
     count.textContent = t('topics.count', { n: sorted.length });
@@ -106,6 +128,42 @@ export function renderTopicsIndex({ index, query = '', onQuery }) {
     count,
     results,
     sourceNote(index.source),
+  );
+}
+
+const STATEMENT_HITS = 60;
+const SEARCH_SUGGESTIONS = 6;
+
+/**
+ * For the Bible search page: "Topics: Prayer · Prayer, Public …", the
+ * topics whose titles match the words searched for. Null if none do.
+ */
+export function renderTopicSuggestions(topics, query) {
+  const matches = query ? searchTopics(topics, query).slice(0, SEARCH_SUGGESTIONS) : [];
+  if (!matches.length) return null;
+  return el(
+    'p',
+    { class: 'search-topics' },
+    el('span', { class: 'search-topics-label' }, icon(ICONS.topics, { size: 16 }), t('search.topics')),
+    ' ',
+    matches.flatMap((topic, i) => [i > 0 && el('span', { class: 'search-topics-sep', 'aria-hidden': 'true' }, ' · '), el('a', { href: topicHref(topic.id) }, topicTitle(topic))]),
+  );
+}
+
+/** "Вера — Дар Божий", opening the topic at that statement. */
+function statementLink(topic, entries, t, l) {
+  const entry = entries.byKey?.get(`${t}.${l}`) ?? entries.find((e) => e[0] === t && e[1] === l);
+  const russian = getLanguage() === 'ru' && entry?.[3];
+  return el(
+    'li',
+    {},
+    el(
+      'a',
+      { class: 'topic-statement-link', href: topicHref(topic.id, `s=${l}`) },
+      el('span', { class: 'topic-statement-topic' }, topicTitle(topic)),
+      ' — ',
+      el('span', { lang: russian ? 'ru' : 'en' }, russian ? entry[3] : entry?.[2] ?? ''),
+    ),
   );
 }
 

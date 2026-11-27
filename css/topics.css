@@ -109,6 +109,66 @@
   font-size: 0.85rem;
 }
 
+/* Matches inside topics (the list's search). */
+.topic-statement-results {
+  margin-top: 1.5rem;
+}
+
+.topic-statements-title {
+  margin: 0 0 0.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.topic-statement-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topic-statement-link {
+  display: block;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.topic-statement-link:hover .topic-statement-topic {
+  text-decoration: underline;
+}
+
+.topic-statement-topic {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* On the Bible search page: "Topics: Prayer · Prayer, Public". */
+.search-topics {
+  margin-top: 0.75rem;
+  line-height: 1.7;
+}
+
+.search-topics-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-inline-end: 0.25rem;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.search-topics a {
+  font-weight: 600;
+}
+
+.search-topics-sep {
+  color: var(--color-text-muted);
+}
+
 /* ---------- A topic ---------- */
 
 .topic-english {

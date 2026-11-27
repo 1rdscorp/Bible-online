@@ -141,6 +141,12 @@ export function createResearchData({ fetchJson = (url, version) => translationCa
       return load(`${topics.url}${id}.json`, topics.version);
     },
 
+    /** Every statement's text, for searching: [[topic, line, en, ru]]. */
+    async topicStatements() {
+      const { topics } = await manifest();
+      return load(`${topics.url}statements.json`, topics.version);
+    },
+
     /** Which statements cite each passage: { GEN: [[chapter, verse, endChapter, endVerse, topic, line]] }. */
     async topicRefs() {
       const { topics } = await manifest();

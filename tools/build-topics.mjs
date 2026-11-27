@@ -15,6 +15,8 @@
  *   data/topics/<id>.json    { id, en, ru, lines: [{ l: 1|2, t: "Is of God", ru: "От Бога", r: ["PSA 65:4"], see: ["prayer"] }] }
  *   data/topics/refs.json    { GEN: [[chapter, verse, endChapter, endVerse, topic, line], …] }
  *                            which statements cite each passage (the Research panel's Topics tab)
+ *   data/topics/statements.json  [[topic, line, en, ru], …] every statement's text, for the
+ *                            topic list's search (loaded only when someone searches)
  *
  * Every reference is checked against the KJV's verses; CCEL's few that point
  * to verses that don't exist are left out (and counted). The Russian titles
@@ -219,6 +221,12 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const index = topics.map((topic) => ({ id: topic.id, en: topic.title, ru: ru[topic.id] ?? null, refs: count(topic) }));
   await write('index.json', { formatVersion: 1, source: SOURCE, topics: index });
   await write('refs.json', refIndex(topics));
+  const statements = [];
+  for (const [t, topic] of topics.entries()) {
+    const ruLines = readTranslation(topic.id);
+    topic.lines.forEach((line, l) => statements.push([t, l, line.t, ruLines?.[l] ?? null]));
+  }
+  await write('statements.json', statements);
 
   const total = topics.reduce((sum, topic) => sum + count(topic), 0);
   console.log(`${topics.length} topics, ${topics.reduce((s, t) => s + t.lines.length, 0)} statements, ${total} references (${bad} references to verses that don't exist left out); ${translated} topics with Russian statements`);

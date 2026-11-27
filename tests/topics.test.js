@@ -1,7 +1,7 @@
 /** Topic lookups (js/research/topics.js): search, letters, verse → topics, nesting. */
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { foldText, nestLines, searchTopics, titleLetter, topicsForVerse } from '../js/research/topics.js';
+import { foldText, nestLines, searchStatements, searchTopics, titleLetter, topicQuery, topicsForVerse } from '../js/research/topics.js';
 
 const topics = [
   { id: 'faith', en: 'Faith', ru: 'Вера' },
@@ -20,6 +20,9 @@ test('folding: case, ё, accents and punctuation', () => {
 
 test('search: word starts in either language, titles that start with the query first', () => {
   assert.deepEqual(searchTopics(topics, 'faith').map((t) => t.id), ['faith', 'faithfulness-of-god']);
+  // The exact title first, whatever the list order.
+  assert.deepEqual(searchTopics([...topics].reverse(), 'вера').map((t) => t.id), ['faith']);
+  assert.deepEqual(searchTopics([topics[1], topics[0]], 'faith').map((t) => t.id), ['faith', 'faithfulness-of-god']);
   assert.deepEqual(searchTopics(topics, 'god').map((t) => t.id), ['faithfulness-of-god', 'love-of-god']);
   assert.deepEqual(searchTopics(topics, 'вер').map((t) => t.id), ['faith', 'faithfulness-of-god']);
   assert.deepEqual(searchTopics(topics, 'hol spi').map((t) => t.id), ['holy-spirit-the-comforter']);
@@ -55,4 +58,26 @@ test('statements nest their sub-statements', () => {
     ['Commanded', 0, []],
     ['The objects of, are', 1, [['God', 2], ['Christ', 3]]],
   ]);
+});
+
+test('what of a Bible search to look up as topics', () => {
+  assert.equal(topicQuery('prayer'), 'prayer');
+  assert.equal(topicQuery('"holy spirit"'), 'holy spirit');
+  assert.equal(topicQuery('бог* любовь'), 'бог любовь');
+  assert.equal(topicQuery('Jn 3:16'), '');
+  assert.equal(topicQuery('one two three four five'), '');
+  assert.equal(topicQuery('  '), '');
+});
+
+test('statements: word starts in English or Russian, in topic order, up to a limit', () => {
+  const entries = [
+    [0, 0, 'Is the gift of God', 'Дар Божий'],
+    [0, 1, 'Produces joy', 'Производит радость'],
+    [3, 2, 'The gift of the Holy Spirit', 'Дар Святого Духа'],
+  ];
+  assert.deepEqual(searchStatements(entries, 'gift'), [{ topic: 0, line: 0 }, { topic: 3, line: 2 }]);
+  assert.deepEqual(searchStatements(entries, 'дар свят'), [{ topic: 3, line: 2 }]);
+  assert.deepEqual(searchStatements(entries, 'радост'), [{ topic: 0, line: 1 }]);
+  assert.deepEqual(searchStatements(entries, 'ift'), [], 'word starts only');
+  assert.equal(searchStatements(entries, 'дар', { limit: 1 }).length, 1);
 });
