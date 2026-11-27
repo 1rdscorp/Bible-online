@@ -275,7 +275,7 @@
   display: block;
   width: auto;
   height: clamp(20rem, calc(100vh - var(--header-height) - 14rem), 32.5rem);
-  aspect-ratio: 360 / 700;
+  aspect-ratio: 400 / 750;
   overflow: visible;
 }
 
@@ -284,29 +284,6 @@
   transform-box: fill-box;
   transform-origin: center;
   transition: opacity 0.25s, filter 0.25s;
-}
-
-.statue-part :is(path, rect, ellipse, circle, polygon) {
-  stroke: rgb(4 10 30 / 0.55);
-  stroke-width: 0.9;
-}
-
-.statue-part .statue-ln {
-  fill: none;
-  stroke: rgb(4 10 30 / 0.42);
-  stroke-width: 1.3;
-  stroke-linecap: round;
-}
-
-.statue-part .statue-hl {
-  fill: none;
-  stroke: rgb(255 255 255 / 0.5);
-  stroke-width: 1;
-  stroke-linecap: round;
-}
-
-.statue-part .statue-flat {
-  stroke: none;
 }
 
 .statue.has-selection .statue-part:not(.is-selected) {
@@ -319,11 +296,6 @@
 
 .statue-part.is-selected {
   filter: drop-shadow(0 0 7px rgb(255 236 170 / 0.55));
-}
-
-.statue-plinth path {
-  stroke: rgb(4 10 30 / 0.6);
-  stroke-width: 0.9;
 }
 
 .statue-part[data-part="stone"] {
@@ -378,6 +350,11 @@
   right: 0;
   left: 0;
   transform: translateY(-50%);
+}
+
+/* Placed by the page (railLayout in daniel-statue.js), top edge in px. */
+.statue-rail li.is-placed {
+  transform: none;
 }
 
 .statue-rail li::before {
