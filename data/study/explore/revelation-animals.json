@@ -63,14 +63,14 @@
     "ru": "Четыре существа у престола Божьего: подобное льву, тельцу, человеку и летящему орлу. Они начинают небесное поклонение."
    },
    "picture": {
-    "en": "A throne under an emerald rainbow beside a sea of glass, with four six-winged creatures around it: a lion, a calf, a man and an eagle.",
-    "ru": "Престол под изумрудной радугой у стеклянного моря, вокруг четыре шестикрылых существа: лев, телец, человек и орёл."
+    "en": "A golden throne blazing with light inside an emerald rainbow, on a sea of glass under a sky of stars. Around it are four winged creatures whose wings are covered with eyes: a roaring lion, a calf, one with a human face, and an eagle.",
+    "ru": "Золотой престол в сиянии внутри изумрудной радуги, на стеклянном море под звёздным небом. Вокруг четыре крылатых существа, крылья которых усеяны глазами: рычащий лев, телец, существо с человеческим лицом и орёл."
    },
    "parts": [
     {
      "at": [
-      128,
-      158
+      126,
+      104
      ],
      "title": {
       "en": "Like a lion",
@@ -87,8 +87,8 @@
     },
     {
      "at": [
-      512,
-      160
+      506,
+      150
      ],
      "title": {
       "en": "Like a calf",
@@ -105,8 +105,8 @@
     },
     {
      "at": [
-      128,
-      300
+      160,
+      272
      ],
      "title": {
       "en": "A face as a man",
@@ -123,8 +123,8 @@
     },
     {
      "at": [
-      512,
-      300
+      500,
+      272
      ],
      "title": {
       "en": "Like a flying eagle",
@@ -141,8 +141,8 @@
     },
     {
      "at": [
-      62,
-      62
+      74,
+      50
      ],
      "title": {
       "en": "Six wings",
@@ -159,8 +159,8 @@
     },
     {
      "at": [
-      578,
-      200
+      580,
+      190
      ],
      "title": {
       "en": "Full of eyes",
@@ -178,7 +178,7 @@
     {
      "at": [
       320,
-      290
+      252
      ],
      "title": {
       "en": "The throne and the rainbow",
@@ -221,7 +221,13 @@
      "en": "She returns to the picture to steady believers who fear that God has lost control of events <span class=\"cite-ref\">5T 751–754</span>. The hand under the wings teaches that divine power gives His workers their success, and the lightning speed of the creatures pictures how quickly His work will be finished <span class=\"cite-ref\">4BC 1161</span>.",
      "ru": "Она возвращается к этому образу, чтобы ободрить верующих, которым кажется, что Бог утратил власть над событиями <span class=\"cite-ref\">5T 751–754</span>. Рука под крыльями учит, что успех Его работникам даёт Божья сила, а молниеносное движение животных показывает, как быстро завершится Его дело <span class=\"cite-ref\">4BC 1161</span>."
     }
-   ]
+   ],
+   "image": {
+    "src": "img/revelation/living-creatures.webp",
+    "thumb": "img/revelation/living-creatures-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
   },
   {
    "id": "lion-of-judah",
@@ -2989,8 +2995,8 @@
    "ru": "Мысли Эллен Уайт изложены в пересказе; дословно приведены четыре короткие фразы, они взяты в кавычки. Если её высказываний найти не удалось, это указано. Прежде чем цитировать, сверьте ссылку с книгой."
   },
   {
-   "en": "The pictures are original drawings made for this site from the wording of the text. They are aids to memory, not reconstructions.",
-   "ru": "Рисунки выполнены специально для сайта по словам самого текста. Это памятки, а не реконструкции."
+   "en": "Plate I is a picture made with an AI image generator. The other plates are original drawings made for this site from the wording of the text. All of them are aids to memory, not reconstructions.",
+   "ru": "Рисунок I создан с помощью генератора изображений на основе искусственного интеллекта. Остальные рисунки выполнены специально для сайта по словам самого текста. Все они — памятки, а не реконструкции."
   }
  ]
 }

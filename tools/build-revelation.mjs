@@ -1,5 +1,5 @@
 /**
- * Builds the fifteen plates of "The Animals of Revelation" for the site:
+ * Builds the drawn plates of "The Animals of Revelation" for the site:
  * tools/art/revelation/<id>.svg → js/views/explore/revelation-plates.js.
  *
  *   node tools/build-revelation.mjs
@@ -12,6 +12,13 @@
  * load (scripts, event attributes, images, outside links). To change a
  * drawing, replace its SVG, keep the viewBox, and run this again;
  * tests/revelation.test.js checks the module is up to date.
+ *
+ * A plate can be a picture instead. Then its creature in the JSON has an
+ * "image" ({ src, thumb, width, height }: two WebP files in img/revelation/
+ * and the larger one's size in pixels), there is no SVG for it, and its
+ * points sit on a grid 640 wide and as high as the picture's shape makes it.
+ * Nothing is built for a picture: add the files, describe them in the JSON,
+ * and run this again so the drawing it replaces leaves the module.
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -20,6 +27,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 export const ART = join(ROOT, 'tools/art/revelation');
 export const OUTPUT = join(ROOT, 'js/views/explore/revelation-plates.js');
+export const PAGE = join(ROOT, 'data/study/explore/revelation-animals.json');
 export const VIEW_BOX = '0 0 640 400';
 
 /** The plates, in the order of the page (and of Revelation). */
@@ -41,6 +49,26 @@ export const PLATE_IDS = [
   'in-passing',
 ];
 
+/** The plates that are drawings: every plate whose creature has no "image" in the page's content. */
+export function drawnIds() {
+  const pictured = new Set(JSON.parse(readFileSync(PAGE, 'utf8')).creatures.filter((creature) => creature.image).map((creature) => creature.id));
+  return PLATE_IDS.filter((id) => !pictured.has(id));
+}
+
+/** A WebP file's width and height in pixels, read from its header. */
+export function webpSize(buffer) {
+  if (buffer.toString('latin1', 0, 4) !== 'RIFF' || buffer.toString('latin1', 8, 12) !== 'WEBP') throw new Error('Not a WebP file.');
+  const kind = buffer.toString('latin1', 12, 16);
+  // The three kinds of WebP keep the size in different places.
+  if (kind === 'VP8 ') return { width: buffer.readUInt16LE(26) & 0x3fff, height: buffer.readUInt16LE(28) & 0x3fff };
+  if (kind === 'VP8L') {
+    const bits = buffer.readUInt32LE(21);
+    return { width: (bits & 0x3fff) + 1, height: ((bits >>> 14) & 0x3fff) + 1 };
+  }
+  if (kind === 'VP8X') return { width: buffer.readUIntLE(24, 3) + 1, height: buffer.readUIntLE(27, 3) + 1 };
+  throw new Error(`Unknown kind of WebP file: "${kind}".`);
+}
+
 /** One plate's contents (inside <svg>) ready for the page. */
 export function convertPlate(svgText, id) {
   const unsafe = svgText.match(/<script|<foreignObject|<image|<iframe|<text|\son[a-z]+\s*=|javascript:|(?:xlink:)?href\s*=\s*"(?!#)|url\(\s*['"]?(?!#)|@import/i);
@@ -58,9 +86,9 @@ export function convertPlate(svgText, id) {
   return body;
 }
 
-/** The module's source, from { id: svgText }. */
-export function platesModule(svgById) {
-  const entries = PLATE_IDS.map((id) => {
+/** The module's source, from { id: svgText }: one entry for each drawn plate. */
+export function platesModule(svgById, ids = drawnIds()) {
+  const entries = ids.map((id) => {
     if (typeof svgById[id] !== 'string') throw new Error(`No drawing for "${id}" (tools/art/revelation/${id}.svg).`);
     return `  '${id}': \`${convertPlate(svgById[id], id)}\`,`;
   });
@@ -76,12 +104,13 @@ ${entries.join('\n')}
 }
 
 /** The drawings on disk: { id: svgText }. */
-export function readArt() {
-  return Object.fromEntries(PLATE_IDS.map((id) => [id, readFileSync(join(ART, `${id}.svg`), 'utf8')]));
+export function readArt(ids = drawnIds()) {
+  return Object.fromEntries(ids.map((id) => [id, readFileSync(join(ART, `${id}.svg`), 'utf8')]));
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
-  const source = platesModule(readArt());
+  const ids = drawnIds();
+  const source = platesModule(readArt(ids), ids);
   writeFileSync(OUTPUT, source);
-  console.log(`js/views/explore/revelation-plates.js: ${PLATE_IDS.length} plates, ${(source.length / 1024).toFixed(1)} KB`);
+  console.log(`js/views/explore/revelation-plates.js: ${ids.length} of the ${PLATE_IDS.length} plates are drawings, ${(source.length / 1024).toFixed(1)} KB`);
 }

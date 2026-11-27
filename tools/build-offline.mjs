@@ -8,7 +8,7 @@
  *   node tools/build-offline.mjs          update sw.js
  *   node tools/build-offline.mjs --check  exit 1 if sw.js is out of date
  *
- * Run it after changing any HTML, CSS, JavaScript or icon file.
+ * Run it after changing any HTML, CSS, JavaScript, icon or picture file.
  * tests/offline.test.js fails while sw.js is out of date, as a reminder.
  */
 import { createHash } from 'node:crypto';
@@ -23,6 +23,7 @@ const FOLDERS = [
   ['css', '.css'],
   ['js', '.js'],
   ['icons', '.png'],
+  ['img', '.webp'], // pictures a page shows (the plates of the animals of Revelation)
 ];
 
 function walk(dir) {

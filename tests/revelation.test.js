@@ -13,9 +13,9 @@ import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { parseRef } from '../js/research/refs.js';
 import { VIEWS } from '../js/views/explore.js';
-import { chartPosition, chartYears, creatureOf, roman } from '../js/views/explore/revelation-animals.js';
+import { chartPosition, chartYears, creatureOf, plateSize, roman } from '../js/views/explore/revelation-animals.js';
 import { workHref } from '../js/views/templates/rich-html.js';
-import { OUTPUT, PLATE_IDS, VIEW_BOX, convertPlate, platesModule, readArt } from '../tools/build-revelation.mjs';
+import { OUTPUT, PLATE_IDS, VIEW_BOX, convertPlate, drawnIds, platesModule, readArt, webpSize } from '../tools/build-revelation.mjs';
 
 const root = new URL('../', import.meta.url);
 const readJson = (path) => JSON.parse(readFileSync(new URL(path, root), 'utf8'));
@@ -103,7 +103,6 @@ test('the page is listed in data/study/explore.json and has a view', () => {
 test('the content: fifteen creatures, their points, the Bible and the commentary, in both languages', () => {
   const problems = [];
   assert.deepEqual(page.creatures.map((creature) => creature.id), PLATE_IDS);
-  const [, , width, height] = VIEW_BOX.split(' ').map(Number);
 
   problems.push(...plain(page.title, 'title'), ...plain(page.eyebrow, 'eyebrow'), ...plain(page.summary, 'summary'));
   page.about.forEach((paragraph, i) => problems.push(...plain(paragraph, `about[${i}]`)));
@@ -119,6 +118,8 @@ test('the content: fifteen creatures, their points, the Bible and the commentary
     if (!creature.where.en.includes('data-ref="REV ')) problems.push(`${creature.id}: "where" names no verse of Revelation`);
 
     if (!(creature.parts.length >= 4 && creature.parts.length <= 9)) problems.push(`${creature.id}: 4 to 9 numbered points`);
+    // A drawing's grid, or a picture's: 640 wide and as high as its shape makes it.
+    const { width, height } = plateSize(creature);
     creature.parts.forEach((part, i) => {
       const [x, y] = part.at ?? [];
       // A point is a circle of radius 12: all of it must be on the plate.
@@ -208,13 +209,35 @@ test('every citation of Ellen White is explained under Sources', () => {
   assert.deepEqual([...ru].sort(), [...cited].sort());
 });
 
-test('the plates are built from tools/art/revelation/ (run: node tools/build-revelation.mjs)', async () => {
+test('a plate that is a picture has its files, at the size the content gives', () => {
+  const pictured = page.creatures.filter((creature) => creature.image);
+  assert.deepEqual(pictured.map((creature) => creature.id).concat(drawnIds()).sort(), [...PLATE_IDS].sort(), 'every plate is a picture or a drawing');
+  for (const { id, image } of pictured) {
+    assert.deepEqual(Object.keys(image).sort(), ['height', 'src', 'thumb', 'width'], id);
+    for (const key of ['src', 'thumb']) assert.match(image[key], /^img\/revelation\/[a-z0-9-]+\.webp$/, `${id}.image.${key}`);
+    const file = readFileSync(new URL(image.src, root));
+    const thumb = readFileSync(new URL(image.thumb, root));
+    assert.deepEqual(webpSize(file), { width: image.width, height: image.height }, `${id}: the size in the content is the file's`);
+    // Sharp on a large screen, and still a small download (it is saved for offline use).
+    assert.ok(image.width >= 1200 && image.width <= 2000 && file.length < 400 * 1024, `${id}: 1200 to 2000 px wide, under 400 KB`);
+    const small = webpSize(thumb);
+    assert.ok(small.width <= 640 && thumb.length < 60 * 1024, `${id}: the gallery copy is small`);
+    assert.ok(Math.abs(small.width / small.height - image.width / image.height) < 0.02, `${id}: the gallery copy has the picture's shape`);
+    assert.equal(plateSize({ image }).width, 640);
+    assert.equal(plateSize({ image }).height, Math.round((640 * image.height) / image.width));
+  }
+  assert.deepEqual(plateSize({}), { width: 640, height: 400 });
+  assert.throws(() => webpSize(Buffer.from('not a picture at all')), /WebP/);
+});
+
+test('the drawn plates are built from tools/art/revelation/ (run: node tools/build-revelation.mjs)', async () => {
   const art = readArt();
+  const drawn = drawnIds();
   assert.equal(readFileSync(OUTPUT, 'utf8'), platesModule(art));
   const { PLATES, VIEW_BOX: built } = await import('../js/views/explore/revelation-plates.js');
   assert.equal(built, VIEW_BOX);
-  assert.deepEqual(Object.keys(PLATES), PLATE_IDS);
-  for (const id of PLATE_IDS) {
+  assert.deepEqual(Object.keys(PLATES), drawn);
+  for (const id of drawn) {
     assert.ok(PLATES[id].length > 2000, `${id} is drawn`);
     // No words in a drawing (the page has two languages), nothing that loads.
     assert.ok(!/<text|<image|href=|<script/.test(PLATES[id]), id);
@@ -228,5 +251,5 @@ test('the plate converter refuses anything that could run or load, words, and an
     assert.throws(() => convertPlate(svg(bad), 'lamb'), /only shapes/, bad);
   }
   assert.throws(() => convertPlate(svg('<path d="M0 0"/>', '0 0 100 100'), 'lamb'), /viewBox/);
-  assert.throws(() => platesModule({}), /No drawing/);
+  assert.throws(() => platesModule({}, ['lamb']), /No drawing/);
 });

@@ -16,10 +16,12 @@
  * chart of the dated periods, and the sources.
  *
  * Content: data/study/explore/revelation-animals.json, whose rich text
- * links every verse it cites. The drawings (revelation-plates.js, built by
- * tools/build-revelation.mjs from tools/art/revelation/) are a quarter of a
- * megabyte, so they load when the page is first opened. ?part=<creature>
- * keeps the choice in the URL.
+ * links every verse it cites. A plate is either a drawing or a picture. The
+ * drawings (revelation-plates.js, built by tools/build-revelation.mjs from
+ * tools/art/revelation/) are a quarter of a megabyte, so they load when the
+ * page is first opened. A picture is a creature's "image" in the content: a
+ * file in img/revelation/, shown at its own shape. ?part=<creature> keeps
+ * the choice in the URL.
  */
 import { chapterTitle, t } from '../../i18n.js';
 import { formatRef, parseRef } from '../../research/refs.js';
@@ -66,6 +68,15 @@ export function chartYears([from, to], step = 250) {
   return years;
 }
 
+/**
+ * The grid a plate's points are placed on. It is 640 wide: a drawing is 400
+ * high, a picture as high as its own shape makes it.
+ */
+export function plateSize(creature) {
+  const { image } = creature;
+  return { width: 640, height: image ? Math.round((640 * image.height) / image.width) : 400 };
+}
+
 let platesModule = null;
 /** The drawings, fetched once. A failed fetch (offline, not yet saved) can be tried again. */
 function loadPlates() {
@@ -83,17 +94,26 @@ function svgNode(name, attributes = {}, ...children) {
   return node;
 }
 
-/** A plate as an <svg>. With a label it is a group (its points are buttons); without, decoration. */
-function plateSvg(plates, id, { className, label = null }) {
-  const parsed = new DOMParser().parseFromString(`<svg xmlns="${SVG}">${plates.PLATES[id] ?? ''}</svg>`, 'image/svg+xml');
-  const svg = svgNode('svg', { class: className, viewBox: plates.VIEW_BOX, focusable: 'false' });
+/**
+ * A plate as an <svg>: the creature's picture, or its drawing from the plates
+ * module. With a label it is a group (its points are buttons); without,
+ * decoration.
+ */
+function plateSvg(plates, creature, { className, label = null }) {
+  const { width, height } = plateSize(creature);
+  const svg = svgNode('svg', { class: className, viewBox: `0 0 ${width} ${height}`, focusable: 'false' });
   if (label) {
     svg.setAttribute('role', 'group');
     svg.setAttribute('aria-label', label);
   } else {
     svg.setAttribute('aria-hidden', 'true');
   }
-  svg.append(...[...parsed.documentElement.childNodes].map((node) => document.importNode(node, true)));
+  if (creature.image) {
+    svg.append(svgNode('image', { href: creature.image.src, width, height, preserveAspectRatio: 'xMidYMid slice' }));
+  } else {
+    const parsed = new DOMParser().parseFromString(`<svg xmlns="${SVG}">${plates.PLATES[creature.id] ?? ''}</svg>`, 'image/svg+xml');
+    svg.append(...[...parsed.documentElement.childNodes].map((node) => document.importNode(node, true)));
+  }
   return svg;
 }
 
@@ -107,7 +127,8 @@ function plateSvg(plates, id, { className, label = null }) {
 export function renderRevelationAnimals({ data, partId, onChange, passageText }) {
   let creature = creatureOf(data, partId);
   let point = 1; // the selected numbered point of the plate on screen
-  let plates = null;
+  let plates = null; // the drawings, once loaded
+  let drawingsFailed = false;
   let alive = true;
   // The parts of the detail that a selection touches; rebuilt with each creature.
   let pins = [];
@@ -141,6 +162,8 @@ export function renderRevelationAnimals({ data, partId, onChange, passageText })
     { class: 'rv-gallery', role: 'list', 'aria-label': t('revelation.plates') },
     data.creatures.map((entry, index) => {
       const frame = el('span', { class: 'rv-thumb-frame' });
+      // A picture has a small copy for the gallery; a drawing is filled in when the drawings arrive.
+      if (entry.image) frame.append(el('img', { class: 'rv-thumb-img', src: entry.image.thumb ?? entry.image.src, alt: '', loading: 'lazy', decoding: 'async' }));
       const button = el(
         'button',
         { type: 'button', class: 'rv-thumb', 'aria-pressed': 'false' },
@@ -159,8 +182,9 @@ export function renderRevelationAnimals({ data, partId, onChange, passageText })
 
   /** The plate with its numbered points on top. */
   function stagePlate() {
-    const svg = plateSvg(plates, creature.id, { className: 'rv-plate-svg', label: localize(creature.picture) });
-    svg.append(svgNode('rect', { class: 'rv-plate-edge', x: 1, y: 1, width: 638, height: 398 }));
+    const { width, height } = plateSize(creature);
+    const svg = plateSvg(plates, creature, { className: 'rv-plate-svg', label: localize(creature.picture) });
+    svg.append(svgNode('rect', { class: 'rv-plate-edge', x: 1, y: 1, width: width - 2, height: height - 2 }));
     pins = creature.parts.map((part, index) => {
       const n = index + 1;
       const pin = svgNode(
@@ -223,7 +247,10 @@ export function renderRevelationAnimals({ data, partId, onChange, passageText })
     const total = data.creatures.length;
 
     pins = [];
-    plateFrame = el('div', { class: 'rv-plate' }, plates ? stagePlate() : el('p', { class: 'rv-plate-wait' }, t('revelation.loading')));
+    const { width, height } = plateSize(creature);
+    // A picture needs nothing but itself; a drawing waits for the drawings.
+    plateFrame = el('div', { class: 'rv-plate' }, creature.image || plates ? stagePlate() : el('p', { class: 'rv-plate-wait' }, t(drawingsFailed ? 'revelation.noDrawing' : 'revelation.loading')));
+    plateFrame.style.aspectRatio = `${width} / ${height}`;
     readout = el('figcaption', { class: 'rv-readout', 'aria-live': 'polite' });
     partItems = creature.parts.map((part, i) => {
       const n = i + 1;
@@ -401,18 +428,23 @@ export function renderRevelationAnimals({ data, partId, onChange, passageText })
 
   update();
 
-  loadPlates()
-    .then((module) => {
-      if (!alive) return;
-      plates = module;
-      for (const [id, { frame }] of thumbs) frame.replaceChildren(plateSvg(plates, id, { className: 'rv-thumb-svg' }));
-      plateFrame.replaceChildren(stagePlate());
-      showPoint(point);
-    })
-    .catch(() => {
-      // Offline before the drawings were saved: the text is complete without them.
-      if (alive) plateFrame.replaceChildren(el('p', { class: 'rv-plate-wait' }, t('revelation.noDrawing')));
-    });
+  const drawn = data.creatures.filter((entry) => !entry.image);
+  if (drawn.length) {
+    loadPlates()
+      .then((module) => {
+        if (!alive) return;
+        plates = module;
+        for (const entry of drawn) thumbs.get(entry.id).frame.replaceChildren(plateSvg(plates, entry, { className: 'rv-thumb-svg' }));
+        if (creature.image) return;
+        plateFrame.replaceChildren(stagePlate());
+        showPoint(point);
+      })
+      .catch(() => {
+        // Offline before the drawings were saved: the text is complete without them.
+        drawingsFailed = true;
+        if (alive && !creature.image) plateFrame.replaceChildren(el('p', { class: 'rv-plate-wait' }, t('revelation.noDrawing')));
+      });
+  }
 
   return {
     element,

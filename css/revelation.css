@@ -159,6 +159,14 @@
   height: auto;
 }
 
+/* A picture's small copy fills the gallery frame, whatever its own shape. */
+.rv-thumb-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .rv-thumb:hover .rv-thumb-frame {
   border-color: var(--color-accent);
 }
@@ -268,7 +276,7 @@
 }
 
 .rv-plate {
-  aspect-ratio: 8 / 5;
+  aspect-ratio: 8 / 5; /* a drawing; a picture sets its own shape (revelation-animals.js) */
   background: var(--rv-paper);
 }
 
