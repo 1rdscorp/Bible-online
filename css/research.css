@@ -20,25 +20,41 @@
 
 .research-tabs {
   display: flex;
-  gap: 0.25rem;
+  gap: 0.15rem;
   margin: 0.5rem 0 0;
   border-bottom: 1px solid var(--color-border);
 }
 
 .research-tab {
   min-height: 2.75rem;
-  padding: 0.25rem 0.6rem;
+  /* Four tabs share the width: a longer label ("Параллельные места")
+     wraps between its words, but no tab gets narrower than its longest
+     word, so words never break. They all fit down to 320px screens. */
+  flex: 1 1 auto;
+  min-width: min-content;
+  padding: 0.25rem 0.35rem;
   border: 0;
   border-bottom: 3px solid transparent;
   background: none;
   color: var(--color-text-muted);
   font: inherit;
-  /* Four tabs fit on one line in English; longer labels wrap evenly. */
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   line-height: 1.25;
   text-align: center;
   cursor: pointer;
+}
+
+/* The narrowest phones: a little smaller, so the Russian labels fit too. */
+@media (max-width: 22.5rem) {
+  .research-tabs {
+    gap: 0;
+  }
+
+  .research-tab {
+    padding-inline: 0.1rem;
+    font-size: 0.75rem;
+  }
 }
 
 .research-tab[aria-selected="true"] {

@@ -46,15 +46,18 @@ describe('data/topics/', () => {
     assert.equal(research.topics.topics, index.topics.length);
   });
 
-  test('623 topics, each with English and Russian titles and unique ids', () => {
-    assert.equal(index.topics.length, 623);
-    assert.equal(new Set(index.topics.map((t) => t.id)).size, 623);
+  test('624 topics, each with English and Russian titles and unique ids', () => {
+    assert.equal(index.topics.length, 624);
+    assert.equal(new Set(index.topics.map((t) => t.id)).size, 624);
     for (const entry of index.topics) {
       assert.match(entry.id, /^[a-z0-9-]+$/);
       assert.ok(entry.en && entry.ru && /[А-Яа-яЁё]/.test(entry.ru), entry.id);
     }
     // CCEL's mislabelled topics have their real titles.
     for (const id of ['beasts', 'arts', 'compassion-and-sympathy', 'earth']) assert.ok(index.topics.some((t) => t.id === id), id);
+    // Sackcloth, whose heading CCEL lost, is its own topic again, after Sabbath.
+    const ids = index.topics.map((t) => t.id);
+    assert.equal(ids[ids.indexOf('sabbath') + 1], 'sackcloth');
   });
 
   test('every reference is a verse that exists; See links go to topics', () => {
@@ -81,6 +84,19 @@ describe('data/topics/', () => {
     }
     assert.equal(total, research.topics.references);
     assert.ok(total > 35000);
+  });
+
+  test('every statement has its Russian translation (tools/topics-ru/), in Russian', () => {
+    for (const topic of topics) {
+      for (const [i, line] of topic.lines.entries()) {
+        assert.ok(typeof line.ru === 'string' && line.ru.trim(), `${topic.id} ${i + 1}: no translation`);
+        assert.ok(/[А-Яа-яЁё]/.test(line.ru) || !/[A-Za-z]/.test(line.t), `${topic.id} ${i + 1}: ${line.ru}`);
+        // A heading ends with a colon; nothing else does.
+        const heads = line.l === 1 && topic.lines[i + 1]?.l === 2;
+        if (!heads) assert.ok(!line.ru.endsWith(':'), `${topic.id} ${i + 1}: ${line.ru}`);
+      }
+    }
+    assert.equal(research.topics.translated, index.topics.length);
   });
 
   test('the reverse index lists every reference once, under its book', () => {

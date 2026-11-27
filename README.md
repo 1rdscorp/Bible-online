@@ -11,7 +11,7 @@ Full-text search covers one translation or all of them, and typing a reference s
 
 Highlights, notes and bookmarks are saved on the device, listed on a My Study page, and can be backed up to a file. Reading plans (the Bible in a year, the New Testament in 90 days and others) show each day's reading and tick off chapters as you read.
 
-For research, a side panel shows each verse's cross-references, the topics that cite it, and in KJV+ the Hebrew or Greek word behind any English word, with every verse that uses it. A topical index covers 623 subjects (Torrey's New Topical Textbook). Study pages introduce each book of the Bible and include a timeline and maps of Bible places.
+For research, a side panel shows each verse's cross-references, the topics that cite it, and in KJV+ the Hebrew or Greek word behind any English word, with every verse that uses it. A topical index covers 624 subjects (Torrey's New Topical Textbook), in English and Russian. Study pages introduce each book of the Bible and include a timeline and maps of Bible places.
 
 It works offline and installs on a phone's home screen like an app: everything already opened on the device keeps working without a connection.
 
@@ -157,19 +157,23 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
 
 ## Topics
 
-**Topics** (`#/topics`, linked under the books on the home page) is a topical index: what the Bible says on 623 subjects, from R. A. Torrey's *New Topical Textbook* (1897, public domain), as CCEL publishes it.
+**Topics** (`#/topics`, linked under the books on the home page) is a topical index: what the Bible says on 624 subjects, from R. A. Torrey's *New Topical Textbook* (1897, public domain), as CCEL publishes it.
 
 - **The list:** A–Z in English, А–Я in Russian, with letters to jump to and a search box. The search matches word starts in the English or the Russian title ("hol spi", "вер", "святой дух") and ignores case, accents and ё/е.
 - **A topic:** Torrey's statements, each with its references written compactly as he does ("John 10:7, 9; 14:6; Romans 5:2"). Statements that head a group (Faith → "The objects of, are" → God, Christ…) have their sub-statements nested under them.
   - **Show verses** under a statement quotes its verses in the translation you read last (falling back to the KJV), naming the translation.
   - Every reference links to the passage in the reader. "See Prayer" becomes a link to that topic.
 - **In the Research panel:** the Topics tab (above).
-- **Russian:** the 623 titles are translated in Synodal wording (`tools/topics-ru.json`). Torrey's 23,550 statements are in English and marked `lang="en"`, with a note saying so; the verses are quoted in the Russian translation being read.
+- **Russian:** the titles (`tools/topics-ru.json`) and all 23,550 of Torrey's statements (`tools/topics-ru/<id>.txt`) are translated, in Synodal wording. The statements are an AI translation (Claude) of Torrey's public-domain English, and each topic says so, with **Показать английский оригинал** to switch to his English (`?lang=en`). The verses are quoted in the Russian translation being read.
+  - **How it was done:** topic by topic, so the Russian agrees with each topic word ("Commanded" is «Заповедана» under Вера, «Заповедано» under Крещение). It followed the guidelines and glossary in `tools/topics-ru/README.md` (Synodal names and terms, set phrases such as "Exemplified" → «Примеры»).
+  - **Tooling:** `node tools/translate-topics.mjs` hands out the English as numbered jobs and checks the translations back in: the same number of statements, Russian text. Headings end with a colon and nothing else does.
+  - **Torrey's own slips:** where a reference shows that he meant something else ("Enemies of Joab" in Job 30), the translation follows the meaning.
 - **Offline:** like the other study data, each file is saved the first time it's opened.
 
 **How it's built:** `node tools/build-topics.mjs` (`npm run build-topics`) reads CCEL's ThML file (cached in `.cache/sources/`) and writes `data/topics/`: `index.json` (titles and counts), one file per topic, and `refs.json` (which statements cite each passage, for the Research panel). It mends CCEL's mistakes where they can be told:
 - references to one-chapter books are split in CCEL's markup ("Jude 1" tagged, ":20" left outside), and are read back together;
 - four topics carry the wrong title ("B" is Beasts, "Arts of The" is Arts, and a second "Communion With God" and "Early Rising" are really Compassion and Sympathy, and Earth);
+- one topic lost its title, Sackcloth, so its statements ran on at the end of Sabbath. The build starts it again at its first paragraph (`TOPIC_SPLITS`);
 - references to verses that don't exist are left out.
 
 `tests/topics-data.test.js` checks every reference against the KJV, the See links, the reverse index and the Russian titles; `tests/topics.test.js` checks the search and lookups.
@@ -349,7 +353,7 @@ tools/                serve, build-data (download → convert → validate), bui
                       BTI text, from the Institute's Word files: lib/docx.mjs, lib/bti.mjs),
                       build-offline (sw.js's file list), build-icons (app icons), build-plans (reading
                       plans), build-topics (the topical index; Russian titles in topics-ru.json),
-                      converters, validator
+                      translate-topics (Russian statements in topics-ru/), converters, validator
 tests/                node --test suites
 ```
 
@@ -374,5 +378,5 @@ tests/                node --test suites
 - [x] **Audio:** the Russian Synodal read aloud (Alexander Bondarenko, from predanie.ru), in a player that follows the reader from chapter to chapter
 - [x] **Offline support:** the site opens and works without a connection (everything already opened on the device), installs as an app on phones and computers, and offers new versions with a Reload message
 - [x] **Reading plans:** five plans balanced by reading time, a plan page with progress and every day, "Mark as read · Next" under each chapter of the reading, today's reading on the home page, in backups and offline
-- [x] **Topics:** Torrey's New Topical Textbook (623 topics, 38,571 references) with Russian titles, a searchable list, topic pages that quote the verses in your translation, and a Topics tab in the Research panel
+- [x] **Topics:** Torrey's New Topical Textbook (624 topics, 38,571 references) in English and Russian (titles and an AI translation of every statement), a searchable list, topic pages that quote the verses in your translation, and a Topics tab in the Research panel
 - [ ] Later: cloud sync
