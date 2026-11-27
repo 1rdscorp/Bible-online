@@ -668,10 +668,19 @@
   font-size: 0.8rem;
 }
 
-/* The arrow-key tip is irrelevant on touch-only devices. */
+/* The arrow-key tip is irrelevant on touch-only devices, and the swipe
+   tip everywhere else. */
+.settings-hint--touch {
+  display: none;
+}
+
 @media (hover: none) and (pointer: coarse) {
   .settings-hint {
     display: none;
+  }
+
+  .settings-hint.settings-hint--touch {
+    display: block;
   }
 }
 
