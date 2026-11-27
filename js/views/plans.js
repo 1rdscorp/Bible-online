@@ -8,7 +8,7 @@
  * by js/plans/store.js; main.js passes in what changes it (callbacks).
  */
 import { getBook } from '../canon.js';
-import { bookName, getLanguage, t } from '../i18n.js';
+import { bookName, chapterTitle, getLanguage, t } from '../i18n.js';
 import { addDays, dayChapters, isChapterRead, isDayDone, nextDay, parseChapterKey, parsePassage, passageChapters, summarize } from '../plans/model.js';
 import { chapterHref, pageHref, PAGES, planHref } from '../router.js';
 import { el, icon, ICONS } from '../ui/dom.js';
@@ -22,6 +22,10 @@ const planDescription = (plan) => plan.description[getLanguage()] ?? plan.descri
 export function passageLabel(text) {
   const passage = parsePassage(text);
   if (!passage) return text;
+  // "Psalm 120" / "Псалом 120", "Psalms 140–142" / "Псалмы 140–142".
+  if (passage.book === 'PSA') {
+    return passage.from === passage.to ? chapterTitle(getBook('PSA'), passage.from) : t('plans.psalmRange', { from: passage.from, to: passage.to });
+  }
   const name = bookName(getBook(passage.book));
   return passage.from === passage.to ? `${name} ${passage.from}` : `${name} ${passage.from}–${passage.to}`;
 }

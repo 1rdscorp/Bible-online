@@ -441,6 +441,7 @@ export default {
     'plans.dayDone': 'Day done.',
     'plans.dayDoneToast': 'Day {day} done.',
     'plans.nextDay': 'Next day',
+    'plans.psalmRange': 'Psalms {from}–{to}',
     'plans.nextChapter': 'Next: {title}',
     'offline.now': "You're offline. Everything you've already opened still works.",
     'offline.back': 'Back online.',

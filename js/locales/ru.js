@@ -521,6 +521,7 @@ export default {
     'plans.dayDone': 'День завершён.',
     'plans.dayDoneToast': 'День {day} завершён.',
     'plans.nextDay': 'Следующий день',
+    'plans.psalmRange': 'Псалмы {from}–{to}',
     'plans.nextChapter': 'Далее: {title}',
     'offline.now': 'Нет подключения к интернету. Всё, что вы уже открывали, по-прежнему работает.',
     'offline.back': 'Подключение восстановлено.',
