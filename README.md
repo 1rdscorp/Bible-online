@@ -247,6 +247,7 @@ Another recording (another reader, language or host) is an entry in `tools/audio
 | Plan | Days | A day |
 |---|---|---|
 | The Bible in a year: Genesis to Revelation in book order | 365 | about 11 min |
+| The Bible in chronological order: in the order the events happened | 365 | about 11 min |
 | Old and New Testament in a year: the Old every day, the New on most days, side by side | 365 | about 11 min |
 | The New Testament in 90 days | 90 | about 10 min |
 | The Gospels in 30 days | 30 | about 14 min |
@@ -263,6 +264,14 @@ Another recording (another reader, language or host) is an entry in `tools/audio
 - **Saved** on the device through `js/storage.js` (key `plans`), kept in step between open tabs, included in My Study's backup file, and working offline.
 - **Translation:** the links open in the translations you read last, like any link without `?t=`.
 
+**The chronological plan** follows the order most chronological plans use (`tools/plan-chronological.json`):
+- Job with the patriarchs, after Genesis 11.
+- The Psalms in David's life by their headings: 51 after Nathan's rebuke, 3 as he flees Absalom, 90 after Deuteronomy. The rest go with the temple, the exile (137 after the fall of Jerusalem) and the return.
+- Chronicles beside Samuel and Kings; the prophets with the kings of their day (Isaiah with Hezekiah, Jeremiah and Ezekiel with the exile, Haggai and Zechariah with the rebuilt temple); Esther between the first return and Ezra.
+- The Gospels interleaved as one story, and the letters with Acts (Galatians after the first journey, Romans from Corinth).
+- It reads whole chapters, so a Gospel's chapter isn't split to match its parallels. Dates are approximate where scholars differ (Job, Joel, Obadiah).
+- In plan lists, a psalm is "Psalm 120" / «Псалом 120», and several "Psalms 140–142" / «Псалмы 140–142».
+
 **How the plans are made:** `node tools/build-plans.mjs` (`npm run build-plans`) writes `data/plans.json` from the plan definitions in that file. Each plan reads whole chapters in order, and its days are balanced by length (the KJV's word count per chapter, read at 200 words a minute), not by number of chapters. Psalm 117 and Psalm 119 aren't each a day. Where a plan has more days than chapters (the New Testament's 260 chapters over a year), the chapters are spread evenly and some days have none. `tests/plans-data.test.js` checks that every plan reads each of its chapters once, in order, with no day twice the usual length.
 
 **Code:**
@@ -270,7 +279,7 @@ Another recording (another reader, language or host) is an entry in `tools/audio
 - `js/plans/store.js`: progress, one record per plan, `{ plan, started, read: { day: [chapters] }, updated }`.
 - `js/views/plans.js`: the pages, the bar and the home links.
 
-Adding a plan is a definition in `tools/build-plans.mjs`: its id, days, chapters (one or more tracks read side by side) and names in English and Russian.
+Adding a plan is a definition in `tools/build-plans.mjs`: its id, days, chapters (one or more tracks read side by side, or an `order` of passages, as the chronological plan has) and names in English and Russian. `tests/plans-data.test.js` checks that an ordered plan reads every chapter of the Bible exactly once, and that the chronological order keeps its landmarks (Job after Genesis 11, Psalm 51 after Nathan, Romans from Corinth).
 
 ## Offline and installing as an app
 
@@ -378,6 +387,6 @@ tests/                node --test suites
 - [x] **Licensed translation:** the modern Russian translation of the Institute for Bible Translation named after M. P. Kulakov (BTI), with its headings, footnotes, italics, small capitals and poetry lines
 - [x] **Audio:** the Russian Synodal read aloud (Alexander Bondarenko, from predanie.ru), in a player that follows the reader from chapter to chapter
 - [x] **Offline support:** the site opens and works without a connection (everything already opened on the device), installs as an app on phones and computers, and offers new versions with a Reload message
-- [x] **Reading plans:** five plans balanced by reading time, a plan page with progress and every day, "Mark as read · Next" under each chapter of the reading, today's reading on the home page, in backups and offline
+- [x] **Reading plans:** six plans balanced by reading time (including the Bible in chronological order), a plan page with progress and every day, "Mark as read · Next" under each chapter of the reading, today's reading on the home page, in backups and offline
 - [x] **Topics:** Torrey's New Topical Textbook (624 topics, 38,571 references) in English and Russian (titles and an AI translation of every statement), a searchable list, topic pages that quote the verses in your translation, and a Topics tab in the Research panel
 - [ ] Later: cloud sync

@@ -162,9 +162,10 @@
   },
   "plans": {
     "url": "data/plans.json",
-    "version": "c9ec60cf5ae4",
+    "version": "7ffa682cd063",
     "plans": [
       "bible-year",
+      "chronological",
       "ot-nt-year",
       "nt-90",
       "gospels-30",

@@ -28,6 +28,17 @@ import { contentVersion } from './lib/translation-file.mjs';
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 export const WORDS_PER_MINUTE = 200;
 
+// The chronological plan's order of passages (every chapter once).
+const CHRONOLOGICAL = JSON.parse(readFileSync(join(ROOT, 'tools', 'plan-chronological.json'), 'utf8')).order;
+
+/** ["GEN 1-11", "JOB 1-42"] → ["GEN.1", …, "GEN.11", "JOB.1", …]. */
+export function orderKeys(order) {
+  return order.flatMap((passage) => {
+    const [, book, from, to] = /^(\S+) (\d+)(?:-(\d+))?$/.exec(passage);
+    return Array.from({ length: Number(to ?? from) - Number(from) + 1 }, (_, i) => `${book}.${Number(from) + i}`);
+  });
+}
+
 const books = (from, to) => BOOKS.slice(BOOKS.findIndex((b) => b.id === from), BOOKS.findIndex((b) => b.id === to) + 1).map((b) => b.id);
 
 /** The plans: their chapters (book ids), days and names. */
@@ -40,6 +51,17 @@ export const PLAN_DEFINITIONS = [
     description: {
       en: 'The whole Bible from Genesis to Revelation, in book order.',
       ru: 'Вся Библия от Бытия до Откровения, по порядку книг.',
+    },
+  },
+  {
+    id: 'chronological',
+    days: 365,
+    // Chapters in the order of tools/plan-chronological.json, not book order.
+    order: CHRONOLOGICAL,
+    name: { en: 'The Bible in chronological order', ru: 'Библия в хронологическом порядке' },
+    description: {
+      en: 'The whole Bible in a year in the order the events happened: Job with the patriarchs, the Psalms in David’s life, the prophets with the kings of their day, the Gospels as one story, the letters with Acts.',
+      ru: 'Вся Библия за год в порядке событий: Иов — с патриархами, псалмы — в жизни Давида, пророки — с царями своего времени, Евангелия — как одна история, послания — вместе с Деяниями.',
     },
   },
   {
@@ -171,11 +193,13 @@ export function toPassages(keys) {
 
 export function buildPlan(definition, words) {
   const days = Array.from({ length: definition.days }, () => ({ keys: [], words: 0 }));
-  for (const track of definition.tracks) {
-    const keys = track.flatMap((id) => {
+  const tracks = definition.order ? [orderKeys(definition.order)] : definition.tracks.map((track) =>
+    track.flatMap((id) => {
       const book = BOOKS.find((b) => b.id === id);
       return Array.from({ length: book.chapters }, (_, i) => `${id}.${i + 1}`);
-    });
+    }),
+  );
+  for (const keys of tracks) {
     const weights = keys.map((key) => words.get(key) ?? 0);
     partition(weights, definition.days).forEach(([from, to], day) => {
       days[day].keys.push(...keys.slice(from, to));
