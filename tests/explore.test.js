@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
-import { kingdomBounds, kingdomOf, regionMetals, shortRef } from '../js/views/explore/daniel-statue.js';
+import { kingdomBounds, kingdomOf, railLayout, regionMetals, shortRef } from '../js/views/explore/daniel-statue.js';
 import { formatYear, gridYears, namePlace, yearPosition } from '../js/views/explore/statue-timeline.js';
 import { parseRef } from '../js/research/refs.js';
 
@@ -60,4 +60,39 @@ test('timeline layout: positions, bar names, gridlines, years', () => {
   assert.equal(formatYear(-605), '605 BC');
   assert.equal(formatYear(70), 'AD 70');
   assert.equal(formatYear(0), 'AD 1');
+});
+
+test('the statue drawing is built from tools/art/daniel-statue.svg (run: node tools/build-statue.mjs)', async () => {
+  const { SOURCE, OUTPUT, convertStatue, statueModule } = await import('../tools/build-statue.mjs');
+  const svg = readFileSync(SOURCE, 'utf8');
+  assert.equal(readFileSync(OUTPUT, 'utf8'), statueModule(svg));
+  const { body } = convertStatue(svg);
+  for (const part of ['head', 'chest', 'belly', 'legs', 'feet', 'stone']) assert.ok(body.includes(`<g class="statue-part" data-part="${part}">`), part);
+  assert.ok(body.includes('<g class="statue-mountain">') && body.includes('<g class="statue-plinth">'));
+  // Every id is prefixed, and every reference points at one of them.
+  const ids = new Set([...body.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]));
+  assert.ok([...ids].every((id) => id.startsWith('st-')));
+  for (const [, ref] of body.matchAll(/url\(#([^)]+)\)/g)) assert.ok(ids.has(ref), ref);
+});
+
+test('the statue converter refuses anything that could run or load', async () => {
+  const { convertStatue } = await import('../tools/build-statue.mjs');
+  const parts = ['Mountain_hidden', 'Plinth', 'Feet_iron_and_clay', 'Legs_iron', 'Belly_and_thighs_bronze', 'Chest_and_arms_silver', 'Head_gold', 'Stone'].map((id) => `<g id="${id}"></g>`).join('');
+  const svg = (inside) => `<svg viewBox="0 0 10 10">${parts}${inside}</svg>`;
+  assert.doesNotThrow(() => convertStatue(svg('<path d="M0 0"/>')));
+  for (const bad of ['<script>x()</script>', '<path onclick="x()"/>', '<image href="a.png"/>', '<use href="http://x/y#z"/>', '<path fill="url(http://x)"/>', '<foreignObject/>']) {
+    assert.throws(() => convertStatue(svg(bad)), /only shapes/, bad);
+  }
+  assert.throws(() => convertStatue('<svg viewBox="0 0 10 10"><g id="Stone"></g></svg>'), /no group/);
+});
+
+test('railLayout keeps the buttons level with their parts, without overlapping or running off the end', () => {
+  // Room for everything: each button centred on its part.
+  assert.deepEqual(railLayout([50, 150, 250], [20, 20, 20], 400), [40, 140, 240]);
+  // Too close: the second moves down to clear the first.
+  assert.deepEqual(railLayout([50, 60], [40, 40], 400, 4), [30, 74]);
+  // Past the bottom: the last one moves up, and the one above it with it.
+  assert.deepEqual(railLayout([300, 330], [40, 40], 340, 4), [256, 300]);
+  // Never above the top.
+  assert.deepEqual(railLayout([5], [40], 400), [0]);
 });

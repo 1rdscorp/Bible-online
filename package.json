@@ -13,7 +13,8 @@
     "build-commentary": "node tools/build-commentary.mjs",
     "build-offline": "node tools/build-offline.mjs",
     "build-plans": "node tools/build-plans.mjs",
-    "build-topics": "node tools/build-topics.mjs"
+    "build-topics": "node tools/build-topics.mjs",
+    "build-statue": "node tools/build-statue.mjs"
   },
   "engines": {
     "node": ">=20"

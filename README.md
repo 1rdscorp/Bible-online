@@ -212,6 +212,7 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
   - **Release the stone:** the stone strikes the feet, the statue breaks into chaff that the wind carries away, and the stone grows into a mountain (Daniel 2:34–35). With reduced motion it goes straight to the end.
   - **Below:** a timeline of eleven centuries whose bars move with the reading, with 36 events; "What survives", 19 tablets, cylinders, scrolls and early readers that bear on the chapter; research notes (when Daniel was written, the two sequences side by side, Daniel 2 beside Daniel 7, and more); the chapters to read; and sources.
   - Every Bible reference in the text is a link into the reader. The page is in English and Russian; the Russian text is an AI translation (Claude) made for the site.
+  - **The drawing** is `tools/art/daniel-statue.svg`, one named group per part (`Head_gold`, `Chest_and_arms_silver`, `Belly_and_thighs_bronze`, `Legs_iron`, `Feet_iron_and_clay`, `Stone`) plus `Plinth` and `Mountain_hidden`. To change it, replace the SVG, keep those names, and run `node tools/build-statue.mjs` (`npm run build-statue`), which writes `js/views/explore/statue-drawing.js` and refuses anything that could run or load (scripts, images, outside links).
 
 - **Adventist commentary** (`#/commentary`), linked next to Interactive studies on the book list. It holds classic Seventh-day Adventist books that are now in the public domain:
   - Ellen G. White's **Conflict of the Ages**, which retells the Bible story chapter by chapter: *Patriarchs and Prophets* (1890; the 1913 edition), *Prophets and Kings* (1917), *The Desire of Ages* (1898) and *The Acts of the Apostles* (1911).
@@ -374,7 +375,8 @@ tools/                serve, build-data (download → convert → validate), bui
                       BTI text, from the Institute's Word files: lib/docx.mjs, lib/bti.mjs),
                       build-offline (sw.js's file list), build-icons (app icons), build-plans (reading
                       plans), build-topics (the topical index; Russian titles in topics-ru.json),
-                      translate-topics (Russian statements in topics-ru/), converters, validator
+                      translate-topics (Russian statements in topics-ru/), build-statue (the
+                      statue drawing, from art/daniel-statue.svg), converters, validator
 tests/                node --test suites
 ```
 

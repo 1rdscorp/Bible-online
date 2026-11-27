@@ -28,8 +28,9 @@ import { createStatueFigure } from './statue-figure.js';
 import { createStatueTimeline } from './statue-timeline.js';
 
 const WHOLE_MAP = [-10, 18, 76, 50];
-// Where each part's button sits beside the figure, as a share of its height.
-const RAIL_AT = { head: 10, chest: 27.5, belly: 51, legs: 78, feet: 92.5 };
+// Where each part's button sits beside the figure, as a share of its height
+// (level with the part in tools/art/daniel-statue.svg).
+const RAIL_AT = { head: 16, chest: 31, belly: 50, legs: 78, feet: 91 };
 
 const reducedMotion = () => globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 const refLabel = (ref) => formatRef(ref, chapterTitle);
@@ -60,6 +61,19 @@ export function kingdomBounds(kingdom, regions, points) {
  */
 export function regionMetals(part, kingdom) {
   return kingdom.regions.map((id, index) => kingdom.regionMetals?.[index] ?? (part.metal === 'mix' ? ['iron', 'clay'][index % 2] : part.metal));
+}
+
+/**
+ * Tops for the buttons beside the figure (px): each as level with its part
+ * as it can be (`centers`), moved down just enough to clear the one above,
+ * then up again where they would run past the bottom (`total`). Long names
+ * (Russian, a phone) need it: the legs and the feet are close together.
+ */
+export function railLayout(centers, heights, total, gap = 4) {
+  const tops = centers.map((center, i) => center - heights[i] / 2);
+  for (let i = 0; i < tops.length; i += 1) tops[i] = Math.max(tops[i], i === 0 ? 0 : tops[i - 1] + heights[i - 1] + gap);
+  for (let i = tops.length - 1; i >= 0; i -= 1) tops[i] = Math.min(tops[i], i === tops.length - 1 ? total - heights[i] : tops[i + 1] - gap - heights[i]);
+  return tops.map((top) => Math.max(0, top));
 }
 
 /** "2:32", "2:37–38": a reference without the book's name. */
@@ -111,8 +125,21 @@ export function renderDanielStatue({ data, places, basemap, partId, readingId, o
   const rail = el(
     'ul',
     { class: 'statue-rail', role: 'list', 'aria-label': t('statue.parts') },
-    data.parts.filter((p) => RAIL_AT[p.id] !== undefined).map((p) => el('li', { style: `top:${RAIL_AT[p.id]}%` }, railButton(p))),
+    data.parts.filter((p) => RAIL_AT[p.id] !== undefined).map((p) => el('li', { style: `top:${RAIL_AT[p.id]}%`, 'data-at': String(RAIL_AT[p.id]) }, railButton(p))),
   );
+  // Lay the buttons out again when the figure's size or their names change.
+  function layoutRail() {
+    const height = rail.clientHeight;
+    if (!height) return;
+    const items = [...rail.children];
+    const tops = railLayout(items.map((li) => (Number(li.dataset.at) / 100) * height), items.map((li) => li.offsetHeight), height);
+    items.forEach((li, i) => {
+      li.style.top = `${tops[i].toFixed(1)}px`;
+      li.classList.add('is-placed');
+    });
+  }
+  const railObserver = typeof ResizeObserver === 'function' ? new ResizeObserver(() => layoutRail()) : null;
+  railObserver?.observe(rail);
   const stoneButton = railButton(data.parts.find((p) => p.id === 'stone'));
 
   releaseButton.addEventListener('click', async () => {
@@ -425,6 +452,7 @@ export function renderDanielStatue({ data, places, basemap, partId, readingId, o
       button.setAttribute('aria-pressed', String(id === part.id));
       button.querySelector('.statue-rail-kingdom').textContent = localize(kingdomOf(data.parts.find((p) => p.id === id), reading).rail);
     }
+    layoutRail();
     for (const [id, button] of readingButtons) button.setAttribute('aria-pressed', String(id === reading));
     readingNote.replaceChildren(richHtml(localize(data.readings.find((r) => r.id === reading).note)));
     renderDossier();
@@ -437,6 +465,7 @@ export function renderDanielStatue({ data, places, basemap, partId, readingId, o
   return {
     element,
     destroy() {
+      railObserver?.disconnect();
       figure.destroy();
       map.destroy();
     },
