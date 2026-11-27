@@ -70,6 +70,15 @@ A link without `?t=` opens in the translations you used last. Abbreviations redi
 
 Keyboard: **←** / **→** go to the previous/next chapter (in the same translations). **/** opens search.
 
+Phones and tablets: **swipe left or right** on a chapter to go to the next or previous one, in the same translations (`js/ui/swipe-nav.js`). The text follows the finger a little, unless the device asks for reduced motion.
+- **What counts:** only a deliberate swipe, at least a fifth of the screen's width (80 px minimum), mostly sideways and quick.
+- **What's ignored:**
+  - scrolling, slow drags and pinch-zoom;
+  - swipes that start near the screen's edge, where the system's back gesture is;
+  - swipes made while text is selected;
+  - swipes that start in a panel, the audio player, the verse action bar or anything that scrolls sideways.
+- The reading settings (Aa) mention it on touch screens only.
+
 ## Search
 
 Open it with the magnifier in the header, or press **/**. Type words and press Enter.

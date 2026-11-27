@@ -42,6 +42,7 @@ import { initAudioPlayer } from './ui/audio-player.js';
 import { initFootnotes } from './ui/footnotes.js';
 import { initSelectionTranslate } from './ui/selection-translate.js';
 import { initSettingsPanel } from './ui/settings-panel.js';
+import { initSwipeNav } from './ui/swipe-nav.js';
 import { paintStudyMarks } from './ui/study-marks.js';
 import { createToaster } from './ui/toast.js';
 import { errorText, initOffline } from './offline.js';
@@ -1242,10 +1243,16 @@ function onKeydown(event) {
   if (event.defaultPrevented || event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
   if (currentRoute?.view !== 'reader' || !currentRoute.ids || isTypingTarget(event.target)) return;
 
-  const target = adjacentChapter(currentRoute.book, currentRoute.chapter, event.key === 'ArrowRight' ? 1 : -1);
-  if (!target) return;
-  event.preventDefault();
+  if (turnChapter(event.key === 'ArrowRight' ? 1 : -1)) event.preventDefault();
+}
+
+/** Go to the next (1) or previous (-1) chapter in the same translations; false if there's none. */
+function turnChapter(delta) {
+  if (currentRoute?.view !== 'reader' || !currentRoute.ids) return false;
+  const target = adjacentChapter(currentRoute.book, currentRoute.chapter, delta);
+  if (!target) return false;
   navigate(chapterHref(target.book, target.chapter, null, selectionQuery(currentRoute.ids)));
+  return true;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1264,6 +1271,12 @@ async function boot() {
   selectionTranslate = initSelectionTranslate({ root: main, getRussianVerses });
   toaster = createToaster();
   initOffline({ toaster, appSection: document.getElementById('settings-app') });
+  // Phones and tablets: swipe left or right to turn the chapter.
+  initSwipeNav({
+    root: main,
+    page: () => (currentRoute?.view === 'reader' && reader && main.contains(reader.view.element) ? main.querySelector('.reader article') : null),
+    onSwipe: turnChapter,
+  });
   notesPanel = initNotesPanel({ store: studyStore, toaster });
   searchClient = createSearchClient();
   researchPanel = initResearchPanel({
