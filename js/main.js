@@ -11,7 +11,7 @@ import { adjacentChapter, findBook, getBook, isValidChapter } from './canon.js';
 import { bookName, chapterTitle, getLanguage, localizeTranslation, resolveLanguage, setLanguage, t } from './i18n.js';
 import { getDefaultTranslationId, getProvider, listTranslations } from './providers/registry.js';
 import { translationCache } from './providers/translation-cache.js';
-import { bookHref, chapterHref, introHref, mapHref, navigate, pageHref, PAGES, replaceHash, startRouter } from './router.js';
+import { bookHref, chapterHref, introHref, mapHref, navigate, pageHref, PAGES, replaceHash, resolveRoute, startRouter, topicHref } from './router.js';
 import { createSearchClient, isSearchable } from './search/client.js';
 import { ALL_TRANSLATIONS, readSearchParams, searchHref } from './search/params.js';
 import { partsFor } from './research/commentary.js';
@@ -60,6 +60,8 @@ import { chapterCommentaryLinks, renderCommentaryLibrary, renderCommentaryPart, 
 import { enableJumpLinks } from './views/templates/study-page.js';
 import { renderTranslationsPage } from './views/translations.js';
 import { planName, renderPlanBar, renderPlanPage, renderPlansList, todaysReadings } from './views/plans.js';
+import { renderTopicPage, renderTopicsIndex, topicTitle } from './views/topics.js';
+import { parseRef, refChapters } from './research/refs.js';
 
 const LAST_READ_KEY = 'lastRead';
 const STRONGS_ID = 'kjvs'; // KJV+, opened by "Open in KJV+" in the Research panel
@@ -397,6 +399,8 @@ async function handleRoute(route, { rerender = false } = {}) {
       return showCommentaryPage(route, isCurrent, rerender);
     case 'plans':
       return showPlansPage(route, isCurrent, rerender);
+    case 'topics':
+      return showTopicsPage(route, isCurrent, rerender);
     default:
       return showNotFound(route, rerender);
   }
@@ -523,6 +527,73 @@ async function homeReadings() {
   if (planStore.all().length === 0) return [];
   const plans = await loadPlans();
   return plans ? todaysReadings({ plans, records: planStore.all(), today: localDate() }) : [];
+}
+
+/* ---------------------------------------------------------------------- */
+/* Topics                                                                  */
+/* ---------------------------------------------------------------------- */
+
+/** #/topics (?q= the search box) and #/topics/<id> (?s= a statement). */
+async function showTopicsPage(route, isCurrent, rerender) {
+  let index;
+  let topic = null;
+  try {
+    [index, topic] = await Promise.all([researchData.topicsIndex(), route.topicId ? researchData.topic(route.topicId).catch(() => null) : null]);
+  } catch (error) {
+    if (isCurrent()) showStudyLoadFailure(error, route);
+    return;
+  }
+  if (!isCurrent()) return;
+  if (!route.topicId) {
+    const element = renderTopicsIndex({
+      index,
+      query: route.params.q ?? '',
+      // Typing doesn't add history entries; the URL just keeps the text for Back.
+      onQuery: (q) => {
+        const href = topicHref(null, q ? `q=${encodeURIComponent(q)}` : '');
+        replaceHash(href);
+        currentRoute = resolveRoute(href);
+      },
+    });
+    mount(element, { title: t('topics.title'), preserve: rerender });
+    return;
+  }
+  if (!topic || !index.topics.some((entry) => entry.id === route.topicId)) {
+    showNotFound({ ...route, reason: 'page' }, rerender);
+    return;
+  }
+  const { translations, prefs } = await translationState();
+  const quoteId = selectionFromPrefs(prefs)[0];
+  const quoteInfo = translations.find((info) => info.id === quoteId);
+  const focus = /^\d+$/.test(route.params.s ?? '') ? Number(route.params.s) : null;
+  mount(renderTopicPage({ topic, index, focus, quote: (ref) => quoteRef(ref, quoteId), quoteName: `${quoteInfo?.abbreviation ?? ''} · ${quoteInfo?.name ?? ''}` }), {
+    title: topicTitle(topic),
+    preserve: rerender,
+  });
+  if (focus !== null && !rerender) {
+    const target = main.querySelector(`#s${focus}`);
+    target?.scrollIntoView({ block: 'center' });
+  }
+}
+
+/** A reference's text ("ROM 12:3") in a translation, falling back to the KJV. */
+async function quoteRef(text, translationId) {
+  const ref = parseRef(text);
+  if (!ref) return null;
+  for (const id of [...new Set([translationId, 'kjv'])]) {
+    try {
+      const provider = await getProvider(id);
+      const parts = [];
+      for (const { chapter, from, to } of refChapters(ref)) {
+        const data = await provider.getChapter(ref.book, chapter);
+        for (const verse of data?.verses ?? []) if (verse.number >= from && verse.number <= to) parts.push(verse.text);
+      }
+      if (parts.length) return { text: parts.join(' '), lang: provider.info.language };
+    } catch {
+      // the next translation
+    }
+  }
+  return null;
 }
 
 // The day a plan page's reading card stays on after it was ticked there.

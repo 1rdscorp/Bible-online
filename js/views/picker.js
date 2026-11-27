@@ -6,7 +6,7 @@
  */
 import { booksInTestament, TESTAMENTS } from '../canon.js';
 import { bookName, chapterTitle, t, testamentName } from '../i18n.js';
-import { bookHref, chapterHref, commentaryHref, introHref, mapHref, pageHref, PAGES, planHref } from '../router.js';
+import { bookHref, chapterHref, commentaryHref, introHref, mapHref, pageHref, PAGES, planHref, topicHref } from '../router.js';
 import { el, icon, ICONS } from '../ui/dom.js';
 
 /**
@@ -62,6 +62,7 @@ export function renderBookList({ lastRead = null, studyCount = 0, readings = [] 
       'nav',
       { class: 'study-links', 'aria-label': t('page.studyLinks') },
       el('a', { class: 'study-link', href: planHref() }, icon(ICONS.calendar, { size: 18 }), t('plans.title')),
+      el('a', { class: 'study-link', href: topicHref() }, icon(ICONS.topics, { size: 18 }), t('topics.title')),
       el('a', { class: 'study-link', href: pageHref(PAGES.timeline) }, icon(ICONS.timeline, { size: 18 }), t('timeline.title')),
       el('a', { class: 'study-link', href: mapHref() }, icon(ICONS.map, { size: 18 }), t('maps.title')),
       el('a', { class: 'study-link', href: pageHref(PAGES.explore) }, icon(ICONS.statue, { size: 18 }), t('explore.title')),
