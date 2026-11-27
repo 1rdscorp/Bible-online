@@ -1,112 +1,176 @@
 {
- "formatVersion": 1,
+ "formatVersion": 2,
  "id": "daniel-statue",
  "title": {
   "en": "The Statue in Nebuchadnezzar’s Dream",
   "ru": "Истукан из сна Навуходоносора"
  },
+ "eyebrow": {
+  "en": "Daniel 2:31–45 · Babylon, 603/602 BC",
+  "ru": "Дан. 2:31–45 · Вавилон, 603/602 г. до н. э."
+ },
  "summary": {
-  "en": "In Daniel 2 King Nebuchadnezzar dreams of a great statue of gold, silver, bronze, iron and clay, struck down by a stone that becomes a mountain. Daniel explains it as a series of kingdoms, ending in a kingdom God himself sets up. Choose a part of the statue to see which kingdom it stands for, when it ruled and where.",
-  "ru": "Во 2-й главе книги Даниила царю Навуходоносору снится огромный истукан из золота, серебра, меди, железа и глины, сокрушённый камнем, который становится горой. Даниил объясняет сон как череду царств, завершающуюся царством, которое воздвигнет Сам Бог. Выберите часть истукана, чтобы увидеть, какое царство она означает, когда и где оно правило."
+  "en": "In the second year of his reign the king of Babylon dreamed of a figure made of four metals, struck down by a stone. Daniel’s explanation became one of the most influential outlines of world history ever written. Choose a part to read the text, the kingdom it has been matched to, the map and the evidence.",
+  "ru": "Во второй год своего царствования вавилонский царь увидел во сне истукан из четырёх металлов, сокрушённый камнем. Толкование Даниила стало одной из самых влиятельных схем всемирной истории, когда-либо созданных. Выберите часть, чтобы увидеть текст, царство, с которым её сопоставляют, карту и свидетельства."
  },
  "passage": "DAN 2:31-45",
  "readings": [
   {
    "id": "traditional",
    "title": {
-    "en": "Traditional reading",
-    "ru": "Традиционное толкование"
+    "en": "Roman sequence",
+    "ru": "Римская последовательность"
    },
    "note": {
-    "en": "Held by Jewish and Christian interpreters since ancient times: Babylon, Medo-Persia, Greece and Rome.",
-    "ru": "Принято у иудейских и христианских толкователей с древности: Вавилон, Мидо-Персия, Греция и Рим."
+    "en": "<b>Babylon, Medo-Persia, Greece, Rome.</b> The reading of most Jewish and Christian interpreters since the first century AD.",
+    "ru": "<b>Вавилон, Мидо-Персия, Греция, Рим.</b> Прочтение большинства иудейских и христианских толкователей начиная с I в. н. э."
    }
   },
   {
    "id": "scholarly",
    "title": {
-    "en": "Many modern scholars",
-    "ru": "Многие современные исследователи"
+    "en": "Greek sequence",
+    "ru": "Греческая последовательность"
    },
    "note": {
-    "en": "Common among scholars who date the book to the 160s BC: Babylon, Media, Persia and Greece, ending with the Greek kingdoms that followed Alexander.",
-    "ru": "Распространено среди исследователей, датирующих книгу 160-ми годами до н. э.: Вавилон, Мидия, Персия и Греция; завершают ряд греческие царства наследников Александра."
+    "en": "<b>Babylon, Media, Persia, Greece.</b> The reading of Porphyry, Ephrem the Syrian and most critical scholars today.",
+    "ru": "<b>Вавилон, Мидия, Персия, Греция.</b> Прочтение Порфирия, Ефрема Сирина и большинства современных критических исследователей."
    }
   }
  ],
- "note": {
-  "en": "Daniel names only the first kingdom, Babylon (2:38). His later visions name Media and Persia (8:20) and Greece (8:21). The other identifications are interpretation, and readers have made them in two main ways. Switch between them to compare.",
-  "ru": "Даниил прямо называет только первое царство — Вавилон (2:38). В последующих видениях названы Мидия и Персия (8:20) и Греция (8:21). Остальное — толкование, и читатели предлагают его в двух основных вариантах. Переключайтесь между ними, чтобы сравнить."
+ "stage": {
+  "start": {
+   "en": "<b><a data-ref=\"DAN 2:31-35\">Daniel 2:31–35</a>.</b> Select a part of the statue, or let the stone go.",
+   "ru": "<b><a data-ref=\"DAN 2:31-35\">Дан. 2:31–35</a>.</b> Выберите часть истукана или отпустите камень."
+  },
+  "fallen": {
+   "en": "<b><a data-ref=\"DAN 2:35\">2:35</a>.</b> “The stone that struck the image became a great mountain, and filled the whole earth.”",
+   "ru": "<b><a data-ref=\"DAN 2:35\">2:35</a>.</b> «Камень, разбивший истукан, сделался великою горою и наполнил всю землю»."
+  },
+  "figure": {
+   "en": "A statue with a head of gold, chest and arms of silver, belly and thighs of bronze, legs of iron, and feet of iron and clay. A rough stone hangs beside it.",
+   "ru": "Истукан с золотой головой, серебряными грудью и руками, медными чревом и бёдрами, железными голенями и ногами из железа и глины. Рядом с ним висит необработанный камень."
+  }
  },
  "parts": [
   {
    "id": "head",
    "metal": "gold",
    "title": {
-    "en": "Head of gold",
-    "ru": "Голова из золота"
+    "en": "Head of fine gold",
+    "ru": "Голова из чистого золота"
    },
-   "material": {
-    "en": "Fine gold",
-    "ru": "Чистое золото"
+   "short": {
+    "en": "Head",
+    "ru": "Голова"
+   },
+   "label": {
+    "en": "Head · gold",
+    "ru": "Голова · золото"
    },
    "refs": {
-    "text": "DAN 2:32",
-    "meaning": "DAN 2:37-38"
+    "en": "Daniel 2:32, 37–38",
+    "ru": "Дан. 2:32, 37–38"
    },
+   "verses": [
+    "DAN 2:32",
+    "DAN 2:37-38"
+   ],
    "kingdom": {
     "name": {
      "en": "Babylon",
      "ru": "Вавилон"
     },
-    "dates": {
-     "en": "626–539 BC · Nebuchadnezzar II reigned 605–562 BC",
-     "ru": "626–539 гг. до н. э. · Навуходоносор II царствовал в 605–562 гг. до н. э."
+    "rail": {
+     "en": "Babylon",
+     "ru": "Вавилон"
     },
+    "full": {
+     "en": "Neo-Babylonian Empire",
+     "ru": "Нововавилонское царство"
+    },
+    "dates": {
+     "en": "626–539 BC",
+     "ru": "626–539 гг. до н. э."
+    },
+    "agree": true,
+    "summary": {
+     "en": "<p>This is the one identification the chapter makes for itself. Daniel says to Nebuchadnezzar II, “You are the head of gold.” Nebuchadnezzar reigned 43 years (605–562 BC). He captured Jerusalem in 597 BC, destroyed it in 587/586, and rebuilt Babylon into the largest city of its age, about 900 hectares within its outer wall.</p><p>His dynasty outlived him by only 23 years. Four kings followed in quick succession. The last, Nabonidus, spent a decade at the Arabian oasis of Tema while his son Belshazzar governed in Babylon.</p>",
+     "ru": "<p>Это единственное отождествление, которое глава даёт сама. Даниил говорит Навуходоносору II: «Ты — это золотая голова». Навуходоносор правил 43 года (605–562 гг. до н. э.). Он взял Иерусалим в 597 г. до н. э., разрушил его в 587/586 г. и перестроил Вавилон в крупнейший город своей эпохи — около 900 гектаров в пределах внешней стены.</p><p>Его династия пережила его всего на 23 года. Четыре царя быстро сменили друг друга. Последний из них, Набонид, десять лет провёл в аравийском оазисе Тейма, пока его сын Валтасар управлял Вавилоном.</p>"
+    },
+    "stats": [
+     [
+      {
+       "en": "Capital",
+       "ru": "Столица"
+      },
+      {
+       "en": "Babylon, on the Euphrates 85 km south of modern Baghdad",
+       "ru": "Вавилон, на Евфрате, в 85 км к югу от современного Багдада"
+      }
+     ],
+     [
+      {
+       "en": "Peak extent",
+       "ru": "Наибольшая площадь"
+      },
+      {
+       "en": "About 0.5 million km²",
+       "ru": "Около 0,5 млн км²"
+      }
+     ],
+     [
+      {
+       "en": "Kings",
+       "ru": "Цари"
+      },
+      {
+       "en": "Nabopolassar 626–605 · Nebuchadnezzar II 605–562 · Amel-Marduk 562–560 · Neriglissar 560–556 · Labashi-Marduk 556 · Nabonidus 556–539, with Belshazzar as regent",
+       "ru": "Набопаласар 626–605 · Навуходоносор II 605–562 · Амель-Мардук 562–560 · Нериглиссар 560–556 · Лабаши-Мардук 556 · Набонид 556–539, регент — Валтасар"
+      }
+     ],
+     [
+      {
+       "en": "Lasted",
+       "ru": "Продолжительность"
+      },
+      {
+       "en": "87 years",
+       "ru": "87 лет"
+      }
+     ]
+    ],
     "facts": [
      {
-      "en": "Nabopolassar founded the Neo-Babylonian Empire in 626 BC; with the Medes he destroyed Nineveh, the Assyrian capital, in 612 BC.",
-      "ru": "Набопаласар основал Нововавилонскую державу в 626 г. до н. э.; вместе с мидянами он разрушил Ниневию, столицу Ассирии, в 612 г. до н. э."
+      "en": "Aramaic <i>dehav tav</i>, “good gold”. <a data-ref=\"DAN 2:4-7:28\">Daniel 2:4b–7:28</a> is written in Aramaic, the working language of the Babylonian and Persian courts.",
+      "ru": "Арамейское <i>дехав тав</i> — «хорошее золото». Текст <a data-ref=\"DAN 2:4-7:28\">Дан. 2:4б–7:28</a> написан по-арамейски, на рабочем языке вавилонского и персидского дворов."
      },
      {
-      "en": "Nebuchadnezzar defeated Egypt at Carchemish in 605 BC, the year Daniel was taken to Babylon.",
-      "ru": "Навуходоносор разбил египтян при Кархемисе в 605 г. до н. э. — в год, когда Даниил был уведён в Вавилон."
+      "en": "Gold is the densest material in the statue (19.3 g/cm³) and the only one that does not tarnish or rust.",
+      "ru": "Золото — самый плотный материал в истукане (19,3 г/см³) и единственный, который не тускнеет и не ржавеет."
      },
      {
-      "en": "He took Jerusalem in 597 BC, and in 586 BC destroyed the city and Solomon’s temple.",
-      "ru": "Он взял Иерусалим в 597 г. до н. э., а в 586 г. до н. э. разрушил город и храм Соломона."
+      "en": "Herodotus (<cite>Histories</cite> 1.183) describes a seated gold figure of Bel in Babylon’s temple with a gold table, throne and footstool: 800 talents of gold by the priests’ own count.",
+      "ru": "Геродот (<cite>История</cite> 1.183) описывает в вавилонском храме золотую статую сидящего Бела с золотыми столом, троном и подножием — по подсчёту самих жрецов, 800 талантов золота."
      },
      {
-      "en": "He rebuilt Babylon in splendour: the blue-tiled Ishtar Gate, palaces and the great ziggurat. “Is not this great Babylon, that I have built…?”",
-      "ru": "Он отстроил Вавилон во всём великолепии: ворота Иштар, облицованные синими изразцами, дворцы, великий зиккурат. «Это ли не величественный Вавилон, который построил я…»"
+      "en": "<a data-ref=\"JER 51:7\">Jeremiah 51:7</a> pictures Babylon as a golden cup in God’s hand.",
+      "ru": "<a data-ref=\"JER 51:7\">Иер. 51:7</a> изображает Вавилон золотой чашей в руке Господа."
      },
      {
-      "en": "Babylon fell to Cyrus of Persia in 539 BC, on the night of Belshazzar’s feast.",
-      "ru": "Вавилон пал перед персом Киром в 539 г. до н. э., в ночь пира Валтасара."
+      "en": "The king’s Akkadian name was <i>Nabû-kudurri-uṣur</i>, “Nabu, protect my heir.”",
+      "ru": "Аккадское имя царя — <i>Набу-кудурри-уцур</i>, «Набу, охрани моего наследника»."
      }
     ],
-    "parallels": [
-     {
-      "ref": "DAN 7:4",
-      "text": {
-       "en": "A lion with eagle’s wings",
-       "ru": "Лев с орлиными крыльями"
-      }
-     },
-     {
-      "ref": "DAN 4:30",
-      "text": {
-       "en": "“Is not this great Babylon…?”",
-       "ru": "«Это ли не величественный Вавилон…»"
-      }
-     },
-     {
-      "ref": "DAN 5:30-31",
-      "text": {
-       "en": "Belshazzar’s last night",
-       "ru": "Последняя ночь Валтасара"
-      }
-     }
+    "differ": {
+     "en": "<p>Interpreters of every school agree on Babylon. The open question is the date in <a data-ref=\"DAN 2:1\">2:1</a>. The “second year” of Nebuchadnezzar is 603/602 BC, yet chapter 1 describes three years of training for Daniel first.</p><p>The usual answer is Babylonian accession-year counting. The months between a king’s accession and his first New Year were not numbered, so three calendar years can fall inside “year two”. Others see a seam between two stories that were once separate.</p>",
+     "ru": "<p>Толкователи всех школ сходятся на том, что это Вавилон. Открытым остаётся вопрос о дате в <a data-ref=\"DAN 2:1\">2:1</a>. «Второй год» Навуходоносора — это 603/602 г. до н. э., однако 1-я глава прежде описывает трёхлетнее обучение Даниила.</p><p>Обычное объяснение — вавилонский счёт лет царствования от «года восшествия на престол». Месяцы между воцарением царя и его первым Новым годом не нумеровались, так что во «второй год» могут уложиться три календарных года. Другие видят здесь шов между двумя рассказами, которые когда-то были самостоятельными.</p>"
+    },
+    "evidence": [
+     "abc5",
+     "bricks",
+     "jehoiachin",
+     "dreams"
     ],
     "regions": [
      "babylon"
@@ -128,68 +192,115 @@
     "en": "Chest and arms of silver",
     "ru": "Грудь и руки из серебра"
    },
-   "material": {
-    "en": "Silver",
-    "ru": "Серебро"
+   "short": {
+    "en": "Chest and arms",
+    "ru": "Грудь и руки"
+   },
+   "label": {
+    "en": "Chest · silver",
+    "ru": "Грудь · серебро"
    },
    "refs": {
-    "text": "DAN 2:32",
-    "meaning": "DAN 2:39"
+    "en": "Daniel 2:32, 39",
+    "ru": "Дан. 2:32, 39"
    },
+   "verses": [
+    "DAN 2:32",
+    "DAN 2:39"
+   ],
    "kingdoms": {
     "traditional": {
      "name": {
       "en": "Medo-Persia",
       "ru": "Мидо-Персия"
      },
+     "rail": {
+      "en": "Medo-Persia",
+      "ru": "Мидо-Персия"
+     },
+     "full": {
+      "en": "Achaemenid Persian Empire",
+      "ru": "Персидская держава Ахеменидов"
+     },
      "dates": {
       "en": "539–331 BC",
       "ru": "539–331 гг. до н. э."
      },
+     "agree": false,
+     "summary": {
+      "en": "<p>On the Roman sequence the silver is the joint power of the Medes and Persians, which took Babylon in a single night in October 539 BC. The book speaks of the two together: Belshazzar’s kingdom is “given to the Medes and Persians” (<a data-ref=\"DAN 5:28\">5:28</a>), the king is bound by “the law of the Medes and Persians” (<a data-ref=\"DAN 6:8\">6:8</a>), and chapter 8 shows them as one ram with two horns (<a data-ref=\"DAN 8:20\">8:20</a>).</p><p>Many commentators see the two arms as the two peoples. The text itself draws no meaning from them.</p>",
+      "ru": "<p>В римской последовательности серебро — это совместная держава мидян и персов, которая взяла Вавилон за одну ночь в октябре 539 г. до н. э. Книга говорит о них вместе: царство Валтасара «дано мидянам и персам» (<a data-ref=\"DAN 5:28\">5:28</a>), царь связан «законом мидян и персов» (<a data-ref=\"DAN 6:8\">6:8</a>), а в 8-й главе они представлены одним овном с двумя рогами (<a data-ref=\"DAN 8:20\">8:20</a>).</p><p>Многие толкователи видят в двух руках два народа. Сам текст никакого значения им не придаёт.</p>"
+     },
+     "stats": [
+      [
+       {
+        "en": "Royal cities",
+        "ru": "Царские города"
+       },
+       {
+        "en": "Pasargadae, Susa, Persepolis, Ecbatana, Babylon",
+        "ru": "Пасаргады, Сузы, Персеполь, Экбатана, Вавилон"
+       }
+      ],
+      [
+       {
+        "en": "Peak extent",
+        "ru": "Наибольшая площадь"
+       },
+       {
+        "en": "About 5.5 million km² around 500 BC, from the Aegean to the Indus",
+        "ru": "Ок. 500 г. до н. э. — около 5,5 млн км², от Эгейского моря до Инда"
+       }
+      ],
+      [
+       {
+        "en": "Kings",
+        "ru": "Цари"
+       },
+       {
+        "en": "Cyrus II (Babylon from 539) · Cambyses II 530–522 · Darius I 522–486 · Xerxes I 486–465 · Artaxerxes I 465–424 · Darius III 336–330",
+        "ru": "Кир II (царь Вавилона с 539) · Камбиз II 530–522 · Дарий I 522–486 · Ксеркс I 486–465 · Артаксеркс I 465–424 · Дарий III 336–330"
+       }
+      ],
+      [
+       {
+        "en": "Lasted",
+        "ru": "Продолжительность"
+       },
+       {
+        "en": "208 years after Babylon’s fall",
+        "ru": "208 лет после падения Вавилона"
+       }
+      ]
+     ],
      "facts": [
       {
-       "en": "Cyrus the Great united the Medes and the Persians around 550 BC and took Babylon in 539 BC.",
-       "ru": "Кир Великий объединил мидян и персов около 550 г. до н. э. и взял Вавилон в 539 г. до н. э."
+       "en": "Aramaic <i>kesaph</i>, which means both “silver” and “money”.",
+       "ru": "Арамейское <i>кесаф</i> означает и «серебро», и «деньги»."
       },
       {
-       "en": "In 538 BC Cyrus let the Jews go home and rebuild the temple, which was finished in 516 BC.",
-       "ru": "В 538 г. до н. э. Кир позволил иудеям вернуться и восстановить храм; его завершили в 516 г. до н. э."
+       "en": "Silver weighs 10.5 g/cm³, a little over half the density of gold.",
+       "ru": "Плотность серебра — 10,5 г/см³, чуть больше половины плотности золота."
       },
       {
-       "en": "It was the largest empire the world had yet seen, from Egypt and Thrace to the Indus, ruled through provinces and joined by the Royal Road.",
-       "ru": "Это была крупнейшая из известных тогда держав — от Египта и Фракии до Инда; ею управляли через сатрапии, а связывала её Царская дорога."
+       "en": "Persian tribute was reckoned in silver. Herodotus (3.89–95) lists the twenty tax districts of Darius I and what each paid per year.",
+       "ru": "Персидскую дань исчисляли в серебре. Геродот (3.89–95) перечисляет двадцать податных округов Дария I и то, сколько каждый платил в год."
       },
       {
-       "en": "Its kings appear throughout the Bible: Cyrus, Darius, Ahasuerus (Xerxes, in Esther) and Artaxerxes (in Ezra and Nehemiah).",
-       "ru": "Её цари часто встречаются в Библии: Кир, Дарий, Артаксеркс книги Есфирь (Ксеркс) и Артаксеркс книг Ездры и Неемии."
-      },
-      {
-       "en": "It ended when Alexander the Great defeated Darius III at Gaugamela in 331 BC.",
-       "ru": "Она пала, когда Александр Македонский разбил Дария III при Гавгамелах в 331 г. до н. э."
+       "en": "The empire’s own silver coin was the <i>siglos</i>, struck mainly for its western provinces.",
+       "ru": "Собственной серебряной монетой державы был <i>сиглос</i>; его чеканили главным образом для западных провинций."
       }
      ],
-     "parallels": [
-      {
-       "ref": "DAN 7:5",
-       "text": {
-        "en": "A bear raised up on one side",
-        "ru": "Медведь, поднятый с одного бока"
-       }
-      },
-      {
-       "ref": "DAN 8:3-4",
-       "text": {
-        "en": "The ram with two horns…",
-        "ru": "Овен с двумя рогами…"
-       }
-      },
-      {
-       "ref": "DAN 8:20",
-       "text": {
-        "en": "…“the kings of Media and Persia”",
-        "ru": "…«цари Мидийский и Персидский»"
-       }
-      }
+     "differ": {
+      "en": "<p>“Inferior to you” (<a data-ref=\"DAN 2:39\">2:39</a>) is the puzzle. Persia ruled about eleven times Babylon’s territory and lasted more than twice as long. Suggested senses: lower on the statue (the Aramaic is literally “earthward from you”); a king hemmed in by his own law (<a data-ref=\"DAN 6:14-15\">6:14–15</a>), where Nebuchadnezzar’s will was unchecked (<a data-ref=\"DAN 5:19\">5:19</a>); or declining worth, as in Hesiod’s ages of metal.</p><p>Readers who follow the Greek sequence reply that the phrase suits Media, a lesser power, far better than Persia.</p>",
+      "ru": "<p>Загадку представляют слова «ниже твоего» (<a data-ref=\"DAN 2:39\">2:39</a>). Персия владела территорией примерно в одиннадцать раз большей, чем Вавилон, и просуществовала более чем вдвое дольше. Предлагаемые толкования: ниже на истукане (по-арамейски буквально «к земле от тебя»); царь, скованный собственным законом (<a data-ref=\"DAN 6:14-15\">6:14–15</a>), тогда как воля Навуходоносора не знала преград (<a data-ref=\"DAN 5:19\">5:19</a>); или убывающая ценность, как в Гесиодовой череде металлических веков.</p><p>Сторонники греческой последовательности возражают, что эти слова гораздо лучше подходят к Мидии, менее значительной державе, чем к Персии.</p>"
+     },
+     "evidence": [
+      "belshazzar",
+      "verse",
+      "nabchron",
+      "cyrus",
+      "classical"
      ],
      "regions": [
       "persia"
@@ -210,43 +321,91 @@
       "en": "Media",
       "ru": "Мидия"
      },
+     "rail": {
+      "en": "Media",
+      "ru": "Мидия"
+     },
+     "full": {
+      "en": "Median kingdom",
+      "ru": "Мидийское царство"
+     },
      "dates": {
       "en": "c. 625–550 BC",
       "ru": "ок. 625–550 гг. до н. э."
      },
+     "agree": false,
+     "summary": {
+      "en": "<p>On the Greek sequence the silver is Media. In the book’s own storyline “Darius the Mede” receives Babylon’s kingdom (<a data-ref=\"DAN 5:31\">5:31</a>; <a data-ref=\"DAN 9:1\">9:1</a>) and reigns before “Cyrus the Persian” (<a data-ref=\"DAN 6:28\">6:28</a>; <a data-ref=\"DAN 10:1\">10:1</a>), so a Median kingdom stands between Babylon and Persia.</p><p>The order was already traditional. Greek writers described the rule of Asia passing from Assyria to Media to Persia (Herodotus 1.95, 1.130). Daniel’s list has Babylon where theirs has Assyria. “Inferior to you” fits Media well.</p>",
+      "ru": "<p>В греческой последовательности серебро — это Мидия. В сюжете самой книги «Дарий Мидянин» принимает царство Вавилона (<a data-ref=\"DAN 5:31\">5:31</a>; <a data-ref=\"DAN 9:1\">9:1</a>) и царствует прежде «Кира Персидского» (<a data-ref=\"DAN 6:28\">6:28</a>; <a data-ref=\"DAN 10:1\">10:1</a>), так что между Вавилоном и Персией стоит Мидийское царство.</p><p>Такой порядок был уже традиционным. Греческие авторы описывали, как власть над Азией переходила от Ассирии к Мидии, а затем к Персии (Геродот 1.95, 1.130). В списке Даниила на месте их Ассирии стоит Вавилон. Слова «ниже твоего» хорошо подходят к Мидии.</p>"
+     },
+     "stats": [
+      [
+       {
+        "en": "Capital",
+        "ru": "Столица"
+       },
+       {
+        "en": "Ecbatana, modern Hamadan in Iran",
+        "ru": "Экбатана, ныне Хамадан в Иране"
+       }
+      ],
+      [
+       {
+        "en": "Peak extent",
+        "ru": "Наибольшая площадь"
+       },
+       {
+        "en": "Up to about 2.8 million km² on the largest estimates, c. 585 BC",
+        "ru": "По самым высоким оценкам — до 2,8 млн км², ок. 585 г. до н. э."
+       }
+      ],
+      [
+       {
+        "en": "Kings",
+        "ru": "Цари"
+       },
+       {
+        "en": "As Herodotus lists them: Deioces · Phraortes · Cyaxares c. 625–585 · Astyages 585–550",
+        "ru": "По списку Геродота: Дейок · Фраорт · Киаксар ок. 625–585 · Астиаг 585–550"
+       }
+      ],
+      [
+       {
+        "en": "Ended",
+        "ru": "Конец"
+       },
+       {
+        "en": "550 BC, when Cyrus defeated Astyages",
+        "ru": "550 г. до н. э., когда Кир разбил Астиага"
+       }
+      ]
+     ],
      "facts": [
       {
-       "en": "The book names the two peoples separately: after Babylon falls, “Darius the Median” takes the kingdom (5:31), and only later comes “Cyrus the Persian” (6:28).",
-       "ru": "Книга называет эти народы порознь: после падения Вавилона царство получает «Дарий Мидянин» (5:31), и лишь затем упомянут «Кир Персидский» (6:28)."
+       "en": "Aramaic <i>kesaph</i>, which means both “silver” and “money”.",
+       "ru": "Арамейское <i>кесаф</i> означает и «серебро», и «деньги»."
       },
       {
-       "en": "The Medes, from western Iran with their capital at Ecbatana, joined Babylon in destroying Nineveh in 612 BC.",
-       "ru": "Мидяне, жившие на западе Ирана со столицей в Экбатанах, вместе с Вавилоном разрушили Ниневию в 612 г. до н. э."
+       "en": "Silver weighs 10.5 g/cm³, a little over half the density of gold.",
+       "ru": "Плотность серебра — 10,5 г/см³, чуть больше половины плотности золота."
       },
       {
-       "en": "Media ruled from the Halys river in Anatolia to central Iran, until Cyrus the Persian conquered it around 550 BC.",
-       "ru": "Мидия владела землями от реки Галис в Малой Азии до центрального Ирана, пока около 550 г. до н. э. её не покорил перс Кир."
+       "en": "Hesiod’s second race, the silver one, is likewise far inferior to the golden race before it (<cite>Works and Days</cite> 127–142).",
+       "ru": "Второе поколение людей у Гесиода, серебряное, тоже намного хуже предшествовавшего ему золотого (<cite>Труды и дни</cite> 127–142)."
       },
       {
-       "en": "“Darius the Mede” is not known from other ancient sources. On this reading he stands for a Median kingdom that, in the book’s scheme, came between Babylon and Persia; others identify him with a Persian governor, or with Cyrus himself.",
-       "ru": "«Дарий Мидянин» не известен по другим древним источникам. В этом толковании он олицетворяет Мидийское царство, которое в замысле книги стоит между Вавилоном и Персией; другие отождествляют его с персидским наместником или с самим Киром."
+       "en": "Medes and Babylonians together destroyed Nineveh in 612 BC. The Babylonian Chronicle names the Median king Umakishtar, the Cyaxares of Herodotus.",
+       "ru": "Мидяне и вавилоняне вместе разрушили Ниневию в 612 г. до н. э. Вавилонская хроника называет мидийского царя Умакиштаром — это Киаксар Геродота."
       }
      ],
-     "parallels": [
-      {
-       "ref": "DAN 7:5",
-       "text": {
-        "en": "A bear raised up on one side",
-        "ru": "Медведь, поднятый с одного бока"
-       }
-      },
-      {
-       "ref": "DAN 5:30-31",
-       "text": {
-        "en": "“Darius the Median took the kingdom”",
-        "ru": "«Дарий Мидянин принял царство»"
-       }
-      }
+     "differ": {
+      "en": "<p>The difficulty is historical. Media never ruled Babylon. It was Babylon’s contemporary and its ally against Assyria, and Cyrus absorbed it in 550 BC, eleven years before Babylon fell. No Babylonian or Persian record knows a Median king of Babylon, and “Darius the Mede” has not been identified outside the book.</p><p>Supporters of this sequence usually conclude that the author inherited a traditional list of four kingdoms. Supporters of the Roman sequence answer that Daniel never separates the two peoples (<a data-ref=\"DAN 5:28\">5:28</a>; <a data-ref=\"DAN 8:20\">8:20</a>). Archaeology adds a caution: evidence for a centralised Median empire is thin, and much of what is said about it rests on Herodotus.</p>",
+      "ru": "<p>Трудность — историческая. Мидия никогда не правила Вавилоном. Она была современницей Вавилона и его союзницей против Ассирии, а Кир поглотил её в 550 г. до н. э., за одиннадцать лет до падения Вавилона. Ни один вавилонский или персидский источник не знает мидийского царя Вавилона, а «Дарий Мидянин» вне этой книги до сих пор не отождествлён.</p><p>Сторонники этой последовательности обычно заключают, что автор унаследовал традиционный список четырёх царств. Сторонники римской последовательности отвечают, что Даниил нигде не разделяет эти два народа (<a data-ref=\"DAN 5:28\">5:28</a>; <a data-ref=\"DAN 8:20\">8:20</a>). Археология добавляет оговорку: свидетельств о централизованной Мидийской державе мало, и многое из того, что о ней говорится, опирается на Геродота.</p>"
+     },
+     "evidence": [
+      "nabchron",
+      "behistun",
+      "classical"
      ],
      "regions": [
       "media"
@@ -267,75 +426,112 @@
     "en": "Belly and thighs of bronze",
     "ru": "Чрево и бёдра из меди"
    },
-   "material": {
-    "en": "Bronze (“brass” in the KJV)",
-    "ru": "Медь"
+   "short": {
+    "en": "Belly and thighs",
+    "ru": "Чрево и бёдра"
+   },
+   "label": {
+    "en": "Belly · bronze",
+    "ru": "Чрево · медь"
    },
    "refs": {
-    "text": "DAN 2:32",
-    "meaning": "DAN 2:39"
+    "en": "Daniel 2:32, 39",
+    "ru": "Дан. 2:32, 39"
    },
+   "verses": [
+    "DAN 2:32",
+    "DAN 2:39"
+   ],
    "kingdoms": {
     "traditional": {
      "name": {
       "en": "Greece",
       "ru": "Греция"
      },
-     "dates": {
-      "en": "331 BC to Rome’s conquest of the East (63 BC; Egypt in 30 BC)",
-      "ru": "С 331 г. до н. э. до покорения Востока Римом (63 г. до н. э.; Египет — в 30 г. до н. э.)"
+     "rail": {
+      "en": "Greece",
+      "ru": "Греция"
      },
+     "full": {
+      "en": "Empire of Alexander and his successors",
+      "ru": "Держава Александра Македонского и его преемников"
+     },
+     "dates": {
+      "en": "331–146 BC",
+      "ru": "331–146 гг. до н. э."
+     },
+     "agree": false,
+     "summary": {
+      "en": "<p>On the Roman sequence the bronze is the Greek-speaking empire that Alexander the Great won in eleven years of campaigning (334–323 BC). <a data-ref=\"DAN 8:21\">Daniel 8:21</a> names “the king of Greece” as Persia’s conqueror, and “rule over all the earth” (<a data-ref=\"DAN 2:39\">2:39</a>) suits a realm that reached from the Adriatic to the Indus.</p><p>Alexander died in Babylon in June 323 BC. His generals fought over the empire for two decades, and four kingdoms came out of the battle of Ipsus in 301 BC (compare <a data-ref=\"DAN 8:8\">8:8</a>, <a data-ref=\"DAN 8:22\">22</a>). Rome annexed Macedonia and Greece in 146 BC. The last successor kingdom, Ptolemaic Egypt, fell in 30 BC.</p>",
+      "ru": "<p>В римской последовательности медь — это грекоязычная держава, которую Александр Македонский завоевал за одиннадцать лет походов (334–323 гг. до н. э.). <a data-ref=\"DAN 8:21\">Дан. 8:21</a> называет завоевателя Персии «царём Греции», а слова «будет владычествовать над всею землёю» (<a data-ref=\"DAN 2:39\">2:39</a>) подходят к державе, простиравшейся от Адриатики до Инда.</p><p>Александр умер в Вавилоне в июне 323 г. до н. э. Его полководцы два десятилетия воевали за империю, и после битвы при Ипсе в 301 г. до н. э. из неё вышли четыре царства (ср. <a data-ref=\"DAN 8:8\">8:8</a>, <a data-ref=\"DAN 8:22\">22</a>). Рим присоединил Македонию и Грецию в 146 г. до н. э. Последнее из царств преемников, птолемеевский Египет, пало в 30 г. до н. э.</p>"
+     },
+     "stats": [
+      [
+       {
+        "en": "Capitals",
+        "ru": "Столицы"
+       },
+       {
+        "en": "Pella and Babylon; later Alexandria, Antioch and Seleucia on the Tigris",
+        "ru": "Пелла и Вавилон; позднее Александрия, Антиохия и Селевкия-на-Тигре"
+       }
+      ],
+      [
+       {
+        "en": "Peak extent",
+        "ru": "Наибольшая площадь"
+       },
+       {
+        "en": "About 5.2 million km² in 323 BC",
+        "ru": "Около 5,2 млн км² в 323 г. до н. э."
+       }
+      ],
+      [
+       {
+        "en": "Rulers",
+        "ru": "Правители"
+       },
+       {
+        "en": "Alexander III 336–323 · Ptolemies in Egypt 305–30 · Seleucids in Syria and the East 312–63 · Antigonids in Macedon to 168",
+        "ru": "Александр III 336–323 · Птолемеи в Египте 305–30 · Селевкиды в Сирии и на Востоке 312–63 · Антигониды в Македонии до 168"
+       }
+      ],
+      [
+       {
+        "en": "Lasted",
+        "ru": "Продолжительность"
+       },
+       {
+        "en": "11 years united; about 300 as successor kingdoms",
+        "ru": "11 лет как единая держава; около 300 лет — как царства преемников"
+       }
+      ]
+     ],
      "facts": [
       {
-       "en": "Alexander of Macedon crossed into Asia in 334 BC, defeated Persia at Issus and Gaugamela, and marched as far as the Indus.",
-       "ru": "Александр Македонский переправился в Азию в 334 г. до н. э., разбил персов при Иссе и Гавгамелах и дошёл до Инда."
+       "en": "Aramaic <i>nechash</i>, copper or bronze. Older English Bibles say “brass”.",
+       "ru": "Арамейское <i>нехаш</i> — медь или бронза. В старых английских Библиях — «латунь» (brass)."
       },
       {
-       "en": "He died in Babylon in 323 BC, aged 32, and his generals divided his empire: Daniel’s “four horns” and the leopard’s four heads.",
-       "ru": "Он умер в Вавилоне в 323 г. до н. э., в 32 года, и его полководцы разделили державу: это «четыре рога» и четыре головы барса у Даниила."
+       "en": "Bronze is copper alloyed with about a tenth part tin. It weighs roughly 8.8 g/cm³.",
+       "ru": "Бронза — это сплав меди примерно с десятой частью олова. Её плотность — около 8,8 г/см³."
       },
       {
-       "en": "Judea lay between two of those kingdoms, the Ptolemies of Egypt and the Seleucids of Syria, whose wars Daniel 11 traces.",
-       "ru": "Иудея оказалась между двумя из этих царств — египетскими Птолемеями и сирийскими Селевкидами, чьи войны прослеживает 11-я глава книги Даниила."
+       "en": "Greek infantry were known for it. Herodotus (2.152) tells of an oracle promising an Egyptian king help from “men of bronze” who would come from the sea. They proved to be armoured Ionian and Carian soldiers.",
+       "ru": "Этот металл был отличительным знаком греческой пехоты. Геродот (2.152) рассказывает о прорицании, обещавшем египетскому царю помощь от «медных людей», которые придут с моря. Ими оказались закованные в доспехи ионийские и карийские воины."
       },
       {
-       "en": "Greek became the common language of the East. In Alexandria the Hebrew Scriptures were translated into Greek: the Septuagint, which you can read on this site.",
-       "ru": "Греческий стал общим языком Востока. В Александрии еврейские Писания перевели на греческий — это Септуагинта, которую можно читать на этом сайте."
-      },
-      {
-       "en": "The Seleucid king Antiochus IV desecrated the temple in 167 BC; the Maccabees rededicated it in 164 BC, as Hanukkah remembers.",
-       "ru": "Селевкидский царь Антиох IV осквернил храм в 167 г. до н. э.; Маккавеи вновь освятили его в 164 г. до н. э. — в память об этом празднуют Хануку."
+       "en": "Homer’s stock epithet for the Greek army is “bronze-clad”.",
+       "ru": "Постоянный эпитет греческого войска у Гомера — «меднодоспешные»."
       }
      ],
-     "parallels": [
-      {
-       "ref": "DAN 7:6",
-       "text": {
-        "en": "A leopard with four wings and four heads",
-        "ru": "Барс с четырьмя крыльями и четырьмя головами"
-       }
-      },
-      {
-       "ref": "DAN 8:5-8",
-       "text": {
-        "en": "The goat with a great horn, broken into four",
-        "ru": "Козёл с большим рогом, сломившимся на четыре"
-       }
-      },
-      {
-       "ref": "DAN 8:21",
-       "text": {
-        "en": "…“the king of Grecia”",
-        "ru": "…«царь Греции»"
-       }
-      },
-      {
-       "ref": "DAN 11:2-4",
-       "text": {
-        "en": "Persia, then a mighty Greek king",
-        "ru": "Персия, а затем могущественный царь Греции"
-       }
-      }
+     "differ": {
+      "en": "<p>Both sequences include Alexander’s empire. They differ on where it stands. Here it is third, which keeps Media and Persia together as the second kingdom.</p><p>The strongest support comes from chapter 7, where the third beast has four heads and four wings (<a data-ref=\"DAN 7:6\">7:6</a>). That matches the four horns that replace the single great horn of the Greek goat in <a data-ref=\"DAN 8:8\">8:8</a> and <a data-ref=\"DAN 8:22\">8:22</a>.</p>",
+      "ru": "<p>Обе последовательности включают державу Александра. Расходятся они в том, какое место она занимает. Здесь она третья, и тогда Мидия и Персия вместе составляют второе царство.</p><p>Сильнейший довод даёт 7-я глава, где у третьего зверя четыре головы и четыре крыла (<a data-ref=\"DAN 7:6\">7:6</a>). Это соответствует четырём рогам, которые приходят на смену одному большому рогу греческого козла в <a data-ref=\"DAN 8:8\">8:8</a> и <a data-ref=\"DAN 8:22\">8:22</a>.</p>"
+     },
+     "evidence": [
+      "diary323",
+      "dynastic"
      ],
      "regions": [
       "alexander"
@@ -357,54 +553,87 @@
       "en": "Persia",
       "ru": "Персия"
      },
-     "dates": {
-      "en": "c. 550–331 BC",
-      "ru": "ок. 550–331 гг. до н. э."
+     "rail": {
+      "en": "Persia",
+      "ru": "Персия"
      },
+     "full": {
+      "en": "Achaemenid Persian Empire",
+      "ru": "Персидская держава Ахеменидов"
+     },
+     "dates": {
+      "en": "550–330 BC",
+      "ru": "550–330 гг. до н. э."
+     },
+     "agree": false,
+     "summary": {
+      "en": "<p>On the Greek sequence the bronze is Persia, counted from Cyrus’s defeat of Media in 550 BC. “Rule over all the earth” (<a data-ref=\"DAN 2:39\">2:39</a>) echoes Persian royal language: on the Cyrus Cylinder, Cyrus calls himself king of the world and king of the four quarters. At about 5.5 million km² his successors’ empire was the largest the world had yet seen.</p><p>The book’s last dated vision falls “in the third year of Cyrus king of Persia” (<a data-ref=\"DAN 10:1\">10:1</a>), and <a data-ref=\"DAN 11:2\">11:2</a> counts four more Persian kings before Greece arrives.</p>",
+      "ru": "<p>В греческой последовательности медь — это Персия, считая от победы Кира над Мидией в 550 г. до н. э. Слова «будет владычествовать над всею землёю» (<a data-ref=\"DAN 2:39\">2:39</a>) перекликаются с персидской царской титулатурой: на Цилиндре Кира Кир называет себя царём мира и царём четырёх стран света. Держава его преемников площадью около 5,5 млн км² была крупнейшей из всех, какие мир видел до тех пор.</p><p>Последнее датированное видение книги относится к «третьему году Кира, царя Персидского» (<a data-ref=\"DAN 10:1\">10:1</a>), а <a data-ref=\"DAN 11:2\">11:2</a> насчитывает ещё четырёх персидских царей до прихода Греции.</p>"
+     },
+     "stats": [
+      [
+       {
+        "en": "Royal cities",
+        "ru": "Царские города"
+       },
+       {
+        "en": "Pasargadae, Susa, Persepolis, Ecbatana, Babylon",
+        "ru": "Пасаргады, Сузы, Персеполь, Экбатана, Вавилон"
+       }
+      ],
+      [
+       {
+        "en": "Peak extent",
+        "ru": "Наибольшая площадь"
+       },
+       {
+        "en": "About 5.5 million km² around 500 BC, from the Aegean to the Indus",
+        "ru": "Ок. 500 г. до н. э. — около 5,5 млн км², от Эгейского моря до Инда"
+       }
+      ],
+      [
+       {
+        "en": "Kings",
+        "ru": "Цари"
+       },
+       {
+        "en": "Cyrus II (Babylon from 539) · Cambyses II 530–522 · Darius I 522–486 · Xerxes I 486–465 · Artaxerxes I 465–424 · Darius III 336–330",
+        "ru": "Кир II (царь Вавилона с 539) · Камбиз II 530–522 · Дарий I 522–486 · Ксеркс I 486–465 · Артаксеркс I 465–424 · Дарий III 336–330"
+       }
+      ],
+      [
+       {
+        "en": "Lasted",
+        "ru": "Продолжительность"
+       },
+       {
+        "en": "220 years from the conquest of Media",
+        "ru": "220 лет от покорения Мидии"
+       }
+      ]
+     ],
      "facts": [
       {
-       "en": "Cyrus the Great united the Medes and the Persians around 550 BC and took Babylon in 539 BC.",
-       "ru": "Кир Великий объединил мидян и персов около 550 г. до н. э. и взял Вавилон в 539 г. до н. э."
+       "en": "Aramaic <i>nechash</i>, copper or bronze. Older English Bibles say “brass”.",
+       "ru": "Арамейское <i>нехаш</i> — медь или бронза. В старых английских Библиях — «латунь» (brass)."
       },
       {
-       "en": "In 538 BC Cyrus let the Jews go home and rebuild the temple, which was finished in 516 BC.",
-       "ru": "В 538 г. до н. э. Кир позволил иудеям вернуться и восстановить храм; его завершили в 516 г. до н. э."
+       "en": "Bronze is copper alloyed with about a tenth part tin. It weighs roughly 8.8 g/cm³.",
+       "ru": "Бронза — это сплав меди примерно с десятой частью олова. Её плотность — около 8,8 г/см³."
       },
       {
-       "en": "“A third kingdom… which shall bear rule over all the earth”: the Persian Empire reached from Egypt and Thrace to the Indus.",
-       "ru": "«Третье царство… которое будет владычествовать над всею землёю»: Персидская держава простиралась от Египта и Фракии до Инда."
-      },
-      {
-       "en": "Its kings appear throughout the Bible: Cyrus, Darius, Ahasuerus (Xerxes, in Esther) and Artaxerxes (in Ezra and Nehemiah).",
-       "ru": "Её цари часто встречаются в Библии: Кир, Дарий, Артаксеркс книги Есфирь (Ксеркс) и Артаксеркс книг Ездры и Неемии."
-      },
-      {
-       "en": "It ended when Alexander the Great defeated Darius III at Gaugamela in 331 BC.",
-       "ru": "Она пала, когда Александр Македонский разбил Дария III при Гавгамелах в 331 г. до н. э."
+       "en": "In this sequence the metal has no special link to Persia. What matters is its rank in a declining series, as in Hesiod.",
+       "ru": "В этой последовательности металл не связан с Персией каким-то особым образом. Важно его место в нисходящем ряду, как у Гесиода."
       }
      ],
-     "parallels": [
-      {
-       "ref": "DAN 7:6",
-       "text": {
-        "en": "A leopard with four wings and four heads (on this reading, the four Persian kings of 11:2)",
-        "ru": "Барс с четырьмя крыльями и четырьмя головами (в этом толковании — четыре персидских царя из 11:2)"
-       }
-      },
-      {
-       "ref": "DAN 8:20",
-       "text": {
-        "en": "“the kings of Media and Persia”",
-        "ru": "«цари Мидийский и Персидский»"
-       }
-      },
-      {
-       "ref": "DAN 11:2",
-       "text": {
-        "en": "Four Persian kings",
-        "ru": "Четыре персидских царя"
-       }
-      }
+     "differ": {
+      "en": "<p>The objection comes from inside the book. <a data-ref=\"DAN 8:20\">Daniel 8:20</a> makes Media and Persia the two horns of one ram, and <a data-ref=\"DAN 5:28\">5:28</a> hands Babylon to both together.</p><p>Defenders answer that the ram’s horns are unequal and “the higher came up last” (<a data-ref=\"DAN 8:3\">8:3</a>), so the book does know an earlier Median phase and a later Persian one.</p>",
+      "ru": "<p>Возражение исходит из самой книги. <a data-ref=\"DAN 8:20\">Дан. 8:20</a> делает Мидию и Персию двумя рогами одного овна, а <a data-ref=\"DAN 5:28\">5:28</a> отдаёт Вавилон им обоим вместе.</p><p>Защитники этой последовательности отвечают, что рога овна неравны и «высший поднялся после» (<a data-ref=\"DAN 8:3\">8:3</a>), так что книга всё же знает более раннюю мидийскую фазу и более позднюю персидскую.</p>"
+     },
+     "evidence": [
+      "cyrus",
+      "behistun",
+      "nabchron"
      ],
      "regions": [
       "persia"
@@ -427,70 +656,116 @@
    "metal": "iron",
    "title": {
     "en": "Legs of iron",
-    "ru": "Голени из железа"
+    "ru": "Железные голени"
    },
-   "material": {
-    "en": "Iron",
-    "ru": "Железо"
+   "short": {
+    "en": "Legs",
+    "ru": "Голени"
+   },
+   "label": {
+    "en": "Legs · iron",
+    "ru": "Голени · железо"
    },
    "refs": {
-    "text": "DAN 2:33",
-    "meaning": "DAN 2:40"
+    "en": "Daniel 2:33, 40",
+    "ru": "Дан. 2:33, 40"
    },
+   "verses": [
+    "DAN 2:33",
+    "DAN 2:40"
+   ],
    "kingdoms": {
     "traditional": {
      "name": {
       "en": "Rome",
       "ru": "Рим"
      },
-     "dates": {
-      "en": "From the 2nd century BC (Jerusalem taken 63 BC) to AD 476 in the West",
-      "ru": "Со II в. до н. э. (Иерусалим взят в 63 г. до н. э.) до 476 г. н. э. на Западе"
+     "rail": {
+      "en": "Rome",
+      "ru": "Рим"
      },
+     "full": {
+      "en": "Roman Republic and Empire",
+      "ru": "Римская республика и империя"
+     },
+     "dates": {
+      "en": "168 BC – AD 476",
+      "ru": "168 г. до н. э. – 476 г. н. э."
+     },
+     "agree": false,
+     "summary": {
+      "en": "<p>On the Roman sequence the iron is Rome. It broke the Macedonian kingdom at Pydna in 168 BC, annexed Greece in 146, took Jerusalem under Pompey in 63 and Egypt in 30 BC. The chapter gives this kingdom more words than any other and one trait: it crushes.</p><p>This was the standard reading for most of two thousand years. The Jewish apocalypse 4 Ezra (about AD 100) states it outright, Josephus implies it, and Hippolytus and Jerome argue for it at length.</p>",
+      "ru": "<p>В римской последовательности железо — это Рим. Он сокрушил Македонское царство при Пидне в 168 г. до н. э., присоединил Грецию в 146 г., взял Иерусалим при Помпее в 63 г. и Египет в 30 г. до н. э. Глава уделяет этому царству больше слов, чем любому другому, и называет одну его черту: оно сокрушает.</p><p>Такое толкование было общепринятым бо́льшую часть двух тысячелетий. Прямо об этом говорит Третья книга Ездры, иудейский апокалипсис ок. 100 г. н. э.; Иосиф Флавий на это намекает, а Ипполит Римский и Иероним подробно это обосновывают.</p>"
+     },
+     "stats": [
+      [
+       {
+        "en": "Capital",
+        "ru": "Столица"
+       },
+       {
+        "en": "Rome; from AD 330 also Constantinople",
+        "ru": "Рим; с 330 г. н. э. также Константинополь"
+       }
+      ],
+      [
+       {
+        "en": "Peak extent",
+        "ru": "Наибольшая площадь"
+       },
+       {
+        "en": "About 5.0 million km² under Trajan, AD 117",
+        "ru": "Около 5,0 млн км² при Траяне, 117 г. н. э."
+       }
+      ],
+      [
+       {
+        "en": "Turning points",
+        "ru": "Поворотные моменты"
+       },
+       {
+        "en": "Pompey takes Jerusalem 63 BC · Augustus first emperor 27 BC · Titus destroys the temple AD 70 · Theodosius I, last to rule both halves, dies 395",
+        "ru": "Помпей берёт Иерусалим, 63 г. до н. э. · Август — первый император, 27 г. до н. э. · Тит разрушает храм, 70 г. н. э. · Смерть Феодосия I, последнего правителя обеих половин, 395 г."
+       }
+      ],
+      [
+       {
+        "en": "Lasted",
+        "ru": "Продолжительность"
+       },
+       {
+        "en": "About 640 years in the West; the eastern half until 1453",
+        "ru": "Около 640 лет на Западе; восточная половина — до 1453 г."
+       }
+      ]
+     ],
      "facts": [
       {
-       "en": "Rome defeated Macedon in 168 BC and the Seleucids before that, and its general Pompey took Jerusalem in 63 BC.",
-       "ru": "Рим разгромил Македонию в 168 г. до н. э., ещё раньше — Селевкидов, а его полководец Помпей взял Иерусалим в 63 г. до н. э."
+       "en": "Aramaic <i>parzel</i>.",
+       "ru": "По-арамейски <i>парзель</i>."
       },
       {
-       "en": "Jesus was born under the emperor Augustus and crucified under the Roman governor Pontius Pilate.",
-       "ru": "Иисус родился при императоре Августе и был распят при римском прокураторе Понтии Пилате."
+       "en": "Iron (7.9 g/cm³) is the hardest and cheapest metal in the statue, and the only one described by what it does: it “breaks in pieces and subdues all things” (<a data-ref=\"DAN 2:40\">2:40</a>).",
+       "ru": "Железо (7,9 г/см³) — самый твёрдый и самый дешёвый металл истукана и единственный, описанный по своему действию: оно «разбивает и раздробляет всё» (<a data-ref=\"DAN 2:40\">2:40</a>)."
       },
       {
-       "en": "Roman armies destroyed Jerusalem and the temple in AD 70.",
-       "ru": "Римские войска разрушили Иерусалим и храм в 70 г. н. э."
+       "en": "The fourth beast of chapter 7 has “great iron teeth” (<a data-ref=\"DAN 7:7\">7:7</a>).",
+       "ru": "У четвёртого зверя из 7-й главы «большие железные зубы» (<a data-ref=\"DAN 7:7\">7:7</a>)."
       },
       {
-       "en": "At its height, around AD 117, the empire reached from Britain to Egypt and Mesopotamia: iron that “breaketh in pieces and subdueth all things”.",
-       "ru": "В пору расцвета, около 117 г. н. э., империя простиралась от Британии до Египта и Месопотамии — железо, которое «раздробляет и разбивает всё»."
-      },
-      {
-       "en": "Rome as the fourth kingdom is an old reading: the Jewish apocalypse 4 Ezra (around AD 100) says so outright, and it became standard among church fathers such as Hippolytus and Jerome.",
-       "ru": "Рим как четвёртое царство — древнее толкование: его прямо называет иудейский апокалипсис 3-й книги Ездры (около 100 г. н. э.; в синодальном издании — 3 Езд. 12:11), и оно стало общепринятым у отцов Церкви, например у Ипполита и Иеронима."
+       "en": "Roman legions fought in iron: the short <i>gladius</i>, the <i>pilum</i> with its soft iron shank, mail and plate armour.",
+       "ru": "Римские легионы сражались в железе: короткий <i>гладиус</i>, <i>пилум</i> с мягким железным стержнем, кольчуга и пластинчатый доспех."
       }
      ],
-     "parallels": [
-      {
-       "ref": "DAN 7:7",
-       "text": {
-        "en": "A fourth beast with great iron teeth and ten horns",
-        "ru": "Четвёртый зверь с большими железными зубами и десятью рогами"
-       }
-      },
-      {
-       "ref": "DAN 7:23",
-       "text": {
-        "en": "“the fourth kingdom upon earth”",
-        "ru": "«четвёртое царство на земле»"
-       }
-      },
-      {
-       "ref": "LUK 2:1",
-       "text": {
-        "en": "A decree from Caesar Augustus",
-        "ru": "Повеление кесаря Августа"
-       }
-      }
+     "differ": {
+      "en": "<p>This reading has to explain why chapters 8 and 11 reach their climax with a Greek king, Antiochus IV, and not with Rome. Its defenders treat Antiochus as a foreshadowing and point out that Rome does enter the book at <a data-ref=\"DAN 11:30\">11:30</a>, where “ships of Kittim” turn him back from Egypt in 168 BC.</p><p>The two legs are often matched to the Latin West and the Greek East. That division came five centuries into Roman rule, and the chapter makes nothing of the legs being two.</p>",
+      "ru": "<p>Этому толкованию приходится объяснять, почему кульминацией 8-й и 11-й глав становится греческий царь Антиох IV, а не Рим. Его сторонники видят в Антиохе прообраз и указывают, что Рим всё же появляется в книге — в <a data-ref=\"DAN 11:30\">11:30</a>, где «корабли Киттимские» в 168 г. до н. э. заставляют его повернуть назад из Египта.</p><p>Две голени часто соотносят с латинским Западом и греческим Востоком. Но это разделение произошло лишь через пять столетий римского владычества, а глава никак не подчёркивает, что голеней две.</p>"
+     },
+     "evidence": [
+      "titus",
+      "ezra4",
+      "josephus",
+      "hippolytus"
      ],
      "regions": [
       "rome"
@@ -510,54 +785,91 @@
       "en": "Greece",
       "ru": "Греция"
      },
-     "dates": {
-      "en": "331–164 BC",
-      "ru": "331–164 гг. до н. э."
+     "rail": {
+      "en": "Greece",
+      "ru": "Греция"
      },
+     "full": {
+      "en": "Macedonian empire of Alexander",
+      "ru": "Македонская держава Александра"
+     },
+     "dates": {
+      "en": "334–323 BC",
+      "ru": "334–323 гг. до н. э."
+     },
+     "agree": false,
+     "summary": {
+      "en": "<p>On the Greek sequence the iron is Alexander’s Macedonian army. Few conquests fit “break in pieces and crush” (<a data-ref=\"DAN 2:40\">2:40</a>) so well: in eleven years it destroyed the Persian empire from the Hellespont to the Indus. <a data-ref=\"DAN 8:5-8\">Daniel 8:5–8</a> pictures a goat crossing the whole earth without touching the ground, and <a data-ref=\"DAN 8:21\">8:21</a> gives its name: Greece.</p><p>Chapter 7’s fourth beast, unlike all those before it and armed with iron teeth, is read the same way. Its “little horn” (<a data-ref=\"DAN 7:8\">7:8</a>) is matched with the little horn of <a data-ref=\"DAN 8:9\">8:9</a>, Antiochus IV.</p>",
+      "ru": "<p>В греческой последовательности железо — это македонская армия Александра. Мало какие завоевания так подходят под слова «будет раздроблять и сокрушать» (<a data-ref=\"DAN 2:40\">2:40</a>): за одиннадцать лет она уничтожила Персидскую державу от Геллеспонта до Инда. В <a data-ref=\"DAN 8:5-8\">Дан. 8:5–8</a> изображён козёл, который пересекает всю землю, не касаясь её, а в <a data-ref=\"DAN 8:21\">8:21</a> названо его имя: Греция.</p><p>Так же понимают и четвёртого зверя из 7-й главы, отличного от всех прежних и с железными зубами. Его «небольшой рог» (<a data-ref=\"DAN 7:8\">7:8</a>) отождествляют с небольшим рогом из <a data-ref=\"DAN 8:9\">8:9</a> — Антиохом IV.</p>"
+     },
+     "stats": [
+      [
+       {
+        "en": "Capital",
+        "ru": "Столица"
+       },
+       {
+        "en": "Pella. Alexander died at Babylon.",
+        "ru": "Пелла. Александр умер в Вавилоне."
+       }
+      ],
+      [
+       {
+        "en": "Peak extent",
+        "ru": "Наибольшая площадь"
+       },
+       {
+        "en": "About 5.2 million km² in 323 BC",
+        "ru": "Около 5,2 млн км² в 323 г. до н. э."
+       }
+      ],
+      [
+       {
+        "en": "Battles",
+        "ru": "Битвы"
+       },
+       {
+        "en": "Granicus 334 · Issus 333 · Gaugamela 331 · Hydaspes 326",
+        "ru": "Граник, 334 · Исс, 333 · Гавгамелы, 331 · Гидасп, 326"
+       }
+      ],
+      [
+       {
+        "en": "Lasted",
+        "ru": "Продолжительность"
+       },
+       {
+        "en": "11 years of conquest, then partition",
+        "ru": "11 лет завоеваний, затем раздел"
+       }
+      ]
+     ],
      "facts": [
       {
-       "en": "Alexander of Macedon crossed into Asia in 334 BC, defeated Persia at Issus and Gaugamela, and marched as far as the Indus.",
-       "ru": "Александр Македонский переправился в Азию в 334 г. до н. э., разбил персов при Иссе и Гавгамелах и дошёл до Инда."
+       "en": "Aramaic <i>parzel</i>.",
+       "ru": "По-арамейски <i>парзель</i>."
       },
       {
-       "en": "He died in Babylon in 323 BC, aged 32, and his generals divided his empire: Daniel’s “four horns” and the leopard’s four heads.",
-       "ru": "Он умер в Вавилоне в 323 г. до н. э., в 32 года, и его полководцы разделили державу: это «четыре рога» и четыре головы барса у Даниила."
+       "en": "Iron (7.9 g/cm³) is the hardest and cheapest metal in the statue, and the only one described by what it does: it “breaks in pieces and subdues all things” (<a data-ref=\"DAN 2:40\">2:40</a>).",
+       "ru": "Железо (7,9 г/см³) — самый твёрдый и самый дешёвый металл истукана и единственный, описанный по своему действию: оно «разбивает и раздробляет всё» (<a data-ref=\"DAN 2:40\">2:40</a>)."
       },
       {
-       "en": "Daniel 11 follows the wars of Alexander’s successors, the Ptolemies and Seleucids, in close detail down to the reign of Antiochus IV.",
-       "ru": "11-я глава книги Даниила подробно прослеживает войны наследников Александра — Птолемеев и Селевкидов — вплоть до царствования Антиоха IV."
+       "en": "The fourth beast of chapter 7 has “great iron teeth” (<a data-ref=\"DAN 7:7\">7:7</a>).",
+       "ru": "У четвёртого зверя из 7-й главы «большие железные зубы» (<a data-ref=\"DAN 7:7\">7:7</a>)."
       },
       {
-       "en": "Many scholars read the “little horn” of 7:8 and 8:9 as Antiochus IV, who outlawed Jewish worship and desecrated the temple in 167 BC.",
-       "ru": "Многие исследователи видят в «малом роге» (7:8; 8:9) Антиоха IV, который запретил иудейское богослужение и осквернил храм в 167 г. до н. э."
-      },
-      {
-       "en": "On this reading the book was completed during that persecution, around 165 BC, and expected God’s kingdom to follow it.",
-       "ru": "В этом толковании книга была завершена во время тех гонений, около 165 г. до н. э., и ожидала вслед за ними наступления Божьего царства."
+       "en": "The Macedonian phalanx carried the <i>sarissa</i>, a pike 4.5 to 6 m long with an iron head and butt-spike.",
+       "ru": "Македонская фаланга была вооружена <i>сариссой</i> — пикой длиной от 4,5 до 6 м с железными наконечником и подтоком."
       }
      ],
-     "parallels": [
-      {
-       "ref": "DAN 7:7-8",
-       "text": {
-        "en": "A fourth beast, ten horns and a little horn",
-        "ru": "Четвёртый зверь, десять рогов и малый рог"
-       }
-      },
-      {
-       "ref": "DAN 8:21",
-       "text": {
-        "en": "“the king of Grecia”",
-        "ru": "«царь Греции»"
-       }
-      },
-      {
-       "ref": "DAN 11:31",
-       "text": {
-        "en": "The desecration of the temple",
-        "ru": "Осквернение святилища"
-       }
-      }
+     "differ": {
+      "en": "<p>Against this reading, chapter 7’s third beast has four heads and four wings (<a data-ref=\"DAN 7:6\">7:6</a>), which most naturally recalls the four kingdoms that followed Alexander (<a data-ref=\"DAN 8:8\">8:8</a>, <a data-ref=\"DAN 8:22\">22</a>). That would make Greece the third kingdom and leave the fourth for Rome.</p><p>The ending is also a problem. The stone’s kingdom is set up “in the days of those kings” (<a data-ref=\"DAN 2:44\">2:44</a>), yet no lasting kingdom followed the fall of the Greek dynasties.</p>",
+      "ru": "<p>Против этого толкования говорит то, что у третьего зверя из 7-й главы четыре головы и четыре крыла (<a data-ref=\"DAN 7:6\">7:6</a>), а это естественнее всего напоминает о четырёх царствах, возникших после Александра (<a data-ref=\"DAN 8:8\">8:8</a>, <a data-ref=\"DAN 8:22\">22</a>). Тогда Греция оказывается третьим царством, а четвёртое остаётся за Римом.</p><p>Трудность представляет и развязка. Царство камня воздвигается «во дни тех царств» (<a data-ref=\"DAN 2:44\">2:44</a>), однако после падения греческих династий никакого прочного царства не возникло.</p>"
+     },
+     "evidence": [
+      "diary323",
+      "dynastic",
+      "porphyry"
      ],
      "regions": [
       "alexander"
@@ -578,62 +890,117 @@
   },
   {
    "id": "feet",
-   "metal": "clay",
+   "metal": "mix",
    "title": {
     "en": "Feet of iron and clay",
     "ru": "Ноги из железа и глины"
    },
-   "material": {
-    "en": "Iron mixed with clay",
-    "ru": "Железо, смешанное с глиной"
+   "short": {
+    "en": "Feet",
+    "ru": "Ноги"
+   },
+   "label": {
+    "en": "Feet · iron, clay",
+    "ru": "Ноги · железо, глина"
    },
    "refs": {
-    "text": "DAN 2:33",
-    "meaning": "DAN 2:41-43"
+    "en": "Daniel 2:33, 41–43",
+    "ru": "Дан. 2:33, 41–43"
    },
+   "verses": [
+    "DAN 2:33",
+    "DAN 2:41-43"
+   ],
    "kingdoms": {
     "traditional": {
      "name": {
       "en": "The divided kingdom",
       "ru": "Разделённое царство"
      },
-     "dates": {
-      "en": "From AD 395 to the end of the age",
-      "ru": "С 395 г. н. э. до конца времён"
+     "rail": {
+      "en": "Rome divided",
+      "ru": "Разделённый Рим"
      },
+     "full": {
+      "en": "Rome divided, and what followed",
+      "ru": "Разделённый Рим и то, что за ним последовало"
+     },
+     "dates": {
+      "en": "AD 395 onward",
+      "ru": "С 395 г. н. э."
+     },
+     "agree": false,
+     "summary": {
+      "en": "<p>The feet are not a fifth kingdom. Verse 41 calls them the fourth kingdom “divided”, now partly strong and partly brittle. On the Roman sequence this is Rome’s later history: the permanent division into West and East in AD 395, the end of the western line of emperors in 476, and successor peoples who allied and intermarried without ever fusing into one empire again.</p>",
+      "ru": "<p>Ноги — это не пятое царство. Стих 41 называет их тем же четвёртым царством, но «разделённым», теперь частью крепким, частью хрупким. В римской последовательности это поздняя история Рима: окончательное разделение на Запад и Восток в 395 г. н. э., пресечение линии западных императоров в 476 г. и народы-преемники, которые заключали союзы и браки, но так и не слились снова в одну империю.</p>"
+     },
+     "stats": [
+      [
+       {
+        "en": "Division",
+        "ru": "Разделение"
+       },
+       {
+        "en": "AD 395, between the two sons of Theodosius I",
+        "ru": "395 г. н. э., между двумя сыновьями Феодосия I"
+       }
+      ],
+      [
+       {
+        "en": "West ends",
+        "ru": "Конец на Западе"
+       },
+       {
+        "en": "AD 476, when Odoacer deposes Romulus Augustulus",
+        "ru": "476 г. н. э., когда Одоакр низложил Ромула Августула"
+       }
+      ],
+      [
+       {
+        "en": "East ends",
+        "ru": "Конец на Востоке"
+       },
+       {
+        "en": "1453, when Constantinople falls to Mehmed II",
+        "ru": "1453 г., когда Константинополь взял Мехмед II"
+       }
+      ],
+      [
+       {
+        "en": "Toes",
+        "ru": "Пальцы ног"
+       },
+       {
+        "en": "The chapter gives no number",
+        "ru": "Глава не называет их числа"
+       }
+      ]
+     ],
      "facts": [
       {
-       "en": "The text stresses division: iron mixed with clay, “partly strong, and partly broken”, that will not hold together.",
-       "ru": "Текст подчёркивает разделение: железо, смешанное с глиной, — царство «частью крепкое, частью хрупкое», которое не будет держаться вместе."
+       "en": "Aramaic <i>chasaph</i>, fired clay or pottery. Verse 41 calls it “potters’ clay”.",
+       "ru": "По-арамейски <i>хасаф</i> — обожжённая глина, керамика. Стих 41 называет её «глиной горшечной»."
       },
       {
-       "en": "In AD 395 the empire was divided for good between East and West; the West fell in 476, the East in 1453, and the nations of Europe grew from its pieces.",
-       "ru": "В 395 г. н. э. империя окончательно разделилась на Западную и Восточную; Запад пал в 476 г., Восток — в 1453 г., а народы Европы выросли на её обломках."
+       "en": "Fired clay is light (about 2 g/cm³), hard and brittle. It cannot be alloyed, welded or forged to iron.",
+       "ru": "Обожжённая глина лёгкая (около 2 г/см³), твёрдая и хрупкая. Её нельзя ни сплавить, ни сварить, ни сковать с железом."
       },
       {
-       "en": "Many readers link the ten toes with the ten horns of Daniel 7 and the ten kings of Revelation 17, and expect a last form of this kingdom before the stone strikes.",
-       "ru": "Многие связывают десять пальцев ног с десятью рогами из 7-й главы и десятью царями из Откровения 17 и ожидают последнего вида этого царства перед ударом камня."
+       "en": "The statue is top-heavy. Its densest metal is at the top and its weakest material carries the load.",
+       "ru": "Верх истукана тяжелее низа. Самый плотный металл у него наверху, а вся тяжесть ложится на самый слабый материал."
       },
       {
-       "en": "Others see in iron and clay the long mixture of strong and weak powers that followed Rome, never again united into one empire.",
-       "ru": "Другие видят в железе и глине долгое смешение сильных и слабых держав, пришедших на смену Риму и уже никогда не объединившихся в одну империю."
+       "en": "“Partly broken” (<a data-ref=\"DAN 2:42\">2:42</a>) translates a word that means brittle or fragile.",
+       "ru": "В выражении «частью хрупкое» (<a data-ref=\"DAN 2:42\">2:42</a>) стоит слово, означающее «ломкий, бьющийся»."
       }
      ],
-     "parallels": [
-      {
-       "ref": "DAN 7:24",
-       "text": {
-        "en": "Ten kings, and another after them",
-        "ru": "Десять царей и ещё один после них"
-       }
-      },
-      {
-       "ref": "REV 17:12",
-       "text": {
-        "en": "Ten kings who reign for one hour",
-        "ru": "Десять царей, царствующих один час"
-       }
-      }
+     "differ": {
+      "en": "<p>Three readings compete among those who agree on Rome.</p><ul><li><b>Historicist.</b> The mixed feet are the nations of Europe since 476, which on this reading neither royal marriages nor conquerors from Charlemagne to Napoleon managed to reunite.</li><li><b>Futurist.</b> The feet are a final confederation still to come, with ten kings supplied from the ten horns of <a data-ref=\"DAN 7:24\">7:24</a>.</li><li><b>Preterist.</b> The feet are first-century Rome and its client kings, struck when Christ founded his kingdom.</li></ul><p>The chapter itself never counts the toes.</p>",
+      "ru": "<p>Среди тех, кто согласен, что речь идёт о Риме, соперничают три толкования.</p><ul><li><b>Историцистское.</b> Смешанные ноги — это народы Европы после 476 г., которых, согласно этому толкованию, не смогли вновь объединить ни династические браки, ни завоеватели от Карла Великого до Наполеона.</li><li><b>Футуристское.</b> Ноги — это последний союз государств, который ещё только возникнет; десять царей для него берут из десяти рогов в <a data-ref=\"DAN 7:24\">7:24</a>.</li><li><b>Претеристское.</b> Ноги — это Рим I в. и зависимые от него цари, сокрушённые, когда Христос основал своё царство.</li></ul><p>Сама глава пальцы ног нигде не считает.</p>"
+     },
+     "evidence": [
+      "hippolytus",
+      "titus"
      ],
      "regions": [
       "rome-west",
@@ -649,46 +1016,94 @@
     },
     "scholarly": {
      "name": {
-      "en": "The Ptolemies and Seleucids",
+      "en": "The divided kingdom",
+      "ru": "Разделённое царство"
+     },
+     "rail": {
+      "en": "Greece divided",
+      "ru": "Разделённая Греция"
+     },
+     "full": {
+      "en": "Ptolemies and Seleucids",
       "ru": "Птолемеи и Селевкиды"
      },
      "dates": {
-      "en": "301–63 BC",
-      "ru": "301–63 гг. до н. э."
+      "en": "301–164 BC",
+      "ru": "301–164 гг. до н. э."
      },
+     "agree": false,
+     "summary": {
+      "en": "<p>On the Greek sequence the feet are Alexander’s empire after its partition, above all the two dynasties that fought over Judea: the Ptolemies of Egypt and the Seleucids of Syria.</p><p>Verse 43 says the parts will mix “with the seed of men” and not hold together. This is read as their marriage alliances, which chapter 11 also describes. Berenice, daughter of Ptolemy II, married Antiochus II about 252 BC (<a data-ref=\"DAN 11:6\">11:6</a>). Cleopatra I, daughter of Antiochus III, married Ptolemy V in 194/193 BC (<a data-ref=\"DAN 11:17\">11:17</a>). Neither marriage united the two houses.</p>",
+      "ru": "<p>В греческой последовательности ноги — это держава Александра после её раздела, прежде всего две династии, боровшиеся за Иудею: Птолемеи в Египте и Селевкиды в Сирии.</p><p>Стих 43 говорит, что части «смешаются через семя человеческое», но не сольются одна с другой. Это понимают как их брачные союзы, о которых говорится и в 11-й главе. Береника, дочь Птолемея II, вышла замуж за Антиоха II ок. 252 г. до н. э. (<a data-ref=\"DAN 11:6\">11:6</a>). Клеопатра I, дочь Антиоха III, вышла замуж за Птолемея V в 194/193 г. до н. э. (<a data-ref=\"DAN 11:17\">11:17</a>). Ни один из этих браков не объединил два дома.</p>"
+     },
+     "stats": [
+      [
+       {
+        "en": "Partition",
+        "ru": "Раздел"
+       },
+       {
+        "en": "Ipsus, 301 BC",
+        "ru": "Ипс, 301 г. до н. э."
+       }
+      ],
+      [
+       {
+        "en": "Ptolemies",
+        "ru": "Птолемеи"
+       },
+       {
+        "en": "305–30 BC, capital Alexandria",
+        "ru": "305–30 гг. до н. э., столица — Александрия"
+       }
+      ],
+      [
+       {
+        "en": "Seleucids",
+        "ru": "Селевкиды"
+       },
+       {
+        "en": "312–63 BC, capitals Seleucia and Antioch",
+        "ru": "312–63 гг. до н. э., столицы — Селевкия и Антиохия"
+       }
+      ],
+      [
+       {
+        "en": "Judea",
+        "ru": "Иудея"
+       },
+       {
+        "en": "Ptolemaic until the battle of Paneion in 200 BC, then Seleucid",
+        "ru": "Под властью Птолемеев до битвы при Панионе в 200 г. до н. э., затем — Селевкидов"
+       }
+      ]
+     ],
      "facts": [
       {
-       "en": "After the battle of Ipsus in 301 BC Alexander’s empire broke apart; the strongest pieces were the Ptolemies in Egypt and the Seleucids in Syria and the East.",
-       "ru": "После битвы при Ипсе в 301 г. до н. э. держава Александра распалась; сильнейшими её частями стали Птолемеи в Египте и Селевкиды в Сирии и на Востоке."
+       "en": "Aramaic <i>chasaph</i>, fired clay or pottery. Verse 41 calls it “potters’ clay”.",
+       "ru": "По-арамейски <i>хасаф</i> — обожжённая глина, керамика. Стих 41 называет её «глиной горшечной»."
       },
       {
-       "en": "“They shall mingle themselves with the seed of men” recalls their royal marriages: Antiochus II married Berenice, daughter of Ptolemy II (about 252 BC), and Cleopatra I, daughter of Antiochus III, married Ptolemy V (193 BC). Neither alliance held.",
-       "ru": "«Смешаются через семя человеческое» напоминает о царских браках: Антиох II женился на Беренике, дочери Птолемея II (около 252 г. до н. э.), а Клеопатра I, дочь Антиоха III, вышла за Птолемея V (193 г. до н. э.). Ни один союз не устоял."
+       "en": "Fired clay is light (about 2 g/cm³), hard and brittle. It cannot be alloyed, welded or forged to iron.",
+       "ru": "Обожжённая глина лёгкая (около 2 г/см³), твёрдая и хрупкая. Её нельзя ни сплавить, ни сварить, ни сковать с железом."
       },
       {
-       "en": "Judea passed from Ptolemaic to Seleucid rule after the battle of Panium in 200 BC.",
-       "ru": "Иудея перешла от Птолемеев к Селевкидам после битвы при Панионе в 200 г. до н. э."
+       "en": "The statue is top-heavy. Its densest metal is at the top and its weakest material carries the load.",
+       "ru": "Верх истукана тяжелее низа. Самый плотный металл у него наверху, а вся тяжесть ложится на самый слабый материал."
       },
       {
-       "en": "On this reading the stone was expected soon after the death of Antiochus IV in 164 BC.",
-       "ru": "В этом толковании удар камня ожидался вскоре после смерти Антиоха IV в 164 г. до н. э."
+       "en": "“Partly broken” (<a data-ref=\"DAN 2:42\">2:42</a>) translates a word that means brittle or fragile.",
+       "ru": "В выражении «частью хрупкое» (<a data-ref=\"DAN 2:42\">2:42</a>) стоит слово, означающее «ломкий, бьющийся»."
       }
      ],
-     "parallels": [
-      {
-       "ref": "DAN 11:6",
-       "text": {
-        "en": "The daughter of the king of the south",
-        "ru": "Дочь царя южного"
-       }
-      },
-      {
-       "ref": "DAN 11:17",
-       "text": {
-        "en": "“the daughter of women”",
-        "ru": "«дочь жён»"
-       }
-      }
+     "differ": {
+      "en": "<p>This reading explains verse 43 from events the book itself narrates, which is its main strength.</p><p>Its difficulty is the ending. The stone destroys the statue and fills the earth, but the Maccabean victory of 164 BC produced a small Judean state that Rome absorbed a century later. Some scholars conclude that the author expected more than history delivered. Others hold that the stone describes a kingdom of a different kind.</p>",
+      "ru": "<p>Это толкование объясняет стих 43 событиями, о которых рассказывает сама книга, и в этом его главная сила.</p><p>Его трудность — развязка. Камень разрушает истукан и наполняет землю, но победа Маккавеев в 164 г. до н. э. привела к появлению небольшого иудейского государства, которое через столетие поглотил Рим. Одни учёные делают вывод, что автор ожидал большего, чем дала история. Другие считают, что камень описывает царство иного рода.</p>"
+     },
+     "evidence": [
+      "dynastic",
+      "porphyry",
+      "qumran"
      ],
      "regions": [
       "ptolemies",
@@ -710,74 +1125,254 @@
    "id": "stone",
    "metal": "stone",
    "title": {
+    "en": "The stone cut without hands",
+    "ru": "Камень, оторвавшийся без содействия рук"
+   },
+   "short": {
     "en": "The stone",
     "ru": "Камень"
    },
-   "material": {
-    "en": "A stone cut out without hands",
-    "ru": "Камень, оторвавшийся без содействия рук"
+   "label": {
+    "en": "The stone",
+    "ru": "Камень"
    },
    "refs": {
-    "text": "DAN 2:34-35",
-    "meaning": "DAN 2:44-45"
+    "en": "Daniel 2:34–35, 44–45",
+    "ru": "Дан. 2:34–35, 44–45"
    },
-   "kingdom": {
-    "name": {
-     "en": "The kingdom of God",
-     "ru": "Царство Божье"
-    },
-    "dates": {
-     "en": "“A kingdom, which shall never be destroyed”",
-     "ru": "«Царство, которое вовеки не разрушится»"
-    },
-    "facts": [
-     {
-      "en": "The stone is “cut out without hands”: not made by any human power.",
-      "ru": "Камень оторвался «без содействия рук» — не человеческой силой."
+   "verses": [
+    "DAN 2:34-35",
+    "DAN 2:44"
+   ],
+   "kingdoms": {
+    "traditional": {
+     "name": {
+      "en": "The kingdom of God",
+      "ru": "Царство Божие"
      },
-     {
-      "en": "It strikes the feet, and the whole statue, gold, silver, bronze, iron and clay together, becomes like chaff that the wind carries away.",
-      "ru": "Он ударяет в ноги, и весь истукан — золото, серебро, медь, железо и глина вместе — становится как прах, который уносит ветер."
+     "rail": {
+      "en": "Kingdom of God",
+      "ru": "Царство Божие"
      },
-     {
-      "en": "The stone grows into a great mountain that fills the whole earth: a kingdom that will replace all the others and stand for ever.",
-      "ru": "Камень вырастает в великую гору и наполняет всю землю: это царство, которое сменит все прочие и будет стоять вечно."
+     "full": {
+      "en": "A kingdom that will never be destroyed",
+      "ru": "Царство, которое вовеки не разрушится"
      },
-     {
-      "en": "Daniel 7 tells the same story: the beasts lose their power, and “one like the Son of man” receives an everlasting kingdom.",
-      "ru": "7-я глава рассказывает о том же: звери лишаются власти, а «подобный Сыну человеческому» получает вечное царство."
+     "dates": {
+      "en": "“In the days of those kings”",
+      "ru": "«Во дни тех царств»"
      },
-     {
-      "en": "Christian readers see the kingdom of Christ, begun at his first coming and completed at his return; Jesus applies the image of a crushing stone to himself. Jewish tradition reads it of the messianic age.",
-      "ru": "Христиане видят здесь Царство Христово, начатое при Его первом пришествии и завершаемое при втором; Иисус применяет к Себе образ сокрушающего камня. Иудейское предание относит его к мессианскому веку."
+     "agree": true,
+     "summary": {
+      "en": "<p>The stone is not part of the statue. It is cut “without hands”, strikes the feet, and the whole image turns to chaff, every metal at once, and blows away. Then the stone becomes a mountain that fills the earth.</p><p>Daniel’s explanation is the plainest sentence in the chapter: the God of heaven will set up a kingdom that will never be destroyed (<a data-ref=\"DAN 2:44\">2:44</a>). Every other kingdom in the dream is replaced by a successor. This one has none.</p>",
+      "ru": "<p>Камень не часть истукана. Он отрывается «без содействия рук», ударяет в ноги, и весь истукан, все металлы разом, становится как прах и уносится ветром. Затем камень становится горой, которая наполняет всю землю.</p><p>Объяснение Даниила — самая ясная фраза в главе: Бог небесный воздвигнет царство, которое вовеки не разрушится (<a data-ref=\"DAN 2:44\">2:44</a>). Каждое из остальных царств сна сменяется преемником. У этого преемника нет.</p>"
+     },
+     "stats": [
+      [
+       {
+        "en": "Origin",
+        "ru": "Происхождение"
+       },
+       {
+        "en": "“Cut out of the mountain without hands” (<a data-ref=\"DAN 2:45\">2:45</a>)",
+        "ru": "«Отторгнут был от горы не руками» (<a data-ref=\"DAN 2:45\">2:45</a>)"
+       }
+      ],
+      [
+       {
+        "en": "Strikes",
+        "ru": "Куда ударяет"
+       },
+       {
+        "en": "The feet, the statue’s weakest point",
+        "ru": "В ноги, самое слабое место истукана"
+       }
+      ],
+      [
+       {
+        "en": "Result",
+        "ru": "Итог"
+       },
+       {
+        "en": "“No place was found for them” (<a data-ref=\"DAN 2:35\">2:35</a>)",
+        "ru": "«И следа не осталось от них» (<a data-ref=\"DAN 2:35\">2:35</a>)"
+       }
+      ],
+      [
+       {
+        "en": "Extent",
+        "ru": "Пределы"
+       },
+       {
+        "en": "“Filled the whole earth” (<a data-ref=\"DAN 2:35\">2:35</a>)",
+        "ru": "«Наполнил всю землю» (<a data-ref=\"DAN 2:35\">2:35</a>)"
+       }
+      ]
+     ],
+     "facts": [
+      {
+       "en": "Aramaic <i>even</i>, “stone”. “Without hands” means without human agency.",
+       "ru": "По-арамейски <i>эвен</i> — «камень». Слова «без содействия рук» означают: без участия человека."
+      },
+      {
+       "en": "Israel’s altars were to be built of uncut stone that no tool had touched (<a data-ref=\"EXO 20:25\">Exodus 20:25</a>).",
+       "ru": "Жертвенники Израиля полагалось строить из нетёсаных камней, которых не касалось орудие (<a data-ref=\"EXO 20:25\">Исх. 20:25</a>)."
+      },
+      {
+       "en": "In Mesopotamia “Great Mountain” was a title of the god Enlil, and his temple at Nippur was the E-kur, “Mountain House”. A Babylonian court would have understood the claim being made.",
+       "ru": "В Месопотамии «Великая гора» была титулом бога Энлиля, а его храм в Ниппуре назывался Экур — «Дом-гора». При вавилонском дворе поняли бы смысл такого заявления."
+      },
+      {
+       "en": "Related texts: the rejected stone of <a data-ref=\"PSA 118:22\">Psalm 118:22</a>, the cornerstone of <a data-ref=\"ISA 28:16\">Isaiah 28:16</a>, and the mountain of <a data-ref=\"ISA 2:2\">Isaiah 2:2</a>.",
+       "ru": "Параллельные места: отвергнутый камень в <a data-ref=\"PSA 118:22\">Пс. 118:22</a>, краеугольный камень в <a data-ref=\"ISA 28:16\">Ис. 28:16</a> и гора в <a data-ref=\"ISA 2:2\">Ис. 2:2</a>."
+      },
+      {
+       "en": "The Fifth Monarchy Men of 1650s England took their name from this fifth kingdom.",
+       "ru": "Английские «люди Пятой монархии» 1650-х годов взяли своё название от этого пятого царства."
+      }
+     ],
+     "differ": {
+      "en": "<p>Jewish interpreters have read the stone as the kingdom of the Messiah, still to come. Christian interpreters identify it with Christ and divide over timing. Some place it at his first coming, with the kingdom growing as the stone grows into a mountain. Others place it at his return, matching the statue’s sudden end.</p><p>In <a data-ref=\"LUK 20:18\">Luke 20:18</a> Jesus speaks of a stone that crushes whomever it falls on, an echo of this passage. Josephus, writing under Roman rule about AD 93, retold the dream and then declined to explain the stone (<cite>Antiquities</cite> 10.210).</p>",
+      "ru": "<p>Иудейские толкователи видели в камне царство Мессии, которое ещё грядёт. Христианские толкователи отождествляют его со Христом, но расходятся в вопросе о времени. Одни относят его к первому пришествию: царство растёт, как камень вырастает в гору. Другие — ко второму пришествию, что соответствует внезапному концу истукана.</p><p>В <a data-ref=\"LUK 20:18\">Лк. 20:18</a> Иисус говорит о камне, который раздавит того, на кого упадёт, — это отзвук данного места. Иосиф Флавий, писавший под римской властью ок. 93 г. н. э., пересказал сон, но объяснять камень не стал (<cite>Иудейские древности</cite> 10.210).</p>"
+     },
+     "evidence": [
+      "josephus",
+      "ezra4",
+      "qumran"
+     ],
+     "regions": [
+      "rome",
+      "alexander",
+      "persia",
+      "babylon"
+     ],
+     "places": [],
+     "landmarks": [],
+     "regionMetals": [
+      "iron",
+      "bronze",
+      "silver",
+      "gold"
+     ],
+     "mapNote": {
+      "en": "Each empire at its greatest extent. The stone’s kingdom is given no border: it “filled the whole earth” (<a data-ref=\"DAN 2:35\">2:35</a>).",
+      "ru": "Каждая империя показана в своих наибольших границах. Для царства камня границы не обозначены: камень «наполнил всю землю» (<a data-ref=\"DAN 2:35\">2:35</a>)."
      }
-    ],
-    "parallels": [
-     {
-      "ref": "DAN 7:13-14",
-      "text": {
-       "en": "One like the Son of man receives the kingdom",
-       "ru": "Подобный Сыну человеческому получает царство"
-      }
+    },
+    "scholarly": {
+     "name": {
+      "en": "The kingdom of God",
+      "ru": "Царство Божие"
      },
-     {
-      "ref": "DAN 7:27",
-      "text": {
-       "en": "The kingdom given to the saints",
-       "ru": "Царство отдано святым"
-      }
+     "rail": {
+      "en": "Kingdom of God",
+      "ru": "Царство Божие"
      },
-     {
-      "ref": "LUK 20:17-18",
-      "text": {
-       "en": "Jesus and the stone",
-       "ru": "Иисус о камне"
+     "full": {
+      "en": "A kingdom that will never be destroyed",
+      "ru": "Царство, которое вовеки не разрушится"
+     },
+     "dates": {
+      "en": "“In the days of those kings”",
+      "ru": "«Во дни тех царств»"
+     },
+     "agree": true,
+     "summary": {
+      "en": "<p>The stone is not part of the statue. It is cut “without hands”, strikes the feet, and the whole image turns to chaff, every metal at once, and blows away. Then the stone becomes a mountain that fills the earth.</p><p>Daniel’s explanation is the plainest sentence in the chapter: the God of heaven will set up a kingdom that will never be destroyed (<a data-ref=\"DAN 2:44\">2:44</a>). Every other kingdom in the dream is replaced by a successor. This one has none.</p>",
+      "ru": "<p>Камень не часть истукана. Он отрывается «без содействия рук», ударяет в ноги, и весь истукан, все металлы разом, становится как прах и уносится ветром. Затем камень становится горой, которая наполняет всю землю.</p><p>Объяснение Даниила — самая ясная фраза в главе: Бог небесный воздвигнет царство, которое вовеки не разрушится (<a data-ref=\"DAN 2:44\">2:44</a>). Каждое из остальных царств сна сменяется преемником. У этого преемника нет.</p>"
+     },
+     "stats": [
+      [
+       {
+        "en": "Origin",
+        "ru": "Происхождение"
+       },
+       {
+        "en": "“Cut out of the mountain without hands” (<a data-ref=\"DAN 2:45\">2:45</a>)",
+        "ru": "«Отторгнут был от горы не руками» (<a data-ref=\"DAN 2:45\">2:45</a>)"
+       }
+      ],
+      [
+       {
+        "en": "Strikes",
+        "ru": "Куда ударяет"
+       },
+       {
+        "en": "The feet, the statue’s weakest point",
+        "ru": "В ноги, самое слабое место истукана"
+       }
+      ],
+      [
+       {
+        "en": "Result",
+        "ru": "Итог"
+       },
+       {
+        "en": "“No place was found for them” (<a data-ref=\"DAN 2:35\">2:35</a>)",
+        "ru": "«И следа не осталось от них» (<a data-ref=\"DAN 2:35\">2:35</a>)"
+       }
+      ],
+      [
+       {
+        "en": "Extent",
+        "ru": "Пределы"
+       },
+       {
+        "en": "“Filled the whole earth” (<a data-ref=\"DAN 2:35\">2:35</a>)",
+        "ru": "«Наполнил всю землю» (<a data-ref=\"DAN 2:35\">2:35</a>)"
+       }
+      ]
+     ],
+     "facts": [
+      {
+       "en": "Aramaic <i>even</i>, “stone”. “Without hands” means without human agency.",
+       "ru": "По-арамейски <i>эвен</i> — «камень». Слова «без содействия рук» означают: без участия человека."
+      },
+      {
+       "en": "Israel’s altars were to be built of uncut stone that no tool had touched (<a data-ref=\"EXO 20:25\">Exodus 20:25</a>).",
+       "ru": "Жертвенники Израиля полагалось строить из нетёсаных камней, которых не касалось орудие (<a data-ref=\"EXO 20:25\">Исх. 20:25</a>)."
+      },
+      {
+       "en": "In Mesopotamia “Great Mountain” was a title of the god Enlil, and his temple at Nippur was the E-kur, “Mountain House”. A Babylonian court would have understood the claim being made.",
+       "ru": "В Месопотамии «Великая гора» была титулом бога Энлиля, а его храм в Ниппуре назывался Экур — «Дом-гора». При вавилонском дворе поняли бы смысл такого заявления."
+      },
+      {
+       "en": "Related texts: the rejected stone of <a data-ref=\"PSA 118:22\">Psalm 118:22</a>, the cornerstone of <a data-ref=\"ISA 28:16\">Isaiah 28:16</a>, and the mountain of <a data-ref=\"ISA 2:2\">Isaiah 2:2</a>.",
+       "ru": "Параллельные места: отвергнутый камень в <a data-ref=\"PSA 118:22\">Пс. 118:22</a>, краеугольный камень в <a data-ref=\"ISA 28:16\">Ис. 28:16</a> и гора в <a data-ref=\"ISA 2:2\">Ис. 2:2</a>."
+      },
+      {
+       "en": "The Fifth Monarchy Men of 1650s England took their name from this fifth kingdom.",
+       "ru": "Английские «люди Пятой монархии» 1650-х годов взяли своё название от этого пятого царства."
       }
+     ],
+     "differ": {
+      "en": "<p>On the Greek sequence the stone is the kingdom that faithful Jews expected at the end of the Hellenistic persecution. Readers then differ on what to make of it: an expectation that history did not meet, a hope that later generations reapplied to Rome, or a kingdom that was never meant to be political.</p><p>Josephus, writing under Roman rule about AD 93, retold the dream and then declined to explain the stone (<cite>Antiquities</cite> 10.210). By his day the fourth kingdom was read as Rome.</p>",
+      "ru": "<p>В греческой последовательности камень — это царство, которого верные иудеи ожидали в конце эллинистических гонений. Дальше читатели расходятся в оценке: это ожидание, которое история не оправдала, надежда, которую позднейшие поколения переосмыслили применительно к Риму, или царство, которое никогда и не мыслилось как политическое.</p><p>Иосиф Флавий, писавший под римской властью ок. 93 г. н. э., пересказал сон, но объяснять камень не стал (<cite>Иудейские древности</cite> 10.210). В его время четвёртое царство уже понимали как Рим.</p>"
+     },
+     "evidence": [
+      "josephus",
+      "ezra4",
+      "qumran"
+     ],
+     "regions": [
+      "alexander",
+      "persia",
+      "media",
+      "babylon"
+     ],
+     "places": [],
+     "landmarks": [],
+     "regionMetals": [
+      "iron",
+      "bronze",
+      "silver",
+      "gold"
+     ],
+     "mapNote": {
+      "en": "Each kingdom at its greatest extent. The stone’s kingdom is given no border: it “filled the whole earth” (<a data-ref=\"DAN 2:35\">2:35</a>).",
+      "ru": "Каждое царство показано в своих наибольших границах. Для царства камня границы не обозначены: камень «наполнил всю землю» (<a data-ref=\"DAN 2:35\">2:35</a>)."
      }
-    ],
-    "regions": [],
-    "places": [],
-    "landmarks": []
+    }
    }
   }
  ],
@@ -799,9 +1394,9 @@
     [
      34.2,
      31.3,
-     35.0,
+     35,
      29.6,
-     37.0,
+     37,
      28.3,
      38.5,
      27.3,
@@ -819,7 +1414,7 @@
      32.4,
      46.2,
      34.3,
-     45.0,
+     45,
      35.9,
      43.6,
      37.1,
@@ -831,12 +1426,12 @@
      36.9,
      35.6,
      36.4,
-     35.0,
-     36.0,
+     35,
+     36,
      34.6,
      34.6,
-     34.0,
-     33.0,
+     34,
+     33,
      33.6,
      31.6
     ]
@@ -852,7 +1447,7 @@
     "ru": "ок. 585 г. до н. э."
    },
    "label": [
-    49.0,
+    49,
     35.6
    ],
    "rings": [
@@ -870,42 +1465,42 @@
      50.5,
      38.5,
      53.5,
-     37.0,
+     37,
      56.5,
      37.5,
-     60.0,
+     60,
      36.5,
-     61.0,
-     34.0,
+     61,
+     34,
      60.5,
      31.5,
-     57.0,
+     57,
      30.5,
-     53.0,
+     53,
      30.8,
      50.5,
      31.5,
      48.6,
-     33.0,
+     33,
      46.5,
      34.8,
      44.5,
      35.4,
      42.6,
      36.5,
-     41.0,
+     41,
      37.4,
      39.5,
      38.6,
      37.5,
      38.8,
-     36.0,
+     36,
      39.2,
      34.8,
      39.8,
      34.3,
      40.8,
-     35.0,
+     35,
      41.6
     ]
    ]
@@ -920,22 +1515,22 @@
     "ru": "ок. 500 г. до н. э."
    },
    "label": [
-    54.0,
-    32.0
+    54,
+    32
    ],
    "rings": [
     [
-     20.0,
-     30.0,
-     20.0,
+     20,
+     30,
+     20,
      33.3,
-     27.0,
+     27,
      33.3,
      32.2,
-     34.0,
+     34,
      32.2,
      35.9,
-     28.0,
+     28,
      36.1,
      26.2,
      37.4,
@@ -943,7 +1538,7 @@
      39.6,
      25.5,
      40.5,
-     24.0,
+     24,
      40.7,
      23.9,
      41.6,
@@ -953,9 +1548,9 @@
      42.4,
      29.3,
      41.5,
-     33.0,
+     33,
      42.2,
-     38.0,
+     38,
      41.4,
      41.6,
      41.6,
@@ -967,18 +1562,18 @@
      40.8,
      50.5,
      38.8,
-     53.0,
+     53,
      40.5,
      55.5,
      41.8,
      59.5,
      43.3,
-     64.0,
-     43.0,
+     64,
+     43,
      68.5,
      42.8,
-     71.0,
-     41.0,
+     71,
+     41,
      71.5,
      38.5,
      72.5,
@@ -986,16 +1581,16 @@
      74.5,
      34.5,
      75.5,
-     32.0,
-     74.0,
+     32,
+     74,
      29.5,
      71.5,
      26.8,
-     69.0,
+     69,
      23.5,
-     65.0,
+     65,
      24.6,
-     61.0,
+     61,
      24.8,
      57.5,
      24.2,
@@ -1008,34 +1603,34 @@
      48.6,
      29.5,
      47.6,
-     29.0,
+     29,
      44.5,
      29.2,
-     40.0,
+     40,
      29.3,
-     37.0,
-     29.0,
-     35.0,
+     37,
+     29,
+     35,
      28.3,
      34.4,
      27.6,
      33.8,
-     27.0,
+     27,
      34.4,
-     25.0,
+     25,
      33.2,
      23.6,
      32.2,
-     23.0,
+     23,
      30.5,
      23.8,
      28.5,
      25.2,
-     26.0,
-     27.0,
+     26,
+     27,
      25.2,
-     29.0,
-     23.0,
+     29,
+     23,
      29.5
     ]
    ]
@@ -1050,52 +1645,52 @@
     "ru": "323 г. до н. э."
    },
    "label": [
-    52.0,
-    32.0
+    52,
+    32
    ],
    "rings": [
     [
-     20.0,
-     30.0,
-     20.0,
+     20,
+     30,
+     20,
      33.3,
-     27.0,
+     27,
      33.3,
      32.2,
-     34.0,
+     34,
      32.2,
      35.9,
-     28.0,
+     28,
      36.1,
      26.5,
      36.3,
      24.5,
-     36.0,
+     36,
      22.8,
      36.2,
      21.3,
      36.6,
      20.6,
-     38.0,
+     38,
      19.6,
      39.6,
      19.4,
      40.4,
-     20.0,
+     20,
      41.6,
      21.5,
      42.3,
      23.5,
      42.6,
-     26.0,
+     26,
      42.8,
-     28.0,
+     28,
      42.6,
      29.3,
      41.5,
-     33.0,
+     33,
      42.2,
-     38.0,
+     38,
      41.4,
      41.6,
      41.6,
@@ -1107,18 +1702,18 @@
      40.8,
      50.5,
      38.8,
-     53.0,
+     53,
      40.5,
      55.5,
      41.8,
      59.5,
      43.3,
-     64.0,
-     43.0,
+     64,
+     43,
      68.5,
      42.8,
-     71.0,
-     41.0,
+     71,
+     41,
      71.5,
      38.5,
      72.5,
@@ -1126,16 +1721,16 @@
      74.5,
      34.5,
      75.5,
-     32.0,
-     74.0,
+     32,
+     74,
      29.5,
      71.5,
      26.8,
-     69.0,
+     69,
      23.5,
-     65.0,
+     65,
      24.6,
-     61.0,
+     61,
      24.8,
      57.5,
      24.2,
@@ -1148,34 +1743,34 @@
      48.6,
      29.5,
      47.6,
-     29.0,
+     29,
      44.5,
      29.2,
-     40.0,
+     40,
      29.3,
-     37.0,
-     29.0,
-     35.0,
+     37,
+     29,
+     35,
      28.3,
      34.4,
      27.6,
      33.8,
-     27.0,
+     27,
      34.4,
-     25.0,
+     25,
      33.2,
      23.6,
      32.2,
-     23.0,
+     23,
      30.5,
      23.8,
      28.5,
      25.2,
-     26.0,
-     27.0,
+     26,
+     27,
      25.2,
-     29.0,
-     23.0,
+     29,
+     23,
      29.5
     ]
    ]
@@ -1190,25 +1785,25 @@
     "ru": "117 г. н. э."
    },
    "label": [
-    14.0,
-    44.0
+    14,
+    44
    ],
    "rings": [
     [
-     -10.0,
-     34.0,
-     -10.0,
-     36.0,
-     -10.0,
-     44.0,
-     -5.0,
+     -10,
+     34,
+     -10,
+     36,
+     -10,
+     44,
+     -5,
      48.5,
-     -6.0,
+     -6,
      49.8,
      -5.4,
      51.6,
-     -5.0,
-     53.0,
+     -5,
+     53,
      -5.2,
      54.6,
      -3.4,
@@ -1216,12 +1811,12 @@
      -1.6,
      55.1,
      0.5,
-     55.0,
+     55,
      2.5,
      52.5,
-     4.0,
+     4,
      51.9,
-     6.0,
+     6,
      51.9,
      6.8,
      51.4,
@@ -1232,7 +1827,7 @@
      9.6,
      49.4,
      10.5,
-     49.0,
+     49,
      11.5,
      48.9,
      12.3,
@@ -1245,33 +1840,33 @@
      48.1,
      18.8,
      47.8,
-     19.0,
+     19,
      45.9,
      20.8,
      46.6,
      22.2,
      47.6,
-     24.0,
+     24,
      47.8,
      25.6,
      46.7,
      25.8,
      45.6,
      26.6,
-     45.0,
+     45,
      27.8,
      44.4,
      28.8,
      45.3,
      29.8,
      45.2,
-     30.0,
-     44.0,
+     30,
+     44,
      29.5,
      42.5,
      30.5,
      41.5,
-     33.0,
+     33,
      42.3,
      37.5,
      41.6,
@@ -1279,46 +1874,46 @@
      41.7,
      43.5,
      41.5,
-     46.0,
+     46,
      41.3,
      47.2,
-     40.0,
-     46.0,
+     40,
+     46,
      38.5,
-     45.0,
+     45,
      36.5,
      46.5,
      34.5,
-     48.0,
+     48,
      31.5,
      48.6,
-     30.0,
-     47.0,
+     30,
+     47,
      29.8,
      45.5,
-     31.0,
+     31,
      43.5,
-     33.0,
-     41.0,
-     34.0,
+     33,
+     41,
+     34,
      39.5,
-     33.0,
-     38.0,
+     33,
+     38,
      31.5,
      37.8,
-     29.0,
+     29,
      37.9,
      26.6,
      36.5,
-     27.0,
-     35.0,
+     27,
+     35,
      28.3,
      34.4,
      27.6,
      33.8,
-     27.0,
+     27,
      34.4,
-     25.0,
+     25,
      33.2,
      23.4,
      32.2,
@@ -1327,33 +1922,33 @@
      23.6,
      28.5,
      25.3,
-     26.0,
+     26,
      27.5,
-     25.0,
+     25,
      29.6,
-     20.0,
-     30.0,
-     16.0,
+     20,
+     30,
+     16,
      30.5,
      13.5,
-     31.0,
-     11.0,
+     31,
+     11,
      31.5,
      9.5,
      32.5,
-     8.0,
+     8,
      34.3,
-     6.0,
+     6,
      34.9,
      3.5,
      35.4,
-     1.0,
+     1,
      35.3,
      -1.5,
      34.9,
      -4.5,
      34.3,
-     -6.0,
+     -6,
      33.8,
      -7.5,
      33.6
@@ -1370,23 +1965,23 @@
     "ru": "395 г. н. э."
    },
    "label": [
-    3.0,
-    45.0
+    3,
+    45
    ],
    "rings": [
     [
-     -10.0,
-     34.0,
-     -10.0,
-     44.0,
-     -5.0,
+     -10,
+     34,
+     -10,
+     44,
+     -5,
      48.5,
-     -6.0,
+     -6,
      49.8,
      -5.4,
      51.6,
-     -5.0,
-     53.0,
+     -5,
+     53,
      -5.2,
      54.6,
      -3.4,
@@ -1394,19 +1989,19 @@
      -1.6,
      55.1,
      0.5,
-     55.0,
+     55,
      2.5,
      52.5,
-     4.0,
+     4,
      51.9,
-     6.0,
+     6,
      51.9,
      6.8,
      51.4,
      7.6,
      50.4,
      8.2,
-     48.0,
+     48,
      9.5,
      47.6,
      10.9,
@@ -1421,41 +2016,41 @@
      48.1,
      18.8,
      47.8,
-     19.0,
+     19,
      45.9,
      19.3,
-     45.0,
+     45,
      19.4,
      43.5,
      19.6,
      41.9,
-     19.0,
-     40.0,
-     19.0,
-     36.0,
+     19,
+     40,
+     19,
+     36,
      18.8,
      30.3,
-     16.0,
+     16,
      30.5,
      13.5,
-     31.0,
-     11.0,
+     31,
+     11,
      31.5,
      9.5,
      32.5,
-     8.0,
+     8,
      34.3,
-     6.0,
+     6,
      34.9,
      3.5,
      35.4,
-     1.0,
+     1,
      35.3,
      -1.5,
      34.9,
      -4.5,
      34.3,
-     -6.0,
+     -6,
      33.8,
      -7.5,
      33.6
@@ -1472,16 +2067,16 @@
     "ru": "395 г. н. э."
    },
    "label": [
-    33.0,
+    33,
     38.8
    ],
    "rings": [
     [
      19.3,
-     45.0,
+     45,
      22.5,
      44.6,
-     25.0,
+     25,
      43.7,
      27.8,
      44.1,
@@ -1489,42 +2084,42 @@
      45.3,
      29.8,
      45.2,
-     30.0,
-     44.0,
+     30,
+     44,
      29.5,
      42.5,
      30.5,
      41.5,
-     33.0,
+     33,
      42.3,
      37.5,
      41.6,
      41.6,
      41.7,
-     43.0,
+     43,
      41.2,
      43.8,
-     40.0,
-     42.0,
+     40,
+     42,
      38.5,
-     41.0,
+     41,
      37.3,
-     40.0,
-     36.0,
+     40,
+     36,
      38.8,
-     35.0,
-     38.0,
-     33.0,
+     35,
+     38,
+     33,
      37.5,
      30.5,
-     35.0,
+     35,
      28.3,
      34.4,
      27.6,
      33.8,
-     27.0,
+     27,
      34.4,
-     25.0,
+     25,
      33.2,
      23.4,
      32.2,
@@ -1533,16 +2128,16 @@
      23.6,
      28.5,
      25.3,
-     26.0,
+     26,
      27.5,
-     25.0,
+     25,
      29.6,
      18.8,
      30.3,
-     19.0,
-     36.0,
-     19.0,
-     40.0,
+     19,
+     36,
+     19,
+     40,
      19.6,
      41.9,
      19.4,
@@ -1561,21 +2156,21 @@
    },
    "label": [
     29.5,
-    27.0
+    27
    ],
    "rings": [
     [
      19.5,
-     30.0,
+     30,
      19.5,
      33.3,
-     25.0,
+     25,
      32.6,
-     29.0,
+     29,
      31.8,
-     32.0,
+     32,
      31.8,
-     34.0,
+     34,
      31.5,
      34.2,
      31.2,
@@ -1584,28 +2179,28 @@
      34.4,
      27.6,
      33.8,
-     27.0,
+     27,
      35.5,
      23.5,
-     33.0,
-     22.0,
-     31.0,
-     22.0,
+     33,
+     22,
+     31,
+     22,
      28.5,
      25.3,
-     26.0,
+     26,
      27.5,
-     25.0,
+     25,
      29.6
     ],
     [
-     32.0,
+     32,
      34.4,
      34.8,
      34.4,
      34.8,
      35.9,
-     32.0,
+     32,
      35.9
     ]
    ]
@@ -1620,8 +2215,8 @@
     "ru": "ок. 200 г. до н. э."
    },
    "label": [
-    44.0,
-    34.0
+    44,
+    34
    ],
    "rings": [
     [
@@ -1631,17 +2226,17 @@
      31.6,
      34.6,
      34.6,
-     35.0,
-     36.0,
-     34.0,
+     35,
+     36,
+     34,
      36.4,
-     32.0,
+     32,
      36.2,
      30.6,
      36.6,
-     30.0,
+     30,
      37.5,
-     28.0,
+     28,
      37.8,
      27.5,
      38.5,
@@ -1653,29 +2248,29 @@
      39.8,
      33.5,
      39.2,
-     35.0,
+     35,
      38.5,
      37.5,
      38.3,
-     40.0,
-     38.0,
+     40,
+     38,
      42.5,
      37.8,
      44.5,
-     37.0,
+     37,
      46.5,
      35.5,
-     48.0,
+     48,
      35.5,
      50.5,
      36.5,
      54.5,
      36.5,
-     55.0,
-     33.0,
-     54.0,
-     30.0,
-     52.0,
+     55,
+     33,
+     54,
+     30,
+     52,
      27.5,
      50.5,
      28.5,
@@ -1683,20 +2278,20 @@
      29.6,
      47.5,
      29.5,
-     45.0,
+     45,
      30.5,
-     42.0,
+     42,
      31.5,
-     39.0,
-     32.0,
+     39,
+     32,
      37.5,
-     30.0,
+     30,
      35.6,
-     31.0,
+     31,
      35.2,
      30.6,
      34.6,
-     30.0
+     30
     ]
    ]
   }
@@ -1799,137 +2394,1446 @@
    }
   }
  },
- "range": [
-  -650,
-  500
- ],
- "eras": {
-  "traditional": [
+ "timeline": {
+  "title": {
+   "en": "Eleven centuries on one line",
+   "ru": "Одиннадцать веков на одной линии"
+  },
+  "intro": {
+   "en": "Each row is a part of the statue, placed by the reading selected above. Switch the reading and the bars move. Select a bar to open that part, or a marker to find its entry in the list.",
+   "ru": "Каждая строка — часть истукана, размещённая согласно выбранному выше толкованию. Смените толкование — и полосы сдвинутся. Выберите полосу, чтобы открыть эту часть, или метку, чтобы найти соответствующую запись в списке."
+  },
+  "range": [
+   -650,
+   500
+  ],
+  "bands": {
+   "traditional": [
+    {
+     "part": "head",
+     "label": {
+      "en": "Babylon",
+      "ru": "Вавилон"
+     },
+     "from": -626,
+     "to": -539
+    },
+    {
+     "part": "chest",
+     "label": {
+      "en": "Medo-Persia",
+      "ru": "Мидо-Персия"
+     },
+     "from": -539,
+     "to": -331
+    },
+    {
+     "part": "belly",
+     "label": {
+      "en": "Greece",
+      "ru": "Греция"
+     },
+     "from": -331,
+     "to": -146,
+     "tail": -30
+    },
+    {
+     "part": "legs",
+     "label": {
+      "en": "Rome",
+      "ru": "Рим"
+     },
+     "from": -168,
+     "to": 395
+    },
+    {
+     "part": "feet",
+     "label": {
+      "en": "Divided",
+      "ru": "Разделённое царство"
+     },
+     "from": 395,
+     "to": 476,
+     "tail": 500
+    },
+    {
+     "part": "stone",
+     "label": {
+      "en": "“the days of those kings”",
+      "ru": "«во дни тех царств»"
+     },
+     "from": -168,
+     "to": 476,
+     "open": true
+    }
+   ],
+   "scholarly": [
+    {
+     "part": "head",
+     "label": {
+      "en": "Babylon",
+      "ru": "Вавилон"
+     },
+     "from": -626,
+     "to": -539
+    },
+    {
+     "part": "chest",
+     "label": {
+      "en": "Media",
+      "ru": "Мидия"
+     },
+     "from": -625,
+     "to": -550
+    },
+    {
+     "part": "belly",
+     "label": {
+      "en": "Persia",
+      "ru": "Персия"
+     },
+     "from": -550,
+     "to": -330
+    },
+    {
+     "part": "legs",
+     "label": {
+      "en": "Greece",
+      "ru": "Греция"
+     },
+     "from": -334,
+     "to": -301
+    },
+    {
+     "part": "feet",
+     "label": {
+      "en": "Divided",
+      "ru": "Разделённое царство"
+     },
+     "from": -301,
+     "to": -164,
+     "tail": -30
+    },
+    {
+     "part": "stone",
+     "label": {
+      "en": "“the days of those kings”",
+      "ru": "«во дни тех царств»"
+     },
+     "from": -301,
+     "to": -164,
+     "open": true
+    }
+   ]
+  },
+  "categories": [
    {
-    "part": "head",
-    "from": -626,
-    "to": -539
+    "id": "all",
+    "label": {
+     "en": "All",
+     "ru": "Все"
+    }
    },
    {
-    "part": "chest",
-    "from": -539,
-    "to": -331
+    "id": "e",
+    "label": {
+     "en": "Empires and wars",
+     "ru": "Империи и войны"
+    }
    },
    {
-    "part": "belly",
-    "from": -331,
-    "to": -63
+    "id": "d",
+    "label": {
+     "en": "Dated in Daniel",
+     "ru": "Даты в Книге Даниила"
+    }
    },
    {
-    "part": "legs",
-    "from": -63,
-    "to": 476
-   },
-   {
-    "part": "feet",
-    "from": 395,
-    "to": 500,
-    "open": true
+    "id": "t",
+    "label": {
+     "en": "Manuscripts and readers",
+     "ru": "Рукописи и толкователи"
+    }
    }
   ],
-  "scholarly": [
+  "events": [
    {
-    "part": "head",
-    "from": -626,
-    "to": -539
+    "year": -626,
+    "cat": "e",
+    "title": {
+     "en": "Nabopolassar founds Babylon’s last dynasty",
+     "ru": "Набопаласар основывает последнюю династию Вавилона"
+    },
+    "text": {
+     "en": "A Chaldean general takes the throne and begins the war that ends Assyria.",
+     "ru": "Халдейский военачальник занимает престол и начинает войну, которая положит конец Ассирии."
+    }
    },
    {
-    "part": "chest",
-    "from": -625,
-    "to": -550
+    "year": -612,
+    "cat": "e",
+    "title": {
+     "en": "Nineveh falls",
+     "ru": "Падение Ниневии"
+    },
+    "text": {
+     "en": "Babylonians and Medes together sack the Assyrian capital.",
+     "ru": "Вавилоняне и мидяне вместе разоряют ассирийскую столицу."
+    },
+    "ref": "NAM 3:7"
    },
    {
-    "part": "belly",
-    "from": -550,
-    "to": -331
+    "year": -605,
+    "cat": "e",
+    "title": {
+     "en": "Carchemish; Nebuchadnezzar becomes king",
+     "ru": "Кархемиш; Навуходоносор становится царём"
+    },
+    "text": {
+     "en": "He defeats Egypt on the Euphrates, then hurries home on his father’s death and takes the throne in September. Daniel 1 places Daniel’s arrival in Babylon here.",
+     "ru": "Он разбивает Египет на Евфрате, а после смерти отца спешит домой и в сентябре восходит на престол. Согласно Дан. 1, именно тогда Даниил прибывает в Вавилон."
+    },
+    "ref": "DAN 1:1-6"
    },
    {
-    "part": "legs",
-    "from": -331,
-    "to": -164
+    "year": -603,
+    "when": {
+     "en": "603/602 BC",
+     "ru": "603/602 г. до н. э."
+    },
+    "cat": "d",
+    "title": {
+     "en": "The dream of the statue",
+     "ru": "Сон об истукане"
+    },
+    "text": {
+     "en": "“The second year of the reign of Nebuchadnezzar” (<a data-ref=\"DAN 2:1\">2:1</a>).",
+     "ru": "«Во второй год царствования Навуходоносора» (<a data-ref=\"DAN 2:1\">2:1</a>)."
+    },
+    "ref": "DAN 2:1"
    },
    {
-    "part": "feet",
-    "from": -301,
-    "to": -63
+    "year": -597,
+    "cat": "e",
+    "title": {
+     "en": "Jerusalem captured",
+     "ru": "Взятие Иерусалима"
+    },
+    "text": {
+     "en": "16 March. King Jehoiachin and his court are deported to Babylon.",
+     "ru": "16 марта. Царя Иехонию и его двор уводят в Вавилон."
+    }
+   },
+   {
+    "year": -586,
+    "when": {
+     "en": "587/586 BC",
+     "ru": "587/586 г. до н. э."
+    },
+    "cat": "e",
+    "title": {
+     "en": "Jerusalem and its temple destroyed",
+     "ru": "Разрушение Иерусалима и храма"
+    },
+    "text": {
+     "en": "After a second revolt. Judah becomes a Babylonian province.",
+     "ru": "После второго восстания. Иудея становится вавилонской провинцией."
+    },
+    "ref": "2KI 25:8-10"
+   },
+   {
+    "year": -562,
+    "cat": "e",
+    "title": {
+     "en": "Nebuchadnezzar dies",
+     "ru": "Смерть Навуходоносора"
+    },
+    "text": {
+     "en": "After 43 years. Three short reigns follow in six years.",
+     "ru": "После 43 лет царствования. За шесть лет сменяются три недолгих правления."
+    }
+   },
+   {
+    "year": -556,
+    "cat": "e",
+    "title": {
+     "en": "Nabonidus takes the throne",
+     "ru": "Набонид восходит на престол"
+    },
+    "text": {
+     "en": "Babylon’s last king. He later moves to Tema for about ten years and leaves Belshazzar in charge.",
+     "ru": "Последний царь Вавилона. Позднее он примерно на десять лет переселяется в Тейму, оставив правление Валтасару."
+    }
+   },
+   {
+    "year": -550,
+    "cat": "e",
+    "title": {
+     "en": "Cyrus defeats Media",
+     "ru": "Кир побеждает Мидию"
+    },
+    "text": {
+     "en": "The Median army hands over its own king, Astyages. Medes and Persians are now one power under a Persian king.",
+     "ru": "Мидийское войско выдаёт Киру собственного царя, Астиага. Отныне мидяне и персы — одна держава под властью персидского царя."
+    }
+   },
+   {
+    "year": -539,
+    "cat": "e",
+    "title": {
+     "en": "Babylon falls to Cyrus",
+     "ru": "Вавилон переходит к Киру"
+    },
+    "text": {
+     "en": "12 October, without a battle. Daniel 5 sets Belshazzar’s feast on this night. Within a year Cyrus lets the exiles go home.",
+     "ru": "12 октября, без боя. Согласно Дан. 5, в эту ночь происходит пир Валтасара. Не проходит и года, как Кир отпускает изгнанников на родину."
+    },
+    "ref": "DAN 5:30-31"
+   },
+   {
+    "year": -536,
+    "when": {
+     "en": "c. 536 BC",
+     "ru": "ок. 536 г. до н. э."
+    },
+    "cat": "d",
+    "title": {
+     "en": "The book’s last dated vision",
+     "ru": "Последнее датированное видение книги"
+    },
+    "text": {
+     "en": "“The third year of Cyrus king of Persia” (<a data-ref=\"DAN 10:1\">10:1</a>). Daniel would be in his eighties.",
+     "ru": "«В третий год Кира, царя Персидского» (<a data-ref=\"DAN 10:1\">10:1</a>). Даниилу тогда было бы за восемьдесят."
+    },
+    "ref": "DAN 10:1"
+   },
+   {
+    "year": -525,
+    "cat": "e",
+    "title": {
+     "en": "Persia conquers Egypt",
+     "ru": "Персия покоряет Египет"
+    },
+    "text": {
+     "en": "Cambyses II adds the last of the old great powers.",
+     "ru": "Камбиз II присоединяет последнюю из древних великих держав."
+    }
+   },
+   {
+    "year": -480,
+    "cat": "e",
+    "title": {
+     "en": "Xerxes invades Greece",
+     "ru": "Ксеркс вторгается в Грецию"
+    },
+    "text": {
+     "en": "Thermopylae and Salamis. The Persian advance into Europe stops.",
+     "ru": "Фермопилы и Саламин. Продвижение персов в Европу остановлено."
+    }
+   },
+   {
+    "year": -334,
+    "cat": "e",
+    "title": {
+     "en": "Alexander crosses into Asia",
+     "ru": "Александр Македонский переправляется в Азию"
+    },
+    "text": {
+     "en": "Victory at the Granicus, then at Issus in 333.",
+     "ru": "Победа при Гранике, затем при Иссе в 333 г."
+    }
+   },
+   {
+    "year": -331,
+    "cat": "e",
+    "title": {
+     "en": "Gaugamela",
+     "ru": "Гавгамелы"
+    },
+    "text": {
+     "en": "1 October. Darius III flees and the Persian empire passes to Alexander.",
+     "ru": "1 октября. Дарий III бежит, и Персидская держава переходит к Александру."
+    },
+    "ref": "DAN 8:5-7"
+   },
+   {
+    "year": -323,
+    "cat": "e",
+    "title": {
+     "en": "Alexander dies in Babylon",
+     "ru": "Александр умирает в Вавилоне"
+    },
+    "text": {
+     "en": "11 June, aged 32, with no adult heir.",
+     "ru": "11 июня, в возрасте 32 лет, не оставив взрослого наследника."
+    }
+   },
+   {
+    "year": -301,
+    "cat": "e",
+    "title": {
+     "en": "Battle of Ipsus",
+     "ru": "Битва при Ипсе"
+    },
+    "text": {
+     "en": "The victors divide the empire. Four kingdoms stand: those of Cassander, Lysimachus, Seleucus and Ptolemy.",
+     "ru": "Победители делят империю. Остаются четыре царства — Кассандра, Лисимаха, Селевка и Птолемея."
+    }
+   },
+   {
+    "year": -252,
+    "when": {
+     "en": "c. 252 BC",
+     "ru": "ок. 252 г. до н. э."
+    },
+    "cat": "e",
+    "title": {
+     "en": "A marriage alliance fails",
+     "ru": "Брачный союз терпит крах"
+    },
+    "text": {
+     "en": "Antiochus II marries Berenice of Egypt. Within six years both are dead and the two kingdoms are at war (<a data-ref=\"DAN 11:6\">11:6</a>).",
+     "ru": "Антиох II женится на египетской царевне Беренике. Не проходит и шести лет, как оба мертвы, а два царства воюют между собой (<a data-ref=\"DAN 11:6\">11:6</a>)."
+    },
+    "ref": "DAN 11:6"
+   },
+   {
+    "year": -200,
+    "cat": "e",
+    "title": {
+     "en": "Judea changes hands",
+     "ru": "Иудея меняет владыку"
+    },
+    "text": {
+     "en": "Antiochus III defeats the Ptolemaic army at Paneion. Judea passes from Egyptian to Syrian rule.",
+     "ru": "Антиох III разбивает птолемеевское войско при Панионе. Иудея переходит из-под власти Египта под власть Сирии."
+    }
+   },
+   {
+    "year": -168,
+    "cat": "e",
+    "title": {
+     "en": "Pydna and the “day of Eleusis”",
+     "ru": "Пидна и «день Элевсина»"
+    },
+    "text": {
+     "en": "Rome ends the Macedonian kingdom and, the same summer, orders Antiochus IV out of Egypt (<a data-ref=\"DAN 11:30\">11:30</a>).",
+     "ru": "Рим кладёт конец Македонскому царству и тем же летом велит Антиоху IV покинуть Египет (<a data-ref=\"DAN 11:30\">11:30</a>)."
+    },
+    "ref": "DAN 11:30"
+   },
+   {
+    "year": -167,
+    "cat": "e",
+    "title": {
+     "en": "The temple desecrated",
+     "ru": "Осквернение храма"
+    },
+    "text": {
+     "en": "Antiochus IV bans Jewish practice and sets up a pagan altar in Jerusalem. The Maccabean revolt begins.",
+     "ru": "Антиох IV запрещает исполнять иудейский закон и ставит в Иерусалиме языческий жертвенник. Начинается восстание Маккавеев."
+    },
+    "ref": "DAN 11:31"
+   },
+   {
+    "year": -164,
+    "when": {
+     "en": "167–164 BC",
+     "ru": "167–164 гг. до н. э."
+    },
+    "cat": "t",
+    "title": {
+     "en": "Critical date for the finished book",
+     "ru": "Критическая датировка окончательной редакции"
+    },
+    "text": {
+     "en": "Most critical scholars place Daniel’s final form here, before the temple was rededicated in December 164.",
+     "ru": "Большинство учёных критического направления относят окончательную редакцию Книги Даниила к этому времени — до повторного освящения храма в декабре 164 г."
+    }
+   },
+   {
+    "year": -146,
+    "cat": "e",
+    "title": {
+     "en": "Rome annexes Macedonia and Greece",
+     "ru": "Рим присоединяет Македонию и Грецию"
+    },
+    "text": {
+     "en": "Corinth and Carthage are destroyed in the same year.",
+     "ru": "В том же году разрушены Коринф и Карфаген."
+    }
+   },
+   {
+    "year": -125,
+    "when": {
+     "en": "c. 125 BC",
+     "ru": "ок. 125 г. до н. э."
+    },
+    "cat": "t",
+    "title": {
+     "en": "Oldest surviving copy of Daniel",
+     "ru": "Древнейшая сохранившаяся рукопись Книги Даниила"
+    },
+    "text": {
+     "en": "4QDan<sup>c</sup>: about 125 BC by its handwriting, 230–160 BC by radiocarbon.",
+     "ru": "4QDan<sup>c</sup>: около 125 г. до н. э. по почерку, 230–160 гг. до н. э. по радиоуглеродному анализу."
+    }
+   },
+   {
+    "year": -63,
+    "cat": "e",
+    "title": {
+     "en": "Pompey enters Jerusalem",
+     "ru": "Помпей вступает в Иерусалим"
+    },
+    "text": {
+     "en": "Judea becomes a Roman client state. The Seleucid kingdom is abolished.",
+     "ru": "Иудея становится зависимым от Рима государством. Селевкидское царство упразднено."
+    }
+   },
+   {
+    "year": -30,
+    "cat": "e",
+    "title": {
+     "en": "Egypt becomes a Roman province",
+     "ru": "Египет становится римской провинцией"
+    },
+    "text": {
+     "en": "The last successor kingdom ends with Cleopatra VII.",
+     "ru": "С Клеопатрой VII прекращается последнее из царств диадохов."
+    }
+   },
+   {
+    "year": 30,
+    "when": {
+     "en": "c. AD 30",
+     "ru": "ок. 30 г. н. э."
+    },
+    "cat": "t",
+    "title": {
+     "en": "Jesus preaches the kingdom of God",
+     "ru": "Иисус проповедует Царство Божие"
+    },
+    "text": {
+     "en": "<a data-ref=\"LUK 20:18\">Luke 20:18</a> echoes the crushing stone.",
+     "ru": "В <a data-ref=\"LUK 20:18\">Лк. 20:18</a> слышится отзвук сокрушающего камня."
+    },
+    "ref": "LUK 20:17-18"
+   },
+   {
+    "year": 70,
+    "cat": "e",
+    "title": {
+     "en": "Rome destroys the second temple",
+     "ru": "Рим разрушает Второй храм"
+    },
+    "text": {
+     "en": "Titus takes Jerusalem after a five-month siege.",
+     "ru": "Тит берёт Иерусалим после пятимесячной осады."
+    },
+    "ref": "MAT 24:1-2"
+   },
+   {
+    "year": 93,
+    "when": {
+     "en": "c. AD 93",
+     "ru": "ок. 93 г. н. э."
+    },
+    "cat": "t",
+    "title": {
+     "en": "Josephus retells the dream",
+     "ru": "Иосиф Флавий пересказывает сон"
+    },
+    "text": {
+     "en": "And declines to explain the stone.",
+     "ru": "И уклоняется от толкования камня."
+    }
+   },
+   {
+    "year": 100,
+    "when": {
+     "en": "c. AD 100",
+     "ru": "ок. 100 г. н. э."
+    },
+    "cat": "t",
+    "title": {
+     "en": "4 Ezra names Rome",
+     "ru": "3-я книга Ездры называет Рим"
+    },
+    "text": {
+     "en": "The fourth kingdom of Daniel is identified with the Roman eagle.",
+     "ru": "Четвёртое царство Даниила отождествляется с римским орлом."
+    }
+   },
+   {
+    "year": 117,
+    "cat": "e",
+    "title": {
+     "en": "Rome at its greatest extent",
+     "ru": "Рим в наибольших границах"
+    },
+    "text": {
+     "en": "Under Trajan, from Britain to the Persian Gulf.",
+     "ru": "При Траяне — от Британии до Персидского залива."
+    }
+   },
+   {
+    "year": 204,
+    "when": {
+     "en": "c. AD 204",
+     "ru": "ок. 204 г. н. э."
+    },
+    "cat": "t",
+    "title": {
+     "en": "Hippolytus’s commentary",
+     "ru": "Комментарий Ипполита Римского"
+    },
+    "text": {
+     "en": "The Roman sequence set out in full, with ten toes as ten kingdoms to come.",
+     "ru": "Римская последовательность изложена полностью, а десять пальцев ног — это десять грядущих царств."
+    }
+   },
+   {
+    "year": 270,
+    "when": {
+     "en": "c. AD 270",
+     "ru": "ок. 270 г. н. э."
+    },
+    "cat": "t",
+    "title": {
+     "en": "Porphyry’s challenge",
+     "ru": "Вызов Порфирия"
+    },
+    "text": {
+     "en": "He argues that the book was written under Antiochus IV.",
+     "ru": "Он утверждает, что книга написана при Антиохе IV."
+    }
+   },
+   {
+    "year": 395,
+    "cat": "e",
+    "title": {
+     "en": "The empire divided for good",
+     "ru": "Окончательный раздел империи"
+    },
+    "text": {
+     "en": "West and East go to the two sons of Theodosius I.",
+     "ru": "Запад и Восток достаются двум сыновьям Феодосия I."
+    }
+   },
+   {
+    "year": 407,
+    "cat": "t",
+    "title": {
+     "en": "Jerome’s commentary",
+     "ru": "Комментарий Иеронима"
+    },
+    "text": {
+     "en": "Defends the Roman sequence against Porphyry and preserves his arguments.",
+     "ru": "Защищает римскую последовательность от Порфирия и сохраняет его доводы."
+    }
+   },
+   {
+    "year": 476,
+    "cat": "e",
+    "title": {
+     "en": "End of the western emperors",
+     "ru": "Конец западных императоров"
+    },
+    "text": {
+     "en": "Odoacer deposes Romulus Augustulus. The eastern empire continues until 1453.",
+     "ru": "Одоакр низлагает Ромула Августула. Восточная империя существует до 1453 г."
+    }
    }
   ]
  },
- "events": [
-  {
-   "year": -612,
-   "label": {
-    "en": "Nineveh falls",
-    "ru": "Падение Ниневии"
-   },
-   "ref": "NAM 3:7"
+ "evidence": {
+  "title": {
+   "en": "What survives",
+   "ru": "Что сохранилось"
   },
-  {
-   "year": -605,
-   "label": {
-    "en": "Daniel taken to Babylon",
-    "ru": "Даниил уведён в Вавилон"
-   },
-   "ref": "DAN 1:1-6"
+  "intro": {
+   "en": "Tablets, cylinders, scrolls and early readers that bear on the chapter. Each entry gives what the object records and how far it reaches. Nothing here proves or disproves a reading of the statue on its own.",
+   "ru": "Таблички, цилиндры, свитки и ранние толкователи, имеющие отношение к этой главе. В каждой записи указано, что сообщает источник и каковы пределы его свидетельства. Ничто здесь само по себе не доказывает и не опровергает ни одно из толкований истукана."
   },
-  {
-   "year": -586,
-   "label": {
-    "en": "Jerusalem destroyed",
-    "ru": "Разрушение Иерусалима"
+  "groups": [
+   {
+    "id": "all",
+    "label": {
+     "en": "All",
+     "ru": "Все"
+    }
    },
-   "ref": "2KI 25:8-10"
-  },
-  {
-   "year": -539,
-   "label": {
-    "en": "Babylon falls to Cyrus",
-    "ru": "Вавилон пал перед Киром"
+   {
+    "id": "gold",
+    "label": {
+     "en": "Babylon",
+     "ru": "Вавилон"
+    }
    },
-   "ref": "DAN 5:30-31"
-  },
-  {
-   "year": -331,
-   "label": {
-    "en": "Gaugamela",
-    "ru": "Гавгамелы"
+   {
+    "id": "silver",
+    "label": {
+     "en": "Persia",
+     "ru": "Персия"
+    }
    },
-   "ref": "DAN 8:5-7"
-  },
-  {
-   "year": -167,
-   "label": {
-    "en": "Temple desecrated",
-    "ru": "Осквернение храма"
+   {
+    "id": "bronze",
+    "label": {
+     "en": "Greece",
+     "ru": "Греция"
+    }
    },
-   "ref": "DAN 11:31"
-  },
-  {
-   "year": -63,
-   "label": {
-    "en": "Pompey takes Jerusalem",
-    "ru": "Помпей берёт Иерусалим"
+   {
+    "id": "iron",
+    "label": {
+     "en": "Rome",
+     "ru": "Рим"
+    }
+   },
+   {
+    "id": "text",
+    "label": {
+     "en": "Manuscripts",
+     "ru": "Рукописи"
+    }
+   },
+   {
+    "id": "readers",
+    "label": {
+     "en": "Early readers",
+     "ru": "Ранние толкователи"
+    }
+   }
+  ],
+  "kinds": {
+   "confirm": {
+    "en": "Confirms a detail",
+    "ru": "Подтверждает деталь"
+   },
+   "context": {
+    "en": "Adds context",
+    "ru": "Дополняет контекст"
+   },
+   "question": {
+    "en": "Open question",
+    "ru": "Открытый вопрос"
+   },
+   "reception": {
+    "en": "Early reading",
+    "ru": "Раннее толкование"
    }
   },
-  {
-   "year": 70,
-   "label": {
-    "en": "Temple destroyed",
-    "ru": "Разрушение храма"
+  "items": [
+   {
+    "id": "abc5",
+    "group": "gold",
+    "icon": "tablet",
+    "kinds": [
+     "confirm"
+    ],
+    "title": {
+     "en": "Babylonian Chronicle 5, the “Jerusalem Chronicle”",
+     "ru": "Вавилонская хроника 5, «Иерусалимская хроника»"
+    },
+    "meta": {
+     "en": "Clay tablet · covers 605–595 BC · British Museum, BM 21946",
+     "ru": "Глиняная табличка · охватывает 605–595 гг. до н. э. · Британский музей, BM 21946"
+    },
+    "says": {
+     "en": "A year-by-year court record. It reports Nebuchadnezzar’s victory over Egypt at Carchemish in 605 BC, his accession weeks later, and the capture of “the city of Judah” on 2 Adar of his seventh year: 16 March 597 BC.",
+     "ru": "Погодная придворная летопись. Она сообщает о победе Навуходоносора над Египтом при Кархемише в 605 г. до н. э., о его воцарении несколько недель спустя и о взятии «города Иудеи» 2 адара седьмого года его правления — 16 марта 597 г. до н. э."
+    },
+    "bears": {
+     "en": "Fixes the opening years of Nebuchadnezzar’s reign, the setting of Daniel 1–2, from a Babylonian source. It mentions no siege of Jerusalem in 605, the date implied by <a data-ref=\"DAN 1:1\">Daniel 1:1</a>, which is still debated.",
+     "ru": "По вавилонскому источнику устанавливает первые годы правления Навуходоносора — время действия Дан. 1–2. Об осаде Иерусалима в 605 г., которую подразумевает <a data-ref=\"DAN 1:1\">Дан. 1:1</a>, хроника не упоминает; этот вопрос до сих пор обсуждается."
+    }
    },
-   "ref": "MAT 24:1-2"
+   {
+    "id": "bricks",
+    "group": "gold",
+    "icon": "brick",
+    "kinds": [
+     "confirm"
+    ],
+    "title": {
+     "en": "Nebuchadnezzar’s bricks and building inscriptions",
+     "ru": "Кирпичи и строительные надписи Навуходоносора"
+    },
+    "meta": {
+     "en": "Stamped bricks and clay cylinders · 605–562 BC · excavated at Babylon by Robert Koldewey, 1899–1917",
+     "ru": "Клеймёные кирпичи и глиняные цилиндры · 605–562 гг. до н. э. · раскопаны в Вавилоне Робертом Кольдевеем, 1899–1917 гг."
+    },
+    "says": {
+     "en": "Bricks by the thousand carry his name and titles, and long inscriptions list the walls, temples, palaces and processional way he built. The Ishtar Gate, about 575 BC, stands rebuilt in Berlin’s Pergamon Museum.",
+     "ru": "Тысячи кирпичей несут его имя и титулы, а пространные надписи перечисляют возведённые им стены, храмы, дворцы и Дорогу процессий. Ворота Иштар (около 575 г. до н. э.) воссозданы в берлинском Пергамском музее."
+    },
+    "bears": {
+     "en": "Matches the book’s portrait of a builder-king: “Is not this great Babylon, which I have built?” (<a data-ref=\"DAN 4:30\">4:30</a>). The lapis-blue wall and rosettes on this page are borrowed from that gate.",
+     "ru": "Согласуется с образом царя-строителя в книге: «это ли не величественный Вавилон, который построил я» (<a data-ref=\"DAN 4:30\">4:30</a>). Лазурная стена и розетки на этой странице заимствованы с этих ворот."
+    }
+   },
+   {
+    "id": "jehoiachin",
+    "group": "gold",
+    "icon": "tablet",
+    "kinds": [
+     "confirm"
+    ],
+    "title": {
+     "en": "Jehoiachin ration tablets",
+     "ru": "Таблички о пайках Иехонии"
+    },
+    "meta": {
+     "en": "Four clay tablets · about 592 BC · found near the Ishtar Gate · Vorderasiatisches Museum, Berlin",
+     "ru": "Четыре глиняные таблички · около 592 г. до н. э. · найдены у ворот Иштар · Переднеазиатский музей, Берлин"
+    },
+    "says": {
+     "en": "Palace storehouse lists of oil issued to foreigners kept at court, among them “Ya’u-kinu, king of the land of Yahudu” and his five sons.",
+     "ru": "Списки дворцового склада о выдаче масла чужеземцам, содержавшимся при дворе, — среди них «Йаукину, царь страны Йахуду» и пятеро его сыновей."
+    },
+    "bears": {
+     "en": "Shows Judean royalty living on royal rations in Nebuchadnezzar’s Babylon, the situation Daniel 1 describes for young Judean nobles (compare <a data-ref=\"2KI 25:27-30\">2 Kings 25:27–30</a>).",
+     "ru": "Показывает, что иудейские царственные особы жили на царском довольствии в Вавилоне Навуходоносора, — в том же положении Дан. 1 описывает юных знатных иудеев (ср. <a data-ref=\"2KI 25:27-30\">4 Цар. 25:27–30</a>)."
+    }
+   },
+   {
+    "id": "dreams",
+    "group": "gold",
+    "icon": "stele",
+    "kinds": [
+     "context"
+    ],
+    "title": {
+     "en": "A Babylonian king’s dream reports",
+     "ru": "Записи снов вавилонского царя"
+    },
+    "meta": {
+     "en": "Babylon Stele of Nabonidus · about 555 BC · Istanbul Archaeological Museums",
+     "ru": "Вавилонская стела Набонида · около 555 г. до н. э. · Археологические музеи Стамбула"
+    },
+    "says": {
+     "en": "Nabonidus records his dreams as messages from the gods. In one the dead Nebuchadnezzar appears and asks him to describe the omen he has seen.",
+     "ru": "Набонид записывает свои сны как вести от богов. В одном из них ему является умерший Навуходоносор и просит рассказать о знамении, которое он видел."
+    },
+    "bears": {
+     "en": "Kings of this dynasty did treat dreams as state business that called for interpretation, as in Daniel 2 and 4.",
+     "ru": "Цари этой династии действительно считали сны государственным делом, требующим истолкования, — как в Дан. 2 и 4."
+    }
+   },
+   {
+    "id": "belshazzar",
+    "group": "gold",
+    "icon": "cylinder",
+    "kinds": [
+     "confirm",
+     "question"
+    ],
+    "title": {
+     "en": "Nabonidus cylinders from Ur",
+     "ru": "Цилиндры Набонида из Ура"
+    },
+    "meta": {
+     "en": "Four clay cylinders · about 540 BC · found 1854 by J. G. Taylor · British Museum, BM 91125–91128",
+     "ru": "Четыре глиняных цилиндра · около 540 г. до н. э. · найдены в 1854 г. Дж. Г. Тейлором · Британский музей, BM 91125–91128"
+    },
+    "says": {
+     "en": "A foundation text for the moon-god’s temple tower. It ends with a prayer for the king and for “Belshazzar, my eldest son”.",
+     "ru": "Закладная надпись для храмовой башни бога луны. Она завершается молитвой за царя и за «Валтасара, моего старшего сына»."
+    },
+    "bears": {
+     "en": "Until these were read, Belshazzar was known only from Daniel 5 and writers who depended on it; Greek historians named Nabonidus as Babylon’s last king. The cuneiform texts never call Belshazzar “king”, and Daniel 5 calls Nebuchadnezzar his father, usually taken to mean predecessor.",
+     "ru": "Пока эти тексты не были прочитаны, Валтасар был известен лишь по 5-й главе Книги Даниила и зависевшим от неё авторам; греческие историки называли последним царём Вавилона Набонида. Клинописные тексты нигде не называют Валтасара «царём», а Дан. 5 называет Навуходоносора его отцом — обычно это понимают в значении «предшественник»."
+    }
+   },
+   {
+    "id": "verse",
+    "group": "gold",
+    "icon": "tablet",
+    "kinds": [
+     "context"
+    ],
+    "title": {
+     "en": "Verse Account of Nabonidus",
+     "ru": "Стихотворный рассказ о Набониде"
+    },
+    "meta": {
+     "en": "Clay tablet · written under Cyrus, after 539 BC · British Museum, BM 38299",
+     "ru": "Глиняная табличка · написана при Кире, после 539 г. до н. э. · Британский музей, BM 38299"
+    },
+    "says": {
+     "en": "A hostile poem about Nabonidus. It says he put the army under his eldest son, entrusted the kingship to him, and left for Tema in Arabia.",
+     "ru": "Враждебная Набониду поэма. В ней говорится, что он передал войско старшему сыну, вверил ему царскую власть и удалился в Тейму в Аравии."
+    },
+    "bears": {
+     "en": "Explains why Belshazzar could offer no higher reward than “third ruler in the kingdom” (<a data-ref=\"DAN 5:16\">5:16</a>): he was himself second. Some scholars take the Aramaic word as an officer’s title.",
+     "ru": "Объясняет, почему Валтасар не мог предложить награды выше, чем стать «третьим властелином в царстве» (<a data-ref=\"DAN 5:16\">5:16</a>): он сам был вторым. Некоторые учёные понимают это арамейское слово как название должности."
+    }
+   },
+   {
+    "id": "nabchron",
+    "group": "silver",
+    "icon": "tablet",
+    "kinds": [
+     "confirm",
+     "question"
+    ],
+    "title": {
+     "en": "Nabonidus Chronicle",
+     "ru": "Хроника Набонида"
+    },
+    "meta": {
+     "en": "Clay tablet · events of 556–539 BC in a later copy · British Museum, BM 35382",
+     "ru": "Глиняная табличка · события 556–539 гг. до н. э. в более позднем списке · Британский музей, BM 35382"
+    },
+    "says": {
+     "en": "Records the Persian victory at Opis, the surrender of Sippar, and Babylon’s fall. On 16 Tashritu (12 October 539 BC) Ugbaru and the army of Cyrus entered Babylon “without battle”. Cyrus followed on 29 October.",
+     "ru": "Сообщает о победе персов при Описе, сдаче Сиппара и падении Вавилона. 16 ташриту (12 октября 539 г. до н. э.) Угбару и войско Кира вошли в Вавилон «без боя». Сам Кир вступил в город 29 октября."
+    },
+    "bears": {
+     "en": "Confirms the sudden end that Daniel 5 describes. It names no “Darius the Mede”. Proposals for him include Ugbaru, the governor Gubaru, and Cyrus under another title. None is proven.",
+     "ru": "Подтверждает внезапный конец, описанный в Дан. 5. «Дарий Мидянин» в хронике не упомянут. Его предлагали отождествить с Угбару, с наместником Губару и с Киром под другим титулом. Ни одно из предположений не доказано."
+    }
+   },
+   {
+    "id": "cyrus",
+    "group": "silver",
+    "icon": "cylinder",
+    "kinds": [
+     "confirm"
+    ],
+    "title": {
+     "en": "Cyrus Cylinder",
+     "ru": "Цилиндр Кира"
+    },
+    "meta": {
+     "en": "Clay barrel cylinder · after 539 BC · found 1879 at Babylon by Hormuzd Rassam · British Museum, BM 90920",
+     "ru": "Глиняный бочкообразный цилиндр · после 539 г. до н. э. · найден в 1879 г. в Вавилоне Ормуздом Рассамом · Британский музей, BM 90920"
+    },
+    "says": {
+     "en": "Cyrus declares that Marduk chose him, that his troops entered Babylon peacefully, and that he sent captive gods and peoples back to their homes. He takes the titles king of the world and king of the four quarters.",
+     "ru": "Кир заявляет, что его избрал Мардук, что его войска вошли в Вавилон мирно и что он вернул пленённых богов и народы в их родные места. Он принимает титулы царя мира и царя четырёх стран света."
+    },
+    "bears": {
+     "en": "Marks the change from gold to silver in the conqueror’s own words, and fits the policy behind the return of the Judean exiles (Ezra 1).",
+     "ru": "Словами самого завоевателя отмечает смену золота серебром и согласуется с политикой, стоявшей за возвращением иудейских изгнанников (1 Езд. 1)."
+    }
+   },
+   {
+    "id": "classical",
+    "group": "silver",
+    "icon": "book",
+    "kinds": [
+     "context"
+    ],
+    "title": {
+     "en": "Herodotus and Xenophon on Babylon’s last night",
+     "ru": "Геродот и Ксенофонт о последней ночи Вавилона"
+    },
+    "meta": {
+     "en": "Greek histories · about 430 and 370 BC · <cite>Histories</cite> 1.191; <cite>Cyropaedia</cite> 7.5",
+     "ru": "Греческие исторические сочинения · около 430 и 370 гг. до н. э. · <cite>История</cite> 1.191; <cite>Киропедия</cite> 7.5"
+    },
+    "says": {
+     "en": "Both say the Persians lowered the Euphrates and entered along its bed at night, while the city was holding a festival.",
+     "ru": "Оба сообщают, что персы понизили уровень Евфрата и ночью вошли в город по его руслу, когда там шёл праздник."
+    },
+    "bears": {
+     "en": "An independent tradition of a feast on the night Babylon fell, as in Daniel 5. The cuneiform chronicle mentions neither a feast nor the river.",
+     "ru": "Независимое предание о пире в ночь падения Вавилона, как в Дан. 5. Клинописная хроника не упоминает ни пира, ни реки."
+    }
+   },
+   {
+    "id": "behistun",
+    "group": "silver",
+    "icon": "rock",
+    "kinds": [
+     "context"
+    ],
+    "title": {
+     "en": "Behistun inscription",
+     "ru": "Бехистунская надпись"
+    },
+    "meta": {
+     "en": "Rock relief in three languages · about 520 BC · near Kermanshah, Iran",
+     "ru": "Трёхъязычный наскальный рельеф · около 520 г. до н. э. · близ Керманшаха, Иран"
+    },
+    "says": {
+     "en": "Darius I lists the lands he rules and the rebels he defeated. Media appears as a subject land that rose in revolt and was put down.",
+     "ru": "Дарий I перечисляет подвластные ему земли и разбитых им мятежников. Мидия предстаёт покорённой страной, которая подняла восстание и была усмирена."
+    },
+    "bears": {
+     "en": "Shows Medes and Persians as one empire with Persia dominant, the picture in <a data-ref=\"DAN 8:20\">Daniel 8:20</a>. Its three scripts later made the decipherment of cuneiform possible.",
+     "ru": "Изображает мидян и персов единой державой с главенством Персии — та же картина, что в <a data-ref=\"DAN 8:20\">Дан. 8:20</a>. Позднее её текст на трёх языках сделал возможной расшифровку клинописи."
+    }
+   },
+   {
+    "id": "diary323",
+    "group": "bronze",
+    "icon": "tablet",
+    "kinds": [
+     "confirm"
+    ],
+    "title": {
+     "en": "Astronomical diary for 323 BC",
+     "ru": "Астрономический дневник за 323 г. до н. э."
+    },
+    "meta": {
+     "en": "Clay tablet · Babylon · British Museum, BM 45962",
+     "ru": "Глиняная табличка · Вавилон · Британский музей, BM 45962"
+    },
+    "says": {
+     "en": "Among routine observations of sky and weather, the entry for the 29th day of the month reads: “The king died.”",
+     "ru": "Среди обычных наблюдений за небом и погодой запись 29-го дня месяца гласит: «Царь умер»."
+    },
+    "bears": {
+     "en": "Dates Alexander’s death at Babylon to 11 June 323 BC. The founder of the Greek kingdom died in the city where the dream is set.",
+     "ru": "Позволяет датировать смерть Александра Македонского в Вавилоне 11 июня 323 г. до н. э. Основатель Греческого царства умер в том самом городе, где происходит действие рассказа о сне."
+    }
+   },
+   {
+    "id": "dynastic",
+    "group": "bronze",
+    "icon": "tablet",
+    "kinds": [
+     "question"
+    ],
+    "title": {
+     "en": "Dynastic Prophecy",
+     "ru": "Династическое пророчество"
+    },
+    "meta": {
+     "en": "Clay tablet · Hellenistic Babylon · British Museum, BM 40623",
+     "ru": "Глиняная табличка · эллинистический Вавилон · Британский музей, BM 40623"
+    },
+    "says": {
+     "en": "A Babylonian text that “foretells” a series of reigns: Assyria’s fall, Babylon’s kings, the Persians, and the Macedonians.",
+     "ru": "Вавилонский текст, который «предсказывает» череду царствований: падение Ассирии, вавилонских царей, персов и македонян."
+    },
+    "bears": {
+     "en": "Shows that surveys of successive empires were being written in Babylonia in the form of prediction. Critical scholars set Daniel 2 beside it. Others stress the difference: Daniel ends with a kingdom from outside the series.",
+     "ru": "Показывает, что в Вавилонии составляли обзоры сменяющих друг друга держав в форме предсказания. Учёные критического направления ставят Дан. 2 в один ряд с ним. Другие подчёркивают различие: у Даниила ряд завершается царством, не входящим в эту череду."
+    }
+   },
+   {
+    "id": "titus",
+    "group": "iron",
+    "icon": "arch",
+    "kinds": [
+     "context"
+    ],
+    "title": {
+     "en": "Arch of Titus",
+     "ru": "Арка Тита"
+    },
+    "meta": {
+     "en": "Marble arch · about AD 81 · Roman Forum",
+     "ru": "Мраморная арка · около 81 г. н. э. · Римский форум"
+    },
+    "says": {
+     "en": "A relief shows Roman soldiers carrying the menorah and other furnishings of the Jerusalem temple in the triumph of AD 71.",
+     "ru": "Рельеф изображает римских воинов, несущих менору и другую утварь Иерусалимского храма во время триумфа 71 г. н. э."
+    },
+    "bears": {
+     "en": "Rome’s rule over Judea, cut in stone by the victors. First-century Jewish and Christian readers of Daniel lived under it.",
+     "ru": "Власть Рима над Иудеей, высеченная в камне победителями. Под этой властью жили иудеи и христиане I в., читавшие Книгу Даниила."
+    }
+   },
+   {
+    "id": "pnab",
+    "group": "text",
+    "icon": "scroll",
+    "kinds": [
+     "question"
+    ],
+    "title": {
+     "en": "Prayer of Nabonidus (4Q242)",
+     "ru": "Молитва Набонида (4Q242)"
+    },
+    "meta": {
+     "en": "Aramaic scroll fragments · copied about 75–50 BC · Qumran Cave 4",
+     "ru": "Фрагменты арамейского свитка · переписаны около 75–50 гг. до н. э. · Кумран, пещера 4"
+    },
+    "says": {
+     "en": "Nabonidus tells how he was afflicted for seven years at Tema until a Jewish diviner taught him to honour the Most High God.",
+     "ru": "Набонид рассказывает, как семь лет страдал от недуга в Тейме, пока иудейский прорицатель не научил его чтить Бога Всевышнего."
+    },
+    "bears": {
+     "en": "Closely parallels the seven “times” of Nebuchadnezzar’s madness in Daniel 4. Many scholars think that story was first told about Nabonidus. Others see two separate events.",
+     "ru": "Близко перекликается с семью «временами» безумия Навуходоносора в Дан. 4. Многие учёные полагают, что этот рассказ первоначально относился к Набониду. Другие видят здесь два разных события."
+    }
+   },
+   {
+    "id": "qumran",
+    "group": "text",
+    "icon": "scroll",
+    "kinds": [
+     "context"
+    ],
+    "title": {
+     "en": "Daniel scrolls from Qumran",
+     "ru": "Свитки Книги Даниила из Кумрана"
+    },
+    "meta": {
+     "en": "Eight manuscripts · 1Q71–72, 4Q112–116, 6Q7 · Caves 1, 4 and 6",
+     "ru": "Восемь рукописей · 1Q71–72, 4Q112–116, 6Q7 · пещеры 1, 4 и 6"
+    },
+    "says": {
+     "en": "The oldest copy, 4QDan<sup>c</sup>, is dated by its handwriting to about 125 BC; a 2025 radiocarbon study put it at 230–160 BC. 4QDan<sup>a</sup> (about 60 BC) preserves parts of the statue passage, and 1QDan<sup>a</sup> preserves the switch from Hebrew to Aramaic at <a data-ref=\"DAN 2:4\">2:4</a>.",
+     "ru": "Древнейшая рукопись, 4QDan<sup>c</sup>, по почерку относится примерно к 125 г. до н. э.; радиоуглеродное исследование 2025 г. отнесло её к 230–160 гг. до н. э. 4QDan<sup>a</sup> (около 60 г. до н. э.) сохраняет части отрывка об истукане, а 1QDan<sup>a</sup> — переход с еврейского языка на арамейский в <a data-ref=\"DAN 2:4\">2:4</a>."
+    },
+    "bears": {
+     "en": "The book was being copied, and cited as the work of “Daniel the prophet” (4Q174), within about a generation of the 160s BC, the date critical scholars give its final form. Each side of the dating debate reads that closeness differently.",
+     "ru": "Книгу переписывали и цитировали как сочинение «пророка Даниила» (4Q174) примерно в пределах одного поколения от 160-х гг. до н. э. — времени, к которому учёные критического направления относят её окончательную редакцию. Каждая сторона спора о датировке истолковывает эту близость по-своему."
+    }
+   },
+   {
+    "id": "josephus",
+    "group": "readers",
+    "icon": "book",
+    "kinds": [
+     "reception"
+    ],
+    "title": {
+     "en": "Josephus, <cite>Jewish Antiquities</cite> 10",
+     "ru": "Иосиф Флавий, <cite>Иудейские древности</cite> 10"
+    },
+    "meta": {
+     "en": "Greek history · about AD 93 · Rome",
+     "ru": "Греческое историческое сочинение · около 93 г. н. э. · Рим"
+    },
+    "says": {
+     "en": "Retells the dream metal by metal, describes an iron kingdom that will rule everywhere, and declines to say what the stone means because his subject is the past and not the future.",
+     "ru": "Пересказывает сон, металл за металлом, описывает железное царство, которое будет властвовать повсюду, и отказывается объяснить значение камня, поскольку пишет о прошлом, а не о будущем."
+    },
+    "bears": {
+     "en": "A Jewish historian with Roman patrons plainly took the iron for Rome. His silence is usually read as caution, since the stone meant Rome’s end.",
+     "ru": "Иудейский историк, пользовавшийся покровительством римлян, явно понимал под железом Рим. Его молчание обычно объясняют осторожностью: камень означал конец Рима."
+    }
+   },
+   {
+    "id": "ezra4",
+    "group": "readers",
+    "icon": "book",
+    "kinds": [
+     "reception"
+    ],
+    "title": {
+     "en": "4 Ezra 11–12",
+     "ru": "3 Езд. 11–12"
+    },
+    "meta": {
+     "en": "Jewish apocalypse · about AD 100",
+     "ru": "Иудейский апокалипсис · около 100 г. н. э."
+    },
+    "says": {
+     "en": "An angel explains a vision of an eagle. It is the fourth kingdom shown to Daniel, the angel says, though it was not explained to Daniel as it is being explained now.",
+     "ru": "Ангел истолковывает видение орла. Это, говорит ангел, четвёртое царство, явленное Даниилу, но ему оно не было изъяснено так, как изъясняется теперь."
+    },
+    "bears": {
+     "en": "The earliest text to say outright that Daniel’s fourth kingdom is Rome, and to admit that this is a new explanation.",
+     "ru": "Самый ранний текст, прямо говорящий, что четвёртое царство Даниила — Рим, и признающий, что это новое толкование."
+    }
+   },
+   {
+    "id": "hippolytus",
+    "group": "readers",
+    "icon": "book",
+    "kinds": [
+     "reception"
+    ],
+    "title": {
+     "en": "Hippolytus, <cite>Commentary on Daniel</cite>",
+     "ru": "Ипполит Римский, <cite>Комментарий на Книгу пророка Даниила</cite>"
+    },
+    "meta": {
+     "en": "Greek commentary · about AD 204 · Rome",
+     "ru": "Греческий комментарий · около 204 г. н. э. · Рим"
+    },
+    "says": {
+     "en": "The oldest surviving Christian commentary on a book of the Bible. Gold is Babylon, silver the Persians, bronze the Greeks, iron the Romans; the toes are ten kingdoms still to arise.",
+     "ru": "Древнейший сохранившийся христианский комментарий на книгу Библии. Золото — Вавилон, серебро — персы, медь — греки, железо — римляне; пальцы ног — десять царств, которым ещё предстоит возникнуть."
+    },
+    "bears": {
+     "en": "Sets the Roman sequence in Christian teaching and introduces the count of ten toes, taken from the ten horns of chapter 7.",
+     "ru": "Закрепляет римскую последовательность в христианском учении и вводит счёт десяти пальцев, заимствованный из десяти рогов 7-й главы."
+    }
+   },
+   {
+    "id": "porphyry",
+    "group": "readers",
+    "icon": "book",
+    "kinds": [
+     "reception"
+    ],
+    "title": {
+     "en": "Porphyry, as reported by Jerome",
+     "ru": "Порфирий в изложении Иеронима"
+    },
+    "meta": {
+     "en": "<cite>Against the Christians</cite>, about AD 270–300, lost · quoted in Jerome’s commentary of AD 407",
+     "ru": "<cite>Против христиан</cite>, около 270–300 гг. н. э., утрачено · цитируется в комментарии Иеронима 407 г. н. э."
+    },
+    "says": {
+     "en": "The philosopher Porphyry argued that Daniel was written in Judea under Antiochus IV and describes the past as though it were the future.",
+     "ru": "Философ Порфирий утверждал, что Книга Даниила написана в Иудее при Антиохе IV и описывает прошлое так, будто это будущее."
+    },
+    "bears": {
+     "en": "The first statement of the second-century dating that most critical scholars hold today. It survives only because Jerome set out to refute it.",
+     "ru": "Первое изложение датировки II в. до н. э., которой сегодня придерживается большинство учёных критического направления. Оно сохранилось лишь потому, что Иероним взялся его опровергнуть."
+    }
+   }
+  ]
+ },
+ "notes": {
+  "title": {
+   "en": "Research notes",
+   "ru": "Исследовательские заметки"
+  },
+  "intro": {
+   "en": "The questions scholars argue about, with the main arguments on each side.",
+   "ru": "Вопросы, о которых спорят учёные, и главные доводы каждой стороны."
+  },
+  "items": [
+   {
+    "title": {
+     "en": "When was Daniel written?",
+     "ru": "Когда была написана Книга Даниила?"
+    },
+    "body": {
+     "en": "<p>The date decides how the statue is read. If the book comes from the sixth century BC, chapter 2 looks forward across centuries. If its final form comes from the 160s BC, most of the four kingdoms lay in the author’s past.</p><div class=\"cols\"><div><h4>For a sixth-century origin</h4><ul><li>The visions are told in the first person and dated to named reigns (<a data-ref=\"DAN 7:1\">7:1</a>; <a data-ref=\"DAN 8:1\">8:1</a>; <a data-ref=\"DAN 9:1\">9:1</a>; <a data-ref=\"DAN 10:1\">10:1</a>).</li><li>The book knows Belshazzar, whom the Greek historians never name and whom later tradition forgot until cuneiform texts were read in the 1850s.</li><li>Its Aramaic belongs to the Imperial Aramaic of the sixth to third centuries BC, close to Ezra and the Elephantine papyri, and its Persian loanwords are terms of government (K. A. Kitchen, 1965).</li><li>Copies at Qumran treat it as scripture very soon after the proposed late date.</li><li>Ezekiel names a Daniel beside Noah and Job (<a data-ref=\"EZK 14:14\">Ezekiel 14:14</a>; <a data-ref=\"EZK 28:3\">28:3</a>), and Jesus speaks of “Daniel the prophet” (<a data-ref=\"MAT 24:15\">Matthew 24:15</a>).</li></ul></div><div><h4>For a second-century final form</h4><ul><li>Chapter 11 follows Ptolemaic and Seleucid history closely down to Antiochus IV, then describes an end for him (<a data-ref=\"DAN 11:40-45\">11:40–45</a>) that did not happen that way.</li><li>The Hebrew Bible places Daniel among the Writings, not the Prophets, and Ben Sira’s roll of Israel’s heroes, about 180 BC, leaves him out.</li><li>Chapter 3 uses three Greek names for musical instruments.</li><li>Historical difficulties cluster in the Babylonian and Persian periods: the date in <a data-ref=\"DAN 1:1\">1:1</a>, Belshazzar as “king” and “son” of Nebuchadnezzar, Darius the Mede.</li><li>Ezekiel’s Daniel is spelled differently and is often identified with Danel, a just ruler of much older Canaanite legend.</li></ul></div></div><p>A common middle position holds that the court stories of chapters 1–6, the statue among them, are older (fourth or third century BC) than the visions of chapters 7–12, and that <a data-ref=\"DAN 2:41-43\">2:41–43</a> may have been brought up to date. Conclusions often follow from whether a reader allows that prophecy can predict.</p>",
+     "ru": "<p>От датировки зависит, как понимать истукан. Если книга относится к VI в. до н. э., то 2-я глава заглядывает на века вперёд. Если же её окончательный вид сложился в 160-х гг. до н. э., большая часть четырёх царств была для автора уже в прошлом.</p><div class=\"cols\"><div><h4>За происхождение в VI в.</h4><ul><li>Видения рассказаны от первого лица и датированы годами царствований, названных по имени (<a data-ref=\"DAN 7:1\">7:1</a>; <a data-ref=\"DAN 8:1\">8:1</a>; <a data-ref=\"DAN 9:1\">9:1</a>; <a data-ref=\"DAN 10:1\">10:1</a>).</li><li>Книге известен Валтасар, которого ни разу не называют греческие историки и о котором позднейшая традиция забыла, пока в 1850-х гг. не были прочитаны клинописные тексты.</li><li>Её арамейский язык — это имперский арамейский VI–III вв. до н. э., близкий к языку Книги Ездры и элефантинских папирусов, а персидские заимствования в ней — термины государственного управления (К. А. Китчен, 1965).</li><li>Кумранские списки уже очень скоро после предполагаемой поздней даты обращаются с ней как с Писанием.</li><li>Иезекииль упоминает Даниила рядом с Ноем и Иовом (<a data-ref=\"EZK 14:14\">Иез. 14:14</a>; <a data-ref=\"EZK 28:3\">28:3</a>), а Иисус говорит о «пророке Данииле» (<a data-ref=\"MAT 24:15\">Мф. 24:15</a>).</li></ul></div><div><h4>За окончательную редакцию во II в.</h4><ul><li>11-я глава подробно следует истории Птолемеев и Селевкидов вплоть до Антиоха IV, а затем описывает его конец (<a data-ref=\"DAN 11:40-45\">11:40–45</a>), который в действительности был иным.</li><li>В Еврейской Библии Книга Даниила стоит среди Писаний, а не среди Пророков, а в перечне героев Израиля у Иисуса, сына Сирахова (ок. 180 г. до н. э.), Даниила нет.</li><li>В 3-й главе встречаются три греческих названия музыкальных инструментов.</li><li>Исторические трудности сосредоточены в вавилонском и персидском периодах: дата в <a data-ref=\"DAN 1:1\">1:1</a>, Валтасар как «царь» и «сын» Навуходоносора, Дарий Мидянин.</li><li>Даниил у Иезекииля пишется иначе, и его часто отождествляют с Данэлом, праведным правителем из гораздо более древней ханаанской легенды.</li></ul></div></div><p>Распространённая промежуточная позиция состоит в том, что рассказы о царском дворе в гл. 1–6, включая рассказ об истукане, старше (IV или III в. до н. э.), чем видения гл. 7–12, и что стихи <a data-ref=\"DAN 2:41-43\">2:41–43</a>, возможно, были позднее обновлены. Выводы нередко зависят от того, допускает ли читатель, что пророчество способно предсказывать.</p>"
+    }
+   },
+   {
+    "title": {
+     "en": "The two sequences side by side",
+     "ru": "Две последовательности в сравнении"
+    },
+    "body": {
+     "en": "<div class=\"tscroll\"><table><thead><tr><th>Statue</th><th>Roman sequence</th><th>Greek sequence</th></tr></thead><tbody><tr><th data-metal=\"gold\"><span class=\"sw-dot\"></span>Head</th><td>Babylon</td><td>Babylon</td></tr><tr><th data-metal=\"silver\"><span class=\"sw-dot\"></span>Chest and arms</th><td>Medo-Persia</td><td>Media</td></tr><tr><th data-metal=\"bronze\"><span class=\"sw-dot\"></span>Belly and thighs</th><td>Greece</td><td>Persia</td></tr><tr><th data-metal=\"iron\"><span class=\"sw-dot\"></span>Legs</th><td>Rome</td><td>Greece under Alexander</td></tr><tr><th data-metal=\"mix\"><span class=\"sw-dot\"></span>Feet</th><td>Rome divided, or a final stage still to come</td><td>Ptolemies and Seleucids</td></tr><tr><th data-metal=\"stone\"><span class=\"sw-dot\"></span>Stone</th><td>God’s kingdom, arriving under Rome or at the end of the age</td><td>God’s kingdom, expected after Antiochus IV</td></tr><tr><th>Main support</th><td><a data-ref=\"DAN 5:28\">5:28</a> and <a data-ref=\"DAN 8:20\">8:20</a> treat Medes and Persians as one power. The four-headed leopard of <a data-ref=\"DAN 7:6\">7:6</a> matches Alexander’s four successors. Christ was born under Rome.</td><td>Darius the Mede reigns before Cyrus the Persian. Chapters 8 and 11 reach their climax with a Greek king. <a data-ref=\"DAN 2:43\">2:43</a> matches the marriages of <a data-ref=\"DAN 11:6\">11:6</a> and <a data-ref=\"DAN 11:17\">11:17</a>.</td></tr><tr><th>Main difficulty</th><td>Chapters 8–12 never clearly reach Rome.</td><td>Media never ruled Babylon, and no lasting kingdom followed the Greeks.</td></tr><tr><th>Held by</th><td>4 Ezra, Josephus, Hippolytus, Jerome, Rashi, Luther, Calvin; most conservative commentators today (Young, Miller).</td><td>Porphyry, Ephrem the Syrian; most critical commentators (Montgomery, Rowley, Collins); some evangelical scholars (Gurney).</td></tr></tbody></table></div>",
+     "ru": "<div class=\"tscroll\"><table><thead><tr><th>Истукан</th><th>Римская последовательность</th><th>Греческая последовательность</th></tr></thead><tbody><tr><th data-metal=\"gold\"><span class=\"sw-dot\"></span>Голова</th><td>Вавилон</td><td>Вавилон</td></tr><tr><th data-metal=\"silver\"><span class=\"sw-dot\"></span>Грудь и руки</th><td>Мидо-Персия</td><td>Мидия</td></tr><tr><th data-metal=\"bronze\"><span class=\"sw-dot\"></span>Чрево и бёдра</th><td>Греция</td><td>Персия</td></tr><tr><th data-metal=\"iron\"><span class=\"sw-dot\"></span>Голени</th><td>Рим</td><td>Греция при Александре Македонском</td></tr><tr><th data-metal=\"mix\"><span class=\"sw-dot\"></span>Ступни</th><td>Разделённый Рим или последний этап, который ещё впереди</td><td>Птолемеи и Селевкиды</td></tr><tr><th data-metal=\"stone\"><span class=\"sw-dot\"></span>Камень</th><td>Царство Божие, наступающее при Риме или в конце века</td><td>Царство Божие, ожидаемое после Антиоха IV</td></tr><tr><th>Главный довод</th><td><a data-ref=\"DAN 5:28\">5:28</a> и <a data-ref=\"DAN 8:20\">8:20</a> представляют мидян и персов единой державой. Четырёхголовый барс из <a data-ref=\"DAN 7:6\">7:6</a> соответствует четырём преемникам Александра Македонского. Христос родился под властью Рима.</td><td>Дарий Мидянин царствует прежде перса Кира. Главы 8 и 11 достигают кульминации в образе греческого царя. <a data-ref=\"DAN 2:43\">2:43</a> соответствует бракам из <a data-ref=\"DAN 11:6\">11:6</a> и <a data-ref=\"DAN 11:17\">11:17</a>.</td></tr><tr><th>Главная трудность</th><td>Главы 8–12 нигде ясно не доходят до Рима.</td><td>Мидия никогда не правила Вавилоном, и после греков не последовало никакого прочного царства.</td></tr><tr><th>Сторонники</th><td>3-я книга Ездры, Иосиф Флавий, Ипполит Римский, Иероним, Раши, Лютер, Кальвин; большинство современных консервативных комментаторов (Янг, Миллер).</td><td>Порфирий, Ефрем Сирин; большинство критических комментаторов (Монтгомери, Роули, Коллинз); некоторые евангелические учёные (Гёрни).</td></tr></tbody></table></div>"
+    }
+   },
+   {
+    "title": {
+     "en": "Daniel 2 beside Daniel 7",
+     "ru": "Дан. 2 рядом с Дан. 7"
+    },
+    "body": {
+     "en": "<div class=\"tscroll\"><table><thead><tr><th>The statue (chapter 2)</th><th>The beasts (chapter 7)</th><th>Detail</th></tr></thead><tbody><tr><th data-metal=\"gold\"><span class=\"sw-dot\"></span>Head of gold</th><td>A lion with eagle’s wings (<a data-ref=\"DAN 7:4\">7:4</a>)</td><td>Its wings are plucked and it is given a human heart.</td></tr><tr><th data-metal=\"silver\"><span class=\"sw-dot\"></span>Chest and arms of silver</th><td>A bear raised on one side (<a data-ref=\"DAN 7:5\">7:5</a>)</td><td>Three ribs are in its mouth.</td></tr><tr><th data-metal=\"bronze\"><span class=\"sw-dot\"></span>Belly and thighs of bronze</th><td>A leopard with four wings and four heads (<a data-ref=\"DAN 7:6\">7:6</a>)</td><td>“Dominion was given to it.”</td></tr><tr><th data-metal=\"mix\"><span class=\"sw-dot\"></span>Legs and feet</th><td>A fourth beast with iron teeth and ten horns (<a data-ref=\"DAN 7:7\">7:7</a>)</td><td>A little horn rises and uproots three.</td></tr><tr><th data-metal=\"stone\"><span class=\"sw-dot\"></span>The stone</th><td>“One like a son of man” (<a data-ref=\"DAN 7:13-14\">7:13–14</a>)</td><td>He receives a kingdom that will not be destroyed.</td></tr></tbody></table></div><p>The two chapters open and close the Aramaic part of the book, which is built as a mirror: four kingdoms (2), rescue from fire (3), a king humbled (4), a king humbled (5), rescue from lions (6), four kingdoms (7). A. Lenglet set out the pattern in 1972.</p>",
+     "ru": "<div class=\"tscroll\"><table><thead><tr><th>Истукан (гл. 2)</th><th>Звери (гл. 7)</th><th>Подробность</th></tr></thead><tbody><tr><th data-metal=\"gold\"><span class=\"sw-dot\"></span>Золотая голова</th><td>Лев с орлиными крыльями (<a data-ref=\"DAN 7:4\">7:4</a>)</td><td>У него вырваны крылья, и ему дано сердце человеческое.</td></tr><tr><th data-metal=\"silver\"><span class=\"sw-dot\"></span>Серебряные грудь и руки</th><td>Медведь, приподнятый на один бок (<a data-ref=\"DAN 7:5\">7:5</a>)</td><td>Во рту у него три клыка.</td></tr><tr><th data-metal=\"bronze\"><span class=\"sw-dot\"></span>Медные чрево и бёдра</th><td>Барс с четырьмя крыльями и четырьмя головами (<a data-ref=\"DAN 7:6\">7:6</a>)</td><td>«И власть дана была ему».</td></tr><tr><th data-metal=\"mix\"><span class=\"sw-dot\"></span>Голени и ноги</th><td>Четвёртый зверь с железными зубами и десятью рогами (<a data-ref=\"DAN 7:7\">7:7</a>)</td><td>Поднимается небольшой рог и с корнем исторгает три рога.</td></tr><tr><th data-metal=\"stone\"><span class=\"sw-dot\"></span>Камень</th><td>«Как бы Сын Человеческий» (<a data-ref=\"DAN 7:13-14\">7:13–14</a>)</td><td>Он получает царство, которое не разрушится.</td></tr></tbody></table></div><p>Эти две главы открывают и замыкают арамейскую часть книги, построенную зеркально: четыре царства (2), спасение из огня (3), смирённый царь (4), смирённый царь (5), спасение от львов (6), четыре царства (7). Эту схему описал А. Ленгле в 1972 г.</p>"
+    }
+   },
+   {
+    "title": {
+     "en": "Older than Daniel: ages of metal and lists of empires",
+     "ru": "Старше Даниила: века металлов и перечни империй"
+    },
+    "body": {
+     "en": "<ul><li><b>Hesiod, <cite>Works and Days</cite> 109–201</b> (Greece, about 700 BC). Five races of gold, silver, bronze, heroes and iron, each worse than the last.</li><li><b>Assyria, Media, Persia.</b> Herodotus (1.95, 1.130; about 430 BC) describes the rule of Asia passing in that order. With Macedon the list becomes four, and Rome is added as a fifth by Aemilius Sura (quoted in Velleius Paterculus 1.6) and in Sibylline Oracle 4.</li><li><b><cite>Zand-i Wahman Yasn</cite></b> (Persia). Zoroaster sees a tree with branches of gold, silver, steel and mixed iron, standing for four periods. The text is early medieval as it stands, and the age of the tradition behind it is disputed.</li><li><b>Dynastic Prophecy</b> (Babylon, Hellenistic period). Reigns of Assyria, Babylon, Persia and Macedon presented as prediction.</li></ul><p>Two things are new in Daniel. The metals form one body, so the kingdoms stand and fall together. And the series ends with a kingdom that comes from outside it.</p>",
+     "ru": "<ul><li><b>Гесиод, <cite>Труды и дни</cite> 109–201</b> (Греция, ок. 700 г. до н. э.). Пять поколений — золотое, серебряное, медное, героев и железное, — каждое хуже предыдущего.</li><li><b>Ассирия, Мидия, Персия.</b> Геродот (1.95, 1.130; ок. 430 г. до н. э.) описывает, как власть над Азией переходила в этом порядке. С Македонией перечень становится четырёхчленным, а Рим пятым добавляют Эмилий Сура (его цитирует Веллей Патеркул, 1.6) и 4-я книга Сивиллиных оракулов.</li><li><b><cite>Занд-и Вахман-Ясн</cite></b> (Персия). Заратуштра видит дерево с ветвями из золота, серебра, стали и смешанного железа, обозначающими четыре периода. В дошедшем виде текст относится к раннему Средневековью, а древность стоящего за ним предания спорна.</li><li><b>Династическое пророчество</b> (Вавилон, эллинистический период). Царствования в Ассирии, Вавилоне, Персии и Македонии, изложенные в форме предсказания.</li></ul><p>Нового в Книге Даниила две вещи. Металлы образуют одно тело, поэтому царства стоят и падают вместе. И ряд завершается царством, которое приходит извне.</p>"
+    }
+   },
+   {
+    "title": {
+     "en": "Language and manuscripts",
+     "ru": "Язык и рукописи"
+    },
+    "body": {
+     "en": "<ul><li><b>Two languages.</b> <a data-ref=\"DAN 1:1-2:4\">Daniel 1:1–2:4a</a> is Hebrew, <a data-ref=\"DAN 2:4-7:28\">2:4b–7:28</a> is Aramaic, and chapters 8–12 are Hebrew again. The statue chapter is in Aramaic, the international language of the Babylonian and Persian empires.</li><li><b>Key words.</b> <i>tselem</i> (image), <i>dehav</i> (gold), <i>kesaph</i> (silver), <i>nechash</i> (bronze), <i>parzel</i> (iron), <i>chasaph</i> (clay), <i>even</i> (stone).</li><li><b>Qumran.</b> Eight manuscripts of Daniel were found in Caves 1, 4 and 6. 4QDan<sup>a</sup> preserves parts of <a data-ref=\"DAN 2:19-49\">2:19–49</a>, the statue passage included.</li><li><b>The oldest copy.</b> 4QDan<sup>c</sup> (4Q114) was dated by its handwriting to about 125 BC. In June 2025 a team led from Groningen published radiocarbon results in <cite>PLOS One</cite> with a calibrated range of 230–160 BC. That range overlaps the 160s BC, the date critical scholars give the book’s last chapters.</li><li><b>Greek Daniel.</b> Two ancient Greek translations survive, the Old Greek and “Theodotion”. Both carry additions absent from the Hebrew and Aramaic: the Prayer of Azariah, Susanna, and Bel and the Dragon.</li></ul>",
+     "ru": "<ul><li><b>Два языка.</b> <a data-ref=\"DAN 1:1-2:4\">Дан. 1:1–2:4а</a> написаны на еврейском, <a data-ref=\"DAN 2:4-7:28\">2:4б–7:28</a> — на арамейском, а гл. 8–12 — снова на еврейском. Глава об истукане написана по-арамейски, на международном языке Вавилонской и Персидской империй.</li><li><b>Ключевые слова.</b> <i>целем</i> (истукан), <i>дехав</i> (золото), <i>кесаф</i> (серебро), <i>нехаш</i> (медь), <i>парзель</i> (железо), <i>хасаф</i> (глина), <i>эвен</i> (камень).</li><li><b>Кумран.</b> В пещерах 1, 4 и 6 найдено восемь рукописей Книги Даниила. 4QDan<sup>a</sup> сохраняет части <a data-ref=\"DAN 2:19-49\">2:19–49</a>, в том числе отрывок об истукане.</li><li><b>Древнейший список.</b> 4QDan<sup>c</sup> (4Q114) по почерку датировали ок. 125 г. до н. э. В июне 2025 г. группа под руководством учёных из Гронингена опубликовала в <cite>PLOS One</cite> результаты радиоуглеродного анализа с калиброванным интервалом 230–160 гг. до н. э. Этот интервал захватывает 160-е гг. до н. э. — время, к которому критические исследователи относят последние главы книги.</li><li><b>Греческий Даниил.</b> Сохранились два древних греческих перевода: Древнегреческий и «Феодотион». Оба содержат добавления, которых нет в еврейском и арамейском тексте: Молитву Азарии, историю Сусанны и рассказ о Виле и драконе.</li></ul>"
+    }
+   },
+   {
+    "title": {
+     "en": "What the chapter does not say",
+     "ru": "О чём глава не говорит"
+    },
+    "body": {
+     "en": "<ul><li><b>No height.</b> The image “sixty cubits” high belongs to chapter 3.</li><li><b>One name only.</b> “You are the head of gold” is the only identification in chapter 2. Media, Persia and Greece are named later, in <a data-ref=\"DAN 8:20-21\">8:20–21</a>.</li><li><b>No count of toes.</b> Ten comes from the horns of <a data-ref=\"DAN 7:24\">7:24</a>.</li><li><b>No dates or durations</b> for any kingdom.</li><li><b>No meaning for two arms or two legs.</b></li></ul>",
+     "ru": "<ul><li><b>Нет высоты.</b> Истукан «вышиною в шестьдесят локтей» — из 3-й главы.</li><li><b>Названо лишь одно царство.</b> «Ты — это золотая голова» — единственное отождествление во 2-й главе. Мидия, Персия и Греция названы позже, в <a data-ref=\"DAN 8:20-21\">8:20–21</a>.</li><li><b>Число пальцев не названо.</b> Десять взято из рогов в <a data-ref=\"DAN 7:24\">7:24</a>.</li><li><b>Нет ни дат, ни сроков</b> ни для одного из царств.</li><li><b>Не сказано, что означают две руки или две голени.</b></li></ul>"
+    }
+   },
+   {
+    "title": {
+     "en": "The materials by the numbers",
+     "ru": "Материалы в цифрах"
+    },
+    "body": {
+     "en": "<div class=\"tscroll\"><table><thead><tr><th>Material</th><th>Density, g/cm³</th><th>Kingdom, Roman sequence</th><th>Years in power</th><th>Peak area, million km²</th></tr></thead><tbody><tr><th data-metal=\"gold\"><span class=\"sw-dot\"></span>Gold</th><td data-metal=\"gold\"><span class=\"dbar\" data-value=\"19.3\"><i></i>19.3</span></td><td>Babylon</td><td class=\"num\">87</td><td class=\"num\">0.5</td></tr><tr><th data-metal=\"silver\"><span class=\"sw-dot\"></span>Silver</th><td data-metal=\"silver\"><span class=\"dbar\" data-value=\"10.5\"><i></i>10.5</span></td><td>Medo-Persia</td><td class=\"num\">208</td><td class=\"num\">5.5</td></tr><tr><th data-metal=\"bronze\"><span class=\"sw-dot\"></span>Bronze</th><td data-metal=\"bronze\"><span class=\"dbar\" data-value=\"8.8\"><i></i>8.8</span></td><td>Greece</td><td class=\"num\">185 (to 146 BC)</td><td class=\"num\">5.2</td></tr><tr><th data-metal=\"iron\"><span class=\"sw-dot\"></span>Iron</th><td data-metal=\"iron\"><span class=\"dbar\" data-value=\"7.9\"><i></i>7.9</span></td><td>Rome</td><td class=\"num\">643 (West)</td><td class=\"num\">5.0</td></tr><tr><th data-metal=\"mix\"><span class=\"sw-dot\"></span>Fired clay</th><td data-metal=\"mix\"><span class=\"dbar\" data-value=\"2\"><i></i>about 2</span></td><td>The divided kingdom</td><td class=\"num\">not given</td><td class=\"num\">not given</td></tr></tbody></table></div><p>From head to foot the materials get lighter and cheaper, and the metals get harder, until the clay, which is simply brittle. The statue is top-heavy. On the Roman sequence every later empire was about ten times Babylon’s size and lasted at least twice as long, so whatever “inferior” means in <a data-ref=\"DAN 2:39\">2:39</a>, it is not size. Areas follow R. Taagepera (1979) and are approximate.</p>",
+     "ru": "<div class=\"tscroll\"><table><thead><tr><th>Материал</th><th>Плотность, г/см³</th><th>Царство по римской последовательности</th><th>Лет у власти</th><th>Наибольшая площадь, млн км²</th></tr></thead><tbody><tr><th data-metal=\"gold\"><span class=\"sw-dot\"></span>Золото</th><td data-metal=\"gold\"><span class=\"dbar\" data-value=\"19.3\"><i></i>19,3</span></td><td>Вавилон</td><td class=\"num\">87</td><td class=\"num\">0,5</td></tr><tr><th data-metal=\"silver\"><span class=\"sw-dot\"></span>Серебро</th><td data-metal=\"silver\"><span class=\"dbar\" data-value=\"10.5\"><i></i>10,5</span></td><td>Мидо-Персия</td><td class=\"num\">208</td><td class=\"num\">5,5</td></tr><tr><th data-metal=\"bronze\"><span class=\"sw-dot\"></span>Бронза</th><td data-metal=\"bronze\"><span class=\"dbar\" data-value=\"8.8\"><i></i>8,8</span></td><td>Греция</td><td class=\"num\">185 (до 146 г. до н. э.)</td><td class=\"num\">5,2</td></tr><tr><th data-metal=\"iron\"><span class=\"sw-dot\"></span>Железо</th><td data-metal=\"iron\"><span class=\"dbar\" data-value=\"7.9\"><i></i>7,9</span></td><td>Рим</td><td class=\"num\">643 (на Западе)</td><td class=\"num\">5,0</td></tr><tr><th data-metal=\"mix\"><span class=\"sw-dot\"></span>Обожжённая глина</th><td data-metal=\"mix\"><span class=\"dbar\" data-value=\"2\"><i></i>ок. 2</span></td><td>Разделённое царство</td><td class=\"num\">не указано</td><td class=\"num\">не указано</td></tr></tbody></table></div><p>От головы до ног материалы становятся легче и дешевле, а металлы — твёрже, вплоть до глины, которая попросту хрупка. Верх у истукана тяжелее низа. При римской последовательности каждая следующая империя была примерно в десять раз больше Вавилона и существовала по меньшей мере вдвое дольше, так что, что бы ни означало «ниже» в <a data-ref=\"DAN 2:39\">2:39</a>, речь не о размерах. Площади приведены по Р. Таагепере (1979) и приблизительны.</p>"
+    }
+   },
+   {
+    "title": {
+     "en": "How the passage has been read since",
+     "ru": "Как этот отрывок читали впоследствии"
+    },
+    "body": {
+     "en": "<ul><li><b>Rabbinic and medieval Jewish readers</b> took the fourth kingdom as Rome, called Edom, and the stone as the Messiah’s kingdom (so Rashi, 11th century). Ibn Ezra (12th century) joined Greece and Rome as the third kingdom and made the Islamic empire the fourth.</li><li><b>The Reformers</b> kept Rome as the fourth. Luther wrote a preface to Daniel in 1530; Calvin’s lectures, published in 1561, tied the stone to Christ’s first coming.</li><li><b>The Fifth Monarchy Men</b> of 1650s England expected the stone’s kingdom in their own day and took their name from it.</li><li><b>Isaac Newton</b> worked on the chapter for decades. His <cite>Observations upon the Prophecies of Daniel</cite> appeared in 1733, after his death.</li><li><b>Since the nineteenth century</b> critical scholarship has adopted Porphyry’s dating, conservative scholarship has defended the sixth century, and excavation in Iraq has supplied the Babylonian texts listed above.</li></ul>",
+     "ru": "<ul><li><b>Раввинистические и средневековые иудейские толкователи</b> видели в четвёртом царстве Рим, называемый Едомом, а в камне — царство Мессии (так у Раши, XI в.). Ибн Эзра (XII в.) объединил Грецию и Рим в третье царство, а четвёртым считал исламскую империю.</li><li><b>Реформаторы</b> по-прежнему считали четвёртым царством Рим. Лютер написал предисловие к Книге Даниила в 1530 г.; лекции Кальвина, изданные в 1561 г., связывали камень с первым пришествием Христа.</li><li><b>Люди Пятой монархии</b> в Англии 1650-х гг. ожидали царства камня в свои дни и от него получили своё название.</li><li><b>Исаак Ньютон</b> десятилетиями работал над этой главой. Его <cite>Замечания на пророчества Даниила</cite> вышли в 1733 г., уже после его смерти.</li><li><b>С XIX в.</b> критическая наука приняла датировку Порфирия, консервативная отстаивала VI в., а раскопки в Ираке дали вавилонские тексты, перечисленные выше.</li></ul>"
+    }
+   }
+  ]
+ },
+ "sources": {
+  "title": {
+   "en": "Sources and further reading",
+   "ru": "Источники и литература"
+  },
+  "intro": {
+   "en": "Primary texts first, then commentaries from both sides of the dating debate.",
+   "ru": "Сначала первоисточники, затем комментарии обеих сторон спора о датировке."
+  },
+  "groups": [
+   {
+    "title": {
+     "en": "Ancient texts and editions",
+     "ru": "Древние тексты и издания"
+    },
+    "items": [
+     {
+      "en": "A. K. Grayson, <cite>Assyrian and Babylonian Chronicles</cite> (1975). Chronicles 5 and 7.",
+      "ru": "A. K. Grayson, <cite>Assyrian and Babylonian Chronicles</cite> (1975). Хроники 5 и 7."
+     },
+     {
+      "en": "D. J. Wiseman, <cite>Chronicles of Chaldaean Kings (626–556 B.C.) in the British Museum</cite> (1956).",
+      "ru": "D. J. Wiseman, <cite>Chronicles of Chaldaean Kings (626–556 B.C.) in the British Museum</cite> (1956)."
+     },
+     {
+      "en": "E. F. Weidner, “Jojachin, König von Juda, in babylonischen Keilschrifttexten”, <cite>Mélanges syriens offerts à René Dussaud</cite> (1939).",
+      "ru": "E. F. Weidner, «Jojachin, König von Juda, in babylonischen Keilschrifttexten», <cite>Mélanges syriens offerts à René Dussaud</cite> (1939)."
+     },
+     {
+      "en": "H. Schaudig, <cite>Die Inschriften Nabonids von Babylon und Kyros’ des Großen</cite> (2001).",
+      "ru": "H. Schaudig, <cite>Die Inschriften Nabonids von Babylon und Kyros’ des Großen</cite> (2001)."
+     },
+     {
+      "en": "I. Finkel, ed., <cite>The Cyrus Cylinder</cite> (2013).",
+      "ru": "<cite>The Cyrus Cylinder</cite>, под ред. I. Finkel (2013)."
+     },
+     {
+      "en": "A. Sachs and H. Hunger, <cite>Astronomical Diaries and Related Texts from Babylonia</cite>, vol. 1 (1988).",
+      "ru": "A. Sachs и H. Hunger, <cite>Astronomical Diaries and Related Texts from Babylonia</cite>, т. 1 (1988)."
+     },
+     {
+      "en": "J. B. Pritchard, ed., <cite>Ancient Near Eastern Texts Relating to the Old Testament</cite>, 3rd ed. (1969).",
+      "ru": "<cite>Ancient Near Eastern Texts Relating to the Old Testament</cite>, под ред. J. B. Pritchard, 3-е изд. (1969)."
+     },
+     {
+      "en": "E. Ulrich and others, <cite>Qumran Cave 4.XI: Psalms to Chronicles</cite>, Discoveries in the Judaean Desert 16 (2000).",
+      "ru": "E. Ulrich и др., <cite>Qumran Cave 4.XI: Psalms to Chronicles</cite>, Discoveries in the Judaean Desert 16 (2000)."
+     },
+     {
+      "en": "M. Popović and others, “Dating ancient manuscripts using radiocarbon and AI-based writing style analysis”, <cite>PLOS One</cite> (4 June 2025).",
+      "ru": "M. Popović и др., «Dating ancient manuscripts using radiocarbon and AI-based writing style analysis», <cite>PLOS One</cite> (4 июня 2025 г.)."
+     },
+     {
+      "en": "Herodotus, <cite>Histories</cite> 1.95, 1.130, 1.183, 1.191; 2.152; 3.89–95. Xenophon, <cite>Cyropaedia</cite> 7.5. Hesiod, <cite>Works and Days</cite> 109–201.",
+      "ru": "Геродот, <cite>История</cite> 1.95, 1.130, 1.183, 1.191; 2.152; 3.89–95. Ксенофонт, <cite>Киропедия</cite> 7.5. Гесиод, <cite>Труды и дни</cite> 109–201."
+     },
+     {
+      "en": "Josephus, <cite>Jewish Antiquities</cite> 10.195–210. 4 Ezra 11–12. Jerome, <cite>Commentary on Daniel</cite>, trans. G. L. Archer (1958).",
+      "ru": "Иосиф Флавий, <cite>Иудейские древности</cite> 10.195–210. 3 Езд. 11–12. Иероним, <cite>Комментарий на Книгу пророка Даниила</cite>, пер. G. L. Archer (1958)."
+     }
+    ]
+   },
+   {
+    "title": {
+     "en": "Commentaries",
+     "ru": "Комментарии"
+    },
+    "items": [
+     {
+      "en": "J. A. Montgomery, <cite>A Critical and Exegetical Commentary on the Book of Daniel</cite>, ICC (1927).",
+      "ru": "J. A. Montgomery, <cite>A Critical and Exegetical Commentary on the Book of Daniel</cite>, ICC (1927)."
+     },
+     {
+      "en": "E. J. Young, <cite>The Prophecy of Daniel</cite> (1949).",
+      "ru": "E. J. Young, <cite>The Prophecy of Daniel</cite> (1949)."
+     },
+     {
+      "en": "J. E. Goldingay, <cite>Daniel</cite>, Word Biblical Commentary (1989).",
+      "ru": "J. E. Goldingay, <cite>Daniel</cite>, Word Biblical Commentary (1989)."
+     },
+     {
+      "en": "J. J. Collins, <cite>Daniel</cite>, Hermeneia (1993).",
+      "ru": "J. J. Collins, <cite>Daniel</cite>, Hermeneia (1993)."
+     },
+     {
+      "en": "S. R. Miller, <cite>Daniel</cite>, New American Commentary (1994).",
+      "ru": "S. R. Miller, <cite>Daniel</cite>, New American Commentary (1994)."
+     },
+     {
+      "en": "T. Longman III, <cite>Daniel</cite>, NIV Application Commentary (1999).",
+      "ru": "T. Longman III, <cite>Daniel</cite>, NIV Application Commentary (1999)."
+     },
+     {
+      "en": "E. C. Lucas, <cite>Daniel</cite>, Apollos Old Testament Commentary (2002).",
+      "ru": "E. C. Lucas, <cite>Daniel</cite>, Apollos Old Testament Commentary (2002)."
+     },
+     {
+      "en": "C. A. Newsom with B. W. Breed, <cite>Daniel</cite>, Old Testament Library (2014).",
+      "ru": "C. A. Newsom при участии B. W. Breed, <cite>Daniel</cite>, Old Testament Library (2014)."
+     }
+    ]
+   },
+   {
+    "title": {
+     "en": "Studies",
+     "ru": "Исследования"
+    },
+    "items": [
+     {
+      "en": "R. P. Dougherty, <cite>Nabonidus and Belshazzar</cite> (1929).",
+      "ru": "R. P. Dougherty, <cite>Nabonidus and Belshazzar</cite> (1929)."
+     },
+     {
+      "en": "H. H. Rowley, <cite>Darius the Mede and the Four World Empires in the Book of Daniel</cite> (1935).",
+      "ru": "H. H. Rowley, <cite>Darius the Mede and the Four World Empires in the Book of Daniel</cite> (1935)."
+     },
+     {
+      "en": "J. W. Swain, “The Theory of the Four Monarchies”, <cite>Classical Philology</cite> 35 (1940).",
+      "ru": "J. W. Swain, «The Theory of the Four Monarchies», <cite>Classical Philology</cite> 35 (1940)."
+     },
+     {
+      "en": "K. A. Kitchen, “The Aramaic of Daniel”, in <cite>Notes on Some Problems in the Book of Daniel</cite> (1965).",
+      "ru": "K. A. Kitchen, «The Aramaic of Daniel», в сб.: <cite>Notes on Some Problems in the Book of Daniel</cite> (1965)."
+     },
+     {
+      "en": "A. Lenglet, “La structure littéraire de Daniel 2–7”, <cite>Biblica</cite> 53 (1972).",
+      "ru": "A. Lenglet, «La structure littéraire de Daniel 2–7», <cite>Biblica</cite> 53 (1972)."
+     },
+     {
+      "en": "R. J. M. Gurney, “The Four Kingdoms of Daniel 2 and 7”, <cite>Themelios</cite> 2 (1977).",
+      "ru": "R. J. M. Gurney, «The Four Kingdoms of Daniel 2 and 7», <cite>Themelios</cite> 2 (1977)."
+     },
+     {
+      "en": "R. Taagepera, “Size and Duration of Empires”, <cite>Social Science History</cite> 3 (1979).",
+      "ru": "R. Taagepera, «Size and Duration of Empires», <cite>Social Science History</cite> 3 (1979)."
+     },
+     {
+      "en": "D. J. Wiseman, <cite>Nebuchadrezzar and Babylon</cite> (1985).",
+      "ru": "D. J. Wiseman, <cite>Nebuchadrezzar and Babylon</cite> (1985)."
+     },
+     {
+      "en": "P.-A. Beaulieu, <cite>The Reign of Nabonidus, King of Babylon 556–539 B.C.</cite> (1989).",
+      "ru": "P.-A. Beaulieu, <cite>The Reign of Nabonidus, King of Babylon 556–539 B.C.</cite> (1989)."
+     }
+    ]
+   }
+  ]
+ },
+ "footer": [
+  {
+   "en": "The verses beside each part are quoted in the translation you are reading; quotations within the text follow the World English Bible, which is in the public domain. Chapter and verse numbers refer to Daniel unless another book is named.",
+   "ru": "Стихи у каждой части истукана приводятся в переводе, который вы читаете; цитаты в тексте — по Синодальному переводу. Номера глав и стихов относятся к Книге Даниила, если не названа другая книга. Русский текст этой страницы — перевод с английского, выполненный для сайта искусственным интеллектом (Claude)."
   },
   {
-   "year": 476,
-   "label": {
-    "en": "Western Empire ends",
-    "ru": "Конец Западной империи"
-   }
+   "en": "Ancient frontiers moved often. Dates before 600 BC and the conversion of Babylonian calendar dates can differ by a year or a day between authorities.",
+   "ru": "Древние рубежи часто менялись. Даты ранее 600 г. до н. э. и пересчёт дат вавилонского календаря у разных авторов могут расходиться на год или на день."
   }
  ]
 }

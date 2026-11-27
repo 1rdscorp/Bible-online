@@ -1,31 +1,37 @@
 /**
- * #/explore/daniel-statue: the statue of Nebuchadnezzar's dream (Daniel 2),
- * interactive. Choose a part (on the figure or in the list) to see its
- * verses, the kingdom it stands for in the chosen reading, that kingdom's
- * history and related passages, its era on the time bar and its extent on
- * the map. "Play the dream" acts out Daniel 2:34–35.
+ * #/explore/daniel-statue: the statue of Nebuchadnezzar's dream (Daniel 2).
  *
- * Two readings are offered, because the text names only some of the
- * kingdoms: the traditional one (Babylon, Medo-Persia, Greece, Rome) and the
- * one many modern scholars hold (Babylon, Media, Persia, Greece). Content:
- * data/study/explore/daniel-statue.json. ?part=…&reading=… keep the choice in
+ * At the top, the statue on a glazed-brick wall (as on Babylon's Ishtar
+ * Gate) stays in view beside the selected part's dossier: its verses (in
+ * the translation being read), the kingdom it stands for in the chosen
+ * reading, facts and figures, the kingdom on the map, the material, where
+ * readers differ, and the evidence for it. "Release the stone" acts out
+ * Daniel 2:34–35. Below: a timeline whose bars move with the reading, the
+ * evidence that survives, research notes, the chapters to read, sources.
+ *
+ * Two readings are offered, because the text names only the first kingdom:
+ * the Roman sequence (Babylon, Medo-Persia, Greece, Rome; reading id
+ * "traditional") and the Greek sequence (Babylon, Media, Persia, Greece;
+ * "scholarly"). Content: data/study/explore/daniel-statue.json, whose rich
+ * text links every verse it cites. ?part=…&reading=… keep the choice in
  * the URL.
  */
-import { getBook } from '../../canon.js';
 import { chapterTitle, t } from '../../i18n.js';
 import { createMapView } from '../../geo/map.js';
 import { formatRef, parseRef } from '../../research/refs.js';
-import { chapterHref, pageHref, PAGES } from '../../router.js';
-import { el, icon, ICONS } from '../../ui/dom.js';
+import { pageHref, PAGES } from '../../router.js';
+import { el } from '../../ui/dom.js';
 import { localize, placeName } from '../maps.js';
-import { eraBar } from '../templates/era-bar.js';
-import { passageQuote, studyPage } from '../templates/study-page.js';
+import { refHref, richHtml, verseHref } from '../templates/rich-html.js';
+import { createStatueEvidence } from './statue-evidence.js';
 import { createStatueFigure } from './statue-figure.js';
+import { createStatueTimeline } from './statue-timeline.js';
 
-const METAL_OF = { head: 'gold', chest: 'silver', belly: 'bronze', legs: 'iron', feet: 'clay', stone: 'stone' };
 const WHOLE_MAP = [-10, 18, 76, 50];
+// Where each part's button sits beside the figure, as a share of its height.
+const RAIL_AT = { head: 10, chest: 27.5, belly: 51, legs: 78, feet: 92.5 };
 
-const refHref = (ref) => chapterHref(getBook(ref.book), ref.chapter, ref.verse, '', ref.endChapter === ref.chapter ? ref.endVerse : null);
+const reducedMotion = () => globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 const refLabel = (ref) => formatRef(ref, chapterTitle);
 
 /** The kingdom a part stands for in a reading. */
@@ -48,6 +54,21 @@ export function kingdomBounds(kingdom, regions, points) {
 }
 
 /**
+ * The metal each shaded region is drawn in: the kingdom's own list (the
+ * stone shows all four kingdoms), the feet's two kingdoms in iron and clay,
+ * otherwise the part's metal.
+ */
+export function regionMetals(part, kingdom) {
+  return kingdom.regions.map((id, index) => kingdom.regionMetals?.[index] ?? (part.metal === 'mix' ? ['iron', 'clay'][index % 2] : part.metal));
+}
+
+/** "2:32", "2:37–38": a reference without the book's name. */
+export function shortRef(ref) {
+  const end = ref.endChapter !== ref.chapter ? `–${ref.endChapter}:${ref.endVerse}` : ref.endVerse !== ref.verse ? `–${ref.endVerse}` : '';
+  return `${ref.chapter}:${ref.verse}${end}`;
+}
+
+/**
  * @param {object} options
  * @param {object} options.data        the page's content
  * @param {object} options.places      data/geo/places.json "places"
@@ -55,7 +76,7 @@ export function kingdomBounds(kingdom, regions, points) {
  * @param {string} options.partId
  * @param {string} options.readingId
  * @param {(state: { part, reading }) => void} options.onChange  to keep the URL in step
- * @param {(ref) => Promise<{ text, lang }|null>} options.passageText
+ * @param {(ref) => Promise<{ text, lang, name }|null>} options.passageText
  */
 export function renderDanielStatue({ data, places, basemap, partId, readingId, onChange, passageText }) {
   let part = data.parts.find((p) => p.id === partId) ?? data.parts[0];
@@ -67,79 +88,100 @@ export function renderDanielStatue({ data, places, basemap, partId, readingId, o
     mapPlaces[id] = { name: landmark.name.en, ru: landmark.name.ru, lon: landmark.lon, lat: landmark.lat, type: 'landmark', score: 500, verses: [], note: landmark.note };
   }
 
-  /* -------- the figure and the list of parts -------- */
+  /* -------- the stage: the statue, its parts, the stone -------- */
 
-  const figure = createStatueFigure({ uid: 'dan2', onSelect: (id) => choose(id, { focus: false }) });
+  const figure = createStatueFigure({ label: localize(data.stage.figure), onSelect: (id) => choose(id) });
   const caption = el('p', { class: 'statue-caption', 'aria-live': 'polite' });
-  const playButton = el('button', { type: 'button', class: 'button statue-play' }, icon(ICONS.play, { size: 18 }), el('span', {}, t('statue.play')));
-  let played = false;
-  playButton.addEventListener('click', async () => {
-    if (played) {
-      played = false;
-      figure.reset();
-      figure.select(part.id);
-      caption.textContent = '';
-      playButton.lastChild.textContent = t('statue.play');
+  const releaseButton = el('button', { type: 'button', class: 'statue-release' }, t('statue.release'));
+  const railButtons = new Map();
+
+  function railButton(p) {
+    const button = el(
+      'button',
+      { type: 'button', class: 'statue-rail-button', 'data-metal': p.metal, 'aria-pressed': 'false' },
+      el('span', { class: 'statue-swatch', 'aria-hidden': 'true' }),
+      el('span', { class: 'statue-rail-part' }, localize(p.label)),
+      el('span', { class: 'statue-rail-kingdom' }),
+    );
+    button.addEventListener('click', () => choose(p.id));
+    railButtons.set(p.id, button);
+    return button;
+  }
+
+  const rail = el(
+    'ul',
+    { class: 'statue-rail', role: 'list', 'aria-label': t('statue.parts') },
+    data.parts.filter((p) => RAIL_AT[p.id] !== undefined).map((p) => el('li', { style: `top:${RAIL_AT[p.id]}%` }, railButton(p))),
+  );
+  const stoneButton = railButton(data.parts.find((p) => p.id === 'stone'));
+
+  releaseButton.addEventListener('click', async () => {
+    if (figure.fallen) {
+      figure.raise();
+      showCaption();
       return;
     }
-    played = true;
-    playButton.disabled = true;
-    caption.textContent = t('statue.captionStart');
-    await figure.play();
-    caption.textContent = t('statue.captionEnd');
-    playButton.disabled = false;
-    playButton.lastChild.textContent = t('statue.replay');
+    choose('stone');
+    releaseButton.disabled = true;
+    await figure.release();
+    releaseButton.disabled = false;
+    showCaption();
   });
 
-  const tabs = new Map();
-  const tabList = el(
+  function showCaption() {
+    caption.replaceChildren(richHtml(localize(figure.fallen ? data.stage.fallen : data.stage.start)));
+    releaseButton.textContent = figure.fallen ? t('statue.raise') : t('statue.release');
+  }
+
+  const stage = el(
     'div',
-    { class: 'statue-tabs', role: 'tablist', 'aria-label': t('statue.parts'), 'aria-orientation': 'vertical' },
-    data.parts.map((p) => {
-      const tab = el(
-        'button',
-        { type: 'button', role: 'tab', id: `statue-tab-${p.id}`, class: 'statue-tab', 'aria-controls': 'statue-panel', 'data-part': p.id },
-        el('span', { class: `statue-swatch statue-swatch--${METAL_OF[p.id]}`, 'aria-hidden': 'true' }),
-        el('span', { class: 'statue-tab-text' }, el('span', { class: 'statue-tab-title' }, localize(p.title)), el('span', { class: 'statue-tab-kingdom' })),
-      );
-      tab.addEventListener('click', () => choose(p.id));
-      tabs.set(p.id, tab);
-      return tab;
-    }),
-  );
-  tabList.addEventListener('keydown', (event) => {
-    const ids = data.parts.map((p) => p.id);
-    const index = ids.indexOf(part.id);
-    const next = { ArrowDown: index + 1, ArrowRight: index + 1, ArrowUp: index - 1, ArrowLeft: index - 1, Home: 0, End: ids.length - 1 }[event.key];
-    if (next === undefined) return;
-    event.preventDefault();
-    choose(ids[(next + ids.length) % ids.length]);
-  });
-
-  const readingGroup = el(
-    'fieldset',
-    { class: 'statue-readings' },
-    el('legend', {}, t('statue.reading')),
-    data.readings.map((r) => {
-      const input = el('input', { type: 'radio', name: 'statue-reading', value: r.id, checked: r.id === reading });
-      input.addEventListener('change', () => {
-        if (!input.checked) return;
-        reading = r.id;
-        update();
-      });
-      return el('label', { class: 'statue-reading' }, input, el('span', {}, el('span', { class: 'statue-reading-title' }, localize(r.title)), el('span', { class: 'statue-reading-note' }, localize(r.note))));
-    }),
+    { class: 'statue-stage' },
+    el(
+      'div',
+      { class: 'statue-stage-inner' },
+      caption,
+      el('div', { class: 'statue-figure-row' }, figure.element, rail),
+      el('div', { class: 'statue-stage-foot' }, stoneButton, releaseButton),
+    ),
+    frieze(),
   );
 
-  const panel = el('div', { class: 'statue-panel', role: 'tabpanel', id: 'statue-panel', tabindex: '0' });
+  /* -------- the title and the reading switch -------- */
 
-  /* -------- the era bar and the map -------- */
+  const readingButtons = new Map();
+  const readingNote = el('p', { class: 'statue-reading-note' });
+  const readingSwitch = el(
+    'div',
+    { class: 'statue-reading', role: 'group', 'aria-labelledby': 'statue-reading-label' },
+    el('span', { class: 'statue-reading-label', id: 'statue-reading-label' }, t('statue.reading')),
+    el(
+      'div',
+      { class: 'statue-segments' },
+      data.readings.map((r) => {
+        const button = el('button', { type: 'button', 'aria-pressed': 'false' }, localize(r.title));
+        button.addEventListener('click', () => {
+          reading = r.id;
+          update();
+        });
+        readingButtons.set(r.id, button);
+        return button;
+      }),
+    ),
+    readingNote,
+  );
 
-  const eraSlot = el('div', { class: 'statue-eras' });
-  let eras = null;
+  const mast = el(
+    'header',
+    { class: 'statue-mast' },
+    el('p', { class: 'statue-eyebrow' }, localize(data.eyebrow)),
+    el('h1', { class: 'view-title', id: 'view-title', tabindex: '-1' }, localize(data.title)),
+    el('p', { class: 'statue-lede' }, richHtml(localize(data.summary))),
+    readingSwitch,
+  );
+
+  /* -------- the map, kept while the dossier changes around it -------- */
 
   const placeCard = el('div', { class: 'place-details statue-place', 'aria-live': 'polite' });
-  const regionNote = el('p', { class: 'study-note statue-region-note' });
   const map = createMapView({
     map: { id: 'daniel', bounds: WHOLE_MAP, places: [], labels: [] },
     basemap,
@@ -151,6 +193,9 @@ export function renderDanielStatue({ data, places, basemap, partId, readingId, o
     allPlacesOption: false,
     onSelect: (id) => showPlace(id),
   });
+  const mapLegend = el('ul', { class: 'statue-legend', role: 'list' });
+  const mapNote = el('figcaption', { class: 'statue-map-note' });
+  const mapFigure = el('figure', { class: 'statue-map', id: 'statue-map', 'aria-labelledby': 'statue-map-title' }, el('h3', { id: 'statue-map-title' }, t('statue.mapHeading')), mapLegend, map.element, placeCard, mapNote);
 
   function showPlace(id) {
     map.select(id);
@@ -160,159 +205,233 @@ export function renderDanielStatue({ data, places, basemap, partId, readingId, o
       return;
     }
     const refs = place.verses.map(parseRef).filter(Boolean);
+    const type = place.type === 'landmark' ? t('statue.landmark') : t(`maps.type.${place.type}`) === `maps.type.${place.type}` ? t('maps.type.place') : t(`maps.type.${place.type}`);
     placeCard.replaceChildren(
       el('h4', { class: 'place-name' }, placeName(place)),
-      el('p', { class: 'place-meta' }, place.type === 'landmark' ? t('statue.landmark') : t(`maps.type.${place.type}`) === `maps.type.${place.type}` ? t('maps.type.place') : t(`maps.type.${place.type}`)),
+      el('p', { class: 'place-meta' }, type),
       place.note ? el('p', {}, localize(place.note)) : null,
       refs.length ? el('p', { class: 'place-count' }, t('maps.namedIn', { n: refs.length })) : null,
       refs.length ? el('ul', { class: 'place-verses', role: 'list' }, refs.slice(0, 8).map((ref) => el('li', {}, el('a', { href: refHref(ref) }, refLabel(ref))))) : null,
     );
   }
 
-  /* -------- showing a part -------- */
-
-  function choose(id, { focus = true } = {}) {
-    const next = data.parts.find((p) => p.id === id);
-    if (!next) return;
-    part = next;
-    update();
-    if (focus) tabs.get(id)?.focus();
-  }
-
-  function update() {
-    const kingdom = kingdomOf(part, reading);
-    onChange({ part: part.id, reading });
-    if (!played) figure.select(part.id);
-    for (const [id, tab] of tabs) {
-      const on = id === part.id;
-      tab.setAttribute('aria-selected', String(on));
-      tab.tabIndex = on ? 0 : -1;
-      tab.querySelector('.statue-tab-kingdom').textContent = localize(kingdomOf(data.parts.find((p) => p.id === id), reading)?.name);
-    }
-    panel.setAttribute('aria-labelledby', `statue-tab-${part.id}`);
-    renderPanel(kingdom);
-    renderEras();
-    renderMap(kingdom);
-  }
-
-  function renderPanel(kingdom) {
-    const quotes = [
-      [t('statue.dream'), part.refs.text],
-      [t('statue.meaning'), part.refs.meaning],
-    ].map(([label, text]) => {
-      const ref = parseRef(text);
-      const quote = passageQuote({ href: refHref(ref), label: refLabel(ref) });
-      passageText(ref).then((found) => found && quote.fill(found.text, found.lang));
-      return el('div', { class: 'statue-quote' }, el('p', { class: 'statue-quote-label' }, label), quote.node);
-    });
-    const twoReadings = Boolean(part.kingdoms);
-    panel.replaceChildren(
-      el('h3', { class: 'statue-part-title' }, el('span', { class: `statue-swatch statue-swatch--${METAL_OF[part.id]}`, 'aria-hidden': 'true' }), localize(part.title)),
-      el('p', { class: 'statue-material' }, localize(part.material)),
-      el('div', { class: 'statue-quotes' }, quotes),
-      el(
-        'div',
-        { class: `statue-kingdom statue-kingdom--${METAL_OF[part.id]}` },
-        el('p', { class: 'statue-kingdom-label' }, twoReadings ? `${t('statue.kingdom')} · ${localize(data.readings.find((r) => r.id === reading).title)}` : t('statue.kingdom')),
-        el('p', { class: 'statue-kingdom-name' }, localize(kingdom.name)),
-        el('p', { class: 'statue-kingdom-dates' }, localize(kingdom.dates)),
-      ),
-      el('h4', {}, t('statue.facts')),
-      el('ul', { class: 'statue-facts' }, kingdom.facts.map((fact) => el('li', {}, localize(fact)))),
-      kingdom.parallels.length > 0 && el('h4', {}, t('statue.parallels')),
-      kingdom.parallels.length > 0 &&
-        el(
-          'ul',
-          { class: 'statue-parallels' },
-          kingdom.parallels.map((parallel) => {
-            const ref = parseRef(parallel.ref);
-            return el('li', {}, el('a', { href: refHref(ref) }, refLabel(ref)), ' — ', localize(parallel.text));
-          }),
-        ),
-      el('p', { class: 'statue-jump' }, el('a', { href: '#statue-map', 'data-jump': 'statue-map' }, icon(ICONS.map, { size: 16 }), t('statue.onMap'))),
-    );
-  }
-
-  function renderEras() {
-    const periods = (data.eras[reading] ?? []).map((era) => {
-      const p = data.parts.find((candidate) => candidate.id === era.part);
-      return { id: era.part, from: era.from, to: era.to, open: Boolean(era.open), kind: METAL_OF[era.part], label: localize(kingdomOf(p, reading).name) };
-    });
-    const events = data.events.map((event) => {
-      const ref = event.ref ? parseRef(event.ref) : null;
-      return { year: event.year, label: localize(event.label), href: ref ? refHref(ref) : null };
-    });
-    eras = eraBar({ range: data.range, periods, events, selected: part.id, onSelect: (id) => choose(id), label: t('statue.history') });
-    eraSlot.replaceChildren(eras.element);
-  }
-
   function renderMap(kingdom) {
-    // Each region in its part's metal; the feet's two kingdoms in iron and in clay.
-    const kinds = part.id === 'feet' ? ['iron', 'clay'] : [METAL_OF[part.id]];
-    const regions = kingdom.regions.map((id, index) => {
-      const region = data.regions[id];
-      return {
-        id,
-        kind: kinds[index % kinds.length],
-        rings: region.rings,
-        label: { text: localize(region.title), lon: region.label[0], lat: region.label[1] },
-      };
-    });
+    const metals = regionMetals(part, kingdom);
+    map.setRegions(
+      kingdom.regions.map((id, index) => {
+        const region = data.regions[id];
+        return { id, kind: metals[index], rings: region.rings, label: { text: localize(region.title), lon: region.label[0], lat: region.label[1] } };
+      }),
+    );
     const ids = [...kingdom.places, ...kingdom.landmarks];
-    map.setRegions(regions);
     map.setPlaces(ids);
     map.select(null);
     placeCard.replaceChildren(el('p', { class: 'place-hint' }, t('maps.pickPlace')));
-    // Which kingdoms are shaded, and when (the map labels carry only their names).
-    const shaded = kingdom.regions.map((id) => `${localize(data.regions[id].title)} (${localize(data.regions[id].date)})`).join(', ');
-    regionNote.textContent = regions.length ? t('statue.mapNote', { regions: shaded }) : t('statue.noMap');
+    // The legend: the shaded kingdoms with their dates. The stone's four are
+    // drawn largest first, but listed in the statue's order, head first.
+    const shaded = kingdom.regions.map((id, index) => ({ id, metal: metals[index] }));
+    if (kingdom.regionMetals) shaded.reverse();
+    mapLegend.replaceChildren(
+      ...shaded.map(({ id, metal }) => el('li', { 'data-metal': metal }, el('i', { 'aria-hidden': 'true' }), `${localize(data.regions[id].title)}, ${localize(data.regions[id].date)}`)),
+    );
+    mapNote.replaceChildren(kingdom.mapNote ? richHtml(localize(kingdom.mapNote)) : t('statue.mapNote'));
     const bounds = kingdomBounds(kingdom, data.regions, ids.map((id) => mapPlaces[id]).filter(Boolean));
     map.fitBounds(bounds ?? WHOLE_MAP, { padding: 28 });
   }
 
-  /* -------- the page -------- */
+  /* -------- the dossier of the selected part -------- */
 
-  const passage = parseRef(data.passage);
-  const element = studyPage({
-    back: { href: pageHref(PAGES.explore), label: t('explore.back') },
-    kicker: t('explore.kicker'),
-    title: localize(data.title),
-    lead: localize(data.summary),
-    className: 'statue-page',
-    sections: [
-      {
-        id: 'statue',
-        title: t('statue.figureHeading'),
-        content: [
-          el('p', { class: 'study-note' }, localize(data.note)),
+  const evidence = createStatueEvidence(data.evidence);
+  const dossier = el('article', { class: 'statue-dossier', 'aria-labelledby': 'statue-part-title' });
+
+  function verseQuote(text) {
+    const ref = parseRef(text);
+    const body = el('span', { class: 'statue-verse-text' });
+    const line = el('p', {}, el('a', { class: 'statue-verse-ref', href: verseHref(text), 'aria-label': refLabel(ref) }, shortRef(ref)), ' ', body);
+    return { line, ref, body };
+  }
+
+  function renderDossier() {
+    const kingdom = kingdomOf(part, reading);
+    const index = data.parts.indexOf(part);
+    const prev = data.parts[index - 1];
+    const next = data.parts[index + 1];
+    const readingTitle = localize(data.readings.find((r) => r.id === reading).title);
+
+    const quotes = part.verses.map(verseQuote);
+    const credit = el('p', { class: 'statue-verse-credit' });
+    const shown = part;
+    Promise.all(quotes.map(({ ref }) => passageText(ref).catch(() => null))).then((found) => {
+      if (shown !== part) return; // another part was chosen meanwhile
+      found.forEach((passage, i) => {
+        if (!passage) return;
+        quotes[i].body.textContent = passage.text;
+        if (passage.lang) quotes[i].body.lang = passage.lang;
+      });
+      credit.textContent = [...new Set(found.map((passage) => passage?.name).filter(Boolean))].join(' · ');
+    });
+
+    const pagerButton = (target, label) => {
+      const button = el('button', { type: 'button', class: 'statue-pager-button' }, label);
+      button.addEventListener('click', () => choose(target.id, { reveal: true }));
+      return button;
+    };
+
+    dossier.dataset.metal = part.metal;
+    dossier.replaceChildren(
+      el('div', { class: 'statue-dossier-bar', 'aria-hidden': 'true' }),
+      el('p', { class: 'statue-kicker' }, `${t('statue.partOf', { n: index + 1, total: data.parts.length })} · ${localize(part.refs)}`),
+      el('h2', { class: 'statue-part-title', id: 'statue-part-title', tabindex: '-1' }, localize(part.title)),
+      el(
+        'p',
+        { class: 'statue-kingdom' },
+        el('span', { class: 'statue-kingdom-name' }, localize(kingdom.name)),
+        el('span', { class: 'statue-kingdom-dates' }, localize(kingdom.dates)),
+        el('span', { class: `statue-badge${kingdom.agree ? '' : ' is-reading'}` }, kingdom.agree ? t('statue.agree') : readingTitle),
+      ),
+      el('p', { class: 'statue-full' }, localize(kingdom.full)),
+      el('blockquote', { class: 'statue-verses' }, quotes.map((quote) => quote.line)),
+      credit,
+      el('div', { class: 'statue-summary' }, richHtml(localize(kingdom.summary))),
+      el('dl', { class: 'statue-stats' }, kingdom.stats.flatMap(([label, value]) => [el('dt', {}, localize(label)), el('dd', {}, richHtml(localize(value)))])),
+      mapFigure,
+      el(
+        'div',
+        { class: 'statue-two' },
+        el('section', { 'aria-labelledby': 'statue-material' }, el('h3', { id: 'statue-material' }, t('statue.material')), el('ul', { class: 'statue-facts' }, kingdom.facts.map((fact) => el('li', {}, richHtml(localize(fact)))))),
+        el('section', { class: 'statue-differ', 'aria-labelledby': 'statue-differ' }, el('h3', { id: 'statue-differ' }, t('statue.differ')), richHtml(localize(kingdom.differ))),
+      ),
+      kingdom.evidence.length > 0 &&
+        el(
+          'section',
+          { class: 'statue-see', 'aria-labelledby': 'statue-see' },
+          el('h3', { id: 'statue-see' }, t('statue.evidenceFor')),
           el(
-            'div',
-            { class: 'statue-layout' },
-            el('div', { class: 'statue-stage' }, figure.element, el('div', { class: 'statue-play-row' }, playButton), caption),
-            el('div', { class: 'statue-side' }, readingGroup, tabList, panel),
+            'ul',
+            { class: 'statue-chips', role: 'list' },
+            kingdom.evidence.map((id) => {
+              const item = data.evidence.items.find((candidate) => candidate.id === id);
+              if (!item) return null;
+              const chip = el('button', { type: 'button', class: 'statue-chip' }, richHtml(localize(item.title)));
+              chip.addEventListener('click', () => evidence.show(id));
+              return el('li', {}, chip);
+            }),
           ),
-        ],
-      },
-      { id: 'statue-history', title: t('statue.history'), content: eraSlot },
-      { id: 'statue-map', title: t('statue.mapHeading'), content: [regionNote, map.element] },
-      {
-        id: 'statue-read',
-        title: t('statue.read'),
-        content: el(
-          'ul',
-          { class: 'statue-read' },
-          [
-            [passage, t('statue.readDream')],
-            [parseRef('DAN 7:1-28'), t('statue.readBeasts')],
-            [parseRef('DAN 8:1-27'), t('statue.readRamGoat')],
-            [parseRef('DAN 11:1-45'), t('statue.readKings')],
-          ].map(([ref, text]) => el('li', {}, el('a', { href: refHref(ref) }, refLabel(ref)), ' — ', text)),
         ),
-      },
-    ],
-    footer: [el('p', {}, t('statue.sources'))],
-  });
+      el(
+        'nav',
+        { class: 'statue-pager', 'aria-label': t('statue.parts') },
+        prev ? pagerButton(prev, `← ${localize(prev.short)}`) : el('span'),
+        next ? pagerButton(next, `${localize(next.short)} →`) : el('span'),
+      ),
+    );
+    renderMap(kingdom);
+  }
 
+  /* -------- the sections below -------- */
+
+  const timeline = createStatueTimeline({ timeline: data.timeline, parts: data.parts, kingdomOf, onSelect: (id) => choose(id, { reveal: true }) });
+
+  const band = (id, title, intro, ...content) =>
+    el(
+      'section',
+      { class: 'statue-band', 'aria-labelledby': id },
+      el('h2', { id, tabindex: '-1' }, title),
+      intro && el('p', { class: 'statue-intro' }, richHtml(localize(intro))),
+      ...content,
+    );
+
+  const notes = el(
+    'div',
+    { class: 'statue-notes' },
+    data.notes.items.map((note, index) =>
+      el('details', { open: index === 0 }, el('summary', {}, el('h3', {}, localize(note.title))), el('div', { class: 'statue-note-body' }, richHtml(localize(note.body)))),
+    ),
+  );
+
+  const readList = el(
+    'ul',
+    { class: 'statue-read' },
+    [
+      [data.passage, t('statue.readDream')],
+      ['DAN 7:1-28', t('statue.readBeasts')],
+      ['DAN 8:1-27', t('statue.readRamGoat')],
+      ['DAN 11:1-45', t('statue.readKings')],
+    ].map(([text, about]) => el('li', {}, el('a', { href: verseHref(text) }, refLabel(parseRef(text))), ' — ', about)),
+  );
+
+  const sources = el(
+    'div',
+    { class: 'statue-sources' },
+    data.sources.groups.map((group) => el('section', {}, el('h3', {}, localize(group.title)), el('ul', { role: 'list' }, group.items.map((item) => el('li', {}, richHtml(localize(item))))))),
+  );
+
+  const jumps = [
+    ['statue-top', t('statue.jumpStatue')],
+    ['statue-timeline', t('statue.jumpTimeline')],
+    ['statue-evidence', t('statue.jumpEvidence')],
+    ['statue-research', t('statue.jumpResearch')],
+    ['statue-read', t('statue.jumpRead')],
+    ['statue-sources', t('statue.jumpSources')],
+  ];
+
+  const element = el(
+    'article',
+    { class: 'page statue-page', 'aria-labelledby': 'view-title' },
+    el(
+      'div',
+      { class: 'statue-topbar' },
+      el('p', { class: 'back' }, el('a', { class: 'back-link', href: pageHref(PAGES.explore) }, el('span', { 'aria-hidden': 'true' }, '←'), t('explore.back'))),
+      el('nav', { class: 'statue-jump', 'aria-label': t('page.onThisPage') }, el('ul', { role: 'list' }, jumps.map(([id, label]) => el('li', {}, el('a', { href: `#${id}`, 'data-jump': id }, label))))),
+    ),
+    el('section', { class: 'statue-hero', id: 'statue-top', tabindex: '-1', 'aria-labelledby': 'view-title' }, stage, mast, dossier),
+    band('statue-timeline', localize(data.timeline.title), data.timeline.intro, timeline.gantt, timeline.tools, timeline.list),
+    band('statue-evidence', localize(data.evidence.title), data.evidence.intro, evidence.tools, evidence.grid),
+    band('statue-research', localize(data.notes.title), data.notes.intro, notes),
+    band('statue-read', t('statue.read'), null, readList),
+    band('statue-sources', localize(data.sources.title), data.sources.intro, sources),
+    el('footer', { class: 'statue-footer' }, data.footer.map((paragraph) => el('p', {}, richHtml(localize(paragraph)))), el('p', {}, t('statue.mapCredits'))),
+  );
+
+  /* -------- choosing a part or a reading -------- */
+
+  /**
+   * @param {string} id
+   * @param {{ reveal?: boolean }} [options]  reveal: bring the dossier into
+   *   view and focus its title (chosen from the timeline or the pager)
+   */
+  function choose(id, { reveal = false } = {}) {
+    if (figure.busy) return;
+    const next = data.parts.find((p) => p.id === id);
+    if (!next) return;
+    // Choosing a part of the statue after the stone fell brings it back.
+    if (figure.fallen && id !== 'stone') {
+      figure.raise();
+      showCaption();
+    }
+    part = next;
+    update();
+    if (reveal) {
+      const title = dossier.querySelector('#statue-part-title');
+      title?.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'start' });
+      title?.focus({ preventScroll: true });
+    }
+  }
+
+  function update() {
+    onChange({ part: part.id, reading });
+    figure.select(part.id);
+    for (const [id, button] of railButtons) {
+      button.setAttribute('aria-pressed', String(id === part.id));
+      button.querySelector('.statue-rail-kingdom').textContent = localize(kingdomOf(data.parts.find((p) => p.id === id), reading).rail);
+    }
+    for (const [id, button] of readingButtons) button.setAttribute('aria-pressed', String(id === reading));
+    readingNote.replaceChildren(richHtml(localize(data.readings.find((r) => r.id === reading).note)));
+    renderDossier();
+    timeline.update({ reading, part: part.id });
+  }
+
+  showCaption();
   update();
 
   return {
@@ -322,4 +441,22 @@ export function renderDanielStatue({ data, places, basemap, partId, readingId, o
       map.destroy();
     },
   };
+}
+
+/** The band of rosettes under the stage, as on the Ishtar Gate. */
+function frieze() {
+  const SVG = 'http://www.w3.org/2000/svg';
+  const node = (name, attrs = {}, ...children) => {
+    const n = document.createElementNS(SVG, name);
+    for (const [key, value] of Object.entries(attrs)) n.setAttribute(key, String(value));
+    n.append(...children);
+    return n;
+  };
+  const petals = [0, 45, 90, 135, 180, 225, 270, 315].map((angle) => node('ellipse', { rx: 1.9, ry: 4.3, cy: -4.4, transform: `rotate(${angle})` }));
+  return node(
+    'svg',
+    { class: 'statue-frieze', viewBox: '0 0 400 22', preserveAspectRatio: 'xMidYMid slice', 'aria-hidden': 'true', focusable: 'false' },
+    node('defs', {}, node('pattern', { id: 'statue-rosette', width: 27, height: 22, patternUnits: 'userSpaceOnUse' }, node('g', { transform: 'translate(13.5 11)', fill: '#f1ecdc' }, ...petals, node('circle', { r: 2.5, fill: '#e2b33c' })))),
+    node('rect', { width: 400, height: 22, fill: 'url(#statue-rosette)' }),
+  );
 }

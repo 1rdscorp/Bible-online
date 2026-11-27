@@ -1,91 +1,1399 @@
 /* ---------- Interactive studies: the statue of Daniel 2 ----------
-   js/views/explore/daniel-statue.js, statue-figure.js, templates/era-bar.js */
+   js/views/explore/daniel-statue.js, statue-figure.js, statue-timeline.js,
+   statue-evidence.js. The stage keeps its lapis glazed-brick look (Babylon's
+   Ishtar Gate) in every theme; the rest follows the site's themes. */
 
-.statue-page {
-  max-width: 64rem;
-}
-
-/* Metal colours for swatches, the time bar and the map's shaded areas. */
+/* Metal colours for swatches, bars and the map's shaded kingdoms. */
 :root {
   --metal-gold: #c99a2e;
   --metal-silver: #9aa4ae;
   --metal-bronze: #b0692c;
   --metal-iron: #565d66;
-  --metal-clay: #a77c55;
+  --metal-clay: #b9774f;
   --metal-stone: #8a857c;
+  --metal-ink: #16181c; /* text on the light metals */
+  --stage: #0e2049;
+  --stage-2: #1a3877;
+  --stage-ink: #eef2fa;
+  --stage-muted: #b4c2de;
+  --stage-rule: #3d5cab;
+  --statue-ok: #23704c;
+  --statue-context: #2f5aa3;
+  --statue-question: #8f5507;
+  --statue-reception: #70458f;
 }
 
-.statue-readings {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: 0.5rem;
-  margin: 0 0 1rem;
-  padding: 0;
-  border: 0;
+:root[data-theme="dark"] {
+  --metal-gold: #d8ab3c;
+  --metal-silver: #aeb7c1;
+  --metal-bronze: #c47c3c;
+  --metal-iron: #67707c;
+  --metal-clay: #c98863;
+  --metal-stone: #9c9a90;
+  --stage: #0b1a3d;
+  --stage-2: #16326e;
+  --statue-ok: #62c296;
+  --statue-context: #8ab2ee;
+  --statue-question: #e4aa4e;
+  --statue-reception: #c09bdc;
 }
 
-.statue-readings legend {
-  margin-bottom: 0.35rem;
-  font-weight: 600;
+/* Auto: same values as the dark theme above. Keep the two blocks in sync. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --metal-gold: #d8ab3c;
+    --metal-silver: #aeb7c1;
+    --metal-bronze: #c47c3c;
+    --metal-iron: #67707c;
+    --metal-clay: #c98863;
+    --metal-stone: #9c9a90;
+    --stage: #0b1a3d;
+    --stage-2: #16326e;
+    --statue-ok: #62c296;
+    --statue-context: #8ab2ee;
+    --statue-question: #e4aa4e;
+    --statue-reception: #c09bdc;
+  }
 }
 
-.statue-reading {
+/* Each part's colour as --metal (a line or swatch) and --metal-fill (an area;
+   the feet are iron and clay). */
+[data-metal="gold"] { --metal: var(--metal-gold); --metal-fill: var(--metal-gold); }
+[data-metal="silver"] { --metal: var(--metal-silver); --metal-fill: var(--metal-silver); }
+[data-metal="bronze"] { --metal: var(--metal-bronze); --metal-fill: var(--metal-bronze); }
+[data-metal="iron"] { --metal: var(--metal-iron); --metal-fill: var(--metal-iron); }
+[data-metal="clay"] { --metal: var(--metal-clay); --metal-fill: var(--metal-clay); }
+[data-metal="mix"] { --metal: var(--metal-clay); --metal-fill: linear-gradient(90deg, var(--metal-iron) 0 50%, var(--metal-clay) 50% 100%); }
+[data-metal="stone"] { --metal: var(--metal-stone); --metal-fill: var(--metal-stone); }
+
+.statue-page {
+  max-width: 80rem;
+  padding-inline: clamp(1rem, 3vw, 2.25rem);
+}
+
+/* ---------- top: back link and sections ---------- */
+
+.statue-topbar {
   display: flex;
-  gap: 0.6rem;
-  align-items: flex-start;
-  padding: 0.6rem 0.75rem;
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-sm);
-  background: var(--color-surface);
-  cursor: pointer;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
 }
 
-.statue-reading:has(input:checked) {
-  border-color: var(--color-accent);
+.statue-topbar .back {
+  margin: 0;
+}
+
+.statue-jump ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.statue-jump a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0 0.6rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.statue-jump a:hover {
   background: var(--color-accent-soft);
 }
 
-.statue-reading input {
-  width: 1.1rem;
-  height: 1.1rem;
-  margin-top: 0.15rem;
-  flex: none;
-  accent-color: var(--color-accent);
+/* ---------- the hero: stage | title, reading, dossier ---------- */
+
+.statue-hero {
+  display: grid;
+  grid-template-columns: minmax(19rem, 28.5rem) minmax(0, 1fr);
+  grid-template-areas:
+    "stage mast"
+    "stage dossier";
+  column-gap: clamp(1.5rem, 4vw, 3.75rem);
+  row-gap: 1.6rem;
+  align-items: start;
+  padding-block: 1.6rem 3.5rem;
 }
 
-.statue-reading-title {
-  display: block;
+.statue-hero:focus {
+  outline: none;
+}
+
+.statue-mast {
+  grid-area: mast;
+}
+
+.statue-eyebrow,
+.statue-kicker,
+.statue-reading-label,
+.statue-dossier h3,
+.statue-stats dt,
+.statue-sources h3,
+.statue-card dt,
+.statue-note-body h4 {
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.76rem;
   font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.statue-mast .view-title {
+  margin: 0.6rem 0 0.9rem;
+  font-family: var(--font-scripture);
+  font-size: clamp(2.1rem, 4.4vw, 3.4rem);
+  font-weight: 400;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.statue-lede {
+  max-width: 60ch;
+  font-family: var(--font-scripture);
+  font-size: 1.14rem;
+  line-height: 1.6;
+}
+
+.statue-reading {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.5rem 0.9rem;
+  margin-top: 1.25rem;
+}
+
+.statue-segments {
+  display: inline-flex;
+  flex-wrap: wrap;
+  width: max-content;
+  max-width: 100%;
+  border: 1px solid var(--color-text);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.statue-segments button {
+  min-height: 2.5rem;
+  padding: 0.45rem 0.9rem;
+  border: 0;
+  background: transparent;
+  font-size: 0.92rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.statue-segments button + button {
+  border-left: 1px solid var(--color-text);
+}
+
+.statue-segments button[aria-pressed="true"] {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+.statue-segments button:focus-visible {
+  outline-offset: -4px;
 }
 
 .statue-reading-note {
-  display: block;
-  margin-top: 0.15rem;
+  grid-column: 1 / -1;
+  max-width: 66ch;
   color: var(--color-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.statue-reading-note b {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* ---------- the stage ---------- */
+
+.statue-stage {
+  grid-area: stage;
+  position: sticky;
+  top: calc(var(--header-height) + 0.75rem);
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  color: var(--stage-ink);
+  background-color: var(--stage);
+  /* Glazed bricks: courses of 64 × 22, over a soft light. */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='44'%3E%3Cpath d='M0 .5H64M0 22.5H64M.5 0V22M32.5 22V44' stroke='%23ffffff' stroke-opacity='.075' fill='none'/%3E%3C/svg%3E"),
+    radial-gradient(130% 85% at 32% 28%, var(--stage-2), var(--stage));
+  box-shadow: 0 18px 40px -22px rgb(10 20 50 / 0.6);
+}
+
+.statue-stage :focus-visible {
+  outline-color: #ffd966;
+}
+
+.statue-stage a {
+  color: #ffe08a;
+}
+
+.statue-stage-inner {
+  padding: 0.9rem 1rem 0.75rem;
+}
+
+.statue-caption {
+  min-height: 2.7em;
+  color: var(--stage-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+}
+
+.statue-caption b {
+  color: var(--stage-ink);
+  font-weight: 600;
+}
+
+.statue-figure-row {
+  display: grid;
+  grid-template-columns: auto minmax(7rem, 1fr);
+  align-items: stretch;
+  column-gap: 1rem;
+  margin-top: 0.15rem;
+}
+
+.statue {
+  display: block;
+  width: auto;
+  height: clamp(20rem, calc(100vh - var(--header-height) - 14rem), 32.5rem);
+  aspect-ratio: 360 / 700;
+  overflow: visible;
+}
+
+.statue-part {
+  cursor: pointer;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.25s, filter 0.25s;
+}
+
+.statue-part :is(path, rect, ellipse, circle, polygon) {
+  stroke: rgb(4 10 30 / 0.55);
+  stroke-width: 0.9;
+}
+
+.statue-part .statue-ln {
+  fill: none;
+  stroke: rgb(4 10 30 / 0.42);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+}
+
+.statue-part .statue-hl {
+  fill: none;
+  stroke: rgb(255 255 255 / 0.5);
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+.statue-part .statue-flat {
+  stroke: none;
+}
+
+.statue.has-selection .statue-part:not(.is-selected) {
+  filter: brightness(0.6) saturate(0.8);
+}
+
+.statue.has-selection .statue-part:not(.is-selected):hover {
+  filter: brightness(0.95);
+}
+
+.statue-part.is-selected {
+  filter: drop-shadow(0 0 7px rgb(255 236 170 / 0.55));
+}
+
+.statue-plinth path {
+  stroke: rgb(4 10 30 / 0.6);
+  stroke-width: 0.9;
+}
+
+.statue-part[data-part="stone"] {
+  animation: statue-bob 4.5s ease-in-out infinite;
+}
+
+@keyframes statue-bob {
+  0%,
+  100% { translate: 0 0; }
+  50% { translate: 0 -6px; }
+}
+
+.statue-mountain {
+  transform: scale(0);
+  transform-origin: 180px 694px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.statue.is-fallen .statue-mountain {
+  transform: none;
+  opacity: 1;
+}
+
+.statue.is-fallen :is(.statue-part, .statue-plinth) {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+.statue.is-busy .statue-part {
+  pointer-events: none;
+}
+
+.statue:is(.is-busy, .is-fallen) .statue-part[data-part="stone"] {
+  animation: none;
+}
+
+.statue.is-busy.has-selection .statue-part {
+  filter: none;
+}
+
+/* The parts' buttons, each level with its part of the figure. */
+.statue-rail {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.statue-rail li {
+  position: absolute;
+  right: 0;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.statue-rail li::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  width: 0.75rem;
+  border-top: 1px solid var(--stage-rule);
+}
+
+.statue-rail-button {
+  display: grid;
+  grid-template-columns: 0.5rem 1fr;
+  align-items: stretch;
+  column-gap: 0.55rem;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.3rem 0.5rem 0.3rem 0.4rem;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--stage-ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.statue-rail-button .statue-swatch {
+  grid-row: 1 / 3;
+  border-radius: 1px;
+  background: var(--metal-fill);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.25);
+}
+
+.statue-rail-part {
+  color: var(--stage-muted);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.statue-rail-kingdom {
+  font-family: var(--font-scripture);
+  font-size: 1.02rem;
+  line-height: 1.15;
+}
+
+.statue-rail-button:hover {
+  background: rgb(255 255 255 / 0.07);
+}
+
+.statue-rail-button[aria-pressed="true"] {
+  background: rgb(255 255 255 / 0.12);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.4);
+}
+
+.statue-stage-foot {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--stage-rule);
+}
+
+.statue-release {
+  min-height: 2.75rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid #e9c659;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(#f2d36d, #d4a017);
+  color: #1a1404;
   font-size: 0.88rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.statue-release:hover {
+  filter: brightness(1.07);
+}
+
+.statue-release:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.statue-frieze {
+  display: block;
+  width: 100%;
+  height: 22px;
+  border-block: 2px solid #d9b13c;
+  background: #0a1836;
+}
+
+/* ---------- the dossier of the selected part ---------- */
+
+.statue-dossier {
+  grid-area: dossier;
+  min-width: 0;
+}
+
+.statue-dossier-bar {
+  height: 6px;
+  border-radius: 1px;
+  background: var(--metal-fill);
+}
+
+.statue-kicker {
+  margin-top: 0.9rem;
+}
+
+.statue-part-title {
+  margin: 0.4rem 0 0.6rem;
+  font-family: var(--font-scripture);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.statue-part-title:focus {
+  outline: none;
+}
+
+.statue-kingdom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.9rem;
+}
+
+.statue-kingdom-name {
+  font-family: var(--font-scripture);
+  font-size: 1.45rem;
+  line-height: 1.15;
+}
+
+.statue-kingdom-dates {
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.statue-badge {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 2px;
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.statue-badge.is-reading {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.statue-full {
+  margin-top: 0.25rem;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+}
+
+.statue-verses {
+  max-width: 66ch;
+  margin: 1.25rem 0 0.25rem;
+  padding: 0.1rem 0 0.1rem 1.1rem;
+  border-left: 3px solid var(--metal);
+}
+
+.statue-verses p {
+  font-family: var(--font-scripture);
+  font-size: 1.12rem;
+  line-height: 1.55;
+}
+
+.statue-verses p + p {
+  margin-top: 0.5rem;
+}
+
+.statue-verse-ref {
+  margin-right: 0.3rem;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  vertical-align: 0.12em;
+}
+
+.statue-verse-credit {
+  min-height: 1.3em;
+  padding-left: 1.3rem;
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+}
+
+.statue-summary {
+  max-width: 66ch;
+  margin-top: 1.25rem;
+  font-family: var(--font-scripture);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.statue-summary p + p,
+.statue-differ p + p {
+  margin-top: 0.6rem;
+}
+
+.statue-stats {
+  display: grid;
+  grid-template-columns: minmax(6rem, max-content) 1fr;
+  max-width: 48rem;
+  margin: 1.25rem 0 0;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.93rem;
+}
+
+.statue-stats dt,
+.statue-stats dd {
+  margin: 0;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.statue-stats dt {
+  padding-top: 0.68rem;
+  padding-right: 1.1rem;
+  font-size: 0.72rem;
+}
+
+.statue-stats dd {
+  font-variant-numeric: tabular-nums;
+}
+
+.statue-dossier h3 {
+  margin: 0 0 0.6rem;
+}
+
+/* The map of the part's kingdom (js/geo/map.js), with its legend. */
+.statue-map {
+  margin: 1.75rem 0 0;
+}
+
+.statue-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.1rem;
+  margin: 0 0 0.5rem;
+  padding: 0;
+  list-style: none;
+  font-size: 0.88rem;
+}
+
+.statue-legend li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+}
+
+.statue-legend i {
+  flex: none;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 1px;
+  background: var(--metal);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.25);
+  translate: 0 1px;
+}
+
+.statue-map-note {
+  max-width: 76ch;
+  margin-top: 0.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.86rem;
   line-height: 1.45;
 }
 
-/* The figure beside the parts and their details. */
-.statue-layout {
+.statue-place {
+  margin-top: 0.5rem;
+}
+
+.statue-two {
   display: grid;
-  grid-template-columns: minmax(12rem, 17rem) 1fr;
-  gap: 1.5rem;
-  margin-top: 1.25rem;
-  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1.6rem 2.5rem;
+  margin-top: 1.9rem;
 }
 
-.statue-stage {
-  position: sticky;
-  top: calc(var(--header-height) + 1rem);
+.statue-facts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.statue-facts li {
+  position: relative;
+  padding: 0.5rem 0 0.5rem 1rem;
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-scripture);
+  line-height: 1.5;
+}
+
+.statue-facts li::before {
+  content: "";
+  position: absolute;
+  top: 1.05em;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 1px;
+  background: var(--metal-fill);
+}
+
+.statue-differ {
+  font-family: var(--font-scripture);
+  line-height: 1.55;
+}
+
+.statue-differ ul {
+  margin: 0.5rem 0;
+  padding-left: 1.1rem;
+}
+
+.statue-differ li + li {
+  margin-top: 0.4rem;
+}
+
+.statue-see {
+  margin-top: 1.75rem;
+}
+
+.statue-pager {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--color-border);
 }
 
-@media (max-width: 44rem) {
-  .statue-layout {
-    grid-template-columns: 1fr;
+.statue-pager-button {
+  min-height: 2.75rem;
+  padding: 0.4rem 0;
+  border: 0;
+  background: none;
+  color: var(--color-accent);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.statue-pager-button:hover {
+  text-decoration: underline;
+}
+
+/* ---------- chips, keys and tags ---------- */
+
+.statue-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.statue-chip {
+  min-height: 2.25rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  background: var(--color-surface);
+  font-size: 0.84rem;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+}
+
+.statue-chip:hover {
+  border-color: var(--color-text);
+}
+
+.statue-chip[aria-pressed="true"] {
+  border-color: var(--color-text);
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+.statue-chip-count {
+  margin-left: 0.3rem;
+  opacity: 0.75;
+  font-variant-numeric: tabular-nums;
+}
+
+.statue-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1.25rem;
+  margin: 1.4rem 0 0.9rem;
+}
+
+.statue-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-text-muted);
+  font-size: 0.86rem;
+}
+
+.statue-key li {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+/* Event markers: a square for empires and wars, a gold diamond for dates in
+   Daniel, a ring for manuscripts and readers. */
+.statue-dot {
+  display: inline-block;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  background: var(--statue-context);
+}
+
+.statue-dot--e {
+  border-radius: 1px;
+}
+
+.statue-dot--d {
+  border-radius: 1px;
+  background: var(--metal-gold);
+  box-shadow: 0 0 0 1px #7d5c07;
+  rotate: 45deg;
+}
+
+.statue-dot--t {
+  border-radius: 50%;
+  background: var(--color-bg);
+  box-shadow: inset 0 0 0 2.5px var(--statue-reception);
+}
+
+.statue-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.statue-pill {
+  --pill: var(--statue-context);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.55rem 0.3rem 0.45rem;
+  border: 1px solid var(--pill);
+  border-radius: 999px;
+  color: var(--pill);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.statue-pill::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: var(--pill);
+}
+
+.statue-pill--confirm { --pill: var(--statue-ok); }
+.statue-pill--confirm::before { border-radius: 50%; }
+.statue-pill--context::before { border-radius: 1px; }
+.statue-pill--question { --pill: var(--statue-question); }
+.statue-pill--question::before { border-radius: 1px; rotate: 45deg; }
+.statue-pill--reception { --pill: var(--statue-reception); }
+.statue-pill--reception::before { border-radius: 50%; background: none; box-shadow: inset 0 0 0 2px var(--pill); }
+
+/* ---------- the sections below the hero ---------- */
+
+.statue-band {
+  padding-block: 3rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.statue-band > h2 {
+  font-family: var(--font-scripture);
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.statue-band > h2:focus {
+  outline: none;
+}
+
+.statue-intro {
+  max-width: 66ch;
+  margin-top: 0.6rem;
+  color: var(--color-text-muted);
+}
+
+/* The timeline: a label column and a track, a row per part. */
+.statue-gantt {
+  position: relative;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  align-items: center;
+  gap: 0.3rem 0.9rem;
+  margin-top: 1.6rem;
+}
+
+.statue-gantt > * {
+  grid-column: 2;
+}
+
+.statue-gantt > .statue-gantt-label,
+.statue-gantt > div:not([class]) {
+  grid-column: 1;
+}
+
+.statue-gantt-label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.statue-gantt-label i {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 1px;
+  background: var(--metal-fill);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.2);
+}
+
+.statue-gantt-track {
+  position: relative;
+  height: 1.75rem;
+}
+
+.statue-gantt-grid {
+  position: relative;
+  align-self: stretch;
+  pointer-events: none;
+}
+
+.statue-gantt-grid span {
+  position: absolute;
+  top: 0;
+  bottom: 1.4rem;
+  border-left: 1px solid var(--color-border);
+}
+
+.statue-gantt-grid span.is-major {
+  border-left-color: var(--color-border-strong);
+}
+
+.statue-gantt-bar,
+.statue-gantt-open {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  min-width: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.statue-gantt-bar {
+  background: var(--metal-fill);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.25);
+}
+
+.statue-gantt-bar:hover {
+  filter: brightness(1.1);
+}
+
+.statue-gantt-open {
+  border: 1.5px dashed var(--color-text-muted);
+  background: repeating-linear-gradient(135deg, transparent 0 5px, color-mix(in srgb, var(--metal-stone) 40%, transparent) 5px 7px);
+}
+
+.statue-gantt-bar.is-selected,
+.statue-gantt-open.is-selected {
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-text);
+}
+
+.statue-gantt-tail {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  border-radius: 0 2px 2px 0;
+  background: var(--metal-fill);
+  opacity: 0.32;
+}
+
+.statue-gantt-name {
+  position: absolute;
+  top: 50%;
+  padding-inline: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  translate: 0 -50%;
+}
+
+.statue-gantt-name.is-on-metal {
+  color: var(--metal-ink);
+}
+
+.statue-gantt-name.is-on-metal.is-light {
+  color: #fff;
+}
+
+.statue-gantt-name.is-before {
+  translate: -100% -50%;
+}
+
+.statue-gantt-dots .statue-dot {
+  position: absolute;
+  top: 50%;
+  width: 11px;
+  height: 11px;
+  translate: -50% -50%;
+  cursor: pointer;
+}
+
+/* Dates in Daniel stay on top where markers crowd together. */
+.statue-gantt-dots .statue-dot--d {
+  z-index: 1;
+}
+
+.statue-gantt-dots .statue-dot:hover {
+  z-index: 2;
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+.statue-gantt-axis {
+  position: relative;
+  height: 1.4rem;
+  color: var(--color-text-muted);
+  font-size: 0.74rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.statue-gantt-axis span {
+  position: absolute;
+  top: 0.45rem;
+  white-space: nowrap;
+  translate: -50% 0;
+}
+
+.statue-events {
+  margin: 0.4rem 0 0;
+  padding: 0;
+  columns: 2 22rem;
+  column-gap: 3rem;
+  list-style: none;
+}
+
+.statue-event {
+  display: grid;
+  grid-template-columns: 5.5rem 0.9rem 1fr;
+  column-gap: 0.6rem;
+  padding: 0.7rem 0.4rem;
+  border-top: 1px solid var(--color-border);
+  break-inside: avoid;
+}
+
+.statue-event-year {
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.45;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.statue-event-mark .statue-dot {
+  margin-top: 0.4em;
+  margin-left: 1px;
+}
+
+.statue-event-title {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.statue-event-text {
+  margin-top: 0.15rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-scripture);
+  line-height: 1.5;
+}
+
+.statue-event-ref {
+  margin-top: 0.2rem;
+  font-size: 0.88rem;
+}
+
+@keyframes statue-flash {
+  0%,
+  40% { background: var(--color-flash); }
+  100% { background: transparent; }
+}
+
+.is-flashing {
+  animation: statue-flash 2.2s ease-out;
+}
+
+/* Evidence cards. */
+.statue-evidence {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(18.5rem, 100%), 1fr));
+  gap: 0 2.25rem;
+}
+
+.statue-card {
+  --group: var(--color-border-strong);
+  padding: 1rem 0.25rem 1.4rem;
+  border-top: 3px solid var(--group);
+  border-radius: 2px;
+}
+
+.statue-card:focus {
+  outline: none;
+}
+
+.statue-card[data-group="gold"] { --group: var(--metal-gold); }
+.statue-card[data-group="silver"] { --group: var(--metal-silver); }
+.statue-card[data-group="bronze"] { --group: var(--metal-bronze); }
+.statue-card[data-group="iron"] { --group: var(--metal-iron); }
+.statue-card[data-group="text"] { --group: var(--statue-context); }
+.statue-card[data-group="readers"] { --group: var(--statue-reception); }
+
+.statue-card header {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr;
+  align-items: start;
+  gap: 0.75rem;
+}
+
+.statue-evidence-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  fill: none;
+  stroke: var(--color-text);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.statue-card h3 {
+  margin: 0;
+  font-family: var(--font-scripture);
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.statue-card-meta {
+  margin-top: 0.25rem;
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.statue-card dl {
+  margin: 0.75rem 0 0;
+}
+
+.statue-card dt {
+  margin-top: 0.6rem;
+  font-size: 0.68rem;
+}
+
+.statue-card dd {
+  margin: 0.15rem 0 0;
+  font-family: var(--font-scripture);
+  line-height: 1.5;
+}
+
+/* Research notes. */
+.statue-notes {
+  margin-top: 1.4rem;
+}
+
+.statue-notes details {
+  min-width: 0;
+  padding: 0.25rem 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.statue-notes summary {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.85rem 0;
+  list-style: none;
+  cursor: pointer;
+}
+
+.statue-notes summary::-webkit-details-marker {
+  display: none;
+}
+
+.statue-notes summary::before {
+  content: "+";
+  flex: none;
+  width: 0.9rem;
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.statue-notes details[open] summary::before {
+  content: "−";
+}
+
+.statue-notes summary h3 {
+  margin: 0;
+  font-family: var(--font-scripture);
+  font-size: 1.35rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.statue-note-body {
+  max-width: 62rem;
+  padding: 0 0 1.4rem 1.65rem;
+  font-family: var(--font-scripture);
+  line-height: 1.6;
+}
+
+.statue-note-body > p,
+.statue-note-body > ul {
+  max-width: 68ch;
+}
+
+.statue-note-body > * + * {
+  margin-top: 0.75rem;
+}
+
+.statue-note-body ul {
+  margin-block: 0;
+  padding-left: 1.1rem;
+}
+
+.statue-note-body > ul {
+  max-width: none;
+  columns: 2 21rem;
+  column-gap: 3rem;
+}
+
+.statue-note-body li {
+  margin-bottom: 0.45rem;
+  break-inside: avoid;
+}
+
+.statue-note-body .cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  gap: 1.4rem 2.75rem;
+}
+
+.statue-note-body h4 {
+  margin: 0 0 0.5rem;
+}
+
+.statue-note-body .tscroll {
+  overflow-x: auto;
+}
+
+.statue-note-body table {
+  width: 100%;
+  min-width: 34rem;
+  border-collapse: collapse;
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.statue-note-body :is(th, td) {
+  padding: 0.55rem 0.9rem 0.55rem 0;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.statue-note-body thead th {
+  border-bottom-color: var(--color-text);
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.statue-note-body tbody th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.statue-note-body td.num {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.statue-note-body .sw-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 0.5rem;
+  border-radius: 1px;
+  background: var(--metal-fill);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.2);
+}
+
+.statue-note-body .dbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 9rem;
+}
+
+.statue-note-body .dbar i {
+  width: calc(var(--value, 0) * 5px);
+  height: 10px;
+  border-radius: 1px;
+  background: var(--metal);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.2);
+}
+
+/* The chapters to read; sources; the footer. */
+.statue-read {
+  margin: 1rem 0 0;
+  padding-left: 1.1rem;
+  line-height: 1.8;
+}
+
+.statue-sources {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(18.5rem, 100%), 1fr));
+  gap: 1.6rem 3rem;
+  margin-top: 1.4rem;
+}
+
+.statue-sources h3 {
+  margin: 0 0 0.5rem;
+}
+
+.statue-sources ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.statue-sources li {
+  padding: 0.45rem 0;
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-scripture);
+  line-height: 1.45;
+}
+
+.statue-footer {
+  padding-block: 1.6rem 2.75rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.statue-footer p {
+  max-width: 86ch;
+}
+
+.statue-footer p + p {
+  margin-top: 0.4rem;
+}
+
+/* ---------- narrow screens ---------- */
+
+@media (max-width: 55rem) {
+  .statue-hero {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "mast"
+      "stage"
+      "dossier";
+    padding-top: 1.1rem;
   }
 
   .statue-stage {
@@ -93,399 +1401,62 @@
   }
 
   .statue {
-    max-height: 22rem;
+    height: clamp(20rem, 92vw, 29rem);
+  }
+
+  .statue-event {
+    grid-template-columns: 4.6rem 0.9rem 1fr;
+  }
+
+  .statue-note-body {
+    padding-left: 0;
   }
 }
 
-.statue {
-  display: block;
-  width: 100%;
-  max-width: 17rem;
-  height: auto;
-  overflow: visible;
+@media (max-width: 30rem) {
+  .statue-reading {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .statue-segments button {
+    flex: 1 1 auto;
+  }
 }
 
-.statue-ground {
-  fill: var(--color-shadow);
-}
+@media (max-width: 26.25rem) {
+  .statue-figure-row {
+    column-gap: 0.75rem;
+  }
 
-.statue-shape {
-  stroke: rgb(0 0 0 / 0.35);
-  stroke-width: 1;
-  stroke-linejoin: round;
-}
+  .statue-rail-kingdom {
+    font-size: 0.94rem;
+  }
 
-.statue-facet {
-  fill: rgb(255 255 255 / 0.18);
-}
+  .statue-stage-foot {
+    grid-template-columns: 1fr;
+  }
 
-.statue-detail {
-  fill: none;
-  stroke: rgb(0 0 0 / 0.28);
-  stroke-width: 1.2;
-  stroke-linecap: round;
-  pointer-events: none;
-}
+  .statue-gantt {
+    column-gap: 0.5rem;
+  }
 
-.statue-part {
-  cursor: pointer;
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: opacity 0.2s ease;
-}
-
-.statue.has-selection .statue-part:not(.is-selected) {
-  opacity: 0.42;
-}
-
-.statue.has-selection .statue-part:not(.is-selected):hover {
-  opacity: 0.8;
-}
-
-/* The chosen part glows; the others fade back. */
-.statue-part.is-selected {
-  filter: drop-shadow(0 0 1.5px var(--color-accent)) drop-shadow(0 0 5px var(--color-accent));
-}
-
-.statue-part--stone {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.statue-mountain {
-  opacity: 0;
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
-  pointer-events: none;
-}
-
-.statue.is-played .statue-mountain {
-  opacity: 1;
-}
-
-.statue.is-played .statue-figure,
-.statue.is-played .statue-part--stone {
-  opacity: 0;
-}
-
-.statue.is-played .statue-part,
-.statue.is-playing .statue-part {
-  cursor: default;
-}
-
-.statue-play-row {
-  margin-top: 0.75rem;
-}
-
-.statue-play {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.statue-caption {
-  min-height: 1.5rem;
-  margin-top: 0.5rem;
-  font-family: var(--font-scripture);
-  text-align: center;
-  line-height: 1.5;
-}
-
-/* The parts, as tabs. */
-.statue-tabs {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
-  gap: 0.4rem;
-}
-
-.statue-tab {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  min-height: 3.25rem;
-  padding: 0.4rem 0.7rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-surface);
-  color: var(--color-text);
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-
-.statue-tab:hover {
-  border-color: var(--color-border-strong);
-}
-
-.statue-tab[aria-selected="true"] {
-  border-color: var(--color-accent);
-  background: var(--color-accent-soft);
-  box-shadow: inset 3px 0 0 var(--color-accent);
-}
-
-.statue-tab-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.statue-tab-title {
-  font-weight: 600;
-}
-
-.statue-tab-kingdom {
-  color: var(--color-text-muted);
-  font-size: 0.85rem;
-}
-
-.statue-swatch {
-  display: inline-block;
-  flex: none;
-  width: 1.1rem;
-  height: 1.1rem;
-  border: 1px solid rgb(0 0 0 / 0.3);
-  border-radius: 50%;
-}
-
-.statue-swatch--gold { background: linear-gradient(135deg, #fff1b8, #c99a2e); }
-.statue-swatch--silver { background: linear-gradient(135deg, #ffffff, #8e98a3); }
-.statue-swatch--bronze { background: linear-gradient(135deg, #f0b987, #8f5020); }
-.statue-swatch--iron { background: linear-gradient(135deg, #a3aab3, #2e3237); }
-.statue-swatch--clay { background: repeating-linear-gradient(135deg, #565d66 0 4px, #a77c55 4px 8px); }
-.statue-swatch--stone { background: linear-gradient(135deg, #b7b2a8, #5d5a54); border-radius: 30% 45% 35% 50%; }
-
-.statue-panel {
-  margin-top: 1rem;
-  padding: 1rem 1.1rem 1.2rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  background: var(--color-surface);
-}
-
-.statue-panel:focus {
-  outline: none;
-}
-
-.statue-panel:focus-visible {
-  outline: 3px solid var(--color-focus);
-  outline-offset: 2px;
-}
-
-.statue-part-title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.statue-material {
-  margin-top: 0.15rem;
-  color: var(--color-text-muted);
-}
-
-.statue-quotes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: 0 1.25rem;
-}
-
-.statue-quote-label {
-  margin-top: 0.9rem;
-  color: var(--color-text-muted);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.statue-quote .passage-quote {
-  margin-top: 0.35rem;
-}
-
-.statue-kingdom {
-  margin-top: 1rem;
-  padding: 0.7rem 0.9rem;
-  border-left: 5px solid var(--metal-stone);
-  border-radius: var(--radius-sm);
-  background: var(--color-bg);
-}
-
-.statue-kingdom--gold { border-left-color: var(--metal-gold); }
-.statue-kingdom--silver { border-left-color: var(--metal-silver); }
-.statue-kingdom--bronze { border-left-color: var(--metal-bronze); }
-.statue-kingdom--iron { border-left-color: var(--metal-iron); }
-.statue-kingdom--clay { border-left-color: var(--metal-clay); }
-
-.statue-kingdom-label {
-  color: var(--color-text-muted);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.statue-kingdom-name {
-  margin-top: 0.1rem;
-  font-family: var(--font-scripture);
-  font-size: 1.35rem;
-}
-
-.statue-kingdom-dates {
-  color: var(--color-text-muted);
-}
-
-.statue-panel h4 {
-  margin-top: 1rem;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.statue-facts,
-.statue-parallels,
-.statue-read {
-  margin: 0.4rem 0 0;
-  padding-inline-start: 1.25rem;
-  line-height: 1.55;
-}
-
-.statue-facts li + li,
-.statue-parallels li + li,
-.statue-read li + li {
-  margin-top: 0.35rem;
-}
-
-.statue-jump {
-  margin-top: 1rem;
-}
-
-.statue-jump a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.statue-region-note {
-  margin-top: 0.25rem;
-}
-
-/* ---------- Era bar (js/views/templates/era-bar.js) ---------- */
-
-.era-bar {
-  --era-lane: 2.5rem;
-  margin-top: 0.75rem;
-}
-
-.era-track {
-  position: relative;
-  height: calc(var(--era-lanes) * var(--era-lane));
-}
-
-.era-markers {
-  position: relative;
-  height: 2.6rem;
-  border-bottom: 1px solid var(--color-border-strong);
-}
-
-.era-period {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  height: calc(var(--era-lane) - 0.4rem);
-  min-width: 0.6rem;
-  padding: 0 0.4rem;
-  overflow: hidden;
-  border: 1px solid rgb(0 0 0 / 0.25);
-  border-radius: 6px;
-  color: #111;
-  font: inherit;
-  font-size: 0.82rem;
-  font-weight: 600;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.era-period-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.era-period--gold { background: linear-gradient(#f3d88a, #c99a2e); }
-.era-period--silver { background: linear-gradient(#f2f4f6, #a7b0ba); }
-.era-period--bronze { background: linear-gradient(#efb27c, #b0692c); }
-.era-period--iron { background: linear-gradient(#8d949d, #4a5058); color: #fff; }
-.era-period--clay { background: repeating-linear-gradient(135deg, #8d949d 0 6px, #c49a73 6px 12px); }
-
-.era-period.is-open {
-  border-right-style: dashed;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  -webkit-mask-image: linear-gradient(to right, #000 70%, transparent);
-  mask-image: linear-gradient(to right, #000 70%, transparent);
-}
-
-.era-period[aria-pressed="true"] {
-  outline: 3px solid var(--color-accent);
-  outline-offset: 1px;
-  z-index: 1;
-}
-
-.era-period:focus-visible {
-  outline: 3px solid var(--color-focus);
-  outline-offset: 2px;
-  z-index: 2;
-}
-
-.era-event {
-  position: absolute;
-  top: 0.15rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.15rem;
-  height: 1.15rem;
-  margin-left: -0.575rem;
-  border-radius: 50%;
-  background: var(--color-text);
-  color: var(--color-bg);
-  font-size: 0.68rem;
-  font-weight: 700;
-}
-
-.era-event.is-low {
-  top: 1.35rem;
-}
-
-.era-axis {
-  position: relative;
-  height: 1.4rem;
-  color: var(--color-text-muted);
-  font-size: 0.75rem;
-}
-
-.era-tick {
-  position: absolute;
-  top: 0.2rem;
-  transform: translateX(-50%);
-  white-space: nowrap;
-}
-
-@media (max-width: 40rem) {
-  .era-tick:not(.is-major) {
+  .statue-gantt-label span {
     display: none;
   }
 }
 
-.era-events {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
-  gap: 0.25rem 1.25rem;
-  margin: 0.75rem 0 0;
-  padding-inline-start: 1.5rem;
-  font-size: 0.9rem;
-}
+@media (prefers-reduced-motion: reduce) {
+  .statue-part[data-part="stone"] {
+    animation: none;
+  }
 
-.era-event-year {
-  color: var(--color-text-muted);
+  .statue-part {
+    transition: none;
+  }
+
+  .is-flashing {
+    animation-duration: 0.01s;
+  }
 }
 
 /* ---------- The map's shaded kingdoms (js/geo/map.js setRegions) ---------- */

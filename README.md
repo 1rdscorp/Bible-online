@@ -206,10 +206,12 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
   - **Full screen** gives the map the whole window, with the selected place's details underneath; Escape leaves it.
 
 - **Interactive studies** (`#/explore`). The first is **the statue of Nebuchadnezzar's dream** (Daniel 2), linked from Daniel 2 and 7, the Daniel introduction and the book list.
-  - **The figure:** choose a part, on the figure or in the list: head of gold, chest and arms of silver, belly and thighs of bronze, legs of iron, feet of iron and clay, or the stone. You see its verses (quoted in your translation), the kingdom it stands for, its dates and history, and related passages in Daniel 7, 8 and 11.
-  - **Two readings:** a switch compares the traditional reading (Babylon, Medo-Persia, Greece, Rome) with the one many modern scholars hold (Babylon, Media, Persia, Greece).
-  - **Time and place:** a time bar shows the kingdoms and key events. A zoomable map flies to each kingdom and shades its approximate extent, clipped to the coast, with its cities and historical sites such as Persepolis, Gaugamela and Constantinople.
-  - **Play the dream:** the stone strikes, the statue turns to dust, and the stone grows into a mountain (Daniel 2:34–35).
+  - **The stage:** the statue stands on a lapis glazed-brick wall, as on Babylon's Ishtar Gate, and stays in view while you read. Choose a part on the figure or in the list beside it: head of gold, chest and arms of silver, belly and thighs of bronze, legs of iron, feet of iron and clay, or the stone.
+  - **The part's dossier:** its verses (quoted in the translation you are reading), the kingdom it stands for, dates, key facts and figures, the kingdom on a zoomable map (shaded in the part's metal, with its cities and historical sites), notes on the material, where readers differ, and the evidence for it.
+  - **Two readings:** a switch compares the Roman sequence (Babylon, Medo-Persia, Greece, Rome) with the Greek sequence many modern scholars hold (Babylon, Media, Persia, Greece). The dossier, the list and the timeline change with it.
+  - **Release the stone:** the stone strikes the feet, the statue breaks into chaff that the wind carries away, and the stone grows into a mountain (Daniel 2:34–35). With reduced motion it goes straight to the end.
+  - **Below:** a timeline of eleven centuries whose bars move with the reading, with 36 events; "What survives", 19 tablets, cylinders, scrolls and early readers that bear on the chapter; research notes (when Daniel was written, the two sequences side by side, Daniel 2 beside Daniel 7, and more); the chapters to read; and sources.
+  - Every Bible reference in the text is a link into the reader. The page is in English and Russian; the Russian text is an AI translation (Claude) made for the site.
 
 - **Adventist commentary** (`#/commentary`), linked next to Interactive studies on the book list. It holds classic Seventh-day Adventist books that are now in the public domain:
   - Ellen G. White's **Conflict of the Ages**, which retells the Bible story chapter by chapter: *Patriarchs and Prophets* (1890; the 1913 edition), *Prophets and Kings* (1917), *The Desire of Ages* (1898) and *The Acts of the Apostles* (1911).
@@ -222,7 +224,7 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
   - **Official edition links:** every Ellen White chapter links to the same chapter in the official Russian edition in [EGW Writings](https://m.egwwritings.org/ru), the White Estate's free online reader («Желание веков», глава 17: «Никодим»).
   - **The site's own translation:** the 9 chapters on Daniel and the Revelation (*Prophets and Kings* 39–45 on Daniel, and *The Acts of the Apostles* 56–57 on John and the Revelation) are translated from English by AI (Claude) for the site. Bible quotations follow the Synodal translation. In the Russian interface these chapters open in Russian, with a switch to the English original (`?lang=en` / `?lang=ru`) and a note that the translation is the site's own, not an official one. Lists and the Research panel use the Russian titles and text where there are some. How to translate more chapters: `tools/commentary-ru/README.md`.
 
-The pages are built from reusable templates (`js/views/templates/study-page.js`: page, facts, tags, outline, quotes, link cards; `era-bar.js`: periods on a time axis) and data files (`data/study/`), so new pages such as topics or reading plans follow the same pattern.
+The pages are built from reusable templates (`js/views/templates/study-page.js`: page, facts, tags, outline, quotes, link cards; `rich-html.js`: a small, safe subset of HTML with verse links, for page content) and data files (`data/study/`), so new pages such as topics or reading plans follow the same pattern.
 
 ## The BTI translation (Kulakov)
 

@@ -417,7 +417,8 @@ let explorePage = null; // { id, view }: the interactive study on screen
 
 /**
  * A passage's text in the translation being read, or the KJV if that one
- * lacks the book (the Septuagint has no New Testament): { text, lang } or null.
+ * lacks the book (the Septuagint has no New Testament): { text, lang, name }
+ * (name: the translation's, in the interface language) or null.
  */
 async function passageText(ref) {
   const { prefs } = await translationState();
@@ -431,7 +432,7 @@ async function passageText(ref) {
         const last = chapter === ref.endChapter ? ref.endVerse : Infinity;
         for (const verse of data?.verses ?? []) if (verse.number >= first && verse.number <= last) parts.push(verse.text);
       }
-      if (parts.length) return { text: parts.join(' '), lang: provider.info.language };
+      if (parts.length) return { text: parts.join(' '), lang: provider.info.language, name: localizeTranslation(provider.info).name };
     } catch {
       // try the next translation
     }
@@ -596,7 +597,7 @@ async function quoteRef(text, translationId) {
         const data = await provider.getChapter(ref.book, chapter);
         for (const verse of data?.verses ?? []) if (verse.number >= from && verse.number <= to) parts.push(verse.text);
       }
-      if (parts.length) return { text: parts.join(' '), lang: provider.info.language };
+      if (parts.length) return { text: parts.join(' '), lang: provider.info.language, name: localizeTranslation(provider.info).name };
     } catch {
       // the next translation
     }

@@ -284,20 +284,22 @@ The basemap is Natural Earth's land, natural lakes and Bible rivers, clipped to 
   - `routes`: optional journeys, each `{ id, title, ref, stops: [place ids] }`.
 
 - **`explore.json`:** the interactive studies, each `{ id, file, icon, title, summary, books, chapters }`. `books` lists the introductions that link to it, and `chapters` (`"DAN 2"`) the chapters that do.
-- **`explore/daniel-statue.json`:** the statue of Daniel 2. Its fields are:
-  - `readings`: `traditional` and `scholarly`.
-  - `parts`: head, chest, belly, legs, feet, stone. Each has `refs.text` (the dream) and `refs.meaning` (Daniel's explanation). Each has either one `kingdom` (Babylon, the stone) or `kingdoms` per reading.
-  - Each kingdom: `name`, `dates`, `facts`, `parallels` (`{ ref, text }`), `regions` (ids), `places` (OpenBible ids) and `landmarks` (ids).
+- **`explore/daniel-statue.json`:** the statue of Daniel 2 (`formatVersion` 2). Text is `{ "en": …, "ru": … }`. Longer text is *rich*: a small subset of HTML (`p`, `b`, `i`, `cite`, `sup`, `ul`/`li`, `h4`, simple tables, `div.cols`), where a verse is `<a data-ref="DAN 2:35">2:35</a>`. The page rebuilds it element by element (`js/views/templates/rich-html.js`), so nothing else gets through. Its fields are:
+  - `title`, `eyebrow`, `summary`, `passage`, and `stage` (the captions before and after the stone falls, and the figure's description).
+  - `readings`: `traditional` (the Roman sequence) and `scholarly` (the Greek sequence), each with a title and a note.
+  - `parts`: head, chest, belly, legs, feet, stone. Each has a `metal`, `title`, `short` and `label` (the list beside the figure), `refs` (shown), `verses` (quoted), and either one `kingdom` (Babylon) or `kingdoms` per reading.
+  - Each kingdom: `name`, `rail` (its name in the list), `full`, `dates`, `agree` (both readings say so), `summary`, `stats` (`[label, value]` pairs), `facts`, `differ`, `evidence` (ids), and for the map `regions` (ids), `places` (OpenBible ids) and `landmarks` (ids). The stone's kingdom also has `regionMetals` (it shows all four kingdoms) and a `mapNote`.
   - `regions`: approximate extents. Each has a title, a date, a label point, and rings of `[lon, lat, …]`. The rings may run out to sea, since the map clips them to the coastline.
   - `landmarks`: historical sites the Bible doesn't name, each with a note.
-  - `eras`: per reading, periods `{ part, from, to }`, with BC years negative.
-  - `events`: `{ year, label, ref? }`.
+  - `timeline`: `title`, `intro`, `range`, `bands` per reading (`{ part, label, from, to, tail?, open? }`, BC years negative), `categories`, and `events` (`{ year, when?, cat, title, text, ref? }`).
+  - `evidence`: `title`, `intro`, `groups`, `kinds`, and `items` (`{ id, group, icon, kinds, title, meta, says, bears }`).
+  - `notes` (research notes: `{ title, body }`), `sources` (groups of entries) and `footer`.
 
 `tests/study-content.test.js` checks all of it:
 - every reference exists, using KJV verse counts;
 - outlines cover their books;
 - every place id exists and has a Russian name where a map labels it;
-- the statue's parts have a kingdom in both readings, and its regions, places, landmarks and eras exist and fit the wide basemap;
+- the statue's parts have a kingdom in both readings; its regions, places, landmarks, evidence and timeline bars exist and fit; its rich text uses only the allowed markup, the same in English and Russian, and every verse link exists;
 - every text has both English and Russian.
 
 Run `node tools/build-study.mjs` after editing.
