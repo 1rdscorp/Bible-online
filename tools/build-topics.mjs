@@ -12,13 +12,15 @@
  * "Christ" …). The output:
  *
  *   data/topics/index.json   [{ id, en, ru, letter, refs }] for the list and lookups
- *   data/topics/<id>.json    { id, en, ru, lines: [{ l: 1|2, t: "Is of God", r: ["PSA 65:4"], see: ["prayer"] }] }
+ *   data/topics/<id>.json    { id, en, ru, lines: [{ l: 1|2, t: "Is of God", ru: "От Бога", r: ["PSA 65:4"], see: ["prayer"] }] }
  *   data/topics/refs.json    { GEN: [[chapter, verse, endChapter, endVerse, topic, line], …] }
  *                            which statements cite each passage (the Research panel's Topics tab)
  *
  * Every reference is checked against the KJV's verses; CCEL's few that point
  * to verses that don't exist are left out (and counted). The Russian titles
- * come from tools/topics-ru.json.
+ * come from tools/topics-ru.json, and the Russian statements (an AI
+ * translation, line for line) from tools/topics-ru/<id>.txt: see
+ * tools/translate-topics.mjs.
  */
 import { createHash } from 'node:crypto';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
@@ -28,6 +30,7 @@ import { BOOKS } from '../js/canon.js';
 import { download } from './lib/download.mjs';
 import { updateResearchManifest } from './lib/research-manifest.mjs';
 import { decodeEntities, scripRefTargets } from './lib/thml.mjs';
+import { problems, readTranslation } from './translate-topics.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 export const SOURCE = {
@@ -187,19 +190,30 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     await writeFile(join(dir, name), text);
   };
   const count = (topic) => topic.lines.reduce((sum, line) => sum + line.r.length, 0);
+  let translated = 0;
   for (const topic of topics) {
-    await write(`${topic.id}.json`, { id: topic.id, en: topic.title, ru: ru[topic.id] ?? null, lines: topic.lines });
+    // The Russian statements, where a checked translation exists.
+    const lines = readTranslation(topic.id);
+    const usable = lines && problems(topic.id, lines, topic.lines).length === 0;
+    if (lines && !usable) console.warn(`  tools/topics-ru/${topic.id}.txt doesn't fit the topic: left out (node tools/translate-topics.mjs check ${topic.id})`);
+    if (usable) translated += 1;
+    const out = topic.lines.map((line, i) => {
+      const { l, t, ...rest } = line;
+      return usable ? { l, t, ru: lines[i], ...rest } : line;
+    });
+    await write(`${topic.id}.json`, { id: topic.id, en: topic.title, ru: ru[topic.id] ?? null, lines: out });
   }
   const index = topics.map((topic) => ({ id: topic.id, en: topic.title, ru: ru[topic.id] ?? null, refs: count(topic) }));
   await write('index.json', { formatVersion: 1, source: SOURCE, topics: index });
   await write('refs.json', refIndex(topics));
 
   const total = topics.reduce((sum, topic) => sum + count(topic), 0);
-  console.log(`${topics.length} topics, ${topics.reduce((s, t) => s + t.lines.length, 0)} statements, ${total} references (${bad} references to verses that don't exist left out)`);
+  console.log(`${topics.length} topics, ${topics.reduce((s, t) => s + t.lines.length, 0)} statements, ${total} references (${bad} references to verses that don't exist left out); ${translated} topics with Russian statements`);
   await updateResearchManifest('topics', {
     url: 'data/topics/',
     version: hash.digest('hex').slice(0, 12),
     topics: topics.length,
+    translated,
     references: total,
     license: SOURCE.license,
     source: { name: SOURCE.name, author: SOURCE.author, year: SOURCE.year, url: SOURCE.page },

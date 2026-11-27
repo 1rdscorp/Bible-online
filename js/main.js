@@ -566,7 +566,8 @@ async function showTopicsPage(route, isCurrent, rerender) {
   const quoteId = selectionFromPrefs(prefs)[0];
   const quoteInfo = translations.find((info) => info.id === quoteId);
   const focus = /^\d+$/.test(route.params.s ?? '') ? Number(route.params.s) : null;
-  mount(renderTopicPage({ topic, index, focus, quote: (ref) => quoteRef(ref, quoteId), quoteName: `${quoteInfo?.abbreviation ?? ''} · ${quoteInfo?.name ?? ''}` }), {
+  const original = route.params.lang === 'en';
+  mount(renderTopicPage({ topic, index, focus, original, quote: (ref) => quoteRef(ref, quoteId), quoteName: `${quoteInfo?.abbreviation ?? ''} · ${quoteInfo?.name ?? ''}` }), {
     title: topicTitle(topic),
     preserve: rerender,
   });

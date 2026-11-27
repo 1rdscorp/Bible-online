@@ -21,7 +21,7 @@ import { topicsForVerse } from '../research/topics.js';
 import { linkStrongs, scriptRuns, strongsLanguage } from '../research/strongs.js';
 import { chapterHref, commentaryHref, topicHref } from '../router.js';
 import { partLabel, passageText as commentaryPassage, titleLang, workTitle } from '../views/commentary.js';
-import { topicTitle } from '../views/topics.js';
+import { statementText, topicTitle } from '../views/topics.js';
 import { truncate, verseRangeLabel } from '../translate/text.js';
 import { el, icon, ICONS } from './dom.js';
 import { registerSidePanel } from './side-panels.js';
@@ -251,7 +251,10 @@ export function initResearchPanel({ data, getProvider, concordance, strongsTrans
     data.topic(entry.id).then((topic) => {
       if (id !== renderId) return;
       const shown = lines.slice(0, TOPIC_STATEMENTS_SHOWN);
-      const items = shown.map((line) => el('li', {}, el('a', { href: topicHref(entry.id, `s=${line}`), lang: 'en' }, topic.lines[line]?.t ?? '')));
+      const items = shown.map((line) => {
+        const { text, lang } = topic.lines[line] ? statementText(topic.lines[line]) : { text: '', lang: null };
+        return el('li', {}, el('a', { href: topicHref(entry.id, `s=${line}`), lang }, text));
+      });
       if (lines.length > shown.length) items.push(el('li', { class: 'topic-result-more' }, t('research.topicsMore', { n: lines.length - shown.length })));
       statements.replaceChildren(...items);
     }, () => {});

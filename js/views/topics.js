@@ -3,9 +3,10 @@
  * one topic (#/topics/faith): Torrey's statements, each with its references
  * and a "Show verses" button that quotes them in the reader's translation.
  *
- * Torrey's statements are English; topic titles are in the interface
- * language (tools/topics-ru.json). Lookups: js/research/topics.js; data:
- * js/research/data.js.
+ * Titles are in the interface language (tools/topics-ru.json). In Russian,
+ * Torrey's statements show in the site's AI translation (tools/topics-ru/),
+ * labelled as such, with a switch to his English (?lang=en). Lookups:
+ * js/research/topics.js; data: js/research/data.js.
  */
 import { getBook } from '../canon.js';
 import { chapterTitle, getLanguage, t } from '../i18n.js';
@@ -15,6 +16,12 @@ import { chapterHref, topicHref } from '../router.js';
 import { el, icon, ICONS } from '../ui/dom.js';
 
 export const topicTitle = (topic) => (getLanguage() === 'ru' && topic.ru) || topic.en;
+
+/** A statement in the interface language where there's a translation: { text, lang }. */
+export function statementText(line, { original = false } = {}) {
+  if (getLanguage() === 'ru' && line.ru && !original) return { text: line.ru, lang: 'ru' };
+  return { text: line.t, lang: 'en' };
+}
 
 const collator = () => new Intl.Collator(getLanguage(), { sensitivity: 'base' });
 
@@ -132,10 +139,12 @@ function sourceNote(source) {
  * @param {number | null} [options.focus]  a statement to open at (?s=)
  * @param {(ref: string) => Promise<{ text, lang } | null>} options.quote  a verse in the reader's translation
  * @param {string} options.quoteName  that translation's abbreviation ("RST")
+ * @param {boolean} [options.original]  Torrey's English even in Russian (?lang=en)
  */
-export function renderTopicPage({ topic, index, focus = null, quote, quoteName }) {
+export function renderTopicPage({ topic, index, focus = null, quote, quoteName, original = false }) {
   const titles = new Map(index.topics.map((entry) => [entry.id, entry]));
   const english = getLanguage() !== 'en';
+  const translated = getLanguage() === 'ru' && topic.lines.some((line) => line.ru);
 
   function statement(line) {
     const refs = line.r.map(parseRef).filter(Boolean);
@@ -172,7 +181,10 @@ export function renderTopicPage({ topic, index, focus = null, quote, quoteName }
       el(
         'p',
         { class: 'topic-statement' },
-        el('span', { class: 'topic-statement-text', lang: 'en' }, line.t),
+        (() => {
+          const { text, lang } = statementText(line, { original });
+          return el('span', { class: 'topic-statement-text', lang }, text);
+        })(),
         refs.length > 0 && el('span', { class: 'topic-dash' }, ' — '),
         refs.length > 0 && el('span', { class: 'topic-refs' }, refLinks(refs)),
       ),
@@ -201,6 +213,19 @@ export function renderTopicPage({ topic, index, focus = null, quote, quoteName }
     );
   }
 
+  // In Russian: say the statements are an AI translation, with a switch to
+  // Torrey's English; without a translation, that they're in English.
+  function languageNote() {
+    if (!translated) return el('p', { class: 'topic-language-note' }, t('topics.languageNote'));
+    return el(
+      'p',
+      { class: 'topic-language-note' },
+      original ? t('topics.originalNote') : t('topics.translatedNote'),
+      ' ',
+      el('a', { href: original ? topicHref(topic.id) : topicHref(topic.id, 'lang=en'), class: 'topic-language-switch', 'data-focus-key': 'topic-language' }, original ? t('topics.showTranslation') : t('topics.showOriginal')),
+    );
+  }
+
   const lines = nestLines(topic.lines);
   const page = el(
     'article',
@@ -208,7 +233,7 @@ export function renderTopicPage({ topic, index, focus = null, quote, quoteName }
     el('p', { class: 'back' }, el('a', { class: 'back-link', href: topicHref() }, el('span', { 'aria-hidden': 'true' }, '←'), t('topics.all'))),
     el('h1', { class: 'view-title', id: 'view-title', tabindex: '-1' }, topicTitle(topic)),
     english && el('p', { class: 'topic-english', lang: 'en' }, topic.en),
-    english && el('p', { class: 'topic-language-note' }, t('topics.languageNote')),
+    english && languageNote(),
     el('ul', { class: 'topic-lines', role: 'list' }, lines.map(statement)),
     sourceNote(index.source),
   );
