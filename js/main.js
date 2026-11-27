@@ -42,7 +42,6 @@ import { initAudioPlayer } from './ui/audio-player.js';
 import { initFootnotes } from './ui/footnotes.js';
 import { initSelectionTranslate } from './ui/selection-translate.js';
 import { initSettingsPanel } from './ui/settings-panel.js';
-import { initSwipeNav } from './ui/swipe-nav.js';
 import { paintStudyMarks } from './ui/study-marks.js';
 import { createToaster } from './ui/toast.js';
 import { errorText, initOffline } from './offline.js';
@@ -1272,12 +1271,6 @@ async function boot() {
   selectionTranslate = initSelectionTranslate({ root: main, getRussianVerses });
   toaster = createToaster();
   initOffline({ toaster, appSection: document.getElementById('settings-app') });
-  // Phones and tablets: swipe left or right to turn the chapter.
-  initSwipeNav({
-    root: main,
-    page: () => (currentRoute?.view === 'reader' && reader && main.contains(reader.view.element) ? main.querySelector('.reader article') : null),
-    onSwipe: turnChapter,
-  });
   notesPanel = initNotesPanel({ store: studyStore, toaster });
   searchClient = createSearchClient();
   researchPanel = initResearchPanel({

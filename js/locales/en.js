@@ -34,7 +34,6 @@ export default {
 
     'settings.tipSearch': 'Press',
     'settings.tipSearchEnd': 'to search.',
-    'settings.tipSwipe': 'Swipe left or right on a chapter to go to the next or previous one.',
     'settings.tipVerses': 'Tap a verse to highlight it, write a note, bookmark, copy or share it. Select words to highlight just those words or search for them.',
 
     'location.choose': '{title}: choose another chapter',
