@@ -878,14 +878,14 @@
     "ru": "При пятой трубе из дыма бездны выходит войско саранчи и мучит людей пять месяцев."
    },
    "picture": {
-    "en": "A horse-shaped locust with a golden crown, a human face, long hair, a lion’s teeth, an iron breastplate, wings and a scorpion’s tail, beside a smoking pit with a fallen star and a key.",
-    "ru": "Саранча в виде коня: золотой венец, человеческое лицо, длинные волосы, львиные зубы, железная броня, крылья и хвост скорпиона; рядом дымящийся кладезь, упавшая звезда и ключ."
+    "en": "Locusts shaped like war horses flying out of the smoke of a burning pit. The nearest has a golden crown, a man’s face with long hair and a lion’s teeth, iron armour, wings and a scorpion’s tail; others like it follow.",
+    "ru": "Саранча в виде боевых коней вылетает из дыма горящей бездны. У ближайшей золотой венец, человеческое лицо с длинными волосами и львиными зубами, железная броня, крылья и хвост скорпиона; за ней летят другие."
    },
    "parts": [
     {
      "at": [
-      398,
-      232
+      118,
+      150
      ],
      "title": {
       "en": "Like horses prepared for battle",
@@ -902,8 +902,8 @@
     },
     {
      "at": [
-      508,
-      52
+      256,
+      36
      ],
      "title": {
       "en": "Crowns like gold",
@@ -920,8 +920,8 @@
     },
     {
      "at": [
-      548,
-      106
+      212,
+      100
      ],
      "title": {
       "en": "Faces of men",
@@ -938,8 +938,8 @@
     },
     {
      "at": [
-      410,
-      62
+      322,
+      76
      ],
      "title": {
       "en": "Hair as the hair of women",
@@ -956,8 +956,8 @@
     },
     {
      "at": [
-      540,
-      138
+      222,
+      146
      ],
      "title": {
       "en": "Teeth as the teeth of lions",
@@ -974,8 +974,8 @@
     },
     {
      "at": [
-      484,
-      176
+      296,
+      200
      ],
      "title": {
       "en": "Breastplates of iron",
@@ -992,8 +992,8 @@
     },
     {
      "at": [
-      316,
-      96
+      418,
+      80
      ],
      "title": {
       "en": "Wings like chariots",
@@ -1010,8 +1010,8 @@
     },
     {
      "at": [
-      384,
-      40
+      544,
+      70
      ],
      "title": {
       "en": "Tails like scorpions",
@@ -1029,7 +1029,7 @@
     {
      "at": [
       150,
-      220
+      276
      ],
      "title": {
       "en": "The smoke of the pit",
@@ -1072,7 +1072,13 @@
      "en": "She does not explain the features of the locusts one by one. The White Estate notes that this passage is her only known reference to Revelation 9, and Adventist scholars still discuss how far it endorses Litch’s details.",
      "ru": "Отдельные черты саранчи она не объясняет. Центр наследия Эллен Уайт отмечает, что это единственное известное у неё упоминание 9-й главы Откровения, и адвентистские богословы до сих пор обсуждают, насколько оно подтверждает подробности расчёта Литча."
     }
-   ]
+   ],
+   "image": {
+    "src": "img/revelation/locusts.webp",
+    "thumb": "img/revelation/locusts-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
   },
   {
    "id": "lion-headed-horses",
@@ -1099,14 +1105,14 @@
     "ru": "При шестой трубе от реки Евфрат выходит конное войско числом «две тьмы тем»."
    },
    "picture": {
-    "en": "A horse with a lion’s head and a serpent for a tail, breathing red, blue and yellow streams, carrying a rider in a three-coloured breastplate; four bound angels stand by a river, and a great host fills the distance.",
-    "ru": "Конь с львиной головой и змеёй вместо хвоста изрыгает красную, синюю и жёлтую струи; на нём всадник в трёхцветной броне. У реки стоят четыре связанных ангела, вдали — огромное войско."
+    "en": "A horse with a lion’s head and a serpent for a tail, breathing fire, smoke and yellow-green brimstone, carrying an armoured rider whose breastplate glows red. Behind them a river runs through a dark plain where a host of horsemen rides.",
+    "ru": "Конь с львиной головой и змеёй вместо хвоста изрыгает огонь, дым и жёлто-зелёную серу; на нём всадник в броне, нагрудник которой светится красным. Позади река течёт по тёмной равнине, где скачет конное войско."
    },
    "parts": [
     {
      "at": [
-      470,
-      66
+      296,
+      122
      ],
      "title": {
       "en": "Heads like lions",
@@ -1123,8 +1129,8 @@
     },
     {
      "at": [
-      596,
-      128
+      172,
+      104
      ],
      "title": {
       "en": "Fire, smoke and brimstone",
@@ -1141,8 +1147,8 @@
     },
     {
      "at": [
-      238,
-      52
+      550,
+      160
      ],
      "title": {
       "en": "Tails like serpents",
@@ -1159,7 +1165,7 @@
     },
     {
      "at": [
-      330,
+      418,
       78
      ],
      "title": {
@@ -1177,8 +1183,8 @@
     },
     {
      "at": [
-      96,
-      290
+      150,
+      268
      ],
      "title": {
       "en": "Four angels bound at the Euphrates",
@@ -1195,8 +1201,8 @@
     },
     {
      "at": [
-      590,
-      246
+      72,
+      152
      ],
      "title": {
       "en": "Two hundred thousand thousand",
@@ -1239,6 +1245,12 @@
    "context": {
     "en": "For context: Uriah Smith’s <cite>Daniel and the Revelation</cite>, the standard Adventist commentary of her day, read the fire, smoke and brimstone as the gunfire of mounted Ottoman troops. That reading is his, not hers.",
     "ru": "Для справки: Урия Смит в книге <cite>Daniel and the Revelation</cite>, главном адвентистском комментарии того времени, видел в огне, дыме и сере ружейный огонь османской конницы. Это его толкование, а не её."
+   },
+   "image": {
+    "src": "img/revelation/lion-headed-horses.webp",
+    "thumb": "img/revelation/lion-headed-horses-thumb.webp",
+    "width": 1600,
+    "height": 893
    }
   },
   {
@@ -1266,14 +1278,14 @@
     "ru": "Единственное существо, которое Откровение называет прямо: «древний змий, называемый диаволом и сатаною»."
    },
    "picture": {
-    "en": "A red dragon with seven crowned heads and ten horns under a night sky; its tail sweeps stars down, and it faces a woman clothed with the sun, crowned with twelve stars, with the moon under her feet.",
-    "ru": "Красный дракон с семью головами в диадимах и десятью рогами под ночным небом; хвост его увлекает звёзды. Перед ним жена, облечённая в солнце, в венце из двенадцати звёзд, с луной под ногами."
+    "en": "A red dragon with several crowned and horned heads under a night sky. Its long tail sweeps burning stars down, and it faces a woman shining like the sun, crowned with stars, standing on a crescent moon.",
+    "ru": "Красный дракон с несколькими рогатыми головами в венцах под ночным небом. Его длинный хвост увлекает вниз горящие звёзды. Перед ним жена, сияющая как солнце, в венце из звёзд, стоящая на лунном серпе."
    },
    "parts": [
     {
      "at": [
-      232,
-      262
+      296,
+      268
      ],
      "title": {
       "en": "A great red dragon",
@@ -1290,8 +1302,8 @@
     },
     {
      "at": [
-      388,
-      150
+      226,
+      120
      ],
      "title": {
       "en": "Seven heads",
@@ -1308,8 +1320,8 @@
     },
     {
      "at": [
-      318,
-      60
+      232,
+      34
      ],
      "title": {
       "en": "Ten horns",
@@ -1326,8 +1338,8 @@
     },
     {
      "at": [
-      478,
-      96
+      60,
+      50
      ],
      "title": {
       "en": "Seven crowns on his heads",
@@ -1344,8 +1356,8 @@
     },
     {
      "at": [
-      112,
-      196
+      452,
+      56
      ],
      "title": {
       "en": "His tail drew a third of the stars",
@@ -1362,8 +1374,8 @@
     },
     {
      "at": [
-      568,
-      100
+      458,
+      232
      ],
      "title": {
       "en": "The woman clothed with the sun",
@@ -1410,7 +1422,13 @@
      "en": "The dragon gives the beast his seat. She reads this as the papacy taking over the power and the seat once held by the Roman Empire <span class=\"cite-ref\">GC 439</span>.",
      "ru": "Дракон даёт зверю свой престол. Она понимает это так: папство унаследовало силу и престол, прежде принадлежавшие Римской империи <span class=\"cite-ref\">GC 439</span>."
     }
-   ]
+   ],
+   "image": {
+    "src": "img/revelation/dragon.webp",
+    "thumb": "img/revelation/dragon-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
   },
   {
    "id": "sea-beast",
@@ -1437,14 +1455,14 @@
     "ru": "Зверь, в котором соединены барс, медведь и лев. Он получает престол дракона, властвует 42 месяца, получает смертельную рану и исцеляется."
    },
    "picture": {
-    "en": "A spotted beast with seven heads, ten crowned horns, a bear’s paws and a lion’s mouth climbing out of the sea onto the shore, where a golden throne stands. One head is wounded.",
-    "ru": "Пятнистый зверь с семью головами, десятью рогами в диадимах, медвежьими лапами и львиной пастью выходит из моря на берег, где стоит золотой престол. Одна голова ранена."
+    "en": "A leopard-spotted beast with several crowned heads and dark horns wading out of a stormy sea. One head is a roaring lion’s, another bears a bloody wound, and its great clawed paw breaks the water.",
+    "ru": "Пятнистый, как барс, зверь с несколькими головами в венцах и тёмными рогами выходит из бурного моря. Одна голова — рыкающая львиная, на другой кровавая рана; огромная когтистая лапа рассекает воду."
    },
    "parts": [
     {
      "at": [
-      70,
-      356
+      96,
+      296
      ],
      "title": {
       "en": "Rising out of the sea",
@@ -1461,8 +1479,8 @@
     },
     {
      "at": [
-      236,
-      250
+      220,
+      200
      ],
      "title": {
       "en": "Like a leopard",
@@ -1479,8 +1497,8 @@
     },
     {
      "at": [
-      394,
-      346
+      330,
+      268
      ],
      "title": {
       "en": "The feet of a bear",
@@ -1497,8 +1515,8 @@
     },
     {
      "at": [
-      486,
-      264
+      412,
+      215
      ],
      "title": {
       "en": "The mouth of a lion",
@@ -1515,8 +1533,8 @@
     },
     {
      "at": [
-      366,
-      28
+      323,
+      96
      ],
      "title": {
       "en": "Seven heads",
@@ -1533,8 +1551,8 @@
     },
     {
      "at": [
-      504,
-      86
+      432,
+      30
      ],
      "title": {
       "en": "Ten horns with ten crowns",
@@ -1551,8 +1569,8 @@
     },
     {
      "at": [
-      216,
-      100
+      316,
+      184
      ],
      "title": {
       "en": "The wounded head",
@@ -1569,8 +1587,8 @@
     },
     {
      "at": [
-      590,
-      232
+      435,
+      82
      ],
      "title": {
       "en": "The dragon’s seat",
@@ -1617,7 +1635,13 @@
      "en": "She separates the system from its members. There are true Christians in every church, the Roman Catholic communion included, and God accepts their sincerity <span class=\"cite-ref\">GC 449</span>.",
      "ru": "Она отделяет систему от её членов. Истинные христиане есть в каждой церкви, включая Римско-католическую, и Бог принимает их искренность <span class=\"cite-ref\">GC 449</span>."
     }
-   ]
+   ],
+   "image": {
+    "src": "img/revelation/sea-beast.webp",
+    "thumb": "img/revelation/sea-beast-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
   },
   {
    "id": "earth-beast",
