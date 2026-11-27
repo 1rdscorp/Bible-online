@@ -40,7 +40,7 @@ describe('the build (tools/build-topics.mjs)', () => {
 describe('data/topics/', () => {
   test('is listed in data/research.json with its current version', () => {
     const hash = createHash('sha256');
-    for (const name of [...index.topics.map((entry) => `${entry.id}.json`), 'index.json', 'refs.json']) hash.update(name).update(read(`data/topics/${name}`));
+    for (const name of [...index.topics.map((entry) => `${entry.id}.json`), 'index.json', 'refs.json', 'statements.json']) hash.update(name).update(read(`data/topics/${name}`));
     assert.equal(research.topics.url, 'data/topics/');
     assert.equal(research.topics.version, hash.digest('hex').slice(0, 12), 'run node tools/build-topics.mjs');
     assert.equal(research.topics.topics, index.topics.length);
@@ -97,6 +97,15 @@ describe('data/topics/', () => {
       }
     }
     assert.equal(research.topics.translated, index.topics.length);
+  });
+
+  test('statements.json has every statement, in English and Russian', () => {
+    const statements = JSON.parse(read('data/topics/statements.json'));
+    assert.equal(statements.length, topics.reduce((sum, topic) => sum + topic.lines.length, 0));
+    for (const [t, l, en, ru] of statements) {
+      assert.equal(en, topics[t].lines[l].t);
+      assert.equal(ru, topics[t].lines[l].ru);
+    }
   });
 
   test('the reverse index lists every reference once, under its book', () => {
