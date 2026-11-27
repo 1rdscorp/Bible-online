@@ -377,7 +377,7 @@ export default {
     'audio.error': "The recording couldn't be loaded. Check your connection.",
     'audio.retry': 'Try again',
     'topics.title': 'Topics',
-    'topics.intro': "What the Bible says on 623 subjects, from faith and prayer to the Sabbath and the second coming: R. A. Torrey's statements, each with the verses that show it.",
+    'topics.intro': "What the Bible says on 624 subjects, from faith and prayer to the Sabbath and the second coming: R. A. Torrey's statements, each with the verses that show it.",
     'topics.search': 'Find a topic',
     'topics.count': { one: '{n} topic', other: '{n} topics' },
     'topics.found': { one: '{n} topic found', other: '{n} topics found' },

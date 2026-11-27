@@ -46,9 +46,9 @@ describe('data/topics/', () => {
     assert.equal(research.topics.topics, index.topics.length);
   });
 
-  test('623 topics, each with English and Russian titles and unique ids', () => {
-    assert.equal(index.topics.length, 623);
-    assert.equal(new Set(index.topics.map((t) => t.id)).size, 623);
+  test('624 topics, each with English and Russian titles and unique ids', () => {
+    assert.equal(index.topics.length, 624);
+    assert.equal(new Set(index.topics.map((t) => t.id)).size, 624);
     for (const entry of index.topics) {
       assert.match(entry.id, /^[a-z0-9-]+$/);
       assert.ok(entry.en && entry.ru && /[А-Яа-яЁё]/.test(entry.ru), entry.id);

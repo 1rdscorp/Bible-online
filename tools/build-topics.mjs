@@ -53,6 +53,14 @@ export const TITLE_FIXES = {
   'e-p77.2': 'Earth',
 };
 
+/**
+ * Topics whose title CCEL lost, so that they run on at the end of the
+ * topic before: the paragraph id where each really begins, and its title.
+ */
+export const TOPIC_SPLITS = {
+  's-p72': 'Sackcloth', // after Sabbath: "Made of coarse hair", "Worn with ashes on the head"…
+};
+
 /** "Affections, The" → "Affections"; "Herbs, &amp; C" → "Herbs, &c." */
 export function cleanTitle(raw) {
   return decodeEntities(raw)
@@ -112,15 +120,20 @@ export function readTopics(xml, lastVerse) {
   let bad = 0;
   const pattern = /<term(?:[^>]*\sid="([^"]*)")?[^>]*>([\s\S]*?)<\/term>\s*<def[^>]*>([\s\S]*?)<\/def>/g;
   for (const [, termId, term, def] of xml.matchAll(pattern)) {
-    const lines = [];
-    for (const [, level, body] of def.matchAll(/<p class="index(\d)"[^>]*>([\s\S]*?)<\/p>/g)) {
+    let lines = [];
+    topics.push({ title: TITLE_FIXES[termId] ?? cleanTitle(term), lines });
+    for (const [, level, attrs, body] of def.matchAll(/<p class="index(\d)"([^>]*)>([\s\S]*?)<\/p>/g)) {
+      const split = TOPIC_SPLITS[/\sid="([^"]*)"/.exec(attrs)?.[1]];
+      if (split) {
+        lines = [];
+        topics.push({ title: split, lines });
+      }
       const line = readLine(body, lastVerse);
       bad += line.bad;
       delete line.bad;
       if (!line.t && !line.r.length) continue;
       lines.push({ l: Number(level) >= 2 ? 2 : 1, ...line });
     }
-    topics.push({ title: TITLE_FIXES[termId] ?? cleanTitle(term), lines });
   }
   return { topics, bad };
 }
