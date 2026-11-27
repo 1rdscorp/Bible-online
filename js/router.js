@@ -24,6 +24,8 @@
  *   #/commentary  commentary  the commentary library
  *   #/commentary/desire-of-ages     commentary  one book's chapters (route.workId)
  *   #/commentary/desire-of-ages/4   commentary  one chapter (route.partId)
+ *   #/plans       plans     reading plans
+ *   #/plans/bible-year  plans  one plan (route.planId)
  *
  * Anything after "?" is parsed into `route.params`. The reader uses ?t= for
  * its translations (#/john/3?t=kjv,asv); see js/translations.js.
@@ -61,6 +63,7 @@ export const PAGES = Object.freeze({
   maps: 'maps',
   explore: 'explore',
   commentary: 'commentary',
+  plans: 'plans',
 });
 
 export function pageHref(name) {
@@ -84,6 +87,11 @@ export function mapHref(id = null, query = '') {
 export function commentaryHref(workId = null, partId = null, query = '') {
   const path = [pageHref(PAGES.commentary), workId, workId && partId].filter(Boolean).join('/');
   return `${path}${query ? `?${query}` : ''}`;
+}
+
+/** The reading plans (#/plans), or one plan (#/plans/bible-year). */
+export function planHref(planId = null) {
+  return `${pageHref(PAGES.plans)}${planId ? `/${planId}` : ''}`;
 }
 
 /** Split a location.hash into path segments and query parameters. */
@@ -146,6 +154,12 @@ export function resolveRoute(hash) {
       return { ...base, view: 'not-found', reason: 'page', query: segments.slice(1).join('/') };
     }
     return withCanonical({ ...base, view: page, workId, partId }, commentaryHref(workId, partId) + suffix, raw);
+  }
+  if (page === PAGES.plans && chapterPart) {
+    // Plan ids are lower-case words; whether one exists is checked when the plans load.
+    const planId = chapterPart.toLowerCase();
+    if (!/^[a-z0-9-]+$/.test(planId) || segments.length > 2) return { ...base, view: 'not-found', reason: 'page', query: segments.slice(1).join('/') };
+    return withCanonical({ ...base, view: page, planId }, planHref(planId) + suffix, raw);
   }
   if (page) return withCanonical({ ...base, view: page }, pageHref(page) + suffix, raw);
 

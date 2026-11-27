@@ -94,4 +94,7 @@ export const ICONS = Object.freeze({
   // An open book with lines of text: commentary.
   commentary: 'M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5C17 4 14 4.5 12 6zM12 6v14.5M6.5 8.5c1.2-.2 2.3 0 3.3.4M6.5 12c1.2-.2 2.3 0 3.3.4M14.2 8.9c1-.4 2.1-.6 3.3-.4M14.2 12.4c1-.4 2.1-.6 3.3-.4',
   info: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 11v6M12 7.5h.01',
+  // A calendar page (reading plans) and a tick (read).
+  calendar: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4M8 14h2M14 14h2M8 17h2',
+  check: 'M5 12.5l4.5 4.5L19 7.5',
 });

@@ -129,6 +129,12 @@ export function createResearchData({ fetchJson = (url, version) => translationCa
       return load(`${commentary.url}${lang === 'ru' ? 'ru/' : ''}${workId}/${partId}.json`, commentary.version);
     },
 
+    /** The reading plans (data/plans.json): { wordsPerMinute, plans: [{ id, name, description, days, minutes }] }. */
+    async plans() {
+      const { plans } = await manifest();
+      return load(plans.url, plans.version);
+    },
+
     /** The audio Bibles: [{ id, translation, title, url, version, readers, reader, page, credit }]. */
     async audioSources() {
       const { audio } = await manifest();

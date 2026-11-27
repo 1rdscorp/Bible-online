@@ -430,7 +430,7 @@ function createStudyPage({ filters: initial, store, toaster, state, getProvider,
       importButton.addEventListener('click', async () => {
         const how = mode.querySelector('input:checked').value;
         const outcome = await store.importItems(result.items, how);
-        await applyBackupExtras(result);
+        await applyBackupExtras({ ...result, mode: how });
         confirm.hidden = true;
         status.textContent = t('backup.done', { added: outcome.added, updated: outcome.updated });
         if (outcome.saved === false) toaster.show(t('study.saveFailed'), { tone: 'error' });

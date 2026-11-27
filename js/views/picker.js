@@ -6,20 +6,27 @@
  */
 import { booksInTestament, TESTAMENTS } from '../canon.js';
 import { bookName, chapterTitle, t, testamentName } from '../i18n.js';
-import { bookHref, chapterHref, commentaryHref, introHref, mapHref, pageHref, PAGES } from '../router.js';
+import { bookHref, chapterHref, commentaryHref, introHref, mapHref, pageHref, PAGES, planHref } from '../router.js';
 import { el, icon, ICONS } from '../ui/dom.js';
 
 /**
- * @param {{ lastRead?: { book, chapter } | null, studyCount?: number }} options
+ * @param {{ lastRead?: { book, chapter } | null, studyCount?: number, readings?: object[] }} options
  * studyCount: highlights, notes and bookmarks saved (shows a My Study link)
+ * readings: today's reading in each started plan ([{ href, label, target }], views/plans.js)
  */
-export function renderBookList({ lastRead = null, studyCount = 0 } = {}) {
+export function renderBookList({ lastRead = null, studyCount = 0, readings = [] } = {}) {
   return el(
     'section',
     { class: 'picker', 'aria-labelledby': 'view-title' },
     el('h1', { class: 'view-title', id: 'view-title', tabindex: '-1' }, t('books.title')),
-    (lastRead || studyCount > 0) &&
-      el('p', { class: 'continue' }, lastRead && continueLink(lastRead), studyCount > 0 && studyLink(studyCount)),
+    (lastRead || studyCount > 0 || readings.length > 0) &&
+      el(
+        'p',
+        { class: 'continue' },
+        readings.map(readingLink),
+        lastRead && continueLink(lastRead),
+        studyCount > 0 && studyLink(studyCount),
+      ),
     TESTAMENTS.map((testament) =>
       el(
         'section',
@@ -54,6 +61,7 @@ export function renderBookList({ lastRead = null, studyCount = 0 } = {}) {
     el(
       'nav',
       { class: 'study-links', 'aria-label': t('page.studyLinks') },
+      el('a', { class: 'study-link', href: planHref() }, icon(ICONS.calendar, { size: 18 }), t('plans.title')),
       el('a', { class: 'study-link', href: pageHref(PAGES.timeline) }, icon(ICONS.timeline, { size: 18 }), t('timeline.title')),
       el('a', { class: 'study-link', href: mapHref() }, icon(ICONS.map, { size: 18 }), t('maps.title')),
       el('a', { class: 'study-link', href: pageHref(PAGES.explore) }, icon(ICONS.statue, { size: 18 }), t('explore.title')),
@@ -67,6 +75,17 @@ export function renderBookList({ lastRead = null, studyCount = 0 } = {}) {
       el('p', {}, t('home.creditBti'), ' ', el('span', { lang: 'ru' }, '«Институт перевода Библии им. М. П. Кулакова»'), `, 2024. ${t('home.creditPermission')}`),
       el('p', {}, el('a', { href: pageHref('translations') }, t('reader.about'))),
     ),
+  );
+}
+
+/** "Today's reading · Bible in a year · Day 12" / "Genesis 34–36". */
+function readingLink({ href, label, target }) {
+  return el(
+    'a',
+    { class: 'continue-link continue-link--plan', href },
+    el('span', { class: 'continue-label' }, `${t('plans.todaysReading')} · ${label}`),
+    el('span', { class: 'visually-hidden' }, ': '),
+    el('span', { class: 'continue-target' }, target),
   );
 }
 

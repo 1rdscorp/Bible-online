@@ -1,0 +1,385 @@
+/* ==========================================================================
+   Reading plans (js/views/plans.js): the list of plans, a plan's page, the
+   bar under a chapter in today's reading, and the home page's link.
+   ========================================================================== */
+
+.plans-page {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+  font-family: var(--font-ui);
+}
+
+.plans-section {
+  margin-top: 2rem;
+}
+
+.plans-section-title {
+  margin: 0 0 0.75rem;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ---------- The list of plans ---------- */
+
+.plan-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plan-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  height: 100%;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: inherit;
+  text-decoration: none;
+}
+
+.plan-card:hover {
+  border-color: var(--color-border-strong);
+}
+
+.plan-card-title {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.plan-card-text {
+  color: var(--color-text);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.plan-card-meta {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.plan-card .plan-progress {
+  margin-top: auto;
+}
+
+/* ---------- Progress ---------- */
+
+.plan-progress {
+  overflow: hidden;
+  height: 0.4rem;
+  margin-top: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-accent-soft);
+}
+
+.plan-progress-bar {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-accent);
+}
+
+/* ---------- A plan's page ---------- */
+
+.plan-meta {
+  margin-top: 0.4rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.plan-start {
+  margin-top: 1.5rem;
+}
+
+.plan-start-other {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.plan-date-input {
+  min-height: 2.75rem;
+  padding: 0 0.6rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.plan-hint {
+  margin-top: 0.75rem;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.plan-status {
+  margin-top: 1.5rem;
+}
+
+.plan-status-text {
+  margin: 0;
+}
+
+.plan-behind {
+  margin-top: 0.75rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.plan-next {
+  margin-top: 1.5rem;
+  padding: 1rem 1.1rem 1.1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.plan-next-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.plan-next-date {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.plan-passages {
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.plan-passage {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+}
+
+.plan-passage-link {
+  font-family: var(--font-scripture);
+  font-size: 1.15rem;
+  text-decoration: none;
+}
+
+.plan-passage-link:hover {
+  text-decoration: underline;
+}
+
+.plan-next-done {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin: 0;
+}
+
+.plan-next-done-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.plan-read {
+  gap: 0.4rem;
+  text-decoration: none;
+}
+
+/* Ticks: a real checkbox, sized for a finger. */
+.plan-tick {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.plan-done-note {
+  margin-top: 1rem;
+}
+
+/* Every day, in fold-out groups. */
+.plan-all {
+  margin-top: 2rem;
+}
+
+.plan-block {
+  border-top: 1px solid var(--color-border);
+}
+
+.plan-block:last-child {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.plan-block-title {
+  min-height: 2.75rem;
+  padding: 0.7rem 0;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.plan-block-dates {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.plan-days {
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.plan-day {
+  display: grid;
+  grid-template-columns: auto 4.5rem 6.5rem 1fr auto;
+  align-items: center;
+  gap: 0.25rem 0.6rem;
+  min-height: 2.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.plan-day.is-today {
+  background: var(--color-accent-soft);
+}
+
+.plan-day-number {
+  font-weight: 600;
+}
+
+.plan-day-date {
+  color: var(--color-text-muted);
+}
+
+.plan-day-passages a {
+  display: inline-block;
+  padding: 0.25rem 0;
+  text-decoration: none;
+}
+
+.plan-day-passages a:hover {
+  text-decoration: underline;
+}
+
+.plan-day.is-done .plan-day-passages a,
+.plan-day.is-done .plan-day-number {
+  color: var(--color-text-muted);
+}
+
+.plan-day-today {
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Narrow screens: day, date and "Today" on one line, the passages below. */
+@media (max-width: 34rem) {
+  .plan-day {
+    grid-template-columns: auto auto 1fr auto;
+  }
+
+  .plan-day-passages {
+    grid-column: 2 / -1;
+  }
+}
+
+.plan-manage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-top: 2rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* ---------- Under a chapter ---------- */
+
+.chapter-plans {
+  max-width: 34rem;
+  margin: 2.5em auto 0;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+}
+
+.plan-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.plan-bar + .plan-bar {
+  margin-top: 0.5rem;
+}
+
+.plan-bar-plan {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.plan-bar-plan:hover {
+  color: var(--color-accent);
+}
+
+.plan-bar-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border: 1px solid var(--color-accent);
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.plan-bar-toggle[aria-pressed="true"] {
+  background: transparent;
+  color: var(--color-accent);
+}
+
+.plan-bar-next {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a.plan-bar-next:hover {
+  text-decoration: underline;
+}
+
+/* ---------- The home page ---------- */
+
+.continue-link--plan {
+  border-color: var(--color-accent);
+}

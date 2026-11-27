@@ -83,9 +83,10 @@ export function initOffline({ toaster, appSection }) {
 }
 
 /**
- * Settings → App: "Works offline…" and, where the browser allows, an
- * Install button; on an iPhone or iPad, how to add the site to the home
- * screen; once installed, just the offline note.
+ * Settings → App: "Works offline…" and, where the browser offers it, an
+ * Install button; otherwise where the browser's menu installs it (on an
+ * iPhone or iPad, Share → Add to Home Screen); once installed, just the
+ * offline note.
  */
 function initAppSection(section) {
   if (!section) return;
@@ -104,7 +105,10 @@ function initAppSection(section) {
     if (isInstalled()) setText('appInstall.installed');
     else if (prompt) setText('appInstall.offline');
     else if (isIos) setText('appInstall.ios');
-    else setText('appInstall.offline');
+    // The browser hasn't offered its install dialog (yet): Chrome and
+    // Samsung Internet wait until the page has been used a little, so say
+    // where their own menu does it.
+    else setText('appInstall.menu');
   }
 
   // Chrome, Edge, Samsung Internet: the browser's own install dialog.
