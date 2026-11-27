@@ -277,8 +277,11 @@ export function initAudioPlayer({ data, onFollow = () => {} }) {
   });
   audio.addEventListener('error', () => {
     if (!audio.src) return;
-    message.replaceChildren(t('audio.error'), ' ', el('button', { type: 'button', class: 'text-button', onclick: retry }, t('audio.retry')));
+    message.replaceChildren(t(navigator.onLine === false ? 'audio.offline' : 'audio.error'), ' ', el('button', { type: 'button', class: 'text-button', onclick: retry }, t('audio.retry')));
     message.hidden = false;
+    // A failed load can leave the element "playing" (waiting for data that
+    // won't come, e.g. offline): stop it, so the buttons show Play.
+    if (!audio.paused) audio.pause();
     renderPlaying();
   });
 

@@ -13,6 +13,8 @@ Highlights, notes and bookmarks are saved on the device, listed on a My Study pa
 
 For research, a side panel shows each verse's cross-references, and in KJV+ the Hebrew or Greek word behind any English word, with every verse that uses it. Study pages introduce each book of the Bible and include a timeline and maps of Bible places.
 
+It works offline and installs on a phone's home screen like an app: everything already opened on the device keeps working without a connection.
+
 ## Run it locally
 
 Browsers block JavaScript modules and data loading on `file://` pages, so serve the folder instead of opening `index.html` directly:
@@ -36,7 +38,7 @@ npm test
 ```
 
 This runs two groups of tests:
-- **Unit tests:** canon, router, translation selection, verse alignment, versification remapping, the provider contract, the cache, the registry, interface languages, search (tokenizing and queries, the index, references, search URLs), and study tools (verse ranges and highlight splitting, note markup, copy formats, backups, the store).
+- **Unit tests:** canon, router, translation selection, verse alignment, versification remapping, the provider contract, the cache, the registry, interface languages, search (tokenizing and queries, the index, references, search URLs), and study tools (verse ranges and highlight splitting, note markup, copy formats, backups, the store), and offline support (`sw.js` lists the current files, the app manifest and icons).
 - **Data checks:** every translation in `data/translations.json` is validated, version-checked and scanned for leftover markup. The research data (cross-references, Strong's dictionaries, places, basemap), the audio data (every chapter has a recording, the Psalm numbering) and the study content (introductions, timeline, maps) are checked too: every reference must exist and every outline must cover its book.
 
 ## Deploy to GitHub Pages
@@ -211,6 +213,26 @@ Chapters of the Russian Synodal can be heard read aloud. A chapter shown in the 
 
 Another recording (another reader, language or host) is an entry in `tools/audio-sources.json` plus `node tools/build-audio.mjs`; the player reads any source in the same shape (`js/audio/sources.js`).
 
+## Offline and installing as an app
+
+The site works without an internet connection, and online as usual whenever there is one.
+
+- **What works offline:** the site itself, plus every translation, chapter, search, cross-reference, word study, study page and commentary chapter already opened on the device. A translation is saved whole the first time it's opened, so all its chapters work offline after that. Highlights, notes and bookmarks are on the device anyway.
+- **What needs a connection:** anything never opened before (the page says so, and to open it once with a connection), the audio (it streams from predanie.ru; the player says listening needs a connection), and Translate links to Yandex. Nothing is downloaded in bulk.
+- **Messages:** "You're offline…" when the connection drops, "Back online." when it returns.
+- **Installing:** **Aa → App** explains it. In Chrome, Edge or Samsung Internet (Android, Windows, ChromeOS) an **Install app** button opens the browser's install dialog. On an iPhone or iPad, Safari's **Share → Add to Home Screen** does it. The installed app opens full-screen from its own icon.
+- **Updates:** when a new version of the site is published, the app shows "A new version of the site is ready · Reload". If you ignore it, the new version starts the next time the app is closed and reopened.
+
+**How it works:** a service worker (`sw.js`) keeps a copy of the site's own files (HTML, CSS, JavaScript, icons) and serves them first, so the app opens instantly with or without a connection. The two data lists (`data/translations.json`, `data/research.json`) come from the network when it answers within 4 seconds, and otherwise from the saved copy. The Bible text and research data are saved by `js/providers/translation-cache.js` as they're opened, under their content version, so an updated file replaces the old copy. `js/offline.js` registers the worker, shows the messages and fills the App section. Other sites (audio, Yandex) are never touched.
+
+**After changing any HTML, CSS, JavaScript or icon file, run:**
+
+```bash
+npm run build-offline
+```
+
+It writes the list of the site's files and their version into `sw.js`, which is how installed apps learn there's a new version. `npm test` fails while `sw.js` is out of date. While developing, a browser keeps serving its saved copy until it updates. In Chrome, DevTools → Application → Service workers → **Update on reload** turns that off. The icons in `icons/` are rendered from the favicon's design by `node tools/build-icons.mjs` (needs Playwright).
+
 ## Interface language
 
 The whole interface is in **English** or **Russian**, switched with the **RUS | ENG** buttons in the top-right corner:
@@ -227,12 +249,15 @@ To add another interface language:
 
 ```
 index.html            App shell: header, settings panel, <main> where views render
+sw.js                 Service worker: the offline copy of the site (file list by tools/build-offline.mjs)
+manifest.webmanifest  The installed app's name, icons and look; icons/ holds the PNG icons
 css/                  themes.css (colour tokens), base, layout, picker, reader, parallel, translate,
                       search, study, research (the Research panel), pages (study pages, maps),
                       explore (the statue), commentary, audio (the player), formatting (a formatted
                       text's headings, poetry, footnotes)
 js/
   main.js             Entry point: routes → views, translation choice, keyboard, last-read
+  offline.js          Offline support: registers sw.js, update and offline messages, Install app
   i18n.js             Interface language: t('key'), book names, RUS | ENG (text in locales/)
   translate/          Translate-selection helpers: on-device machine translation, Yandex
                       Translate link, clipboard, text tidying
@@ -267,7 +292,7 @@ data/                 translations.json + one JSON file per translation; researc
 tools/                serve, build-data (download → convert → validate), build-xref, build-strongs,
                       build-geo, build-study, build-commentary, build-audio, build-bti (the licensed
                       BTI text, from the Institute's Word files: lib/docx.mjs, lib/bti.mjs),
-                      converters, validator
+                      build-offline (sw.js's file list), build-icons (app icons), converters, validator
 tests/                node --test suites
 ```
 
@@ -290,4 +315,5 @@ tests/                node --test suites
   - Added later: zoomable, interactive maps; the interactive statue of Daniel 2 (`#/explore`); public-domain Adventist commentary (`#/commentary`): Ellen G. White's Conflict of the Ages, with links to the official Russian editions and the site's own Russian translation of the chapters on Daniel and the Revelation
 - [x] **Licensed translation:** the modern Russian translation of the Institute for Bible Translation named after M. P. Kulakov (BTI), with its headings, footnotes, italics, small capitals and poetry lines
 - [x] **Audio:** the Russian Synodal read aloud (Alexander Bondarenko, from predanie.ru), in a player that follows the reader from chapter to chapter
-- [ ] Later: reading plans, topical lookups, offline support, cloud sync
+- [x] **Offline support:** the site opens and works without a connection (everything already opened on the device), installs as an app on phones and computers, and offers new versions with a Reload message
+- [ ] Later: reading plans, topical lookups, cloud sync
