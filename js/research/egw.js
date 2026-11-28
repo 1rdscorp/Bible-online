@@ -192,7 +192,7 @@ const russianEdition = (abbr, lang) => (lang === 'ru' ? (RUSSIAN_EDITIONS[abbr] 
  */
 export function egwHref({ abbr, page, para, number, year }, lang = getLanguage()) {
   const russian = number ? null : russianEdition(abbr, lang);
-  if (russian) return `${EGW}/ru/search?query=${encodeURIComponent(`${russian.ru} ${page}`)}`;
+  if (russian) return `${EGW}/ru/search?query=${encodeURIComponent(`${russian.ru} ${page + (russian.shift ?? 0)}`)}`;
   const work = SITE_WORKS[abbr];
   if (work) return commentaryHref(work, null, `p=${page}`);
   const query = number ? `${abbr} ${number}, ${year}` : `${abbr} ${page}${para ? `.${para}` : ''}`;
@@ -211,7 +211,9 @@ export function egwTitle({ abbr, page, endPage, number, year }, lang = getLangua
   if (lang === 'ru') {
     if (number) return `${abbr === 'Lt' ? 'Письмо' : 'Рукопись'} ${number}, ${year} (на английском)`;
     const russian = russianEdition(abbr, lang);
-    const pages = endPage ? `стр. ${page}–${endPage}` : `стр. ${page}`;
+    // The Russian page, where the edition is numbered a little differently.
+    const shift = russian?.shift ?? 0;
+    const pages = endPage ? `стр. ${page + shift}–${endPage + shift}` : `стр. ${page + shift}`;
     return russian ? `${russian.title}, ${pages}` : `${EGW_BOOKS[abbr] ?? CITATION_ONLY[abbr]}, ${pages} (на английском)`;
   }
   if (number) return `${abbr === 'Lt' ? 'Letter' : 'Manuscript'} ${number}, ${year}`;

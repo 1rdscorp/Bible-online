@@ -115,6 +115,10 @@ test('in Russian, a book with a Russian edition opens it at the same page', asyn
   assert.equal(egwTitle(cite('18MR 326'), 'ru'), 'Manuscript Releases, vol. 18, стр. 326 (на английском)');
   assert.equal(egwHref(cite('Letter 65, 1898'), 'ru'), 'https://m.egwwritings.org/en/search?query=Lt%2065%2C%201898');
   assert.equal(egwTitle(cite('Letter 65, 1898'), 'ru'), 'Письмо 65, 1898 (на английском)');
+  // An edition numbered a page off: Ye Shall Receive Power is a page earlier in Russian.
+  assert.equal(RUSSIAN_EDITIONS.YRP.shift, -1);
+  assert.equal(egwHref(cite('YRP 120'), 'ru'), `https://m.egwwritings.org/ru/search?query=${encodeURIComponent(`${RUSSIAN_EDITIONS.YRP.ru} 119`)}`);
+  assert.equal(egwTitle(cite('YRP 120'), 'ru'), `${RUSSIAN_EDITIONS.YRP.title}, стр. 119`);
   // Every Russian abbreviation is Cyrillic (with a volume number), every title Russian.
   for (const [abbr, { ru, title }] of Object.entries(RUSSIAN_EDITIONS)) {
     assert.ok(/^\d?[А-ЯЁа-яё]+$/u.test(ru), `${abbr}: ${ru}`);
