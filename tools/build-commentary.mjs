@@ -153,6 +153,8 @@ function indexEntry(part, { official = null, ru = null } = {}) {
   if (part.book) entry.book = part.book;
   if (part.chapter) entry.chapter = part.chapter;
   entry.passages = part.passages;
+  // The printed pages it covers, so a citation such as "DA 44" finds it.
+  if (part.pages) entry.pages = part.pages;
   if (ru) entry.ru = ru;
   if (official) entry.ruEdition = official;
   return entry;

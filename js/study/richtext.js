@@ -4,6 +4,8 @@
  * script into the page).
  *
  *   **bold**   *italic*   - a bullet line   https://… (becomes a link)
+ *   GC 603–604, 5T 751, DA 44 …: Ellen G. White citations become links
+ *   (js/research/egw.js)
  *   \* \\ \-   a literal *, \ or leading "-"
  *
  * Each line is a paragraph; consecutive "- " lines form a list. The editor
@@ -12,10 +14,12 @@
  *
  * parseNote(text) → blocks:
  *   { type: 'p', runs }  or  { type: 'ul', items: [runs, …] }
- * where runs = [{ text, bold, italic, href? }].
+ * where runs = [{ text, bold, italic, href?, title? }].
  *
  * No DOM here: unit-tested in tests/study-richtext.test.js.
  */
+
+import { egwHref, egwTitle, findEgwCitations } from '../research/egw.js';
 
 const BULLET = /^[-•]\s+/;
 const URL = /https?:\/\/[^\s<>"'`]+/g;
@@ -60,6 +64,19 @@ function linkify(runs) {
     }
     if (at < run.text.length) out.push({ ...run, text: run.text.slice(at) });
   }
+  return out.flatMap((run) => (run.href ? [run] : citeLinks(run)));
+}
+
+/** Split a run at Ellen G. White citations ("GC 603–604"), so they become links. */
+function citeLinks(run) {
+  const out = [];
+  let at = 0;
+  for (const cite of findEgwCitations(run.text)) {
+    if (cite.index > at) out.push({ ...run, text: run.text.slice(at, cite.index) });
+    out.push({ ...run, text: run.text.slice(cite.index, cite.index + cite.length), href: egwHref(cite), title: egwTitle(cite) });
+    at = cite.index + cite.length;
+  }
+  if (at < run.text.length) out.push({ ...run, text: run.text.slice(at) });
   return out;
 }
 

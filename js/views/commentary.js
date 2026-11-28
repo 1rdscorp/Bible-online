@@ -224,7 +224,7 @@ export function renderRuns(runs, { workId, noteId = (n) => `commentary-note-${n}
     if (run.pg !== undefined) {
       // The printed book's page number, for citing ("DA 44"): quiet, in the
       // margin, and not read out mid-sentence (the page range is in the heading).
-      return el('span', { class: 'page-mark', 'aria-hidden': 'true', title: t('commentary.page', { n: run.pg }) }, String(run.pg));
+      return el('span', { class: 'page-mark', 'aria-hidden': 'true', 'data-page': String(run.pg), title: t('commentary.page', { n: run.pg }) }, String(run.pg));
     }
     if (run.fn !== undefined) {
       return el('a', { class: 'note-mark', href: `#${noteId(run.fn)}`, 'data-jump': noteId(run.fn), 'aria-label': t('commentary.noteRef', { n: run.fn }) }, el('sup', {}, String(run.fn)));
@@ -296,9 +296,9 @@ function languageSwitch(work, part, lang) {
 
 /**
  * #/commentary/<book>/<chapter>. Returns { element, target } where target is
- * the element to scroll to for ?v= or ?note=, if any.
+ * the element to scroll to for ?v=, ?note= or ?p= (a printed page), if any.
  */
-export function renderCommentaryPart({ work, part, data, verse = null, note = null, keepLang = null }) {
+export function renderCommentaryPart({ work, part, data, verse = null, note = null, page = null, keepLang = null }) {
   const lang = data.lang ?? 'en';
   const options = { workId: work.id, lang };
   let target = null;
@@ -356,6 +356,19 @@ export function renderCommentaryPart({ work, part, data, verse = null, note = nu
     el('footer', { class: 'study-footer' }, sourceLine(work)),
   );
   if (note !== null) target = element.querySelector(`#note-${CSS.escape(String(note))}`) ?? target;
+  // A printed page: the paragraph where it begins, or where the last page
+  // before it does (a page of pictures has no mark). The chapter's first
+  // page has none either: that stays at the top.
+  const mark =
+    page === null
+      ? null
+      : [...element.querySelectorAll('.page-mark[data-page]')].filter((node) => Number(node.dataset.page) <= page).at(-1) ?? null;
+  const block = mark?.closest('p, li, blockquote');
+  if (block) {
+    block.classList.add('commentary-page-target');
+    block.tabIndex = -1;
+    target = block;
+  }
   return { element, target };
 }
 

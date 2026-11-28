@@ -11,10 +11,11 @@ import { adjacentChapter, findBook, getBook, isValidChapter } from './canon.js';
 import { bookName, chapterTitle, getLanguage, localizeTranslation, resolveLanguage, setLanguage, t } from './i18n.js';
 import { getDefaultTranslationId, getProvider, listTranslations } from './providers/registry.js';
 import { translationCache } from './providers/translation-cache.js';
-import { bookHref, chapterHref, introHref, mapHref, navigate, pageHref, PAGES, replaceHash, resolveRoute, startRouter, topicHref } from './router.js';
+import { bookHref, chapterHref, commentaryHref, introHref, mapHref, navigate, pageHref, PAGES, replaceHash, resolveRoute, startRouter, topicHref } from './router.js';
 import { createSearchClient, isSearchable } from './search/client.js';
 import { ALL_TRANSLATIONS, readSearchParams, searchHref } from './search/params.js';
 import { partsFor } from './research/commentary.js';
+import { partForPage } from './research/egw.js';
 import { researchData } from './research/data.js';
 import { bookOnly, parseReference } from './search/reference.js';
 import { parseQuery } from './search/text.js';
@@ -713,7 +714,13 @@ async function showCommentaryPage(route, isCurrent, rerender) {
     return;
   }
   const work = index.works.find((entry) => entry.id === route.workId);
-  const part = route.partId ? work?.parts.find((entry) => entry.id === route.partId) : null;
+  let part = route.partId ? work?.parts.find((entry) => entry.id === route.partId) : null;
+  // ?p=44 on a book: a printed page, cited as "DA 44". Open the chapter it's in.
+  const page = Number.parseInt(route.params.p, 10);
+  if (work && !part && page > 0) {
+    part = partForPage(work, page);
+    if (part) replaceHash(commentaryHref(work.id, part.id, `p=${page}`));
+  }
   if (!work || (route.partId && !part)) {
     showNotFound({ ...route, reason: 'page' }, rerender);
     return;
@@ -737,13 +744,14 @@ async function showCommentaryPage(route, isCurrent, rerender) {
   }
   if (!isCurrent()) return;
   const verse = Number.parseInt(route.params.v, 10);
-  const { element, target } = renderCommentaryPart({ work, part, data, verse: verse > 0 ? verse : null, note: route.params.note ?? null, keepLang: asked });
+  const { element, target } = renderCommentaryPart({ work, part, data, verse: verse > 0 ? verse : null, note: route.params.note ?? null, page: page > 0 ? page : null, keepLang: asked });
   enableJumpLinks(element);
   mount(element, { title: `${data.title} · ${workTitle(work)}`, preserve: rerender });
-  // ?v=31 or ?note=5: open at that verse's section or that note.
+  // ?v=31, ?note=5 or ?p=44: open at that verse's section, that note or that page.
   if (target && !rerender) {
     target.scrollIntoView({ block: 'start' });
     target.focus({ preventScroll: true });
+    if (target.classList.contains('commentary-page-target')) target.classList.add('is-flash');
   }
 }
 
