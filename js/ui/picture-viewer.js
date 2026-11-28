@@ -8,12 +8,16 @@
  * (beside the picture on a wide screen, under it on a narrow one). Used by
  * the statue of Daniel 2 and the animals of Revelation.
  *
+ * The text beside the picture has its own size, A− / A+ in the viewer's bar
+ * (the setting pictureTextScale, on the reader's steps), kept for next time.
+ *
  * The viewer is a modal dialog that fills the window, and asks the browser
  * for real full screen where it can (not on iPhone, where filling the
  * window is the most a page can do). Escape, the close button or leaving
  * full screen closes it, and focus returns to where it was.
  */
 import { t } from '../i18n.js';
+import { getSettings, stepFontScale, updateSettings } from '../settings.js';
 import { el, icon, ICONS } from './dom.js';
 
 const SVG = 'http://www.w3.org/2000/svg';
@@ -128,10 +132,17 @@ export function openPictureViewer({ title, label, image, points, info, selected 
     el('footer', { class: 'pic-panel-foot' }, prev, counter, next),
   );
   const closeButton = el('button', { type: 'button', class: 'pic-close', 'aria-label': t('picture.close') }, icon(ICONS.close, { size: 22 }));
+
+  // The size of the text beside the picture.
+  const smaller = el('button', { type: 'button', class: 'pic-size-button', 'aria-label': t('settings.smaller'), title: t('settings.smaller') }, el('span', { class: 'pic-size-a pic-size-a--small', 'aria-hidden': 'true' }, 'A'), '−');
+  const larger = el('button', { type: 'button', class: 'pic-size-button', 'aria-label': t('settings.larger'), title: t('settings.larger') }, el('span', { class: 'pic-size-a', 'aria-hidden': 'true' }, 'A'), '+');
+  const sizeValue = el('span', { class: 'pic-size-value', 'aria-live': 'polite' });
+  const sizeGroup = el('div', { class: 'pic-size', role: 'group', 'aria-label': t('settings.textSize') }, smaller, sizeValue, larger);
+
   const dialog = el(
     'div',
     { class: 'pic-viewer', role: 'dialog', 'aria-modal': 'true', 'aria-label': title },
-    el('div', { class: 'pic-viewer-bar' }, el('h2', { class: 'pic-viewer-title' }, title), closeButton),
+    el('div', { class: 'pic-viewer-bar' }, el('h2', { class: 'pic-viewer-title' }, title), el('div', { class: 'pic-viewer-tools' }, sizeGroup, closeButton)),
     el('div', { class: 'pic-viewer-main' }, el('div', { class: 'pic-viewer-stage' }, svg), panel),
   );
 
@@ -150,6 +161,20 @@ export function openPictureViewer({ title, label, image, points, info, selected 
     dialog.classList.add('has-panel');
     onSelect(n);
   }
+
+  function applyTextSize(scale) {
+    dialog.style.setProperty('--pic-text-scale', String(scale / 100));
+    sizeValue.textContent = `${scale}%`;
+    smaller.disabled = stepFontScale(scale, -1) === scale;
+    larger.disabled = stepFontScale(scale, 1) === scale;
+    // At the smallest or largest size, focus moves to the other button rather than leaving the viewer.
+    if (document.activeElement === smaller && smaller.disabled) larger.focus();
+    if (document.activeElement === larger && larger.disabled) smaller.focus();
+  }
+  const changeTextSize = (step) => applyTextSize(updateSettings({ pictureTextScale: stepFontScale(getSettings().pictureTextScale, step) }).pictureTextScale);
+  smaller.addEventListener('click', () => changeTextSize(-1));
+  larger.addEventListener('click', () => changeTextSize(1));
+  applyTextSize(getSettings().pictureTextScale);
 
   prev.addEventListener('click', () => current > 1 && show(current - 1));
   next.addEventListener('click', () => current < points.length && show(current + 1));

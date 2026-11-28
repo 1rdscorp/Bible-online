@@ -15,8 +15,10 @@ export const THEMES = Object.freeze(['auto', 'light', 'sepia', 'dark']);
 export const FONT_SCALES = Object.freeze([80, 90, 100, 110, 120, 135, 150, 175, 200]);
 
 // language: the interface language chosen with the RUS | ENG switch, or null
-// to follow the browser (resolved by js/i18n.js).
-export const DEFAULT_SETTINGS = Object.freeze({ theme: 'auto', fontScale: 100, language: null });
+// to follow the browser (resolved by js/i18n.js). pictureTextScale: the size
+// of the text beside a picture in full screen (js/ui/picture-viewer.js), on
+// the same steps as the reader's.
+export const DEFAULT_SETTINGS = Object.freeze({ theme: 'auto', fontScale: 100, language: null, pictureTextScale: 100 });
 
 // Stored as "bible-online:settings". The inline script in index.html reads it
 // before first paint, so keep the key and value shape in sync with that script.
@@ -34,6 +36,7 @@ function sanitize(settings) {
   return {
     theme: THEMES.includes(settings?.theme) ? settings.theme : DEFAULT_SETTINGS.theme,
     fontScale: closestScale(settings?.fontScale),
+    pictureTextScale: closestScale(settings?.pictureTextScale),
     language: typeof settings?.language === 'string' && /^[a-z]{2}$/.test(settings.language) ? settings.language : null,
   };
 }
