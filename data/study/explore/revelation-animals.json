@@ -2340,14 +2340,14 @@
     "ru": "Небо отверзается, и Христос выезжает как победитель. Небесные воинства следуют за Ним на белых конях."
    },
    "picture": {
-    "en": "A rider on a white horse coming through parted clouds, wearing many crowns and a robe red at the hem, a sword going out from his mouth; smaller white horses follow, and a ribbon below carries three crowns.",
-    "ru": "Всадник на белом коне выезжает из расступившихся облаков: на нём много диадим и одежда с красным подолом, из уст исходит меч. За ним белые кони поменьше; внизу лента с тремя венцами."
+    "en": "A rider on a white horse charging out of sunlit clouds. He wears a tall crown of many tiers, his eyes burn like fire, a sword comes from his mouth and another is in his hand, and his white robe is stained red. Behind him ride ranks of horsemen on white horses.",
+    "ru": "Всадник на белом коне вылетает из освещённых солнцем облаков. На нём высокий венец во много ярусов, очи горят как огонь, из уст исходит меч, другой меч в руке, белая одежда обагрена. За ним рядами скачут всадники на белых конях."
    },
    "parts": [
     {
      "at": [
-      326,
-      236
+      432,
+      205
      ],
      "title": {
       "en": "A white horse",
@@ -2364,8 +2364,8 @@
     },
     {
      "at": [
-      412,
-      50
+      370,
+      22
      ],
      "title": {
       "en": "Many crowns",
@@ -2382,8 +2382,8 @@
     },
     {
      "at": [
-      344,
-      96
+      334,
+      74
      ],
      "title": {
       "en": "Eyes as a flame of fire",
@@ -2400,8 +2400,8 @@
     },
     {
      "at": [
-      336,
-      170
+      292,
+      198
      ],
      "title": {
       "en": "A vesture dipped in blood",
@@ -2418,8 +2418,8 @@
     },
     {
      "at": [
-      446,
-      66
+      424,
+      78
      ],
      "title": {
       "en": "A sharp sword from his mouth",
@@ -2436,8 +2436,8 @@
     },
     {
      "at": [
-      596,
-      366
+      354,
+      172
      ],
      "title": {
       "en": "The name on his thigh",
@@ -2454,8 +2454,8 @@
     },
     {
      "at": [
-      60,
-      216
+      104,
+      136
      ],
      "title": {
       "en": "The armies of heaven",
@@ -2494,7 +2494,13 @@
      "en": "She does not explain the horse, the crowns or the sword one by one.",
      "ru": "Коня, диадимы и меч по отдельности она не объясняет."
     }
-   ]
+   ],
+   "image": {
+    "src": "img/revelation/white-horse.webp",
+    "thumb": "img/revelation/white-horse-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
   },
   {
    "id": "in-passing",
@@ -2521,14 +2527,14 @@
     "ru": "Краткие упоминания, завершающие список: скорпионы, дикие звери, скот, морские существа и псы."
    },
    "picture": {
-    "en": "Six small scenes: a scorpion; a wolf; a sheep and a horse; fish in the sea; a dog outside a city gate; and a lamb, a bird and a fish under a bright light.",
-    "ru": "Шесть небольших сцен: скорпион; волк; овца и конь; рыбы в море; пёс у городских ворот; ягнёнок, птица и рыба под ярким светом."
+    "en": "A ruined city by a misty sea at dusk. In the foreground a white dove sits by a broken marble column, an ox grazes among the stones, a wolf stands on the shore, and a pearl lies on a rock.",
+    "ru": "Разрушенный город у туманного моря в сумерках. На переднем плане белый голубь сидит у обломка мраморной колонны, вол пасётся среди камней, на берегу стоит волк, на скале лежит жемчужина."
    },
    "parts": [
     {
      "at": [
-      28,
-      28
+      112,
+      304
      ],
      "title": {
       "en": "Scorpions",
@@ -2545,8 +2551,8 @@
     },
     {
      "at": [
-      241,
-      28
+      596,
+      156
      ],
      "title": {
       "en": "The beasts of the earth",
@@ -2563,8 +2569,8 @@
     },
     {
      "at": [
-      455,
-      28
+      452,
+      170
      ],
      "title": {
       "en": "Cattle, sheep and horses",
@@ -2581,8 +2587,8 @@
     },
     {
      "at": [
-      28,
-      228
+      340,
+      150
      ],
      "title": {
       "en": "Creatures of the sea",
@@ -2599,8 +2605,8 @@
     },
     {
      "at": [
-      241,
-      228
+      210,
+      104
      ],
      "title": {
       "en": "Dogs",
@@ -2617,8 +2623,8 @@
     },
     {
      "at": [
-      455,
-      228
+      176,
+      280
      ],
      "title": {
       "en": "Every creature",
@@ -2661,7 +2667,13 @@
      "en": "She quotes Revelation 22:15 as part of the list of those left outside the city, without explaining the word “dogs” on its own.",
      "ru": "Откровение 22:15 она цитирует как перечень тех, кто остался вне города, не объясняя отдельно слово «псы»."
     }
-   ]
+   ],
+   "image": {
+    "src": "img/revelation/in-passing.webp",
+    "thumb": "img/revelation/in-passing-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
   }
  ],
  "key": {
@@ -3067,8 +3079,8 @@
    "ru": "Мысли Эллен Уайт изложены в пересказе; дословно приведены четыре короткие фразы, они взяты в кавычки. Если её высказываний найти не удалось, это указано. Прежде чем цитировать, сверьте ссылку с книгой."
   },
   {
-   "en": "Some plates are pictures made with an AI image generator; the others are original drawings made for this site from the wording of the text. All of them are aids to memory, not reconstructions.",
-   "ru": "Часть рисунков создана с помощью генератора изображений на основе искусственного интеллекта; остальные выполнены специально для сайта по словам самого текста. Все они — памятки, а не реконструкции."
+   "en": "The pictures were made with an AI image generator. They are aids to memory, not reconstructions, and they do not follow the text in every detail: where a picture and the text differ, the text is right.",
+   "ru": "Рисунки созданы с помощью генератора изображений на основе искусственного интеллекта. Это памятки, а не реконструкции, и они не во всём следуют тексту: там, где рисунок расходится с текстом, верен текст."
   }
  ]
 }

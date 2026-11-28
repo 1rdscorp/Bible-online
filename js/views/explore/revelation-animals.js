@@ -16,12 +16,13 @@
  * chart of the dated periods, and the sources.
  *
  * Content: data/study/explore/revelation-animals.json, whose rich text
- * links every verse it cites. A plate is either a drawing or a picture. The
- * drawings (revelation-plates.js, built by tools/build-revelation.mjs from
- * tools/art/revelation/) are a quarter of a megabyte, so they load when the
- * page is first opened. A picture is a creature's "image" in the content: a
- * file in img/revelation/, shown at its own shape. ?part=<creature> keeps
- * the choice in the URL.
+ * links every verse it cites. A plate is either a picture or a drawing. A
+ * picture is a creature's "image" in the content: a file in img/revelation/,
+ * shown at its own shape (all fifteen plates are pictures at present). A
+ * creature without one is drawn: the drawings (revelation-plates.js, built by
+ * tools/build-revelation.mjs from tools/art/revelation/) can be large, so
+ * they load only when the page has a drawn plate. ?part=<creature> keeps the
+ * choice in the URL.
  */
 import { chapterTitle, t } from '../../i18n.js';
 import { formatRef, parseRef } from '../../research/refs.js';
