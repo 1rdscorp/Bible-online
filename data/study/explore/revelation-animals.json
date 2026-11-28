@@ -1668,14 +1668,14 @@
     "ru": "Кроткая на вид власть с двумя рогами, как у агнца. Она говорит как дракон и ведёт мир к поклонению первому зверю."
    },
    "picture": {
-    "en": "A woolly beast with two small horns rising out of a mound of earth; a speech bubble from its mouth holds a red dragon’s head. Fire falls from a cloud, a stone image of a seven-headed beast stands on a pedestal, and a figure shows a mark on forehead and hand.",
-    "ru": "Покрытый шерстью зверь с двумя небольшими рогами поднимается из земляного холма; в облачке речи у его рта — голова красного дракона. С тучи падает огонь, на постаменте стоит каменный образ семиглавого зверя, а человек показывает начертание на челе и на руке."
+    "en": "A woolly beast with a ram’s curling horns charging across a green hillside and tearing up the earth, its mouth open to show a predator’s teeth. Behind it lightning and fire fall from a storm cloud onto the hills.",
+    "ru": "Покрытый шерстью зверь с закрученными бараньими рогами несётся по зелёному склону, взрывая землю; в раскрытой пасти видны хищные клыки. Позади из грозовой тучи на холмы падают молния и огонь."
    },
    "parts": [
     {
      "at": [
-      86,
-      312
+      378,
+      306
      ],
      "title": {
       "en": "Coming up out of the earth",
@@ -1693,7 +1693,7 @@
     {
      "at": [
       352,
-      96
+      66
      ],
      "title": {
       "en": "Two horns like a lamb",
@@ -1710,8 +1710,8 @@
     },
     {
      "at": [
-      470,
-      108
+      436,
+      180
      ],
      "title": {
       "en": "He spake as a dragon",
@@ -1728,8 +1728,8 @@
     },
     {
      "at": [
-      614,
-      160
+      546,
+      110
      ],
      "title": {
       "en": "Fire from heaven",
@@ -1746,8 +1746,8 @@
     },
     {
      "at": [
-      440,
-      322
+      300,
+      215
      ],
      "title": {
       "en": "An image to the beast",
@@ -1764,8 +1764,8 @@
     },
     {
      "at": [
-      566,
-      330
+      215,
+      190
      ],
      "title": {
       "en": "The mark",
@@ -1816,7 +1816,13 @@
      "en": "The miracles are real and not pretended <span class=\"cite-ref\">GC 553</span>. She adds that no one has the mark until Sunday observance is enforced by law and the question has been made plain <span class=\"cite-ref\">GC 449</span>.",
      "ru": "Чудеса будут настоящими, а не мнимыми <span class=\"cite-ref\">GC 553</span>. Она добавляет, что никто не имеет начертания, пока соблюдение воскресенья не введено законом и вопрос не стал ясен каждому <span class=\"cite-ref\">GC 449</span>."
     }
-   ]
+   ],
+   "image": {
+    "src": "img/revelation/earth-beast.webp",
+    "thumb": "img/revelation/earth-beast-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
   },
   {
    "id": "three-frogs",
@@ -1843,14 +1849,14 @@
     "ru": "При шестой язве три бесовских духа выходят собрать правителей мира на последнюю битву."
    },
    "picture": {
-    "en": "Three frogs leap from three mouths on the left, a red dragon’s, a lion-mouthed beast’s and a lamb-horned beast’s, toward three crowned kings on the right.",
-    "ru": "Три жабы выскакивают из трёх пастей слева: красного дракона, зверя с львиной пастью и зверя с рогами агнца — и летят к трём царям в венцах справа."
+    "en": "Three beasts side by side amid smoke and sparks, each with a frog coming out of its mouth: a red dragon, a lion-faced beast with a leopard’s spots and a wound on its cheek, and a woolly beast with a ram’s horns.",
+    "ru": "Три зверя рядом в дыму и искрах, у каждого из пасти выходит жаба: красный дракон, зверь с львиной мордой, пятнами барса и раной на щеке и покрытый шерстью зверь с бараньими рогами."
    },
    "parts": [
     {
      "at": [
-      292,
-      54
+      316,
+      236
      ],
      "title": {
       "en": "Like frogs",
@@ -1867,8 +1873,8 @@
     },
     {
      "at": [
-      150,
-      44
+      200,
+      176
      ],
      "title": {
       "en": "The mouth of the dragon",
@@ -1885,8 +1891,8 @@
     },
     {
      "at": [
-      150,
-      180
+      418,
+      158
      ],
      "title": {
       "en": "The mouth of the beast",
@@ -1903,8 +1909,8 @@
     },
     {
      "at": [
-      160,
-      282
+      548,
+      222
      ],
      "title": {
       "en": "The mouth of the false prophet",
@@ -1921,8 +1927,8 @@
     },
     {
      "at": [
-      540,
-      222
+      330,
+      300
      ],
      "title": {
       "en": "The kings of the earth",
@@ -1969,7 +1975,13 @@
      "en": "The compilation <cite>Maranatha</cite> places these statements under Revelation 16:13–14 <span class=\"cite-ref\">Mar 190</span>. I found no comment from her on why the spirits look like frogs.",
      "ru": "В сборнике <cite>Maranatha</cite> эти высказывания помещены под Откровением 16:13–14 <span class=\"cite-ref\">Mar 190</span>. Объяснений, почему духи подобны жабам, мне у неё найти не удалось."
     }
-   ]
+   ],
+   "image": {
+    "src": "img/revelation/three-frogs.webp",
+    "thumb": "img/revelation/three-frogs-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
   },
   {
    "id": "scarlet-beast",
@@ -1996,14 +2008,14 @@
     "ru": "Зверь, на котором сидит жена по имени Вавилон великий. Он «был, и нет его, и явится»."
    },
    "picture": {
-    "en": "A scarlet beast with seven heads and ten horns, covered in small written marks, carrying a woman in purple and scarlet who lifts a golden cup; water runs along the bottom.",
-    "ru": "Багряный зверь с семью головами и десятью рогами, покрытый мелкими письменами, несёт жену в порфире и багрянице; она поднимает золотую чашу. Внизу течёт вода."
+    "en": "A woman in purple and scarlet, decked with gold and pearls, sits on a scarlet beast with many horned heads and lifts a golden cup. Around them is a desert under a dark sky.",
+    "ru": "Жена в порфире и багрянице, украшенная золотом и жемчугом, сидит на багряном звере со многими рогатыми головами и поднимает золотую чашу. Вокруг пустыня под тёмным небом."
    },
    "parts": [
     {
      "at": [
-      300,
-      262
+      236,
+      222
      ],
      "title": {
       "en": "A scarlet coloured beast",
@@ -2020,8 +2032,8 @@
     },
     {
      "at": [
-      436,
-      30
+      430,
+      136
      ],
      "title": {
       "en": "Seven heads",
@@ -2038,8 +2050,8 @@
     },
     {
      "at": [
-      486,
-      92
+      410,
+      50
      ],
      "title": {
       "en": "Ten horns",
@@ -2056,8 +2068,8 @@
     },
     {
      "at": [
-      254,
-      150
+      290,
+      178
      ],
      "title": {
       "en": "The woman",
@@ -2074,8 +2086,8 @@
     },
     {
      "at": [
-      140,
-      60
+      262,
+      52
      ],
      "title": {
       "en": "The golden cup",
@@ -2092,8 +2104,8 @@
     },
     {
      "at": [
-      560,
-      374
+      110,
+      262
      ],
      "title": {
       "en": "Many waters",
@@ -2140,7 +2152,13 @@
      "en": "I found no passage where she lists the seven heads or names the ten horns.",
      "ru": "Мест, где она перечисляет семь голов или называет десять рогов, мне найти не удалось."
     }
-   ]
+   ],
+   "image": {
+    "src": "img/revelation/scarlet-beast.webp",
+    "thumb": "img/revelation/scarlet-beast-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
   },
   {
    "id": "birds",
@@ -2167,14 +2185,14 @@
     "ru": "Птицы отмечают два конца: разорение Вавилона и тишину после последней битвы."
    },
    "picture": {
-    "en": "A ruined gate with a cage full of dark birds on the left; on the right an angel stands in the sun and birds circle in the sky above a fallen crown, helmet and sword.",
-    "ru": "Слева разрушенные ворота и клетка с тёмными птицами; справа Ангел стоит на солнце, в небе кружат птицы, на земле лежат венец, шлем и меч."
+    "en": "Vultures, eagles, ravens and a great cloud of smaller birds fly across a sunset sky toward a battlefield strewn with fallen armour, banners and a chariot.",
+    "ru": "Грифы, орлы, вороны и огромная стая мелких птиц летят по закатному небу к полю битвы, усеянному брошенными доспехами, знамёнами и колесницей."
    },
    "parts": [
     {
      "at": [
-      170,
-      228
+      155,
+      96
      ],
      "title": {
       "en": "A cage of unclean birds",
@@ -2191,8 +2209,8 @@
     },
     {
      "at": [
-      56,
-      250
+      548,
+      186
      ],
      "title": {
       "en": "Babylon is fallen",
@@ -2209,8 +2227,8 @@
     },
     {
      "at": [
-      566,
-      52
+      244,
+      132
      ],
      "title": {
       "en": "An angel standing in the sun",
@@ -2227,8 +2245,8 @@
     },
     {
      "at": [
-      330,
-      122
+      462,
+      150
      ],
      "title": {
       "en": "The fowls in mid-heaven",
@@ -2245,8 +2263,8 @@
     },
     {
      "at": [
-      506,
-      334
+      420,
+      296
      ],
      "title": {
       "en": "Kings and captains",
@@ -2289,7 +2307,13 @@
      "en": "At Christ’s coming the wicked are destroyed by the brightness of his glory. The slain lie unburied from one end of the earth to the other, as Jeremiah 25:33 says, and the earth is left empty <span class=\"cite-ref\">GC 656–657</span>.",
      "ru": "При пришествии Христа нечестивые гибнут от сияния Его славы. Поражённые лежат непогребёнными от края земли до края, как сказано в Иеремии 25:33, и земля остаётся пустой <span class=\"cite-ref\">GC 656–657</span>."
     }
-   ]
+   ],
+   "image": {
+    "src": "img/revelation/birds.webp",
+    "thumb": "img/revelation/birds-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
   },
   {
    "id": "white-horse",
