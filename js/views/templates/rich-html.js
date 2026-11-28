@@ -9,9 +9,14 @@
  * and rebuilt element by element: tags not listed below are dropped (their
  * text kept), and only the listed attributes and values survive. A verse
  * link becomes a link into the reader; a commentary link, a link to that
- * chapter (#/commentary/<work>/<part>). No other address gets through.
+ * chapter (#/commentary/<work>/<part>), at its page when the book has the
+ * site's printed pages. A citation label, <span class="cite-ref">GC 438</span>,
+ * becomes a link to the page cited (js/research/egw.js): here for a book the
+ * site has, otherwise in EGW Writings, the White Estate's online library.
+ * No other address gets through.
  */
 import { getBook } from '../../canon.js';
+import { egwHref, egwTitle, findEgwCitations, SITE_WORKS } from '../../research/egw.js';
 import { parseRef } from '../../research/refs.js';
 import { chapterHref, commentaryHref } from '../../router.js';
 
@@ -32,6 +37,38 @@ export const verseHref = (text) => refHref(parseRef(text));
 /** The address of a commentary chapter ("acts-of-the-apostles", "57"), or null if either is malformed. */
 export const workHref = (work, part) => (/^[a-z0-9-]+$/.test(work ?? '') && /^\d+$/.test(part ?? '') ? commentaryHref(work, part) : null);
 
+/**
+ * A citation label ("GC 438", "Letter 65, 1898") as a link, or as several
+ * if it cites more than one page; text that isn't a citation stays text.
+ */
+function citationLabel(text, doc) {
+  const cites = findEgwCitations(text, { labels: true });
+  if (!cites.length) {
+    const span = doc.createElement('span');
+    span.className = 'cite-ref';
+    span.textContent = text;
+    return span;
+  }
+  const fragment = doc.createDocumentFragment();
+  let at = 0;
+  for (const cite of cites) {
+    if (cite.index > at) fragment.append(text.slice(at, cite.index));
+    const link = doc.createElement('a');
+    link.className = 'cite-ref';
+    link.href = egwHref(cite);
+    link.title = egwTitle(cite);
+    if (!link.getAttribute('href').startsWith('#')) {
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+    }
+    link.textContent = text.slice(cite.index, cite.index + cite.length);
+    fragment.append(link);
+    at = cite.index + cite.length;
+  }
+  if (at < text.length) fragment.append(text.slice(at));
+  return fragment;
+}
+
 function rebuild(source, doc) {
   if (source.nodeType === 3) return doc.createTextNode(source.data);
   if (source.nodeType !== 1) return null;
@@ -43,8 +80,12 @@ function rebuild(source, doc) {
     return fragment;
   }
   const classes = (source.getAttribute('class') ?? '').split(/\s+/).filter((name) => CLASSES.has(name));
+  if (tag === 'span' && classes.includes('cite-ref')) return citationLabel(source.textContent, doc);
   if (tag === 'a') {
-    const href = source.hasAttribute('data-work') ? workHref(source.getAttribute('data-work'), source.getAttribute('data-part')) : verseHref(source.getAttribute('data-ref') ?? '');
+    let href = source.hasAttribute('data-work') ? workHref(source.getAttribute('data-work'), source.getAttribute('data-part')) : verseHref(source.getAttribute('data-ref') ?? '');
+    // "AA 589": straight to the page, when the site has the book's pages.
+    const cite = href && classes.includes('cite-ref') ? findEgwCitations(source.textContent, { labels: true })[0] : null;
+    if (cite && SITE_WORKS[cite.abbr]) href = egwHref(cite);
     const node = href ? doc.createElement('a') : doc.createElement('span');
     if (href) node.href = href;
     if (classes.length) node.className = classes.join(' ');
