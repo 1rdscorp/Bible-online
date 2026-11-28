@@ -478,7 +478,7 @@ async function showExplorePage(route, isCurrent, rerender) {
     readingId: route.params.reading ?? null,
     passageText,
     // Keep the choice in the URL (for sharing) without a history entry per click.
-    onChange: ({ part, reading }) => replaceHash(exploreHref(entry.id, new URLSearchParams({ part, reading }).toString())),
+    onChange: (state) => replaceHash(exploreHref(entry.id, new URLSearchParams(Object.entries(state).filter(([, value]) => value)).toString())),
   });
   explorePage = { id: entry.id, view };
   enableJumpLinks(view.element);

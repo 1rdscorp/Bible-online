@@ -1,0 +1,3086 @@
+{
+ "formatVersion": 1,
+ "id": "revelation-animals",
+ "title": {
+  "en": "The Animals of Revelation",
+  "ru": "Животные и звери Откровения"
+ },
+ "eyebrow": {
+  "en": "Revelation 4–22 · fifteen plates",
+  "ru": "Откровение 4–22 · пятнадцать рисунков"
+ },
+ "summary": {
+  "en": "Every beast, bird and creature in the last book of the Bible, with what Scripture says about each one and how Ellen G. White explained it. Choose a plate, then select a number on the picture to read what that part means.",
+  "ru": "Все звери, птицы и существа последней книги Библии: что говорит о каждом Писание и как их объясняла Эллен Г. Уайт. Выберите рисунок, затем нажмите номер на нём, чтобы прочитать, что означает эта деталь."
+ },
+ "about": [
+  {
+   "en": "Ellen G. White (1827–1915) was a founder of the Seventh-day Adventist Church. She read Revelation as a history of the church from John’s day to the return of Christ, as most Protestants of her century did.",
+   "ru": "Эллен Г. Уайт (1827–1915) — одна из основательниц Церкви адвентистов седьмого дня. Она читала Откровение как историю церкви от дней Иоанна до возвращения Христа; так его понимало большинство протестантов её века."
+  },
+  {
+   "en": "Other Christian traditions read the same symbols differently. This page reports her reading, with book and page, and says so where she left no comment.",
+   "ru": "Другие христианские традиции толкуют те же символы иначе. Здесь изложено её понимание с указанием книги и страницы и отмечено, где она ничего не написала."
+  }
+ ],
+ "levels": {
+  "detail": {
+   "en": "White explains it in detail",
+   "ru": "Уайт объясняет подробно"
+  },
+  "brief": {
+   "en": "White touches on it",
+   "ru": "Уайт касается кратко"
+  },
+  "none": {
+   "en": "No direct comment found",
+   "ru": "Прямых высказываний не найдено"
+  }
+ },
+ "creatures": [
+  {
+   "id": "living-creatures",
+   "level": "none",
+   "verse": "REV 4:7",
+   "title": {
+    "en": "The four living creatures",
+    "ru": "Четыре животных у престола"
+   },
+   "short": {
+    "en": "Living creatures",
+    "ru": "Четыре животных"
+   },
+   "chapter": {
+    "en": "Revelation 4",
+    "ru": "Откровение 4"
+   },
+   "where": {
+    "en": "<a data-ref=\"REV 4:6-9\">Rev 4:6–9</a>; <a data-ref=\"REV 5:6-14\">5:6–14</a>; <a data-ref=\"REV 6:1-7\">6:1–7</a>; <a data-ref=\"REV 7:11\">7:11</a>; <a data-ref=\"REV 14:3\">14:3</a>; <a data-ref=\"REV 15:7\">15:7</a>; <a data-ref=\"REV 19:4\">19:4</a>",
+    "ru": "<a data-ref=\"REV 4:6-9\">Откр. 4:6–9</a>; <a data-ref=\"REV 5:6-14\">5:6–14</a>; <a data-ref=\"REV 6:1-7\">6:1–7</a>; <a data-ref=\"REV 7:11\">7:11</a>; <a data-ref=\"REV 14:3\">14:3</a>; <a data-ref=\"REV 15:7\">15:7</a>; <a data-ref=\"REV 19:4\">19:4</a>"
+   },
+   "summary": {
+    "en": "Four attendants at God’s throne, like a lion, a calf, a man and a flying eagle. They lead the worship of heaven.",
+    "ru": "Четыре существа у престола Божьего: подобное льву, тельцу, человеку и летящему орлу. Они начинают небесное поклонение."
+   },
+   "picture": {
+    "en": "A golden throne blazing with light inside an emerald rainbow, on a sea of glass under a sky of stars. Around it are four winged creatures whose wings are covered with eyes: a roaring lion, a calf, one with a human face, and an eagle.",
+    "ru": "Золотой престол в сиянии внутри изумрудной радуги, на стеклянном море под звёздным небом. Вокруг четыре крылатых существа, крылья которых усеяны глазами: рычащий лев, телец, существо с человеческим лицом и орёл."
+   },
+   "parts": [
+    {
+     "at": [
+      126,
+      104
+     ],
+     "title": {
+      "en": "Like a lion",
+      "ru": "Подобное льву"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 4:7\">Rev 4:7</a>; <a data-ref=\"REV 6:1\">6:1</a>",
+      "ru": "<a data-ref=\"REV 4:7\">Откр. 4:7</a>; <a data-ref=\"REV 6:1\">6:1</a>"
+     },
+     "text": {
+      "en": "The first creature. It calls John to see the white horse. The lion is Scripture’s picture of strength and courage (<a data-ref=\"PRO 30:30\">Prov 30:30</a>; <a data-ref=\"2SA 17:10\">2 Sam 17:10</a>).",
+      "ru": "Первое животное. Оно зовёт Иоанна увидеть белого коня. Лев в Писании — образ силы и отваги (<a data-ref=\"PRO 30:30\">Притч. 30:30</a>; <a data-ref=\"2SA 17:10\">2 Цар. 17:10</a>)."
+     }
+    },
+    {
+     "at": [
+      506,
+      150
+     ],
+     "title": {
+      "en": "Like a calf",
+      "ru": "Подобное тельцу"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 4:7\">Rev 4:7</a>; <a data-ref=\"REV 6:3\">6:3</a>",
+      "ru": "<a data-ref=\"REV 4:7\">Откр. 4:7</a>; <a data-ref=\"REV 6:3\">6:3</a>"
+     },
+     "text": {
+      "en": "The second creature, a young ox. It announces the red horse. The ox stands for patient strength and service (<a data-ref=\"PRO 14:4\">Prov 14:4</a>).",
+      "ru": "Второе животное, молодой вол. Оно возвещает рыжего коня. Вол — образ терпеливой силы и служения (<a data-ref=\"PRO 14:4\">Притч. 14:4</a>)."
+     }
+    },
+    {
+     "at": [
+      160,
+      272
+     ],
+     "title": {
+      "en": "A face as a man",
+      "ru": "Лицо как у человека"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 4:7\">Rev 4:7</a>; <a data-ref=\"REV 6:5\">6:5</a>",
+      "ru": "<a data-ref=\"REV 4:7\">Откр. 4:7</a>; <a data-ref=\"REV 6:5\">6:5</a>"
+     },
+     "text": {
+      "en": "The third creature. It announces the black horse. The human face suggests reason and understanding.",
+      "ru": "Третье животное. Оно возвещает вороного коня. Человеческое лицо говорит о разуме и понимании."
+     }
+    },
+    {
+     "at": [
+      500,
+      272
+     ],
+     "title": {
+      "en": "Like a flying eagle",
+      "ru": "Подобное летящему орлу"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 4:7\">Rev 4:7</a>; <a data-ref=\"REV 6:7\">6:7</a>",
+      "ru": "<a data-ref=\"REV 4:7\">Откр. 4:7</a>; <a data-ref=\"REV 6:7\">6:7</a>"
+     },
+     "text": {
+      "en": "The fourth creature. It announces the pale horse. The eagle is swift and far-sighted (<a data-ref=\"JOB 39:27-29\">Job 39:27–29</a>; <a data-ref=\"DEU 28:49\">Deut 28:49</a>).",
+      "ru": "Четвёртое животное. Оно возвещает бледного коня. Орёл стремителен и видит далеко (<a data-ref=\"JOB 39:27-29\">Иов 39:27–29</a>; <a data-ref=\"DEU 28:49\">Втор. 28:49</a>)."
+     }
+    },
+    {
+     "at": [
+      74,
+      50
+     ],
+     "title": {
+      "en": "Six wings",
+      "ru": "Шесть крыльев"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 4:8\">Rev 4:8</a>",
+      "ru": "<a data-ref=\"REV 4:8\">Откр. 4:8</a>"
+     },
+     "text": {
+      "en": "Each has six wings, like the seraphim Isaiah saw above the throne (<a data-ref=\"ISA 6:2\">Isa 6:2</a>).",
+      "ru": "У каждого по шесть крыльев, как у серафимов, которых Исаия видел над престолом (<a data-ref=\"ISA 6:2\">Ис. 6:2</a>)."
+     }
+    },
+    {
+     "at": [
+      580,
+      190
+     ],
+     "title": {
+      "en": "Full of eyes",
+      "ru": "Исполнены очей"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 4:6\">Rev 4:6</a>, <a data-ref=\"REV 4:8\">8</a>",
+      "ru": "<a data-ref=\"REV 4:6\">Откр. 4:6</a>, <a data-ref=\"REV 4:8\">8</a>"
+     },
+     "text": {
+      "en": "Eyes before, behind and within. Nothing escapes their sight (<a data-ref=\"EZK 1:18\">Ezek 1:18</a>; <a data-ref=\"EZK 10:12\">10:12</a>).",
+      "ru": "Очи спереди, сзади и внутри. От их взгляда ничто не скрыто (<a data-ref=\"EZK 1:18\">Иез. 1:18</a>; <a data-ref=\"EZK 10:12\">10:12</a>)."
+     }
+    },
+    {
+     "at": [
+      320,
+      252
+     ],
+     "title": {
+      "en": "The throne and the rainbow",
+      "ru": "Престол и радуга"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 4:2-6\">Rev 4:2–6</a>",
+      "ru": "<a data-ref=\"REV 4:2-6\">Откр. 4:2–6</a>"
+     },
+     "text": {
+      "en": "They stand in the midst of the throne and around it, before a sea of glass, under a rainbow like an emerald. Day and night they say “Holy, holy, holy.”",
+      "ru": "Они стоят посреди престола и вокруг него, перед стеклянным морем, под радугой, подобной смарагду. Днём и ночью они взывают: «Свят, свят, свят»."
+     }
+    }
+   ],
+   "bible": [
+    {
+     "en": "The King James Version calls them “beasts,” but the Greek word is <i>zōa</i>, “living ones.” It is a different word from <i>thērion</i>, the wild beast of chapters 13 and 17.",
+     "ru": "Синодальный перевод называет их «животными»: по-гречески это <i>zōa</i>, «живые существа». Это другое слово, чем <i>thērion</i>, «зверь» из глав 13 и 17."
+    },
+    {
+     "en": "The same four faces appear on the living creatures in Ezekiel’s vision (<a data-ref=\"EZK 1:5-10\">Ezek 1:5–10</a>), and Ezekiel later says plainly that these were cherubim (<a data-ref=\"EZK 10:20\">Ezek 10:20</a>). Their six wings and their song come from Isaiah’s seraphim (<a data-ref=\"ISA 6:2-3\">Isa 6:2–3</a>).",
+     "ru": "Те же четыре лица были у животных в видении Иезекииля (<a data-ref=\"EZK 1:5-10\">Иез. 1:5–10</a>), и позже Иезекииль прямо говорит, что это херувимы (<a data-ref=\"EZK 10:20\">Иез. 10:20</a>). Шесть крыльев и песнь напоминают серафимов Исаии (<a data-ref=\"ISA 6:2-3\">Ис. 6:2–3</a>)."
+    },
+    {
+     "en": "In Revelation they begin each round of praise (<a data-ref=\"REV 4:8-9\">4:8–9</a>; <a data-ref=\"REV 5:8\">5:8</a>, <a data-ref=\"REV 5:14\">14</a>; <a data-ref=\"REV 19:4\">19:4</a>), each one summons a horseman (<a data-ref=\"REV 6:1-7\">6:1–7</a>), and one of them hands the seven angels the bowls of God’s wrath (<a data-ref=\"REV 15:7\">15:7</a>). They are heavenly beings close to God. They are never a symbol of an earthly kingdom.",
+     "ru": "В Откровении они начинают каждое славословие (<a data-ref=\"REV 4:8-9\">4:8–9</a>; <a data-ref=\"REV 5:8\">5:8</a>, <a data-ref=\"REV 5:14\">14</a>; <a data-ref=\"REV 19:4\">19:4</a>), каждое вызывает одного из всадников (<a data-ref=\"REV 6:1-7\">6:1–7</a>), и одно из них подаёт семи ангелам чаши гнева Божьего (<a data-ref=\"REV 15:7\">15:7</a>). Это небесные существа, близкие к Богу. Они нигде не обозначают земное царство."
+    }
+   ],
+   "white": [
+    {
+     "en": "I found no passage where Ellen White says who or what the four living creatures of Revelation 4 are.",
+     "ru": "Мне не удалось найти у Эллен Уайт места, где она объясняет, кто такие четыре животных из 4-й главы Откровения."
+    },
+    {
+     "en": "Her comments attach to Ezekiel’s parallel vision. The wheels within wheels looked tangled to the prophet, yet they moved in perfect order, guided by a hand beneath the wings of the cherubim. She draws the lesson that “the complicated play of human events is under divine control” <span class=\"cite-ref\">Ed 177–178</span>.",
+     "ru": "Её слова относятся к параллельному видению Иезекииля. Колёса в колёсах казались пророку запутанными, но двигались в совершенном порядке: их направляла рука под крыльями херувимов. Она делает вывод: «сложный ход человеческих событий находится под Божественным управлением» <span class=\"cite-ref\">Ed 177–178</span>."
+    },
+    {
+     "en": "She returns to the picture to steady believers who fear that God has lost control of events <span class=\"cite-ref\">5T 751–754</span>. The hand under the wings teaches that divine power gives His workers their success, and the lightning speed of the creatures pictures how quickly His work will be finished <span class=\"cite-ref\">4BC 1161</span>.",
+     "ru": "Она возвращается к этому образу, чтобы ободрить верующих, которым кажется, что Бог утратил власть над событиями <span class=\"cite-ref\">5T 751–754</span>. Рука под крыльями учит, что успех Его работникам даёт Божья сила, а молниеносное движение животных показывает, как быстро завершится Его дело <span class=\"cite-ref\">4BC 1161</span>."
+    }
+   ],
+   "image": {
+    "src": "img/revelation/living-creatures.webp",
+    "thumb": "img/revelation/living-creatures-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
+  },
+  {
+   "id": "lion-of-judah",
+   "level": "brief",
+   "verse": "REV 5:5",
+   "title": {
+    "en": "The Lion of the tribe of Judah",
+    "ru": "Лев от колена Иудина"
+   },
+   "short": {
+    "en": "Lion of Judah",
+    "ru": "Лев от колена Иудина"
+   },
+   "chapter": {
+    "en": "Revelation 5",
+    "ru": "Откровение 5"
+   },
+   "where": {
+    "en": "<a data-ref=\"REV 5:5\">Rev 5:5</a>; <a data-ref=\"REV 10:3\">10:3</a>",
+    "ru": "<a data-ref=\"REV 5:5\">Откр. 5:5</a>; <a data-ref=\"REV 10:3\">10:3</a>"
+   },
+   "summary": {
+    "en": "A title of Christ, the conquering King from Judah’s line. John hears “Lion,” turns, and sees a Lamb.",
+    "ru": "Имя Христа — Царя-победителя из рода Иуды. Иоанн слышит «лев», оборачивается и видит Агнца."
+   },
+   "picture": {
+    "en": "A crowned lion roaring on a rocky height under a dark, starry sky, with shafts of light falling on him. On the left a green shoot grows from a cut stump; on the right lies a scroll with a row of red wax seals.",
+    "ru": "Лев в венце рыкает на скалистой вершине под тёмным звёздным небом, на него падают лучи света. Слева из срубленного пня растёт зелёный побег, справа лежит свиток с рядом красных сургучных печатей."
+   },
+   "parts": [
+    {
+     "at": [
+      261,
+      174
+     ],
+     "title": {
+      "en": "The Lion",
+      "ru": "Лев"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 5:5\">Rev 5:5</a>; <a data-ref=\"GEN 49:9-10\">Gen 49:9–10</a>",
+      "ru": "<a data-ref=\"REV 5:5\">Откр. 5:5</a>; <a data-ref=\"GEN 49:9-10\">Быт. 49:9–10</a>"
+     },
+     "text": {
+      "en": "Jacob called Judah “a lion’s whelp” and promised that the sceptre would not depart from his tribe until Shiloh came. Jesus was born in that tribe (<a data-ref=\"HEB 7:14\">Heb 7:14</a>).",
+      "ru": "Иаков назвал Иуду «молодым львом» и обещал, что скипетр не отойдёт от его колена, пока не придёт Примиритель. Иисус родился в этом колене (<a data-ref=\"HEB 7:14\">Евр. 7:14</a>)."
+     }
+    },
+    {
+     "at": [
+      457,
+      45
+     ],
+     "title": {
+      "en": "“Hath prevailed”",
+      "ru": "«Победил»"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 5:5\">Rev 5:5</a>; <a data-ref=\"REV 3:21\">3:21</a>",
+      "ru": "<a data-ref=\"REV 5:5\">Откр. 5:5</a>; <a data-ref=\"REV 3:21\">3:21</a>"
+     },
+     "text": {
+      "en": "The crown marks his victory. The Greek verb means “has conquered.” His worthiness rests on what he has already won.",
+      "ru": "Венец говорит о Его победе. Греческий глагол означает «одержал победу». Он достоин потому, что уже победил."
+     }
+    },
+    {
+     "at": [
+      107,
+      268
+     ],
+     "title": {
+      "en": "The Root of David",
+      "ru": "Корень Давидов"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 5:5\">Rev 5:5</a>; <a data-ref=\"REV 22:16\">22:16</a>; <a data-ref=\"ISA 11:1\">Isa 11:1</a>, <a data-ref=\"ISA 11:10\">10</a>",
+      "ru": "<a data-ref=\"REV 5:5\">Откр. 5:5</a>; <a data-ref=\"REV 22:16\">22:16</a>; <a data-ref=\"ISA 11:1\">Ис. 11:1</a>, <a data-ref=\"ISA 11:10\">10</a>"
+     },
+     "text": {
+      "en": "Isaiah foretold a shoot from the cut-down stump of Jesse. Jesus is both David’s root and his offspring.",
+      "ru": "Исаия предсказал отрасль от срубленного корня Иессеева. Иисус — и корень, и потомок Давида."
+     }
+    },
+    {
+     "at": [
+      479,
+      333
+     ],
+     "title": {
+      "en": "The book with seven seals",
+      "ru": "Книга за семью печатями"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 5:1-4\">Rev 5:1–4</a>",
+      "ru": "<a data-ref=\"REV 5:1-4\">Откр. 5:1–4</a>"
+     },
+     "text": {
+      "en": "A scroll in the hand of God that no one in heaven or earth could open. John wept until the Lion was announced.",
+      "ru": "Свиток в руке Божьей, который никто ни на небе, ни на земле не мог раскрыть. Иоанн плакал, пока ему не возвестили о Льве."
+     }
+    },
+    {
+     "at": [
+      460,
+      129
+     ],
+     "title": {
+      "en": "The lion’s roar",
+      "ru": "Львиный рык"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 10:3\">Rev 10:3</a>",
+      "ru": "<a data-ref=\"REV 10:3\">Откр. 10:3</a>"
+     },
+     "text": {
+      "en": "Later a mighty angel cries “as when a lion roareth.” The prophets use the lion’s roar for the voice of God (<a data-ref=\"HOS 11:10\">Hos 11:10</a>; <a data-ref=\"AMO 3:8\">Amos 3:8</a>; <a data-ref=\"JOL 3:16\">Joel 3:16</a>).",
+      "ru": "Позже сильный Ангел восклицает, «как рыкает лев». У пророков львиный рык — образ голоса Божьего (<a data-ref=\"HOS 11:10\">Ос. 11:10</a>; <a data-ref=\"AMO 3:8\">Ам. 3:8</a>; <a data-ref=\"JOL 3:16\">Иоил. 3:16</a>)."
+     }
+    }
+   ],
+   "bible": [
+    {
+     "en": "The lion appears once as a name for Christ, and it is something John <i>hears</i>. When he looks, he sees “a Lamb as it had been slain” (<a data-ref=\"REV 5:6\">5:6</a>). The King conquers by sacrifice.",
+     "ru": "Львом Христос назван один раз, и Иоанн это <i>слышит</i>. Когда же он смотрит, то видит «Агнца как бы закланного» (<a data-ref=\"REV 5:6\">5:6</a>). Царь побеждает жертвой."
+    },
+    {
+     "en": "The title gathers two promises: the royal tribe of Judah (<a data-ref=\"GEN 49:9-10\">Gen 49:9–10</a>) and the house of David (<a data-ref=\"2SA 7:12-16\">2 Sam 7:12–16</a>; <a data-ref=\"ISA 11:1-10\">Isa 11:1–10</a>).",
+     "ru": "В этом имени соединены два обетования: о царском колене Иуды (<a data-ref=\"GEN 49:9-10\">Быт. 49:9–10</a>) и о доме Давида (<a data-ref=\"2SA 7:12-16\">2 Цар. 7:12–16</a>; <a data-ref=\"ISA 11:1-10\">Ис. 11:1–10</a>)."
+    },
+    {
+     "en": "Lions also appear in Revelation as parts of other creatures: the first living creature (<a data-ref=\"REV 4:7\">4:7</a>), the teeth of the locusts (<a data-ref=\"REV 9:8\">9:8</a>), the heads of the horses (<a data-ref=\"REV 9:17\">9:17</a>) and the mouth of the sea beast (<a data-ref=\"REV 13:2\">13:2</a>).",
+     "ru": "Лев встречается в Откровении и как часть других существ: первое животное (<a data-ref=\"REV 4:7\">4:7</a>), зубы саранчи (<a data-ref=\"REV 9:8\">9:8</a>), головы коней (<a data-ref=\"REV 9:17\">9:17</a>) и пасть зверя из моря (<a data-ref=\"REV 13:2\">13:2</a>)."
+    }
+   ],
+   "white": [
+    {
+     "en": "White reads the two names together. The Saviour is shown to John as the Lion of Judah and as a slain Lamb, and these symbols stand for “the union of omnipotent power and self-sacrificing love” <a class=\"cite-ref\" data-work=\"acts-of-the-apostles\" data-part=\"57\">AA 589</a>.",
+     "ru": "Уайт рассматривает оба имени вместе. Спаситель показан Иоанну как Лев от колена Иудина и как закланный Агнец, и эти символы означают «соединение всемогущей силы и самоотверженной любви» <a class=\"cite-ref\" data-work=\"acts-of-the-apostles\" data-part=\"57\">AA 589</a>."
+    },
+    {
+     "en": "As Lion he will defend his chosen people and bring them through to victory, because they received him as the Lamb of God <span class=\"cite-ref\">CTr 315</span>. The Lion of Judah, so terrible to those who refuse his grace, will be the Lamb of God to the obedient and faithful <a class=\"cite-ref\" data-work=\"acts-of-the-apostles\" data-part=\"57\">AA 589</a>.",
+     "ru": "Как Лев Он защитит Своих избранных и приведёт их к победе, потому что они приняли Его как Агнца Божьего <span class=\"cite-ref\">CTr 315</span>. Лев от колена Иудина, столь страшный для отвергающих Его благодать, для послушных и верных будет Агнцем Божьим <a class=\"cite-ref\" data-work=\"acts-of-the-apostles\" data-part=\"57\">AA 589</a>."
+    }
+   ],
+   "image": {
+    "src": "img/revelation/lion-of-judah.webp",
+    "thumb": "img/revelation/lion-of-judah-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
+  },
+  {
+   "id": "lamb",
+   "level": "detail",
+   "verse": "REV 5:6",
+   "title": {
+    "en": "The Lamb",
+    "ru": "Агнец"
+   },
+   "short": {
+    "en": "The Lamb",
+    "ru": "Агнец"
+   },
+   "chapter": {
+    "en": "Revelation 5",
+    "ru": "Откровение 5"
+   },
+   "where": {
+    "en": "<a data-ref=\"REV 5:6-13\">Rev 5:6–13</a>; <a data-ref=\"REV 6:1\">6:1</a>, <a data-ref=\"REV 6:16\">16</a>; <a data-ref=\"REV 7:9-17\">7:9–17</a>; <a data-ref=\"REV 12:11\">12:11</a>; <a data-ref=\"REV 13:8\">13:8</a>; <a data-ref=\"REV 14:1-4\">14:1–4</a>, <a data-ref=\"REV 14:10\">10</a>; <a data-ref=\"REV 15:3\">15:3</a>; <a data-ref=\"REV 17:14\">17:14</a>; <a data-ref=\"REV 19:7-9\">19:7–9</a>; <a data-ref=\"REV 21:9-27\">21:9–27</a>; <a data-ref=\"REV 22:1\">22:1</a>, <a data-ref=\"REV 22:3\">3</a>",
+    "ru": "<a data-ref=\"REV 5:6-13\">Откр. 5:6–13</a>; <a data-ref=\"REV 6:1\">6:1</a>, <a data-ref=\"REV 6:16\">16</a>; <a data-ref=\"REV 7:9-17\">7:9–17</a>; <a data-ref=\"REV 12:11\">12:11</a>; <a data-ref=\"REV 13:8\">13:8</a>; <a data-ref=\"REV 14:1-4\">14:1–4</a>, <a data-ref=\"REV 14:10\">10</a>; <a data-ref=\"REV 15:3\">15:3</a>; <a data-ref=\"REV 17:14\">17:14</a>; <a data-ref=\"REV 19:7-9\">19:7–9</a>; <a data-ref=\"REV 21:9-27\">21:9–27</a>; <a data-ref=\"REV 22:1\">22:1</a>, <a data-ref=\"REV 22:3\">3</a>"
+   },
+   "summary": {
+    "en": "Christ, crucified and risen. He is the central figure of the book, called “the Lamb” nearly thirty times.",
+    "ru": "Христос, распятый и воскресший. Он главное лицо книги: Агнцем Он назван почти тридцать раз."
+   },
+   "picture": {
+    "en": "A white lamb with golden horns, several eyes and a red wound at its throat, standing on golden steps under an emerald rainbow, with a sealed scroll beside it.",
+    "ru": "Белый агнец с золотыми рогами, несколькими очами и красной раной на шее стоит на золотых ступенях под изумрудной радугой; рядом запечатанный свиток."
+   },
+   "parts": [
+    {
+     "at": [
+      332,
+      172
+     ],
+     "title": {
+      "en": "As it had been slain",
+      "ru": "Как бы закланный"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 5:6\">Rev 5:6</a>, <a data-ref=\"REV 5:9\">9</a>; <a data-ref=\"REV 1:18\">1:18</a>",
+      "ru": "<a data-ref=\"REV 5:6\">Откр. 5:6</a>, <a data-ref=\"REV 5:9\">9</a>; <a data-ref=\"REV 1:18\">1:18</a>"
+     },
+     "text": {
+      "en": "He carries the marks of sacrifice and yet stands alive. Behind the picture are the Passover lamb (<a data-ref=\"EXO 12:3-13\">Exod 12:3–13</a>), the silent lamb of <a data-ref=\"ISA 53:7\">Isa 53:7</a> and John the Baptist’s cry, “Behold the Lamb of God” (<a data-ref=\"JHN 1:29\">John 1:29</a>).",
+      "ru": "Он несёт следы жертвы и всё же стоит живой. За этим образом — пасхальный агнец (<a data-ref=\"EXO 12:3-13\">Исх. 12:3–13</a>), безгласный агнец из <a data-ref=\"ISA 53:7\">Ис. 53:7</a> и слова Иоанна Крестителя: «Вот Агнец Божий» (<a data-ref=\"JHN 1:29\">Ин. 1:29</a>)."
+     }
+    },
+    {
+     "at": [
+      366,
+      58
+     ],
+     "title": {
+      "en": "Seven horns",
+      "ru": "Семь рогов"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 5:6\">Rev 5:6</a>",
+      "ru": "<a data-ref=\"REV 5:6\">Откр. 5:6</a>"
+     },
+     "text": {
+      "en": "A horn is power and kingly strength (<a data-ref=\"DEU 33:17\">Deut 33:17</a>; <a data-ref=\"1SA 2:10\">1 Sam 2:10</a>; <a data-ref=\"DAN 7:24\">Dan 7:24</a>). Seven is the number of fullness. The Lamb has complete power.",
+      "ru": "Рог — это сила и царская власть (<a data-ref=\"DEU 33:17\">Втор. 33:17</a>; <a data-ref=\"1SA 2:10\">1 Цар. 2:10</a>; <a data-ref=\"DAN 7:24\">Дан. 7:24</a>). Семь — число полноты. Агнец обладает всей полнотой силы."
+     }
+    },
+    {
+     "at": [
+      436,
+      98
+     ],
+     "title": {
+      "en": "Seven eyes",
+      "ru": "Семь очей"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 5:6\">Rev 5:6</a>; <a data-ref=\"ZEC 4:10\">Zech 4:10</a>",
+      "ru": "<a data-ref=\"REV 5:6\">Откр. 5:6</a>; <a data-ref=\"ZEC 4:10\">Зах. 4:10</a>"
+     },
+     "text": {
+      "en": "The verse explains itself: they are the seven Spirits of God sent out into all the earth. The Lamb sees and reaches everywhere.",
+      "ru": "Стих сам объясняет: это семь духов Божьих, посланных во всю землю. Агнец всё видит и всюду действует."
+     }
+    },
+    {
+     "at": [
+      270,
+      300
+     ],
+     "title": {
+      "en": "In the midst of the throne",
+      "ru": "Посреди престола"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 5:6\">Rev 5:6</a>; <a data-ref=\"REV 7:17\">7:17</a>; <a data-ref=\"REV 22:1\">22:1</a>, <a data-ref=\"REV 22:3\">3</a>",
+      "ru": "<a data-ref=\"REV 5:6\">Откр. 5:6</a>; <a data-ref=\"REV 7:17\">7:17</a>; <a data-ref=\"REV 22:1\">22:1</a>, <a data-ref=\"REV 22:3\">3</a>"
+     },
+     "text": {
+      "en": "He shares the throne of God and receives the same worship from every creature (<a data-ref=\"REV 5:12-13\">5:12–13</a>).",
+      "ru": "Он разделяет престол Божий и принимает то же поклонение от всякого создания (<a data-ref=\"REV 5:12-13\">5:12–13</a>)."
+     }
+    },
+    {
+     "at": [
+      430,
+      292
+     ],
+     "title": {
+      "en": "The sealed book",
+      "ru": "Запечатанная книга"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 5:7-9\">Rev 5:7–9</a>; <a data-ref=\"REV 6:1\">6:1</a>",
+      "ru": "<a data-ref=\"REV 5:7-9\">Откр. 5:7–9</a>; <a data-ref=\"REV 6:1\">6:1</a>"
+     },
+     "text": {
+      "en": "He alone takes the scroll and opens its seals, “for thou wast slain, and hast redeemed us to God by thy blood.”",
+      "ru": "Только Он берёт книгу и снимает её печати, «ибо Ты был заклан, и Кровию Своею искупил нас Богу»."
+     }
+    }
+   ],
+   "bible": [
+    {
+     "en": "From chapter 5 onward the Lamb acts in every scene. He opens the seals (<a data-ref=\"REV 6:1\">6:1</a>), shepherds the redeemed (<a data-ref=\"REV 7:17\">7:17</a>), is the reason believers overcome the dragon (<a data-ref=\"REV 12:11\">12:11</a>), stands on Mount Zion with the 144,000 (<a data-ref=\"REV 14:1\">14:1</a>), defeats the kings who fight him because he is “Lord of lords, and King of kings” (<a data-ref=\"REV 17:14\">17:14</a>), is married (<a data-ref=\"REV 19:7-9\">19:7–9</a>), and is the temple and the lamp of the New Jerusalem (<a data-ref=\"REV 21:22-23\">21:22–23</a>).",
+     "ru": "Начиная с 5-й главы Агнец действует в каждой сцене. Он снимает печати (<a data-ref=\"REV 6:1\">6:1</a>), пасёт искупленных (<a data-ref=\"REV 7:17\">7:17</a>), Его кровью верные побеждают дракона (<a data-ref=\"REV 12:11\">12:11</a>), Он стоит на горе Сион со 144 000 (<a data-ref=\"REV 14:1\">14:1</a>), побеждает царей, воюющих с Ним, ибо Он «Господь господствующих и Царь царей» (<a data-ref=\"REV 17:14\">17:14</a>), вступает в брак (<a data-ref=\"REV 19:7-9\">19:7–9</a>), и Он же — храм и светильник Нового Иерусалима (<a data-ref=\"REV 21:22-23\">21:22–23</a>)."
+    },
+    {
+     "en": "He is gentle and he is judge. The lost cry to be hidden from “the wrath of the Lamb” (<a data-ref=\"REV 6:16\">6:16</a>). Names are kept in “the book of life of the Lamb slain from the foundation of the world” (<a data-ref=\"REV 13:8\">13:8</a>; <a data-ref=\"REV 21:27\">21:27</a>).",
+     "ru": "Он кроток, и Он же Судья. Погибающие просят скрыть их «от гнева Агнца» (<a data-ref=\"REV 6:16\">6:16</a>). Имена записаны «в книге жизни у Агнца, закланного от создания мира» (<a data-ref=\"REV 13:8\">13:8</a>; <a data-ref=\"REV 21:27\">21:27</a>)."
+    },
+    {
+     "en": "The Old Testament roots are the Passover lamb, the daily sacrifice (<a data-ref=\"EXO 29:38-42\">Exod 29:38–42</a>) and the suffering servant (<a data-ref=\"ISA 53:7\">Isa 53:7</a>). Peter calls Christ “a lamb without blemish and without spot” (<a data-ref=\"1PE 1:19\">1 Pet 1:19</a>).",
+     "ru": "Ветхозаветные корни образа — пасхальный агнец, ежедневная жертва (<a data-ref=\"EXO 29:38-42\">Исх. 29:38–42</a>) и страдающий Раб Господень (<a data-ref=\"ISA 53:7\">Ис. 53:7</a>). Пётр называет Христа непорочным и чистым Агнцем (<a data-ref=\"1PE 1:19\">1 Пет. 1:19</a>)."
+    }
+   ],
+   "white": [
+    {
+     "en": "White teaches that the Passover both looked back to the rescue from Egypt and pointed forward to a greater rescue from sin. The sacrificed lamb stood for the Lamb of God, the only hope of salvation <a class=\"cite-ref\" data-work=\"patriarchs-and-prophets\" data-part=\"24\">PP 277</a>.",
+     "ru": "Уайт учит, что Пасха и напоминала об избавлении из Египта, и указывала вперёд, на большее избавление — от греха. Жертвенный агнец представлял Агнца Божьего, единственную надежду на спасение <a class=\"cite-ref\" data-work=\"patriarchs-and-prophets\" data-part=\"24\">PP 277</a>."
+    },
+    {
+     "en": "The Lamb and the Lion together express the whole work of redemption, power joined with self-giving love <a class=\"cite-ref\" data-work=\"acts-of-the-apostles\" data-part=\"57\">AA 589</a>. The depth of his humiliation as the Lamb is the measure of his power as the Lion to deliver his people <span class=\"cite-ref\">CTr 315</span>.",
+     "ru": "Агнец и Лев вместе выражают всё дело искупления: силу, соединённую с самоотверженной любовью <a class=\"cite-ref\" data-work=\"acts-of-the-apostles\" data-part=\"57\">AA 589</a>. Глубина Его уничижения как Агнца — мера Его силы как Льва, избавляющего Свой народ <span class=\"cite-ref\">CTr 315</span>."
+    },
+    {
+     "en": "With the Lamb on Mount Zion she sees the 144,000, who sing a song no one else can learn because it is the song of their own experience. They follow the Lamb wherever he goes <span class=\"cite-ref\">GC 648–649</span>.",
+     "ru": "С Агнцем на горе Сион она видит 144 000: они поют песнь, которой никто другой не может научиться, потому что это песнь их собственного опыта. Они следуют за Агнцем, куда бы Он ни пошёл <span class=\"cite-ref\">GC 648–649</span>."
+    },
+    {
+     "en": "The marriage of the Lamb is Christ receiving his kingdom. The bride is the Holy City, the New Jerusalem, and his people are the guests at the marriage supper <span class=\"cite-ref\">GC 426–427</span>.",
+     "ru": "Брак Агнца — это принятие Христом Своего царства. Невеста — святой город, Новый Иерусалим, а Его народ — гости на брачной вечере <span class=\"cite-ref\">GC 426–427</span>."
+    }
+   ],
+   "image": {
+    "src": "img/revelation/lamb.webp",
+    "thumb": "img/revelation/lamb-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
+  },
+  {
+   "id": "four-horses",
+   "level": "brief",
+   "verse": "REV 6:8",
+   "title": {
+    "en": "The four horses of the seals",
+    "ru": "Четыре коня первых печатей"
+   },
+   "short": {
+    "en": "Four horses",
+    "ru": "Четыре коня"
+   },
+   "chapter": {
+    "en": "Revelation 6",
+    "ru": "Откровение 6"
+   },
+   "where": {
+    "en": "<a data-ref=\"REV 6:1-8\">Rev 6:1–8</a>",
+    "ru": "<a data-ref=\"REV 6:1-8\">Откр. 6:1–8</a>"
+   },
+   "summary": {
+    "en": "A white, a red, a black and a pale horse ride out as the Lamb opens the first four seals.",
+    "ru": "Белый, рыжий, вороной и бледный кони выходят, когда Агнец снимает первые четыре печати."
+   },
+   "picture": {
+    "en": "Four riders galloping abreast across a dusty plain under a storm sky: a crowned archer on a white horse, a swordsman on a red horse, a hooded man holding scales on a black horse, and Death as a skeleton on a pale green horse, with two wolves running beside them.",
+    "ru": "Четыре всадника скачут в ряд по пыльной равнине под грозовым небом: лучник в венце на белом коне, меченосец на рыжем, человек в капюшоне с весами на вороном и Смерть в виде скелета на бледно-зелёном коне; рядом бегут два волка."
+   },
+   "parts": [
+    {
+     "at": [
+      126,
+      208
+     ],
+     "title": {
+      "en": "The white horse",
+      "ru": "Белый конь"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 6:2\">Rev 6:2</a>",
+      "ru": "<a data-ref=\"REV 6:2\">Откр. 6:2</a>"
+     },
+     "text": {
+      "en": "Its rider holds a bow, is given a crown, and goes out “conquering, and to conquer.” Everywhere else in Revelation white belongs to Christ and his people (<a data-ref=\"REV 1:14\">1:14</a>; <a data-ref=\"REV 3:4-5\">3:4–5</a>; <a data-ref=\"REV 7:14\">7:14</a>; <a data-ref=\"REV 19:8\">19:8</a>, <a data-ref=\"REV 19:11\">11</a>, <a data-ref=\"REV 19:14\">14</a>).",
+      "ru": "Всадник держит лук, ему дан венец, и он выходит «как победоносный, и чтобы победить». Во всех других местах Откровения белый цвет принадлежит Христу и Его народу (<a data-ref=\"REV 1:14\">1:14</a>; <a data-ref=\"REV 3:4-5\">3:4–5</a>; <a data-ref=\"REV 7:14\">7:14</a>; <a data-ref=\"REV 19:8\">19:8</a>, <a data-ref=\"REV 19:11\">11</a>, <a data-ref=\"REV 19:14\">14</a>)."
+     }
+    },
+    {
+     "at": [
+      267,
+      224
+     ],
+     "title": {
+      "en": "The red horse",
+      "ru": "Рыжий конь"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 6:4\">Rev 6:4</a>",
+      "ru": "<a data-ref=\"REV 6:4\">Откр. 6:4</a>"
+     },
+     "text": {
+      "en": "Its rider is given a great sword and power to take peace from the earth, “that they should kill one another.”",
+      "ru": "Всаднику дан большой меч и власть взять мир с земли, «чтобы убивали друг друга»."
+     }
+    },
+    {
+     "at": [
+      420,
+      219
+     ],
+     "title": {
+      "en": "The black horse",
+      "ru": "Вороной конь"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 6:5-6\">Rev 6:5–6</a>",
+      "ru": "<a data-ref=\"REV 6:5-6\">Откр. 6:5–6</a>"
+     },
+     "text": {
+      "en": "Its rider holds a pair of balances. A day’s wage (<a data-ref=\"MAT 20:2\">Matt 20:2</a>) buys one measure of wheat. Bread sold by weight is a sign of famine (<a data-ref=\"LEV 26:26\">Lev 26:26</a>; <a data-ref=\"EZK 4:16\">Ezek 4:16</a>). The oil and the wine are not to be hurt.",
+      "ru": "Всадник держит весы. На дневной заработок (<a data-ref=\"MAT 20:2\">Мф. 20:2</a>) можно купить одну меру пшеницы. Хлеб, отпускаемый весом, — признак голода (<a data-ref=\"LEV 26:26\">Лев. 26:26</a>; <a data-ref=\"EZK 4:16\">Иез. 4:16</a>). Елей и вино велено не повреждать."
+     }
+    },
+    {
+     "at": [
+      547,
+      206
+     ],
+     "title": {
+      "en": "The pale horse",
+      "ru": "Бледный конь"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 6:8\">Rev 6:8</a>",
+      "ru": "<a data-ref=\"REV 6:8\">Откр. 6:8</a>"
+     },
+     "text": {
+      "en": "The Greek word is <i>chlōros</i>, the yellow-green of a corpse. The rider is named Death, and Hades, the grave, follows behind.",
+      "ru": "Греческое слово <i>chlōros</i> означает желтовато-зелёный, трупный цвет. Имя всадника — «смерть», и ад, то есть могила, следует за ним."
+     }
+    },
+    {
+     "at": [
+      479,
+      286
+     ],
+     "title": {
+      "en": "The beasts of the earth",
+      "ru": "Звери земные"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 6:8\">Rev 6:8</a>",
+      "ru": "<a data-ref=\"REV 6:8\">Откр. 6:8</a>"
+     },
+     "text": {
+      "en": "Sword, hunger, pestilence and wild beasts are the “four sore judgments” of <a data-ref=\"EZK 14:21\">Ezek 14:21</a> and the covenant warnings of <a data-ref=\"LEV 26:21-26\">Lev 26:21–26</a>.",
+      "ru": "Меч, голод, мор и звери — это «четыре тяжкие казни» из <a data-ref=\"EZK 14:21\">Иез. 14:21</a> и предостережения завета из <a data-ref=\"LEV 26:21-26\">Лев. 26:21–26</a>."
+     }
+    }
+   ],
+   "bible": [
+    {
+     "en": "Each rider is called out by one of the four living creatures (<a data-ref=\"REV 6:1\">6:1</a>, <a data-ref=\"REV 6:3\">3</a>, <a data-ref=\"REV 6:5\">5</a>, <a data-ref=\"REV 6:7\">7</a>). Zechariah saw coloured horses sent through the earth as the Lord’s patrols (<a data-ref=\"ZEC 1:8-11\">Zech 1:8–11</a>; <a data-ref=\"ZEC 6:1-8\">6:1–8</a>).",
+     "ru": "Каждого всадника вызывает одно из четырёх животных (<a data-ref=\"REV 6:1\">6:1</a>, <a data-ref=\"REV 6:3\">3</a>, <a data-ref=\"REV 6:5\">5</a>, <a data-ref=\"REV 6:7\">7</a>). Захария видел разномастных коней, посланных обойти землю (<a data-ref=\"ZEC 1:8-11\">Зах. 1:8–11</a>; <a data-ref=\"ZEC 6:1-8\">6:1–8</a>)."
+    },
+    {
+     "en": "The order follows the warnings God gave Israel for breaking the covenant (<a data-ref=\"LEV 26:21-26\">Lev 26:21–26</a>; <a data-ref=\"EZK 14:21\">Ezek 14:21</a>) and the signs Jesus listed: war, famine, pestilence and persecution (<a data-ref=\"MAT 24:4-14\">Matt 24:4–14</a>).",
+     "ru": "Порядок повторяет предостережения, которые Бог дал Израилю на случай нарушения завета (<a data-ref=\"LEV 26:21-26\">Лев. 26:21–26</a>; <a data-ref=\"EZK 14:21\">Иез. 14:21</a>), и признаки, названные Иисусом: войны, голод, мор и гонения (<a data-ref=\"MAT 24:4-14\">Мф. 24:4–14</a>)."
+    },
+    {
+     "en": "The Bible does not name the first rider. Because white is always on the side of heaven in this book, many readers take the white horse as the gospel going out in its first purity.",
+     "ru": "Библия не называет первого всадника. Поскольку белый цвет в этой книге всегда на стороне неба, многие видят в белом коне Евангелие, идущее в мир в своей первой чистоте."
+    }
+   ],
+   "white": [
+    {
+     "en": "White wrote very little on the four horsemen and gives no rider-by-rider explanation.",
+     "ru": "Уайт писала о четырёх всадниках очень мало и не объясняет каждого из них по отдельности."
+    },
+    {
+     "en": "In one letter she says the spirit pictured in Revelation 6:6–8 was appearing again in her own day. History was repeating itself, and the result was confusion, strife and disorder in the church <span class=\"cite-ref\">Letter 65, 1898</span>.",
+     "ru": "В одном письме она говорит, что дух, изображённый в Откровении 6:6–8, снова проявляется в её дни. История повторяется, и следствием становятся смятение, раздоры и беспорядок в церкви <span class=\"cite-ref\">Письмо 65, 1898</span>."
+    },
+    {
+     "en": "Elsewhere she borrows the black-horse phrase and urges believers not to “hurt the oil and the wine” in the way they treat one another <span class=\"cite-ref\">6T 614</span>.",
+     "ru": "В другом месте она берёт слова о вороном коне и призывает верующих не «повреждать елея и вина» в отношениях друг с другом <span class=\"cite-ref\">6T 614</span>."
+    }
+   ],
+   "context": {
+    "en": "For context: Adventist teachers of her day read the white horse as the apostolic church in its purity and the first conquests of the gospel, and the darker horses as later stages of bloodshed, error and deadly persecution (Uriah Smith and James White, <cite>The Biblical Institute</cite>, 1878). That reading is theirs, not a statement of hers.",
+    "ru": "Для справки: адвентистские учителя её времени видели в белом коне апостольскую церковь в её чистоте и первые победы Евангелия, а в тёмных конях — последующие времена кровопролития, заблуждений и смертельных гонений (Урия Смит и Джеймс Уайт, <cite>The Biblical Institute</cite>, 1878). Это их толкование, а не её слова."
+   },
+   "image": {
+    "src": "img/revelation/four-horses.webp",
+    "thumb": "img/revelation/four-horses-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
+  },
+  {
+   "id": "eagle",
+   "level": "brief",
+   "verse": "REV 12:14",
+   "title": {
+    "en": "The eagle",
+    "ru": "Орёл"
+   },
+   "short": {
+    "en": "Eagle",
+    "ru": "Орёл"
+   },
+   "chapter": {
+    "en": "Revelation 8 and 12",
+    "ru": "Откровение 8 и 12"
+   },
+   "where": {
+    "en": "<a data-ref=\"REV 4:7\">Rev 4:7</a>; <a data-ref=\"REV 8:13\">8:13</a>; <a data-ref=\"REV 12:14\">12:14</a>",
+    "ru": "<a data-ref=\"REV 4:7\">Откр. 4:7</a>; <a data-ref=\"REV 8:13\">8:13</a>; <a data-ref=\"REV 12:14\">12:14</a>"
+   },
+   "summary": {
+    "en": "The eagle appears three ways: as the fourth living creature, as the herald of three woes, and as the wings that carry the woman to safety.",
+    "ru": "Орёл встречается трижды: как четвёртое животное, как вестник трёх «горе» и как крылья, уносящие жену в безопасное место."
+   },
+   "picture": {
+    "en": "A great eagle with outspread wings flying over a desert canyon. Below, a woman in white runs along the rocks, and behind her a red serpent pours a river of water from its mouth.",
+    "ru": "Большой орёл с распростёртыми крыльями летит над пустынным каньоном. Внизу по камням бежит жена в белом, а позади неё красный змей извергает из пасти поток воды."
+   },
+   "parts": [
+    {
+     "at": [
+      199,
+      75
+     ],
+     "title": {
+      "en": "Two wings of a great eagle",
+      "ru": "Два крыла большого орла"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 12:14\">Rev 12:14</a>",
+      "ru": "<a data-ref=\"REV 12:14\">Откр. 12:14</a>"
+     },
+     "text": {
+      "en": "God told Israel, “I bare you on eagles’ wings, and brought you unto myself” (<a data-ref=\"EXO 19:4\">Exod 19:4</a>; <a data-ref=\"DEU 32:11-12\">Deut 32:11–12</a>). The wings are God’s own rescue.",
+      "ru": "Бог сказал Израилю: «Я носил вас как бы на орлиных крыльях, и принёс вас к Себе» (<a data-ref=\"EXO 19:4\">Исх. 19:4</a>; <a data-ref=\"DEU 32:11-12\">Втор. 32:11–12</a>). Крылья — это избавление, которое совершает Сам Бог."
+     }
+    },
+    {
+     "at": [
+      497,
+      189
+     ],
+     "title": {
+      "en": "Into the wilderness, her place",
+      "ru": "В пустыню, в своё место"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 12:6\">Rev 12:6</a>, <a data-ref=\"REV 12:14\">14</a>",
+      "ru": "<a data-ref=\"REV 12:6\">Откр. 12:6</a>, <a data-ref=\"REV 12:14\">14</a>"
+     },
+     "text": {
+      "en": "A place “prepared of God,” where she is fed, as Israel was fed in the desert and Elijah at the brook (<a data-ref=\"1KI 17:2-6\">1 Kings 17:2–6</a>).",
+      "ru": "Место, которое приготовил для неё Бог: там её питают, как Израиль в пустыне и Илию у потока (<a data-ref=\"1KI 17:2-6\">3 Цар. 17:2–6</a>)."
+     }
+    },
+    {
+     "at": [
+      219,
+      278
+     ],
+     "title": {
+      "en": "A time, times, and half a time",
+      "ru": "Время, времена и полвремени"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 12:14\">Rev 12:14</a>",
+      "ru": "<a data-ref=\"REV 12:14\">Откр. 12:14</a>"
+     },
+     "text": {
+      "en": "Three and a half “times.” Verse 6 gives the same period as 1,260 days, and <a data-ref=\"REV 13:5\">13:5</a> as 42 months (<a data-ref=\"DAN 7:25\">Dan 7:25</a>). A prophetic day stands for a year (<a data-ref=\"NUM 14:34\">Num 14:34</a>; <a data-ref=\"EZK 4:6\">Ezek 4:6</a>).",
+      "ru": "Три с половиной «времени». В 6-м стихе тот же срок назван 1260 днями, а в <a data-ref=\"REV 13:5\">13:5</a> — 42 месяцами (<a data-ref=\"DAN 7:25\">Дан. 7:25</a>). Пророческий день означает год (<a data-ref=\"NUM 14:34\">Чис. 14:34</a>; <a data-ref=\"EZK 4:6\">Иез. 4:6</a>)."
+     }
+    },
+    {
+     "at": [
+      362,
+      66
+     ],
+     "title": {
+      "en": "Woe, woe, woe",
+      "ru": "Горе, горе, горе"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 8:13\">Rev 8:13</a>",
+      "ru": "<a data-ref=\"REV 8:13\">Откр. 8:13</a>"
+     },
+     "text": {
+      "en": "The King James Version reads “an angel flying.” The oldest manuscripts and most modern versions read “an eagle.” It warns of the last three trumpets. In the prophets an eagle overhead means judgment is near (<a data-ref=\"DEU 28:49\">Deut 28:49</a>; <a data-ref=\"HOS 8:1\">Hos 8:1</a>; <a data-ref=\"HAB 1:8\">Hab 1:8</a>).",
+      "ru": "В Синодальном переводе здесь «Ангел, летящий посреди неба». В древнейших рукописях и большинстве современных переводов стоит «орёл». Он предупреждает о трёх последних трубах. У пророков орёл над головой означает близкий суд (<a data-ref=\"DEU 28:49\">Втор. 28:49</a>; <a data-ref=\"HOS 8:1\">Ос. 8:1</a>; <a data-ref=\"HAB 1:8\">Авв. 1:8</a>)."
+     }
+    },
+    {
+     "at": [
+      306,
+      238
+     ],
+     "title": {
+      "en": "The serpent’s flood",
+      "ru": "Поток змия"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 12:15-16\">Rev 12:15–16</a>",
+      "ru": "<a data-ref=\"REV 12:15-16\">Откр. 12:15–16</a>"
+     },
+     "text": {
+      "en": "The serpent pours out water like a river to sweep the woman away. The earth opens its mouth and swallows the flood.",
+      "ru": "Змий пускает воду, как реку, чтобы увлечь жену. Земля разверзает уста и поглощает реку."
+     }
+    }
+   ],
+   "bible": [
+    {
+     "en": "In Scripture the eagle is strength renewed (<a data-ref=\"ISA 40:31\">Isa 40:31</a>), a parent carrying its young (<a data-ref=\"DEU 32:11\">Deut 32:11</a>) and a swift invader (<a data-ref=\"JER 4:13\">Jer 4:13</a>). Revelation uses all three senses.",
+     "ru": "В Писании орёл — это обновлённая сила (<a data-ref=\"ISA 40:31\">Ис. 40:31</a>), птица, несущая своих птенцов (<a data-ref=\"DEU 32:11\">Втор. 32:11</a>), и стремительный завоеватель (<a data-ref=\"JER 4:13\">Иер. 4:13</a>). В Откровении есть все три смысла."
+    },
+    {
+     "en": "The woman of chapter 12 is God’s faithful people. She is clothed with the sun, gives birth to the child who will rule all nations (<a data-ref=\"REV 12:5\">12:5</a>; <a data-ref=\"PSA 2:9\">Ps 2:9</a>), and is then hunted by the dragon.",
+     "ru": "Жена из 12-й главы — верный Богу народ. Она облечена в солнце, рождает младенца, которому надлежит пасти все народы (<a data-ref=\"REV 12:5\">12:5</a>; <a data-ref=\"PSA 2:9\">Пс. 2:9</a>), и затем её преследует дракон."
+    }
+   ],
+   "white": [
+    {
+     "en": "White does not comment on the eagle itself. She explains the flight it pictures.",
+     "ru": "Уайт не говорит о самом орле. Она объясняет бегство, которое он изображает."
+    },
+    {
+     "en": "The 1,260 days, the 42 months and the three and a half times are one period. She dates it from A.D. 538 to 1798 and describes it as the long age when Rome held power and God’s people were oppressed <span class=\"cite-ref\">GC 54–55</span> <span class=\"cite-ref\">GC 266–267</span>.",
+     "ru": "1260 дней, 42 месяца и три с половиной времени — один и тот же период. Она относит его к 538–1798 годам и описывает как долгую эпоху власти Рима и угнетения Божьего народа <span class=\"cite-ref\">GC 54–55</span> <span class=\"cite-ref\">GC 266–267</span>."
+    },
+    {
+     "en": "In her chapter on the Waldenses she describes believers who kept the faith for centuries in mountain refuges beyond Rome’s reach <span class=\"cite-ref\">GC 61–78</span>. A later Adventist historian, L. E. Froom, lists her among those who take the woman as the true church and the child as Christ.",
+     "ru": "В главе о вальденсах она описывает верующих, веками хранивших веру в горных убежищах, недоступных для Рима <span class=\"cite-ref\">GC 61–78</span>. Более поздний адвентистский историк Л. Э. Фрум причисляет её к тем, кто видит в жене истинную церковь, а в младенце — Христа."
+    },
+    {
+     "en": "I found no comment from her on the eagle of Revelation 8:13.",
+     "ru": "Высказываний Уайт об орле из Откровения 8:13 мне найти не удалось."
+    }
+   ],
+   "image": {
+    "src": "img/revelation/eagle.webp",
+    "thumb": "img/revelation/eagle-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
+  },
+  {
+   "id": "locusts",
+   "level": "brief",
+   "verse": "REV 9:7",
+   "title": {
+    "en": "The locusts from the pit",
+    "ru": "Саранча из бездны"
+   },
+   "short": {
+    "en": "Locusts",
+    "ru": "Саранча"
+   },
+   "chapter": {
+    "en": "Revelation 9",
+    "ru": "Откровение 9"
+   },
+   "where": {
+    "en": "<a data-ref=\"REV 9:1-11\">Rev 9:1–11</a>",
+    "ru": "<a data-ref=\"REV 9:1-11\">Откр. 9:1–11</a>"
+   },
+   "summary": {
+    "en": "At the fifth trumpet an army of locusts rises out of the smoke of the bottomless pit and torments for five months.",
+    "ru": "При пятой трубе из дыма бездны выходит войско саранчи и мучит людей пять месяцев."
+   },
+   "picture": {
+    "en": "Locusts shaped like war horses flying out of the smoke of a burning pit. The nearest has a golden crown, a man’s face with long hair and a lion’s teeth, iron armour, wings and a scorpion’s tail; others like it follow.",
+    "ru": "Саранча в виде боевых коней вылетает из дыма горящей бездны. У ближайшей золотой венец, человеческое лицо с длинными волосами и львиными зубами, железная броня, крылья и хвост скорпиона; за ней летят другие."
+   },
+   "parts": [
+    {
+     "at": [
+      118,
+      150
+     ],
+     "title": {
+      "en": "Like horses prepared for battle",
+      "ru": "Как кони, приготовленные на войну"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 9:7\">Rev 9:7</a>",
+      "ru": "<a data-ref=\"REV 9:7\">Откр. 9:7</a>"
+     },
+     "text": {
+      "en": "Joel described a locust plague the same way: “The appearance of them is as the appearance of horses” (<a data-ref=\"JOL 2:4\">Joel 2:4</a>). They are an army.",
+      "ru": "Иоиль так же описал нашествие саранчи: «Вид его как вид коней» (<a data-ref=\"JOL 2:4\">Иоил. 2:4</a>). Это войско."
+     }
+    },
+    {
+     "at": [
+      256,
+      36
+     ],
+     "title": {
+      "en": "Crowns like gold",
+      "ru": "Венцы, похожие на золотые"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 9:7\">Rev 9:7</a>",
+      "ru": "<a data-ref=\"REV 9:7\">Откр. 9:7</a>"
+     },
+     "text": {
+      "en": "They ride as conquerors.",
+      "ru": "Они идут как победители."
+     }
+    },
+    {
+     "at": [
+      212,
+      100
+     ],
+     "title": {
+      "en": "Faces of men",
+      "ru": "Лица человеческие"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 9:7\">Rev 9:7</a>",
+      "ru": "<a data-ref=\"REV 9:7\">Откр. 9:7</a>"
+     },
+     "text": {
+      "en": "This is a human power, with human intelligence behind it.",
+      "ru": "Это человеческая сила, за которой стоит человеческий разум."
+     }
+    },
+    {
+     "at": [
+      322,
+      76
+     ],
+     "title": {
+      "en": "Hair as the hair of women",
+      "ru": "Волосы как у женщин"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 9:8\">Rev 9:8</a>",
+      "ru": "<a data-ref=\"REV 9:8\">Откр. 9:8</a>"
+     },
+     "text": {
+      "en": "Long hair, worn by the riders.",
+      "ru": "Длинные волосы всадников."
+     }
+    },
+    {
+     "at": [
+      222,
+      146
+     ],
+     "title": {
+      "en": "Teeth as the teeth of lions",
+      "ru": "Зубы как у львов"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 9:8\">Rev 9:8</a>",
+      "ru": "<a data-ref=\"REV 9:8\">Откр. 9:8</a>"
+     },
+     "text": {
+      "en": "Joel’s invader had “the teeth of a lion” (<a data-ref=\"JOL 1:6\">Joel 1:6</a>). They devour.",
+      "ru": "У захватчика в книге Иоиля «зубы львиные» (<a data-ref=\"JOL 1:6\">Иоил. 1:6</a>). Они пожирают."
+     }
+    },
+    {
+     "at": [
+      296,
+      200
+     ],
+     "title": {
+      "en": "Breastplates of iron",
+      "ru": "Железные брони"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 9:9\">Rev 9:9</a>",
+      "ru": "<a data-ref=\"REV 9:9\">Откр. 9:9</a>"
+     },
+     "text": {
+      "en": "They are armoured and hard to stop.",
+      "ru": "Они закованы в броню, их трудно остановить."
+     }
+    },
+    {
+     "at": [
+      418,
+      80
+     ],
+     "title": {
+      "en": "Wings like chariots",
+      "ru": "Шум от крыльев, как от колесниц"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 9:9\">Rev 9:9</a>",
+      "ru": "<a data-ref=\"REV 9:9\">Откр. 9:9</a>"
+     },
+     "text": {
+      "en": "The sound of their wings is like many horses and chariots running to battle (<a data-ref=\"JOL 2:5\">Joel 2:5</a>).",
+      "ru": "Шум их крыльев — как стук колесниц, когда множество коней бежит на войну (<a data-ref=\"JOL 2:5\">Иоил. 2:5</a>)."
+     }
+    },
+    {
+     "at": [
+      544,
+      70
+     ],
+     "title": {
+      "en": "Tails like scorpions",
+      "ru": "Хвосты как у скорпионов"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 9:5\">Rev 9:5</a>, <a data-ref=\"REV 9:10\">10</a>",
+      "ru": "<a data-ref=\"REV 9:5\">Откр. 9:5</a>, <a data-ref=\"REV 9:10\">10</a>"
+     },
+     "text": {
+      "en": "Their power is in the sting. They may torment for five months but may not kill. People will long for death and not find it (<a data-ref=\"REV 9:6\">9:6</a>).",
+      "ru": "Их сила в жале. Им дано мучить пять месяцев, но не убивать. Люди будут искать смерти и не найдут её (<a data-ref=\"REV 9:6\">9:6</a>)."
+     }
+    },
+    {
+     "at": [
+      150,
+      276
+     ],
+     "title": {
+      "en": "The smoke of the pit",
+      "ru": "Дым из кладезя бездны"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 9:1-3\">Rev 9:1–3</a>, <a data-ref=\"REV 9:11\">11</a>",
+      "ru": "<a data-ref=\"REV 9:1-3\">Откр. 9:1–3</a>, <a data-ref=\"REV 9:11\">11</a>"
+     },
+     "text": {
+      "en": "A fallen star is given the key. Smoke darkens the sun, and the locusts come out of it. Their king is the angel of the pit, Abaddon or Apollyon, “the destroyer.”",
+      "ru": "Упавшей звезде дан ключ. Дым помрачает солнце, и из дыма выходит саранча. Её царь — ангел бездны, Аваддон, или Аполлион, то есть «губитель»."
+     }
+    }
+   ],
+   "bible": [
+    {
+     "en": "Real locusts eat every green thing. These are forbidden to touch grass or trees and may harm only people who lack the seal of God (<a data-ref=\"REV 9:4\">9:4</a>). That reverses the Egyptian plague (<a data-ref=\"EXO 10:12-15\">Exod 10:12–15</a>) and shows they are a symbol.",
+     "ru": "Настоящая саранча съедает всю зелень. Этой запрещено трогать траву и деревья: она может вредить только людям, у которых нет печати Божьей (<a data-ref=\"REV 9:4\">9:4</a>). Это противоположность египетской казни (<a data-ref=\"EXO 10:12-15\">Исх. 10:12–15</a>) и знак того, что перед нами символ."
+    },
+    {
+     "en": "The Old Testament compares desert raiders to locusts: the Midianites and the peoples of the east came “as grasshoppers for multitude” (<a data-ref=\"JDG 6:5\">Judg 6:5</a>; <a data-ref=\"JDG 7:12\">7:12</a>). <a data-ref=\"JOL 1:1\">Joel 1:1</a> begins two chapters that turn a locust swarm into an invading army.",
+     "ru": "Ветхий Завет сравнивает с саранчой кочевников пустыни: мадианитяне и жители востока приходили «в таком множестве, как саранча» (<a data-ref=\"JDG 6:5\">Суд. 6:5</a>; <a data-ref=\"JDG 7:12\">7:12</a>). С <a data-ref=\"JOL 1:1\">Иоил. 1:1</a> начинаются две главы, где рой саранчи становится вторгшимся войском."
+    },
+    {
+     "en": "Five months is 150 days, about the life of a locust season. On the day-for-a-year rule it is 150 years.",
+     "ru": "Пять месяцев — это 150 дней, примерно столько длится сезон саранчи. По правилу «день за год» это 150 лет."
+    }
+   ],
+   "white": [
+    {
+     "en": "White’s one reference to this chapter is historical. She reports that in 1838 Josiah Litch published an explanation of Revelation 9 that applied the trumpets to the Ottoman power, with a period of 150 years followed by one of 391 years and 15 days <span class=\"cite-ref\">GC 334–335</span>.",
+     "ru": "Единственное упоминание этой главы у Уайт — историческое. Она сообщает, что в 1838 году Иосия Литч опубликовал толкование 9-й главы Откровения, где трубы отнесены к Османской державе: период в 150 лет, а за ним 391 год и 15 дней <span class=\"cite-ref\">GC 334–335</span>."
+    },
+    {
+     "en": "Litch named 11 August 1840 as the day Ottoman independence would end. She writes that Turkey accepted the protection of the European powers at that time, and that the event convinced many people that the Millerite way of reading prophecy was sound <span class=\"cite-ref\">GC 334–335</span>.",
+     "ru": "Литч назвал 11 августа 1840 года днём, когда кончится независимость Османской империи. Уайт пишет, что именно тогда Турция приняла покровительство европейских держав и что это событие убедило многих в верности миллеритского подхода к пророчествам <span class=\"cite-ref\">GC 334–335</span>."
+    },
+    {
+     "en": "She does not explain the features of the locusts one by one. The White Estate notes that this passage is her only known reference to Revelation 9, and Adventist scholars still discuss how far it endorses Litch’s details.",
+     "ru": "Отдельные черты саранчи она не объясняет. Центр наследия Эллен Уайт отмечает, что это единственное известное у неё упоминание 9-й главы Откровения, и адвентистские богословы до сих пор обсуждают, насколько оно подтверждает подробности расчёта Литча."
+    }
+   ],
+   "image": {
+    "src": "img/revelation/locusts.webp",
+    "thumb": "img/revelation/locusts-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
+  },
+  {
+   "id": "lion-headed-horses",
+   "level": "brief",
+   "verse": "REV 9:17",
+   "title": {
+    "en": "The horses with lions’ heads",
+    "ru": "Кони с львиными головами"
+   },
+   "short": {
+    "en": "Lion-headed horses",
+    "ru": "Кони с львиными головами"
+   },
+   "chapter": {
+    "en": "Revelation 9",
+    "ru": "Откровение 9"
+   },
+   "where": {
+    "en": "<a data-ref=\"REV 9:13-19\">Rev 9:13–19</a>",
+    "ru": "<a data-ref=\"REV 9:13-19\">Откр. 9:13–19</a>"
+   },
+   "summary": {
+    "en": "At the sixth trumpet a cavalry of two hundred million is released from the river Euphrates.",
+    "ru": "При шестой трубе от реки Евфрат выходит конное войско числом «две тьмы тем»."
+   },
+   "picture": {
+    "en": "A horse with a lion’s head and a serpent for a tail, breathing fire, smoke and yellow-green brimstone, carrying an armoured rider whose breastplate glows red. Behind them a river runs through a dark plain where a host of horsemen rides.",
+    "ru": "Конь с львиной головой и змеёй вместо хвоста изрыгает огонь, дым и жёлто-зелёную серу; на нём всадник в броне, нагрудник которой светится красным. Позади река течёт по тёмной равнине, где скачет конное войско."
+   },
+   "parts": [
+    {
+     "at": [
+      296,
+      122
+     ],
+     "title": {
+      "en": "Heads like lions",
+      "ru": "Головы как у львов"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 9:17\">Rev 9:17</a>",
+      "ru": "<a data-ref=\"REV 9:17\">Откр. 9:17</a>"
+     },
+     "text": {
+      "en": "They are fierce, royal and deadly.",
+      "ru": "Они свирепы, царственны и смертоносны."
+     }
+    },
+    {
+     "at": [
+      172,
+      104
+     ],
+     "title": {
+      "en": "Fire, smoke and brimstone",
+      "ru": "Огонь, дым и сера"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 9:17-18\">Rev 9:17–18</a>",
+      "ru": "<a data-ref=\"REV 9:17-18\">Откр. 9:17–18</a>"
+     },
+     "text": {
+      "en": "Three plagues come from their mouths, and by them a third of mankind is killed. Fire and brimstone fell on Sodom (<a data-ref=\"GEN 19:24\">Gen 19:24</a>).",
+      "ru": "Три язвы выходят из их рта, и от них умирает третья часть людей. Огонь и сера пали на Содом (<a data-ref=\"GEN 19:24\">Быт. 19:24</a>)."
+     }
+    },
+    {
+     "at": [
+      550,
+      160
+     ],
+     "title": {
+      "en": "Tails like serpents",
+      "ru": "Хвосты, подобные змеям"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 9:19\">Rev 9:19</a>",
+      "ru": "<a data-ref=\"REV 9:19\">Откр. 9:19</a>"
+     },
+     "text": {
+      "en": "The tails have heads, “and with them they do hurt.” The harm comes from both ends.",
+      "ru": "У хвостов есть головы, «и ими они вредили». Вред исходит с обеих сторон."
+     }
+    },
+    {
+     "at": [
+      418,
+      78
+     ],
+     "title": {
+      "en": "Breastplates of three colours",
+      "ru": "Брони трёх цветов"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 9:17\">Rev 9:17</a>",
+      "ru": "<a data-ref=\"REV 9:17\">Откр. 9:17</a>"
+     },
+     "text": {
+      "en": "Fire is red, jacinth is dark blue, brimstone is yellow. The riders’ armour matches what comes from the horses’ mouths.",
+      "ru": "Огонь красный, гиацинт тёмно-синий, сера жёлтая. Броня всадников того же цвета, что и выходящее изо рта коней."
+     }
+    },
+    {
+     "at": [
+      150,
+      268
+     ],
+     "title": {
+      "en": "Four angels bound at the Euphrates",
+      "ru": "Четыре Ангела, связанные при Евфрате"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 9:14-15\">Rev 9:14–15</a>",
+      "ru": "<a data-ref=\"REV 9:14-15\">Откр. 9:14–15</a>"
+     },
+     "text": {
+      "en": "They are loosed after being held ready “for an hour, and a day, and a month, and a year.”",
+      "ru": "Их освобождают: они были приготовлены «на час и день, и месяц и год»."
+     }
+    },
+    {
+     "at": [
+      72,
+      152
+     ],
+     "title": {
+      "en": "Two hundred thousand thousand",
+      "ru": "Две тьмы тем"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 9:16\">Rev 9:16</a>",
+      "ru": "<a data-ref=\"REV 9:16\">Откр. 9:16</a>"
+     },
+     "text": {
+      "en": "John hears the number: an army beyond counting.",
+      "ru": "Иоанн слышит число: войско, которого не счесть."
+     }
+    }
+   ],
+   "bible": [
+    {
+     "en": "The Euphrates was the far border of the promised land (<a data-ref=\"GEN 15:18\">Gen 15:18</a>) and the road by which Assyria and Babylon invaded Israel (<a data-ref=\"ISA 8:7-8\">Isa 8:7–8</a>; <a data-ref=\"JER 46:10\">Jer 46:10</a>).",
+     "ru": "Евфрат был дальней границей обетованной земли (<a data-ref=\"GEN 15:18\">Быт. 15:18</a>) и путём, которым в Израиль вторгались Ассирия и Вавилон (<a data-ref=\"ISA 8:7-8\">Ис. 8:7–8</a>; <a data-ref=\"JER 46:10\">Иер. 46:10</a>)."
+    },
+    {
+     "en": "The survivors do not repent of worshipping idols “of gold, and silver, and brass, and stone, and of wood,” or of their murders, sorceries, fornication and thefts (<a data-ref=\"REV 9:20-21\">9:20–21</a>). The trumpet is a warning that goes unheeded.",
+     "ru": "Уцелевшие не раскаялись: они продолжают поклоняться «золотым, серебряным, медным, каменным и деревянным идолам» и не оставляют убийств, чародейства, блуда и воровства (<a data-ref=\"REV 9:20-21\">9:20–21</a>). Труба — предостережение, которому не вняли."
+    },
+    {
+     "en": "Counted as prophetic time, an hour, a day, a month and a year come to 391 years and 15 days.",
+     "ru": "В пророческом исчислении час, день, месяц и год составляют 391 год и 15 дней."
+    }
+   ],
+   "white": [
+    {
+     "en": "This vision belongs to the same passage as the locusts. White reports Litch’s reckoning that the second period, 391 years and 15 days, began when the 150 years ended and ran out on 11 August 1840 <span class=\"cite-ref\">GC 334–335</span>.",
+     "ru": "Это видение относится к тому же отрывку, что и саранча. Уайт приводит расчёт Литча: второй период, 391 год и 15 дней, начался по окончании 150 лет и истёк 11 августа 1840 года <span class=\"cite-ref\">GC 334–335</span>."
+    },
+    {
+     "en": "She gives no explanation of the lions’ heads, the fire or the serpent tails.",
+     "ru": "Львиные головы, огонь и змеиные хвосты она не объясняет."
+    }
+   ],
+   "context": {
+    "en": "For context: Uriah Smith’s <cite>Daniel and the Revelation</cite>, the standard Adventist commentary of her day, read the fire, smoke and brimstone as the gunfire of mounted Ottoman troops. That reading is his, not hers.",
+    "ru": "Для справки: Урия Смит в книге <cite>Daniel and the Revelation</cite>, главном адвентистском комментарии того времени, видел в огне, дыме и сере ружейный огонь османской конницы. Это его толкование, а не её."
+   },
+   "image": {
+    "src": "img/revelation/lion-headed-horses.webp",
+    "thumb": "img/revelation/lion-headed-horses-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
+  },
+  {
+   "id": "dragon",
+   "level": "detail",
+   "verse": "REV 12:9",
+   "title": {
+    "en": "The great red dragon",
+    "ru": "Большой красный дракон"
+   },
+   "short": {
+    "en": "Dragon",
+    "ru": "Дракон"
+   },
+   "chapter": {
+    "en": "Revelation 12",
+    "ru": "Откровение 12"
+   },
+   "where": {
+    "en": "<a data-ref=\"REV 12:3-17\">Rev 12:3–17</a>; <a data-ref=\"REV 13:2\">13:2</a>, <a data-ref=\"REV 13:4\">4</a>, <a data-ref=\"REV 13:11\">11</a>; <a data-ref=\"REV 16:13\">16:13</a>; <a data-ref=\"REV 20:2\">20:2</a>",
+    "ru": "<a data-ref=\"REV 12:3-17\">Откр. 12:3–17</a>; <a data-ref=\"REV 13:2\">13:2</a>, <a data-ref=\"REV 13:4\">4</a>, <a data-ref=\"REV 13:11\">11</a>; <a data-ref=\"REV 16:13\">16:13</a>; <a data-ref=\"REV 20:2\">20:2</a>"
+   },
+   "summary": {
+    "en": "The one creature Revelation names outright: “that old serpent, called the Devil, and Satan.”",
+    "ru": "Единственное существо, которое Откровение называет прямо: «древний змий, называемый диаволом и сатаною»."
+   },
+   "picture": {
+    "en": "A red dragon with several crowned and horned heads under a night sky. Its long tail sweeps burning stars down, and it faces a woman shining like the sun, crowned with stars, standing on a crescent moon.",
+    "ru": "Красный дракон с несколькими рогатыми головами в венцах под ночным небом. Его длинный хвост увлекает вниз горящие звёзды. Перед ним жена, сияющая как солнце, в венце из звёзд, стоящая на лунном серпе."
+   },
+   "parts": [
+    {
+     "at": [
+      296,
+      268
+     ],
+     "title": {
+      "en": "A great red dragon",
+      "ru": "Большой красный дракон"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 12:3\">Rev 12:3</a>, <a data-ref=\"REV 12:9\">9</a>",
+      "ru": "<a data-ref=\"REV 12:3\">Откр. 12:3</a>, <a data-ref=\"REV 12:9\">9</a>"
+     },
+     "text": {
+      "en": "The text gives four names: dragon, old serpent, Devil (“slanderer”) and Satan (“adversary”). “Old serpent” points back to Eden (<a data-ref=\"GEN 3:1-15\">Gen 3:1–15</a>; <a data-ref=\"2CO 11:3\">2 Cor 11:3</a>).",
+      "ru": "В тексте четыре имени: дракон, древний змий, диавол («клеветник») и сатана («противник»). «Древний змий» отсылает к Едему (<a data-ref=\"GEN 3:1-15\">Быт. 3:1–15</a>; <a data-ref=\"2CO 11:3\">2 Кор. 11:3</a>)."
+     }
+    },
+    {
+     "at": [
+      226,
+      120
+     ],
+     "title": {
+      "en": "Seven heads",
+      "ru": "Семь голов"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 12:3\">Rev 12:3</a>",
+      "ru": "<a data-ref=\"REV 12:3\">Откр. 12:3</a>"
+     },
+     "text": {
+      "en": "The same count of heads appears on the sea beast (<a data-ref=\"REV 13:1\">13:1</a>) and the scarlet beast (<a data-ref=\"REV 17:3\">17:3</a>). The dragon stands behind them both.",
+      "ru": "Столько же голов у зверя из моря (<a data-ref=\"REV 13:1\">13:1</a>) и у багряного зверя (<a data-ref=\"REV 17:3\">17:3</a>). За обоими стоит дракон."
+     }
+    },
+    {
+     "at": [
+      232,
+      34
+     ],
+     "title": {
+      "en": "Ten horns",
+      "ru": "Десять рогов"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 12:3\">Rev 12:3</a>",
+      "ru": "<a data-ref=\"REV 12:3\">Откр. 12:3</a>"
+     },
+     "text": {
+      "en": "Daniel’s fourth beast had ten horns, which are ten kings (<a data-ref=\"DAN 7:7\">Dan 7:7</a>, <a data-ref=\"DAN 7:24\">24</a>).",
+      "ru": "У четвёртого зверя Даниила было десять рогов, то есть десять царей (<a data-ref=\"DAN 7:7\">Дан. 7:7</a>, <a data-ref=\"DAN 7:24\">24</a>)."
+     }
+    },
+    {
+     "at": [
+      60,
+      50
+     ],
+     "title": {
+      "en": "Seven crowns on his heads",
+      "ru": "Семь диадим на головах"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 12:3\">Rev 12:3</a>",
+      "ru": "<a data-ref=\"REV 12:3\">Откр. 12:3</a>"
+     },
+     "text": {
+      "en": "These are royal diadems. He claims the kingdoms of the world (<a data-ref=\"LUK 4:5-6\">Luke 4:5–6</a>) and is called “the prince of this world” (<a data-ref=\"JHN 12:31\">John 12:31</a>).",
+      "ru": "Это царские венцы. Он притязает на царства мира (<a data-ref=\"LUK 4:5-6\">Лк. 4:5–6</a>) и о нём сказано: «князь мира сего» (<a data-ref=\"JHN 12:31\">Ин. 12:31</a>)."
+     }
+    },
+    {
+     "at": [
+      452,
+      56
+     ],
+     "title": {
+      "en": "His tail drew a third of the stars",
+      "ru": "Хвост увлёк третью часть звёзд"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 12:4\">Rev 12:4</a>, <a data-ref=\"REV 12:7-9\">7–9</a>",
+      "ru": "<a data-ref=\"REV 12:4\">Откр. 12:4</a>, <a data-ref=\"REV 12:7-9\">7–9</a>"
+     },
+     "text": {
+      "en": "Stars can stand for angels (<a data-ref=\"REV 1:20\">1:20</a>; <a data-ref=\"JOB 38:7\">Job 38:7</a>). Verse 9 says his angels were cast out with him.",
+      "ru": "Звёзды могут означать ангелов (<a data-ref=\"REV 1:20\">1:20</a>; <a data-ref=\"JOB 38:7\">Иов 38:7</a>). В 9-м стихе сказано, что его ангелы низвержены с ним."
+     }
+    },
+    {
+     "at": [
+      458,
+      232
+     ],
+     "title": {
+      "en": "The woman clothed with the sun",
+      "ru": "Жена, облечённая в солнце"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 12:1-6\">Rev 12:1–6</a>",
+      "ru": "<a data-ref=\"REV 12:1-6\">Откр. 12:1–6</a>"
+     },
+     "text": {
+      "en": "God’s people, crowned with twelve stars. Her child is to “rule all nations with a rod of iron” (<a data-ref=\"PSA 2:9\">Ps 2:9</a>) and is caught up to God’s throne. The dragon waits to devour him.",
+      "ru": "Народ Божий в венце из двенадцати звёзд. Её младенцу «надлежит пасти все народы жезлом железным» (<a data-ref=\"PSA 2:9\">Пс. 2:9</a>), и он восхищен к престолу Божьему. Дракон ждёт, чтобы пожрать его."
+     }
+    }
+   ],
+   "bible": [
+    {
+     "en": "Chapter 12 tells the dragon’s whole story. He makes war in heaven and is thrown down by Michael (<a data-ref=\"REV 12:7-9\">12:7–9</a>). He accuses believers day and night and is overcome “by the blood of the Lamb” (<a data-ref=\"REV 12:10-11\">12:10–11</a>). He persecutes the woman (<a data-ref=\"REV 12:13\">12:13</a>), then turns on “the remnant of her seed, which keep the commandments of God, and have the testimony of Jesus Christ” (<a data-ref=\"REV 12:17\">12:17</a>).",
+     "ru": "12-я глава рассказывает всю историю дракона. Он воюет на небе, и Михаил низвергает его (<a data-ref=\"REV 12:7-9\">12:7–9</a>). Он день и ночь клевещет на верных, и они побеждают его «кровию Агнца» (<a data-ref=\"REV 12:10-11\">12:10–11</a>). Он преследует жену (<a data-ref=\"REV 12:13\">12:13</a>), а потом идёт, «чтобы вступить в брань с прочими от семени её, сохраняющими заповеди Божии и имеющими свидетельство Иисуса Христа» (<a data-ref=\"REV 12:17\">12:17</a>)."
+    },
+    {
+     "en": "He gives the sea beast “his power, and his seat, and great authority” (<a data-ref=\"REV 13:2\">13:2</a>). One of the three frog-like spirits comes from his mouth (<a data-ref=\"REV 16:13\">16:13</a>).",
+     "ru": "Он даёт зверю из моря «силу свою и престол свой и великую власть» (<a data-ref=\"REV 13:2\">13:2</a>). Из его уст выходит один из трёх духов, подобных жабам (<a data-ref=\"REV 16:13\">16:13</a>)."
+    },
+    {
+     "en": "At the end he is bound a thousand years in the bottomless pit (<a data-ref=\"REV 20:1-3\">20:1–3</a>), released for a little while, and cast into the lake of fire (<a data-ref=\"REV 20:7-10\">20:7–10</a>).",
+     "ru": "В конце он скован на тысячу лет в бездне (<a data-ref=\"REV 20:1-3\">20:1–3</a>), освобождён на малое время и ввержен в озеро огненное (<a data-ref=\"REV 20:7-10\">20:7–10</a>)."
+    }
+   ],
+   "white": [
+    {
+     "en": "White says the dragon “primarily, represents Satan.” In a second sense it is a symbol of pagan Rome, because the Roman Empire was his chief instrument against Christ and his people in the first centuries. It was Satan who moved Herod to try to kill the infant Saviour <span class=\"cite-ref\">GC 438</span>.",
+     "ru": "Уайт пишет, что дракон «прежде всего представляет сатану». Во втором смысле это символ языческого Рима: Римская империя была главным орудием сатаны против Христа и Его народа в первые века. Именно сатана побудил Ирода искать смерти Младенца-Спасителя <span class=\"cite-ref\">GC 438</span>."
+    },
+    {
+     "en": "The serpent of Eden was Satan’s chosen disguise, a medium through which he could deceive without being recognised <a class=\"cite-ref\" data-work=\"patriarchs-and-prophets\" data-part=\"3\">PP 53</a>. The stars swept down by the tail are the angels he drew into rebellion, a third of the host <span class=\"cite-ref\">3T 115</span>.",
+     "ru": "Змей в Едеме был личиной, которую выбрал сатана, посредником, через которого он мог обольщать неузнанным <a class=\"cite-ref\" data-work=\"patriarchs-and-prophets\" data-part=\"3\">PP 53</a>. Звёзды, увлечённые хвостом, — ангелы, которых он вовлёк в мятеж, третья часть небесного воинства <span class=\"cite-ref\">3T 115</span>."
+    },
+    {
+     "en": "The thousand years of Revelation 20 find the earth empty and in ruins. That desolate earth is the “bottomless pit.” Satan is bound by his circumstances: there is no one left to tempt <span class=\"cite-ref\">GC 658–660</span>.",
+     "ru": "В тысячу лет из 20-й главы Откровения земля пуста и разорена. Эта опустошённая земля и есть «бездна». Сатана скован самими обстоятельствами: искушать больше некого <span class=\"cite-ref\">GC 658–660</span>."
+    },
+    {
+     "en": "The dragon gives the beast his seat. She reads this as the papacy taking over the power and the seat once held by the Roman Empire <span class=\"cite-ref\">GC 439</span>.",
+     "ru": "Дракон даёт зверю свой престол. Она понимает это так: папство унаследовало силу и престол, прежде принадлежавшие Римской империи <span class=\"cite-ref\">GC 439</span>."
+    }
+   ],
+   "image": {
+    "src": "img/revelation/dragon.webp",
+    "thumb": "img/revelation/dragon-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
+  },
+  {
+   "id": "sea-beast",
+   "level": "detail",
+   "verse": "REV 13:2",
+   "title": {
+    "en": "The beast from the sea",
+    "ru": "Зверь из моря"
+   },
+   "short": {
+    "en": "Beast from the sea",
+    "ru": "Зверь из моря"
+   },
+   "chapter": {
+    "en": "Revelation 13",
+    "ru": "Откровение 13"
+   },
+   "where": {
+    "en": "<a data-ref=\"REV 13:1-10\">Rev 13:1–10</a>; <a data-ref=\"REV 14:9-11\">14:9–11</a>; <a data-ref=\"REV 15:2\">15:2</a>; <a data-ref=\"REV 16:2\">16:2</a>, <a data-ref=\"REV 16:10\">10</a>, <a data-ref=\"REV 16:13\">13</a>; <a data-ref=\"REV 19:19-20\">19:19–20</a>; <a data-ref=\"REV 20:10\">20:10</a>",
+    "ru": "<a data-ref=\"REV 13:1-10\">Откр. 13:1–10</a>; <a data-ref=\"REV 14:9-11\">14:9–11</a>; <a data-ref=\"REV 15:2\">15:2</a>; <a data-ref=\"REV 16:2\">16:2</a>, <a data-ref=\"REV 16:10\">10</a>, <a data-ref=\"REV 16:13\">13</a>; <a data-ref=\"REV 19:19-20\">19:19–20</a>; <a data-ref=\"REV 20:10\">20:10</a>"
+   },
+   "summary": {
+    "en": "A beast made of leopard, bear and lion. It receives the dragon’s throne, rules for 42 months and is wounded to death, then healed.",
+    "ru": "Зверь, в котором соединены барс, медведь и лев. Он получает престол дракона, властвует 42 месяца, получает смертельную рану и исцеляется."
+   },
+   "picture": {
+    "en": "A leopard-spotted beast with several crowned heads and dark horns wading out of a stormy sea. One head is a roaring lion’s, another bears a bloody wound, and its great clawed paw breaks the water.",
+    "ru": "Пятнистый, как барс, зверь с несколькими головами в венцах и тёмными рогами выходит из бурного моря. Одна голова — рыкающая львиная, на другой кровавая рана; огромная когтистая лапа рассекает воду."
+   },
+   "parts": [
+    {
+     "at": [
+      96,
+      296
+     ],
+     "title": {
+      "en": "Rising out of the sea",
+      "ru": "Выходящий из моря"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 13:1\">Rev 13:1</a>",
+      "ru": "<a data-ref=\"REV 13:1\">Откр. 13:1</a>"
+     },
+     "text": {
+      "en": "The angel explains that waters are “peoples, and multitudes, and nations, and tongues” (<a data-ref=\"REV 17:15\">17:15</a>). Daniel’s four beasts also came up from a wind-tossed sea (<a data-ref=\"DAN 7:2-3\">Dan 7:2–3</a>).",
+      "ru": "Ангел объясняет, что воды — это «люди и народы, и племена и языки» (<a data-ref=\"REV 17:15\">17:15</a>). Четыре зверя Даниила тоже вышли из моря, волнуемого ветрами (<a data-ref=\"DAN 7:2-3\">Дан. 7:2–3</a>)."
+     }
+    },
+    {
+     "at": [
+      220,
+      200
+     ],
+     "title": {
+      "en": "Like a leopard",
+      "ru": "Подобен барсу"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 13:2\">Rev 13:2</a>",
+      "ru": "<a data-ref=\"REV 13:2\">Откр. 13:2</a>"
+     },
+     "text": {
+      "en": "Daniel’s third beast was a leopard, the kingdom of Greece (<a data-ref=\"DAN 7:6\">Dan 7:6</a>; <a data-ref=\"DAN 8:21\">8:21</a>).",
+      "ru": "Третий зверь Даниила был барсом, это царство Греции (<a data-ref=\"DAN 7:6\">Дан. 7:6</a>; <a data-ref=\"DAN 8:21\">8:21</a>)."
+     }
+    },
+    {
+     "at": [
+      330,
+      268
+     ],
+     "title": {
+      "en": "The feet of a bear",
+      "ru": "Ноги как у медведя"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 13:2\">Rev 13:2</a>",
+      "ru": "<a data-ref=\"REV 13:2\">Откр. 13:2</a>"
+     },
+     "text": {
+      "en": "Daniel’s second beast was a bear, the Medes and Persians (<a data-ref=\"DAN 7:5\">Dan 7:5</a>; <a data-ref=\"DAN 8:20\">8:20</a>).",
+      "ru": "Второй зверь Даниила был медведем, это мидяне и персы (<a data-ref=\"DAN 7:5\">Дан. 7:5</a>; <a data-ref=\"DAN 8:20\">8:20</a>)."
+     }
+    },
+    {
+     "at": [
+      412,
+      215
+     ],
+     "title": {
+      "en": "The mouth of a lion",
+      "ru": "Пасть как у льва"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 13:2\">Rev 13:2</a>, <a data-ref=\"REV 13:5-6\">5–6</a>",
+      "ru": "<a data-ref=\"REV 13:2\">Откр. 13:2</a>, <a data-ref=\"REV 13:5-6\">5–6</a>"
+     },
+     "text": {
+      "en": "Daniel’s first beast was a lion, Babylon (<a data-ref=\"DAN 7:4\">Dan 7:4</a>). This mouth speaks “great things and blasphemies.”",
+      "ru": "Первый зверь Даниила был львом, это Вавилон (<a data-ref=\"DAN 7:4\">Дан. 7:4</a>). Эти уста говорят «гордо и богохульно»."
+     }
+    },
+    {
+     "at": [
+      323,
+      96
+     ],
+     "title": {
+      "en": "Seven heads",
+      "ru": "Семь голов"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 13:1\">Rev 13:1</a>",
+      "ru": "<a data-ref=\"REV 13:1\">Откр. 13:1</a>"
+     },
+     "text": {
+      "en": "On the heads is “the name of blasphemy.” In the Gospels blasphemy is claiming what belongs to God alone (<a data-ref=\"MRK 2:7\">Mark 2:7</a>; <a data-ref=\"JHN 10:33\">John 10:33</a>).",
+      "ru": "На головах «имена богохульные». В Евангелиях богохульство — это притязание на то, что принадлежит одному Богу (<a data-ref=\"MRK 2:7\">Мк. 2:7</a>; <a data-ref=\"JHN 10:33\">Ин. 10:33</a>)."
+     }
+    },
+    {
+     "at": [
+      432,
+      30
+     ],
+     "title": {
+      "en": "Ten horns with ten crowns",
+      "ru": "Десять рогов с десятью диадимами"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 13:1\">Rev 13:1</a>",
+      "ru": "<a data-ref=\"REV 13:1\">Откр. 13:1</a>"
+     },
+     "text": {
+      "en": "On the dragon the crowns sat on the heads. Here they sit on the horns, which Daniel calls ten kings (<a data-ref=\"DAN 7:24\">Dan 7:24</a>).",
+      "ru": "У дракона диадимы были на головах. Здесь они на рогах, которые Даниил называет десятью царями (<a data-ref=\"DAN 7:24\">Дан. 7:24</a>)."
+     }
+    },
+    {
+     "at": [
+      316,
+      184
+     ],
+     "title": {
+      "en": "The wounded head",
+      "ru": "Раненая голова"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 13:3\">Rev 13:3</a>, <a data-ref=\"REV 13:12\">12</a>, <a data-ref=\"REV 13:14\">14</a>",
+      "ru": "<a data-ref=\"REV 13:3\">Откр. 13:3</a>, <a data-ref=\"REV 13:12\">12</a>, <a data-ref=\"REV 13:14\">14</a>"
+     },
+     "text": {
+      "en": "One head was “wounded to death; and his deadly wound was healed: and all the world wondered after the beast.”",
+      "ru": "Одна из голов «как бы смертельно была ранена, но эта смертельная рана исцелела. И дивилась вся земля, следя за зверем»."
+     }
+    },
+    {
+     "at": [
+      435,
+      82
+     ],
+     "title": {
+      "en": "The dragon’s seat",
+      "ru": "Престол дракона"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 13:2\">Rev 13:2</a>, <a data-ref=\"REV 13:4\">4</a>",
+      "ru": "<a data-ref=\"REV 13:2\">Откр. 13:2</a>, <a data-ref=\"REV 13:4\">4</a>"
+     },
+     "text": {
+      "en": "Its power, its throne and its authority are a gift from the dragon. To worship the beast is to worship the dragon.",
+      "ru": "Его сила, престол и власть — дар дракона. Поклоняться зверю значит поклоняться дракону."
+     }
+    }
+   ],
+   "bible": [
+    {
+     "en": "John sees Daniel’s animals in reverse order, because he is looking back through history: leopard, bear, lion (<a data-ref=\"DAN 7:4-6\">Dan 7:4–6</a>). This beast inherits from every empire before it.",
+     "ru": "Иоанн видит зверей Даниила в обратном порядке, потому что смотрит назад, вглубь истории: барс, медведь, лев (<a data-ref=\"DAN 7:4-6\">Дан. 7:4–6</a>). Этот зверь — наследник всех прежних империй."
+    },
+    {
+     "en": "It matches Daniel’s “little horn” point for point. Both speak great words against God, both make war on the saints, and both continue for the same period, “a time and times and the dividing of time,” 42 months (<a data-ref=\"DAN 7:8\">Dan 7:8</a>, <a data-ref=\"DAN 7:21\">21</a>, <a data-ref=\"DAN 7:25\">25</a>; <a data-ref=\"REV 13:5-7\">Rev 13:5–7</a>).",
+     "ru": "Он во всём совпадает с «небольшим рогом» Даниила. Оба говорят высокомерно против Бога, оба ведут войну со святыми, и обоим дан один срок, «до времени и времён и полувремени», то есть 42 месяца (<a data-ref=\"DAN 7:8\">Дан. 7:8</a>, <a data-ref=\"DAN 7:21\">21</a>, <a data-ref=\"DAN 7:25\">25</a>; <a data-ref=\"REV 13:5-7\">Откр. 13:5–7</a>)."
+    },
+    {
+     "en": "A beast in prophecy is a kingdom (<a data-ref=\"DAN 7:17\">Dan 7:17</a>, <a data-ref=\"DAN 7:23\">23</a>). All the world worships this one except those written in the Lamb’s book of life (<a data-ref=\"REV 13:8\">13:8</a>). Its number is 666 (<a data-ref=\"REV 13:18\">13:18</a>).",
+     "ru": "Зверь в пророчестве — это царство (<a data-ref=\"DAN 7:17\">Дан. 7:17</a>, <a data-ref=\"DAN 7:23\">23</a>). Ему поклонится вся земля, кроме записанных в книге жизни у Агнца (<a data-ref=\"REV 13:8\">13:8</a>). Его число — 666 (<a data-ref=\"REV 13:18\">13:18</a>)."
+    }
+   ],
+   "white": [
+    {
+     "en": "White identifies this beast, as she says most Protestants had done, with the papacy, the church power that took over the seat and authority once held by the Roman Empire <span class=\"cite-ref\">GC 439</span>.",
+     "ru": "Уайт отождествляет этого зверя — как, по её словам, и большинство протестантов — с папством, церковной властью, унаследовавшей престол и власть Римской империи <span class=\"cite-ref\">GC 439</span>."
+    },
+    {
+     "en": "The 42 months are the 1,260 years of Daniel 7. They began in A.D. 538 and ended in 1798, when a French army took the pope prisoner. She sees there the deadly wound and the words “He that leadeth into captivity shall go into captivity” <span class=\"cite-ref\">GC 439</span> <span class=\"cite-ref\">GC 266</span>.",
+     "ru": "42 месяца — это 1260 лет из 7-й главы Даниила. Они начались в 538 году и закончились в 1798-м, когда французская армия взяла папу в плен. В этом она видит смертельную рану и исполнение слов: «Кто ведёт в плен, тот сам пойдёт в плен» <span class=\"cite-ref\">GC 439</span> <span class=\"cite-ref\">GC 266</span>."
+    },
+    {
+     "en": "The healing of the wound is still ahead in her account. She expects the world to give that power its homage again, when the United States enforces Sunday observance <span class=\"cite-ref\">GC 578–579</span>.",
+     "ru": "Исцеление раны, по её словам, ещё впереди. Она ожидает, что мир снова воздаст этой власти почести, когда Соединённые Штаты законом введут соблюдение воскресенья <span class=\"cite-ref\">GC 578–579</span>."
+    },
+    {
+     "en": "She separates the system from its members. There are true Christians in every church, the Roman Catholic communion included, and God accepts their sincerity <span class=\"cite-ref\">GC 449</span>.",
+     "ru": "Она отделяет систему от её членов. Истинные христиане есть в каждой церкви, включая Римско-католическую, и Бог принимает их искренность <span class=\"cite-ref\">GC 449</span>."
+    }
+   ],
+   "image": {
+    "src": "img/revelation/sea-beast.webp",
+    "thumb": "img/revelation/sea-beast-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
+  },
+  {
+   "id": "earth-beast",
+   "level": "detail",
+   "verse": "REV 13:11",
+   "title": {
+    "en": "The beast from the earth",
+    "ru": "Зверь из земли"
+   },
+   "short": {
+    "en": "Beast from the earth",
+    "ru": "Зверь из земли"
+   },
+   "chapter": {
+    "en": "Revelation 13",
+    "ru": "Откровение 13"
+   },
+   "where": {
+    "en": "<a data-ref=\"REV 13:11-18\">Rev 13:11–18</a>; <a data-ref=\"REV 16:13\">16:13</a>; <a data-ref=\"REV 19:20\">19:20</a>; <a data-ref=\"REV 20:10\">20:10</a>",
+    "ru": "<a data-ref=\"REV 13:11-18\">Откр. 13:11–18</a>; <a data-ref=\"REV 16:13\">16:13</a>; <a data-ref=\"REV 19:20\">19:20</a>; <a data-ref=\"REV 20:10\">20:10</a>"
+   },
+   "summary": {
+    "en": "A gentle-looking power with two lamb-like horns. It speaks like a dragon and leads the world to worship the first beast.",
+    "ru": "Кроткая на вид власть с двумя рогами, как у агнца. Она говорит как дракон и ведёт мир к поклонению первому зверю."
+   },
+   "picture": {
+    "en": "A woolly beast with a ram’s curling horns charging across a green hillside and tearing up the earth, its mouth open to show a predator’s teeth. Behind it lightning and fire fall from a storm cloud onto the hills.",
+    "ru": "Покрытый шерстью зверь с закрученными бараньими рогами несётся по зелёному склону, взрывая землю; в раскрытой пасти видны хищные клыки. Позади из грозовой тучи на холмы падают молния и огонь."
+   },
+   "parts": [
+    {
+     "at": [
+      378,
+      306
+     ],
+     "title": {
+      "en": "Coming up out of the earth",
+      "ru": "Выходящий из земли"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 13:11\">Rev 13:11</a>",
+      "ru": "<a data-ref=\"REV 13:11\">Откр. 13:11</a>"
+     },
+     "text": {
+      "en": "The first beast rose from the sea, the crowded nations (<a data-ref=\"REV 17:15\">17:15</a>). This one rises from the opposite: quiet, open land.",
+      "ru": "Первый зверь вышел из моря, из множества народов (<a data-ref=\"REV 17:15\">17:15</a>). Этот выходит из противоположного: из тихой, незаселённой земли."
+     }
+    },
+    {
+     "at": [
+      352,
+      66
+     ],
+     "title": {
+      "en": "Two horns like a lamb",
+      "ru": "Два рога, подобные агнчим"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 13:11\">Rev 13:11</a>",
+      "ru": "<a data-ref=\"REV 13:11\">Откр. 13:11</a>"
+     },
+     "text": {
+      "en": "In this book “lamb” always means Christ. The beast looks Christ-like. Its horns wear no crowns.",
+      "ru": "В этой книге агнец всегда означает Христа. Зверь с виду похож на Христа. На его рогах нет диадим."
+     }
+    },
+    {
+     "at": [
+      436,
+      180
+     ],
+     "title": {
+      "en": "He spake as a dragon",
+      "ru": "Говорил как дракон"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 13:11-12\">Rev 13:11–12</a>",
+      "ru": "<a data-ref=\"REV 13:11-12\">Откр. 13:11–12</a>"
+     },
+     "text": {
+      "en": "The voice gives it away. It uses all the authority of the first beast and makes the earth worship it.",
+      "ru": "Его выдаёт голос. Он действует со всей властью первого зверя и заставляет землю поклоняться ему."
+     }
+    },
+    {
+     "at": [
+      546,
+      110
+     ],
+     "title": {
+      "en": "Fire from heaven",
+      "ru": "Огонь с неба"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 13:13-14\">Rev 13:13–14</a>",
+      "ru": "<a data-ref=\"REV 13:13-14\">Откр. 13:13–14</a>"
+     },
+     "text": {
+      "en": "It copies Elijah’s sign on Carmel (<a data-ref=\"1KI 18:38\">1 Kings 18:38</a>) and deceives “by the means of those miracles which he had power to do.”",
+      "ru": "Он повторяет знамение Илии на Кармиле (<a data-ref=\"1KI 18:38\">3 Цар. 18:38</a>) и обольщает «чудесами, которые дано было ему творить»."
+     }
+    },
+    {
+     "at": [
+      300,
+      215
+     ],
+     "title": {
+      "en": "An image to the beast",
+      "ru": "Образ зверя"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 13:14-15\">Rev 13:14–15</a>",
+      "ru": "<a data-ref=\"REV 13:14-15\">Откр. 13:14–15</a>"
+     },
+     "text": {
+      "en": "It tells people to make an image of the first beast, gives the image breath, and has those who refuse to worship it killed. The golden image on the plain of Dura was enforced the same way (<a data-ref=\"DAN 3:1-6\">Dan 3:1–6</a>).",
+      "ru": "Он велит людям сделать образ первого зверя, даёт образу дух и убивает тех, кто не хочет ему поклоняться. Так же принуждали поклоняться золотому истукану на поле Деире (<a data-ref=\"DAN 3:1-6\">Дан. 3:1–6</a>)."
+     }
+    },
+    {
+     "at": [
+      215,
+      190
+     ],
+     "title": {
+      "en": "The mark",
+      "ru": "Начертание"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 13:16-17\">Rev 13:16–17</a>",
+      "ru": "<a data-ref=\"REV 13:16-17\">Откр. 13:16–17</a>"
+     },
+     "text": {
+      "en": "A mark in the right hand or the forehead, without which no one may buy or sell. It stands against the seal of God on the forehead (<a data-ref=\"REV 7:3\">7:3</a>; <a data-ref=\"REV 14:1\">14:1</a>; <a data-ref=\"DEU 6:8\">Deut 6:8</a>).",
+      "ru": "Начертание на правой руке или на челе, без которого никому нельзя ни покупать, ни продавать. Ему противостоит печать Божья на челе (<a data-ref=\"REV 7:3\">7:3</a>; <a data-ref=\"REV 14:1\">14:1</a>; <a data-ref=\"DEU 6:8\">Втор. 6:8</a>)."
+     }
+    }
+   ],
+   "bible": [
+    {
+     "en": "Revelation later calls this beast “the false prophet” who worked miracles before the first beast (<a data-ref=\"REV 19:20\">19:20</a>). Its task is religious: it brings people to worship.",
+     "ru": "Позже Откровение называет этого зверя «лжепророком», творившим чудеса перед первым зверем (<a data-ref=\"REV 19:20\">19:20</a>). Его дело религиозное: он приводит людей к поклонению."
+    },
+    {
+     "en": "Jesus warned of the same disguise: “Beware of false prophets, which come to you in sheep’s clothing” (<a data-ref=\"MAT 7:15\">Matt 7:15</a>), and of signs great enough to deceive the very elect (<a data-ref=\"MAT 24:24\">Matt 24:24</a>).",
+     "ru": "Иисус предупреждал о такой же личине: «Берегитесь лжепророков, которые приходят к вам в овечьей одежде» (<a data-ref=\"MAT 7:15\">Мф. 7:15</a>), и о знамениях, способных прельстить даже избранных (<a data-ref=\"MAT 24:24\">Мф. 24:24</a>)."
+    },
+    {
+     "en": "Against its mark stands the third angel’s warning (<a data-ref=\"REV 14:9-11\">14:9–11</a>) and the people who “keep the commandments of God, and the faith of Jesus” (<a data-ref=\"REV 14:12\">14:12</a>).",
+     "ru": "Его начертанию противостоят предостережение третьего ангела (<a data-ref=\"REV 14:9-11\">14:9–11</a>) и «терпение святых, соблюдающих заповеди Божии и веру в Иисуса» (<a data-ref=\"REV 14:12\">14:12</a>)."
+    }
+   ],
+   "white": [
+    {
+     "en": "White looks for a nation that was rising about 1798, when the papacy went into captivity. It comes up from the earth, so it grows in territory that was not already crowded with peoples, and it grows peacefully. She concludes that only the United States fits <span class=\"cite-ref\">GC 440–441</span>.",
+     "ru": "Уайт ищет государство, которое поднималось около 1798 года, когда папство пошло в плен. Оно выходит из земли, то есть растёт на территории, прежде не заселённой множеством народов, и растёт мирно. Она заключает, что этому соответствуют только Соединённые Штаты <span class=\"cite-ref\">GC 440–441</span>."
+    },
+    {
+     "en": "The lamb-like horns show youth, innocence and gentleness. They stand for the two principles on which the nation was founded, republicanism and Protestantism, that is, civil and religious liberty <span class=\"cite-ref\">GC 441</span>.",
+     "ru": "Рога, как у агнца, говорят о молодости, невинности и кротости. Они означают два начала, на которых основано это государство: республиканизм и протестантизм, то есть гражданскую и религиозную свободу <span class=\"cite-ref\">GC 441</span>."
+    },
+    {
+     "en": "A nation speaks through its lawmakers and courts. Speaking as a dragon is a sharp contradiction between that gentle profession and its later acts <span class=\"cite-ref\">GC 442</span>.",
+     "ru": "Государство говорит через своих законодателей и суды. Говорить как дракон — значит резко противоречить делами своему кроткому исповеданию <span class=\"cite-ref\">GC 442</span>."
+    },
+    {
+     "en": "The image to the beast is formed when the leading churches of the United States unite on the doctrines they share and move the state to enforce their decrees. Protestant America will then have made a copy of the Roman hierarchy <span class=\"cite-ref\">GC 443–445</span>.",
+     "ru": "Образ зверя появится, когда ведущие церкви Соединённых Штатов объединятся на основе общих для них учений и побудят государство проводить в жизнь их постановления. Тогда протестантская Америка создаст подобие римской иерархии <span class=\"cite-ref\">GC 443–445</span>."
+    },
+    {
+     "en": "The miracles are real and not pretended <span class=\"cite-ref\">GC 553</span>. She adds that no one has the mark until Sunday observance is enforced by law and the question has been made plain <span class=\"cite-ref\">GC 449</span>.",
+     "ru": "Чудеса будут настоящими, а не мнимыми <span class=\"cite-ref\">GC 553</span>. Она добавляет, что никто не имеет начертания, пока соблюдение воскресенья не введено законом и вопрос не стал ясен каждому <span class=\"cite-ref\">GC 449</span>."
+    }
+   ],
+   "image": {
+    "src": "img/revelation/earth-beast.webp",
+    "thumb": "img/revelation/earth-beast-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
+  },
+  {
+   "id": "three-frogs",
+   "level": "brief",
+   "verse": "REV 16:13",
+   "title": {
+    "en": "Three unclean spirits like frogs",
+    "ru": "Три нечистых духа, подобных жабам"
+   },
+   "short": {
+    "en": "Three frogs",
+    "ru": "Три жабы"
+   },
+   "chapter": {
+    "en": "Revelation 16",
+    "ru": "Откровение 16"
+   },
+   "where": {
+    "en": "<a data-ref=\"REV 16:13-14\">Rev 16:13–14</a>",
+    "ru": "<a data-ref=\"REV 16:13-14\">Откр. 16:13–14</a>"
+   },
+   "summary": {
+    "en": "Under the sixth plague three demonic spirits go out to gather the rulers of the world for the last battle.",
+    "ru": "При шестой язве три бесовских духа выходят собрать правителей мира на последнюю битву."
+   },
+   "picture": {
+    "en": "Three beasts side by side amid smoke and sparks, each with a frog coming out of its mouth: a red dragon, a lion-faced beast with a leopard’s spots and a wound on its cheek, and a woolly beast with a ram’s horns.",
+    "ru": "Три зверя рядом в дыму и искрах, у каждого из пасти выходит жаба: красный дракон, зверь с львиной мордой, пятнами барса и раной на щеке и покрытый шерстью зверь с бараньими рогами."
+   },
+   "parts": [
+    {
+     "at": [
+      316,
+      236
+     ],
+     "title": {
+      "en": "Like frogs",
+      "ru": "Подобные жабам"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 16:13\">Rev 16:13</a>",
+      "ru": "<a data-ref=\"REV 16:13\">Откр. 16:13</a>"
+     },
+     "text": {
+      "en": "Frogs were unclean (<a data-ref=\"LEV 11:10-12\">Lev 11:10–12</a>). They were also the second plague on Egypt, and the last one Pharaoh’s magicians could copy (<a data-ref=\"EXO 8:1-7\">Exod 8:1–7</a>).",
+      "ru": "Жабы были нечисты (<a data-ref=\"LEV 11:10-12\">Лев. 11:10–12</a>). Они же были второй казнью египетской и последней, которую смогли повторить волхвы фараона (<a data-ref=\"EXO 8:1-7\">Исх. 8:1–7</a>)."
+     }
+    },
+    {
+     "at": [
+      200,
+      176
+     ],
+     "title": {
+      "en": "The mouth of the dragon",
+      "ru": "Уста дракона"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 16:13\">Rev 16:13</a>; <a data-ref=\"REV 12:9\">12:9</a>",
+      "ru": "<a data-ref=\"REV 16:13\">Откр. 16:13</a>; <a data-ref=\"REV 12:9\">12:9</a>"
+     },
+     "text": {
+      "en": "The first spirit comes from Satan himself.",
+      "ru": "Первый дух исходит от самого сатаны."
+     }
+    },
+    {
+     "at": [
+      418,
+      158
+     ],
+     "title": {
+      "en": "The mouth of the beast",
+      "ru": "Уста зверя"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 16:13\">Rev 16:13</a>; <a data-ref=\"REV 13:1-10\">13:1–10</a>",
+      "ru": "<a data-ref=\"REV 16:13\">Откр. 16:13</a>; <a data-ref=\"REV 13:1-10\">13:1–10</a>"
+     },
+     "text": {
+      "en": "The second comes from the beast that rose out of the sea.",
+      "ru": "Второй исходит от зверя, вышедшего из моря."
+     }
+    },
+    {
+     "at": [
+      548,
+      222
+     ],
+     "title": {
+      "en": "The mouth of the false prophet",
+      "ru": "Уста лжепророка"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 16:13\">Rev 16:13</a>; <a data-ref=\"REV 19:20\">19:20</a>",
+      "ru": "<a data-ref=\"REV 16:13\">Откр. 16:13</a>; <a data-ref=\"REV 19:20\">19:20</a>"
+     },
+     "text": {
+      "en": "The third comes from the lamb-horned beast of <a data-ref=\"REV 13:11\">13:11</a>, here called the false prophet.",
+      "ru": "Третий исходит от зверя с рогами агнца из <a data-ref=\"REV 13:11\">13:11</a>; здесь он назван лжепророком."
+     }
+    },
+    {
+     "at": [
+      330,
+      300
+     ],
+     "title": {
+      "en": "The kings of the earth",
+      "ru": "Цари земли"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 16:14\">Rev 16:14</a>, <a data-ref=\"REV 16:16\">16</a>",
+      "ru": "<a data-ref=\"REV 16:14\">Откр. 16:14</a>, <a data-ref=\"REV 16:16\">16</a>"
+     },
+     "text": {
+      "en": "The spirits are “spirits of devils, working miracles.” They gather the kings to “the battle of that great day of God Almighty” at Armageddon.",
+      "ru": "Это «бесовские духи, творящие знамения». Они собирают царей «на брань в оный великий день Бога Вседержителя», в Армагеддон."
+     }
+    }
+   ],
+   "bible": [
+    {
+     "en": "They come out of mouths, so their work is done by speaking: teaching, persuasion and command, backed by signs.",
+     "ru": "Они выходят из уст, значит, действуют словом: учением, убеждением и повелением, которые подкрепляются знамениями."
+    },
+    {
+     "en": "Three spirits from three powers form a counterfeit of the three angels who carry God’s last message to the world (<a data-ref=\"REV 14:6-12\">14:6–12</a>).",
+     "ru": "Три духа от трёх властей — подделка под трёх ангелов, несущих миру последнюю весть Бога (<a data-ref=\"REV 14:6-12\">14:6–12</a>)."
+    },
+    {
+     "en": "In the middle of the scene Christ speaks: “Behold, I come as a thief. Blessed is he that watcheth” (<a data-ref=\"REV 16:15\">16:15</a>).",
+     "ru": "Посреди этой сцены говорит Христос: «Се, иду как тать: блажен бодрствующий» (<a data-ref=\"REV 16:15\">16:15</a>)."
+    }
+   ],
+   "white": [
+    {
+     "en": "White names two errors by which Satan will bring people under his deceptions: the natural immortality of the soul and the sacredness of Sunday. The first lays the foundation for spiritualism. The second creates a bond of sympathy with Rome <span class=\"cite-ref\">GC 588</span>.",
+     "ru": "Уайт называет два заблуждения, которыми сатана подчинит людей своему обману: учение о естественном бессмертии души и о святости воскресенья. Первое закладывает основание спиритизма. Второе создаёт узы симпатии с Римом <span class=\"cite-ref\">GC 588</span>."
+    },
+    {
+     "en": "She expects Protestants in the United States to be the first to reach across to spiritualism and to the Roman power. Under that threefold union the country will follow Rome in trampling on the rights of conscience <span class=\"cite-ref\">GC 588</span>.",
+     "ru": "Она ожидает, что протестанты Соединённых Штатов первыми протянут руку спиритизму и римской власти. Под влиянием этого тройственного союза страна вслед за Римом станет попирать права совести <span class=\"cite-ref\">GC 588</span>."
+    },
+    {
+     "en": "Fearful supernatural sights will appear, and spirits of devils will go to the kings of the earth and to the whole world to fasten them in deception and unite them with Satan in his last struggle <span class=\"cite-ref\">GC 624</span>.",
+     "ru": "Явятся страшные сверхъестественные знамения, и бесовские духи выйдут к царям земли и ко всему миру, чтобы утвердить их в обмане и соединить с сатаной в его последней борьбе <span class=\"cite-ref\">GC 624</span>."
+    },
+    {
+     "en": "The compilation <cite>Maranatha</cite> places these statements under Revelation 16:13–14 <span class=\"cite-ref\">Mar 190</span>. I found no comment from her on why the spirits look like frogs.",
+     "ru": "В сборнике <cite>Maranatha</cite> эти высказывания помещены под Откровением 16:13–14 <span class=\"cite-ref\">Mar 190</span>. Объяснений, почему духи подобны жабам, мне у неё найти не удалось."
+    }
+   ],
+   "image": {
+    "src": "img/revelation/three-frogs.webp",
+    "thumb": "img/revelation/three-frogs-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
+  },
+  {
+   "id": "scarlet-beast",
+   "level": "brief",
+   "verse": "REV 17:3",
+   "title": {
+    "en": "The scarlet beast",
+    "ru": "Багряный зверь"
+   },
+   "short": {
+    "en": "Scarlet beast",
+    "ru": "Багряный зверь"
+   },
+   "chapter": {
+    "en": "Revelation 17",
+    "ru": "Откровение 17"
+   },
+   "where": {
+    "en": "<a data-ref=\"REV 17:3-18\">Rev 17:3–18</a>",
+    "ru": "<a data-ref=\"REV 17:3-18\">Откр. 17:3–18</a>"
+   },
+   "summary": {
+    "en": "The beast that carries the woman called Babylon the Great. It “was, and is not, and yet is.”",
+    "ru": "Зверь, на котором сидит жена по имени Вавилон великий. Он «был, и нет его, и явится»."
+   },
+   "picture": {
+    "en": "A woman in purple and scarlet, decked with gold and pearls, sits on a scarlet beast with many horned heads and lifts a golden cup. Around them is a desert under a dark sky.",
+    "ru": "Жена в порфире и багрянице, украшенная золотом и жемчугом, сидит на багряном звере со многими рогатыми головами и поднимает золотую чашу. Вокруг пустыня под тёмным небом."
+   },
+   "parts": [
+    {
+     "at": [
+      236,
+      222
+     ],
+     "title": {
+      "en": "A scarlet coloured beast",
+      "ru": "Зверь багряный"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 17:3\">Rev 17:3</a>, <a data-ref=\"REV 17:8\">8</a>",
+      "ru": "<a data-ref=\"REV 17:3\">Откр. 17:3</a>, <a data-ref=\"REV 17:8\">8</a>"
+     },
+     "text": {
+      "en": "It is covered in names of blasphemy. It rises out of the bottomless pit and goes into perdition.",
+      "ru": "Он преисполнен именами богохульными. Он выходит из бездны и идёт в погибель."
+     }
+    },
+    {
+     "at": [
+      430,
+      136
+     ],
+     "title": {
+      "en": "Seven heads",
+      "ru": "Семь голов"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 17:9-11\">Rev 17:9–11</a>",
+      "ru": "<a data-ref=\"REV 17:9-11\">Откр. 17:9–11</a>"
+     },
+     "text": {
+      "en": "The angel explains: they are seven mountains on which the woman sits, and seven kings. Five are fallen, one is, one is yet to come. The beast itself is an eighth.",
+      "ru": "Ангел объясняет: это семь гор, на которых сидит жена, и семь царей. Пять пали, один есть, другой ещё не пришёл. Сам зверь — восьмой."
+     }
+    },
+    {
+     "at": [
+      410,
+      50
+     ],
+     "title": {
+      "en": "Ten horns",
+      "ru": "Десять рогов"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 17:12-14\">Rev 17:12–14</a>, <a data-ref=\"REV 17:16\">16</a>",
+      "ru": "<a data-ref=\"REV 17:12-14\">Откр. 17:12–14</a>, <a data-ref=\"REV 17:16\">16</a>"
+     },
+     "text": {
+      "en": "Ten kings who receive power “one hour with the beast.” They have one mind and make war with the Lamb, and the Lamb overcomes them. In the end they turn on the woman and burn her.",
+      "ru": "Десять царей, которые примут власть со зверем «на один час». У них одни мысли; они ведут брань с Агнцем, и Агнец побеждает их. В конце они возненавидят жену и сожгут её."
+     }
+    },
+    {
+     "at": [
+      290,
+      178
+     ],
+     "title": {
+      "en": "The woman",
+      "ru": "Жена"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 17:4-6\">Rev 17:4–6</a>, <a data-ref=\"REV 17:18\">18</a>",
+      "ru": "<a data-ref=\"REV 17:4-6\">Откр. 17:4–6</a>, <a data-ref=\"REV 17:18\">18</a>"
+     },
+     "text": {
+      "en": "She is dressed in purple and scarlet, with gold, jewels and pearls. Her name is “Babylon the Great, the Mother of Harlots.” She is drunk with the blood of the saints. The angel calls her “that great city, which reigneth over the kings of the earth.”",
+      "ru": "Она облечена в порфиру и багряницу, украшена золотом, драгоценными камнями и жемчугом. Её имя — «Вавилон великий, мать блудницам». Она упоена кровью святых. Ангел называет её так: «великий город, царствующий над земными царями»."
+     }
+    },
+    {
+     "at": [
+      262,
+      52
+     ],
+     "title": {
+      "en": "The golden cup",
+      "ru": "Золотая чаша"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 17:4\">Rev 17:4</a>",
+      "ru": "<a data-ref=\"REV 17:4\">Откр. 17:4</a>"
+     },
+     "text": {
+      "en": "Jeremiah called Babylon “a golden cup in the Lord’s hand, that made all the earth drunken” (<a data-ref=\"JER 51:7\">Jer 51:7</a>). Her wine is the teaching that intoxicates the nations (<a data-ref=\"REV 14:8\">14:8</a>; <a data-ref=\"REV 18:3\">18:3</a>).",
+      "ru": "Иеремия сказал: «Вавилон был золотою чашею в руке Господа, опьянявшею всю землю» (<a data-ref=\"JER 51:7\">Иер. 51:7</a>). Её вино — учение, которым опьянены народы (<a data-ref=\"REV 14:8\">14:8</a>; <a data-ref=\"REV 18:3\">18:3</a>)."
+     }
+    },
+    {
+     "at": [
+      110,
+      262
+     ],
+     "title": {
+      "en": "Many waters",
+      "ru": "Воды многие"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 17:1\">Rev 17:1</a>, <a data-ref=\"REV 17:15\">15</a>",
+      "ru": "<a data-ref=\"REV 17:1\">Откр. 17:1</a>, <a data-ref=\"REV 17:15\">15</a>"
+     },
+     "text": {
+      "en": "She sits on “peoples, and multitudes, and nations, and tongues.”",
+      "ru": "Она сидит на водах, которые «суть люди и народы, и племена и языки»."
+     }
+    }
+   ],
+   "bible": [
+    {
+     "en": "In the prophets a faithful woman is God’s people (<a data-ref=\"ISA 54:5-6\">Isa 54:5–6</a>; <a data-ref=\"JER 6:2\">Jer 6:2</a>; <a data-ref=\"EPH 5:25-27\">Eph 5:25–27</a>). A harlot is a people that has left him for other lovers (<a data-ref=\"EZK 16:1\">Ezek 16</a>; <a data-ref=\"HOS 2:1\">Hos 2</a>). The beast she rides is the civil power that carries her.",
+     "ru": "У пророков верная жена — народ Божий (<a data-ref=\"ISA 54:5-6\">Ис. 54:5–6</a>; <a data-ref=\"JER 6:2\">Иер. 6:2</a>; <a data-ref=\"EPH 5:25-27\">Еф. 5:25–27</a>). Блудница — народ, оставивший Его ради других (<a data-ref=\"EZK 16:1\">Иез. 16</a>; <a data-ref=\"HOS 2:1\">Ос. 2</a>). Зверь, на котором она сидит, — гражданская власть, которая её несёт."
+    },
+    {
+     "en": "This is the one beast an angel explains. Heads are mountains and kings (<a data-ref=\"REV 17:9-10\">17:9–10</a>). Horns are kings (<a data-ref=\"REV 17:12\">17:12</a>). Waters are peoples (<a data-ref=\"REV 17:15\">17:15</a>). The woman is a city that rules kings (<a data-ref=\"REV 17:18\">17:18</a>).",
+     "ru": "Это единственный зверь, которого объясняет ангел. Головы — горы и цари (<a data-ref=\"REV 17:9-10\">17:9–10</a>). Рога — цари (<a data-ref=\"REV 17:12\">17:12</a>). Воды — народы (<a data-ref=\"REV 17:15\">17:15</a>). Жена — город, царствующий над царями (<a data-ref=\"REV 17:18\">17:18</a>)."
+    },
+    {
+     "en": "She is set against the two other women of the book: the woman clothed with the sun (<a data-ref=\"REV 12:1\">12:1</a>) and the bride, the Lamb’s wife (<a data-ref=\"REV 21:9-10\">21:9–10</a>).",
+     "ru": "Ей противопоставлены две другие жены этой книги: жена, облечённая в солнце (<a data-ref=\"REV 12:1\">12:1</a>), и невеста, жена Агнца (<a data-ref=\"REV 21:9-10\">21:9–10</a>)."
+    }
+   ],
+   "white": [
+    {
+     "en": "White identifies the woman. The power that for centuries held sway over the monarchs of Christendom is Rome, and the purple, scarlet, gold and pearls picture its more than kingly magnificence. No other power, she says, so fits the words “drunken with the blood of the saints” <span class=\"cite-ref\">GC 382</span>.",
+     "ru": "Уайт называет, кто эта жена. Власть, веками господствовавшая над монархами христианского мира, — Рим, а порфира, багряница, золото и жемчуг изображают его более чем царское великолепие. Ни к какой другой власти, говорит она, так не подходят слова «упоена была кровью святых» <span class=\"cite-ref\">GC 382</span>."
+    },
+    {
+     "en": "Since Babylon is called the mother of harlots, her daughters must be churches that hold to her doctrines and follow her in giving up truth to gain the friendship of the world <span class=\"cite-ref\">GC 382–383</span>.",
+     "ru": "Раз Вавилон назван матерью блудницам, то её дочери — это церкви, которые держатся её учений и, как она, жертвуют истиной ради дружбы с миром <span class=\"cite-ref\">GC 382–383</span>."
+    },
+    {
+     "en": "On the ten kings who “have one mind” she writes that there will be a universal bond of union, “a confederacy of Satan’s forces,” the same oppressive power against religious liberty that the papacy once used <span class=\"cite-ref\">7BC 983</span>.",
+     "ru": "О десяти царях, которые «имеют одни мысли», она пишет, что возникнет всеобщее единение, «союз сатанинских сил», та же деспотическая сила против религиозной свободы, какой некогда пользовалось папство <span class=\"cite-ref\">7BC 983</span>."
+    },
+    {
+     "en": "I found no passage where she lists the seven heads or names the ten horns.",
+     "ru": "Мест, где она перечисляет семь голов или называет десять рогов, мне найти не удалось."
+    }
+   ],
+   "image": {
+    "src": "img/revelation/scarlet-beast.webp",
+    "thumb": "img/revelation/scarlet-beast-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
+  },
+  {
+   "id": "birds",
+   "level": "brief",
+   "verse": "REV 18:2",
+   "title": {
+    "en": "The birds",
+    "ru": "Птицы"
+   },
+   "short": {
+    "en": "Birds",
+    "ru": "Птицы"
+   },
+   "chapter": {
+    "en": "Revelation 18 and 19",
+    "ru": "Откровение 18 и 19"
+   },
+   "where": {
+    "en": "<a data-ref=\"REV 18:2\">Rev 18:2</a>; <a data-ref=\"REV 19:17-18\">19:17–18</a>, <a data-ref=\"REV 19:21\">21</a>",
+    "ru": "<a data-ref=\"REV 18:2\">Откр. 18:2</a>; <a data-ref=\"REV 19:17-18\">19:17–18</a>, <a data-ref=\"REV 19:21\">21</a>"
+   },
+   "summary": {
+    "en": "Birds mark two endings: the ruin of Babylon and the silence after the last battle.",
+    "ru": "Птицы отмечают два конца: разорение Вавилона и тишину после последней битвы."
+   },
+   "picture": {
+    "en": "Vultures, eagles, ravens and a great cloud of smaller birds fly across a sunset sky toward a battlefield strewn with fallen armour, banners and a chariot.",
+    "ru": "Грифы, орлы, вороны и огромная стая мелких птиц летят по закатному небу к полю битвы, усеянному брошенными доспехами, знамёнами и колесницей."
+   },
+   "parts": [
+    {
+     "at": [
+      155,
+      96
+     ],
+     "title": {
+      "en": "A cage of unclean birds",
+      "ru": "Пристанище нечистых птиц"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 18:2\">Rev 18:2</a>",
+      "ru": "<a data-ref=\"REV 18:2\">Откр. 18:2</a>"
+     },
+     "text": {
+      "en": "The prophets pictured ruined Babylon and Edom as the haunt of owls and ravens (<a data-ref=\"ISA 13:19-22\">Isa 13:19–22</a>; <a data-ref=\"ISA 34:11-15\">34:11–15</a>; <a data-ref=\"JER 50:39\">Jer 50:39</a>). The law lists these as unclean birds (<a data-ref=\"LEV 11:13-19\">Lev 11:13–19</a>).",
+      "ru": "Пророки изображали разорённые Вавилон и Едом как жилище филинов и воронов (<a data-ref=\"ISA 13:19-22\">Ис. 13:19–22</a>; <a data-ref=\"ISA 34:11-15\">34:11–15</a>; <a data-ref=\"JER 50:39\">Иер. 50:39</a>). Закон называет этих птиц нечистыми (<a data-ref=\"LEV 11:13-19\">Лев. 11:13–19</a>)."
+     }
+    },
+    {
+     "at": [
+      548,
+      186
+     ],
+     "title": {
+      "en": "Babylon is fallen",
+      "ru": "Пал Вавилон"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 18:2\">Rev 18:2</a>; <a data-ref=\"REV 14:8\">14:8</a>",
+      "ru": "<a data-ref=\"REV 18:2\">Откр. 18:2</a>; <a data-ref=\"REV 14:8\">14:8</a>"
+     },
+     "text": {
+      "en": "The cry of <a data-ref=\"ISA 21:9\">Isa 21:9</a>, repeated by the second angel and again here with a loud voice. A great city has become a haunted ruin.",
+      "ru": "Возглас из <a data-ref=\"ISA 21:9\">Ис. 21:9</a>, повторённый вторым ангелом и ещё раз здесь, громким голосом. Великий город стал жилищем бесов."
+     }
+    },
+    {
+     "at": [
+      244,
+      132
+     ],
+     "title": {
+      "en": "An angel standing in the sun",
+      "ru": "Ангел, стоящий на солнце"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 19:17\">Rev 19:17</a>",
+      "ru": "<a data-ref=\"REV 19:17\">Откр. 19:17</a>"
+     },
+     "text": {
+      "en": "He calls to all the birds that fly in the midst of heaven.",
+      "ru": "Он созывает всех птиц, летающих посреди неба."
+     }
+    },
+    {
+     "at": [
+      462,
+      150
+     ],
+     "title": {
+      "en": "The fowls in mid-heaven",
+      "ru": "Птицы посреди неба"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 19:17-18\">Rev 19:17–18</a>, <a data-ref=\"REV 19:21\">21</a>",
+      "ru": "<a data-ref=\"REV 19:17-18\">Откр. 19:17–18</a>, <a data-ref=\"REV 19:21\">21</a>"
+     },
+     "text": {
+      "en": "They are called to “the supper of the great God.” It is the grim opposite of the marriage supper of the Lamb (<a data-ref=\"REV 19:9\">19:9</a>) and echoes <a data-ref=\"EZK 39:17-20\">Ezek 39:17–20</a>.",
+      "ru": "Их зовут на «великую вечерю Божию». Это страшная противоположность брачной вечере Агнца (<a data-ref=\"REV 19:9\">19:9</a>) и отзвук <a data-ref=\"EZK 39:17-20\">Иез. 39:17–20</a>."
+     }
+    },
+    {
+     "at": [
+      420,
+      296
+     ],
+     "title": {
+      "en": "Kings and captains",
+      "ru": "Цари и военачальники"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 19:18-19\">Rev 19:18–19</a>",
+      "ru": "<a data-ref=\"REV 19:18-19\">Откр. 19:18–19</a>"
+     },
+     "text": {
+      "en": "The beast and the kings of the earth gather to make war on the rider of the white horse. Their armies fall.",
+      "ru": "Зверь и цари земные собираются воевать с Сидящим на белом коне. Их воинства гибнут."
+     }
+    }
+   ],
+   "bible": [
+    {
+     "en": "Right after the birds of <a data-ref=\"REV 18:2\">18:2</a> comes the call, “Come out of her, my people, that ye be not partakers of her sins” (<a data-ref=\"REV 18:4\">18:4</a>). God still has people in Babylon when the warning sounds.",
+     "ru": "Сразу после птиц из <a data-ref=\"REV 18:2\">18:2</a> звучит призыв: «Выйди от неё, народ Мой, чтобы не участвовать вам в грехах её» (<a data-ref=\"REV 18:4\">18:4</a>). Когда раздаётся предостережение, у Бога в Вавилоне ещё есть народ."
+    },
+    {
+     "en": "Jesus used the same picture for the day of his coming: “Wheresoever the carcase is, there will the eagles be gathered together” (<a data-ref=\"MAT 24:28\">Matt 24:28</a>).",
+     "ru": "Иисус использовал тот же образ, говоря о дне Своего пришествия: «Где будет труп, там соберутся орлы» (<a data-ref=\"MAT 24:28\">Мф. 24:28</a>)."
+    }
+   ],
+   "white": [
+    {
+     "en": "White does not comment on the birds themselves. She explains the scenes they belong to.",
+     "ru": "О самих птицах Уайт не говорит. Она объясняет сцены, в которых они появляются."
+    },
+    {
+     "en": "Revelation 18:1–4 points to a time when the announcement of Babylon’s fall is repeated, with added mention of the corruptions that have entered the churches since 1844. Spiritualism opens the door to seducing spirits, and the influence of evil angels will be felt in the churches <span class=\"cite-ref\">GC 603–604</span>.",
+     "ru": "Откровение 18:1–4 указывает на время, когда весть о падении Вавилона прозвучит снова, с упоминанием пороков, проникших в церкви после 1844 года. Спиритизм открывает дверь обольщающим духам, и влияние злых ангелов будет ощущаться в церквах <span class=\"cite-ref\">GC 603–604</span>."
+    },
+    {
+     "en": "The call to come out is needed because the great body of Christ’s true followers are still in those communions <span class=\"cite-ref\">GC 390</span>.",
+     "ru": "Призыв выйти нужен потому, что большая часть истинных последователей Христа всё ещё находится в этих церквах <span class=\"cite-ref\">GC 390</span>."
+    },
+    {
+     "en": "At Christ’s coming the wicked are destroyed by the brightness of his glory. The slain lie unburied from one end of the earth to the other, as Jeremiah 25:33 says, and the earth is left empty <span class=\"cite-ref\">GC 656–657</span>.",
+     "ru": "При пришествии Христа нечестивые гибнут от сияния Его славы. Поражённые лежат непогребёнными от края земли до края, как сказано в Иеремии 25:33, и земля остаётся пустой <span class=\"cite-ref\">GC 656–657</span>."
+    }
+   ],
+   "image": {
+    "src": "img/revelation/birds.webp",
+    "thumb": "img/revelation/birds-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
+  },
+  {
+   "id": "white-horse",
+   "level": "brief",
+   "verse": "REV 19:11",
+   "title": {
+    "en": "The white horse of the King of kings",
+    "ru": "Белый конь Царя царей"
+   },
+   "short": {
+    "en": "White horse",
+    "ru": "Белый конь"
+   },
+   "chapter": {
+    "en": "Revelation 19",
+    "ru": "Откровение 19"
+   },
+   "where": {
+    "en": "<a data-ref=\"REV 19:11-21\">Rev 19:11–21</a>",
+    "ru": "<a data-ref=\"REV 19:11-21\">Откр. 19:11–21</a>"
+   },
+   "summary": {
+    "en": "Heaven opens and Christ rides out as conqueror. The armies of heaven follow him on white horses.",
+    "ru": "Небо отверзается, и Христос выезжает как победитель. Небесные воинства следуют за Ним на белых конях."
+   },
+   "picture": {
+    "en": "A rider on a white horse charging out of sunlit clouds. He wears a tall crown of many tiers, his eyes burn like fire, a sword comes from his mouth and another is in his hand, and his white robe is stained red. Behind him ride ranks of horsemen on white horses.",
+    "ru": "Всадник на белом коне вылетает из освещённых солнцем облаков. На нём высокий венец во много ярусов, очи горят как огонь, из уст исходит меч, другой меч в руке, белая одежда обагрена. За ним рядами скачут всадники на белых конях."
+   },
+   "parts": [
+    {
+     "at": [
+      432,
+      205
+     ],
+     "title": {
+      "en": "A white horse",
+      "ru": "Белый конь"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 19:11\">Rev 19:11</a>",
+      "ru": "<a data-ref=\"REV 19:11\">Откр. 19:11</a>"
+     },
+     "text": {
+      "en": "White is the colour of victory and of righteousness in this book (<a data-ref=\"REV 3:5\">3:5</a>; <a data-ref=\"REV 19:8\">19:8</a>).",
+      "ru": "Белый в этой книге — цвет победы и праведности (<a data-ref=\"REV 3:5\">3:5</a>; <a data-ref=\"REV 19:8\">19:8</a>)."
+     }
+    },
+    {
+     "at": [
+      370,
+      22
+     ],
+     "title": {
+      "en": "Many crowns",
+      "ru": "Много диадим"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 19:12\">Rev 19:12</a>",
+      "ru": "<a data-ref=\"REV 19:12\">Откр. 19:12</a>"
+     },
+     "text": {
+      "en": "The dragon wore seven crowns and the beast ten. This rider wears “many.” Every rightful rule is his.",
+      "ru": "У дракона было семь диадим, у зверя десять. У этого Всадника их «много». Всякая законная власть принадлежит Ему."
+     }
+    },
+    {
+     "at": [
+      334,
+      74
+     ],
+     "title": {
+      "en": "Eyes as a flame of fire",
+      "ru": "Очи как пламень огненный"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 19:12\">Rev 19:12</a>; <a data-ref=\"REV 1:14\">1:14</a>",
+      "ru": "<a data-ref=\"REV 19:12\">Откр. 19:12</a>; <a data-ref=\"REV 1:14\">1:14</a>"
+     },
+     "text": {
+      "en": "The same eyes John saw at the start of the book. Nothing is hidden from him.",
+      "ru": "Те же очи Иоанн видел в начале книги. От Него ничто не скрыто."
+     }
+    },
+    {
+     "at": [
+      292,
+      198
+     ],
+     "title": {
+      "en": "A vesture dipped in blood",
+      "ru": "Одежда, обагрённая кровью"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 19:13\">Rev 19:13</a>",
+      "ru": "<a data-ref=\"REV 19:13\">Откр. 19:13</a>"
+     },
+     "text": {
+      "en": "His name is “The Word of God” (<a data-ref=\"JHN 1:1\">John 1:1</a>). Isaiah saw the Lord coming with stained garments from the winepress (<a data-ref=\"ISA 63:1-3\">Isa 63:1–3</a>).",
+      "ru": "Имя Ему — «Слово Божие» (<a data-ref=\"JHN 1:1\">Ин. 1:1</a>). Исаия видел Господа, идущего от точила в обагрённых ризах (<a data-ref=\"ISA 63:1-3\">Ис. 63:1–3</a>)."
+     }
+    },
+    {
+     "at": [
+      424,
+      78
+     ],
+     "title": {
+      "en": "A sharp sword from his mouth",
+      "ru": "Острый меч из уст"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 19:15\">Rev 19:15</a>, <a data-ref=\"REV 19:21\">21</a>",
+      "ru": "<a data-ref=\"REV 19:15\">Откр. 19:15</a>, <a data-ref=\"REV 19:21\">21</a>"
+     },
+     "text": {
+      "en": "His weapon is his word (<a data-ref=\"HEB 4:12\">Heb 4:12</a>; <a data-ref=\"EPH 6:17\">Eph 6:17</a>; <a data-ref=\"ISA 11:4\">Isa 11:4</a>).",
+      "ru": "Его оружие — Его слово (<a data-ref=\"HEB 4:12\">Евр. 4:12</a>; <a data-ref=\"EPH 6:17\">Еф. 6:17</a>; <a data-ref=\"ISA 11:4\">Ис. 11:4</a>)."
+     }
+    },
+    {
+     "at": [
+      354,
+      172
+     ],
+     "title": {
+      "en": "The name on his thigh",
+      "ru": "Имя на бедре"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 19:16\">Rev 19:16</a>",
+      "ru": "<a data-ref=\"REV 19:16\">Откр. 19:16</a>"
+     },
+     "text": {
+      "en": "KING OF KINGS, AND LORD OF LORDS.",
+      "ru": "«Царь царей и Господь господствующих»."
+     }
+    },
+    {
+     "at": [
+      104,
+      136
+     ],
+     "title": {
+      "en": "The armies of heaven",
+      "ru": "Воинства небесные"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 19:14\">Rev 19:14</a>",
+      "ru": "<a data-ref=\"REV 19:14\">Откр. 19:14</a>"
+     },
+     "text": {
+      "en": "They follow on white horses, clothed in fine linen, white and clean.",
+      "ru": "Они следуют за Ним на белых конях, облечённые в виссон белый и чистый."
+     }
+    }
+   ],
+   "bible": [
+    {
+     "en": "This is the fullest picture of the second coming in the book. The rider judges and makes war “in righteousness.” The beast and the false prophet are taken, and the rest fall by the sword of his mouth (<a data-ref=\"REV 19:20-21\">19:20–21</a>).",
+     "ru": "Это самая полная картина Второго пришествия в книге. Всадник «праведно судит и воинствует». Зверь и лжепророк схвачены, а прочие убиты мечом, исходящим из Его уст (<a data-ref=\"REV 19:20-21\">19:20–21</a>)."
+    },
+    {
+     "en": "Compare the first white horse of <a data-ref=\"REV 6:2\">6:2</a>. That rider was given one wreath of victory. This rider wears many royal crowns and is named four times: Faithful and True, a name known only to himself, The Word of God, and King of kings.",
+     "ru": "Сравните с первым белым конём из <a data-ref=\"REV 6:2\">6:2</a>. Тому всаднику дан один победный венец. У этого много царских диадим и четыре имени: Верный и Истинный, имя, которого никто не знает, кроме Него Самого, Слово Божие и Царь царей."
+    },
+    {
+     "en": "One more horse image closes chapter 14, where the winepress outside the city runs with blood “even unto the horse bridles” (<a data-ref=\"REV 14:20\">14:20</a>).",
+     "ru": "Ещё один образ с конями завершает 14-ю главу: из точила за городом течёт кровь «даже до узд конских» (<a data-ref=\"REV 14:20\">14:20</a>)."
+    }
+   ],
+   "white": [
+    {
+     "en": "White applies this passage to the return of Christ. He comes as a mighty conqueror, no longer a man of sorrows, and the armies of heaven that follow him are a vast, uncounted throng of holy angels singing as they come <span class=\"cite-ref\">GC 640–641</span>.",
+     "ru": "Уайт относит этот отрывок к возвращению Христа. Он грядёт как могучий победитель, уже не как муж скорбей, а небесные воинства, следующие за Ним, — необозримое, бесчисленное множество святых ангелов, поющих на пути <span class=\"cite-ref\">GC 640–641</span>."
+    },
+    {
+     "en": "She does not explain the horse, the crowns or the sword one by one.",
+     "ru": "Коня, диадимы и меч по отдельности она не объясняет."
+    }
+   ],
+   "image": {
+    "src": "img/revelation/white-horse.webp",
+    "thumb": "img/revelation/white-horse-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
+  },
+  {
+   "id": "in-passing",
+   "level": "none",
+   "verse": "REV 22:15",
+   "title": {
+    "en": "Animals named in passing",
+    "ru": "Животные, упомянутые мимоходом"
+   },
+   "short": {
+    "en": "In passing",
+    "ru": "Мимоходом"
+   },
+   "chapter": {
+    "en": "Throughout the book",
+    "ru": "По всей книге"
+   },
+   "where": {
+    "en": "<a data-ref=\"REV 5:13\">Rev 5:13</a>; <a data-ref=\"REV 6:8\">6:8</a>; <a data-ref=\"REV 8:9\">8:9</a>; <a data-ref=\"REV 9:3\">9:3</a>, <a data-ref=\"REV 9:5\">5</a>, <a data-ref=\"REV 9:10\">10</a>; <a data-ref=\"REV 13:2\">13:2</a>; <a data-ref=\"REV 14:20\">14:20</a>; <a data-ref=\"REV 16:3\">16:3</a>; <a data-ref=\"REV 18:13\">18:13</a>; <a data-ref=\"REV 22:15\">22:15</a>",
+    "ru": "<a data-ref=\"REV 5:13\">Откр. 5:13</a>; <a data-ref=\"REV 6:8\">6:8</a>; <a data-ref=\"REV 8:9\">8:9</a>; <a data-ref=\"REV 9:3\">9:3</a>, <a data-ref=\"REV 9:5\">5</a>, <a data-ref=\"REV 9:10\">10</a>; <a data-ref=\"REV 13:2\">13:2</a>; <a data-ref=\"REV 14:20\">14:20</a>; <a data-ref=\"REV 16:3\">16:3</a>; <a data-ref=\"REV 18:13\">18:13</a>; <a data-ref=\"REV 22:15\">22:15</a>"
+   },
+   "summary": {
+    "en": "Smaller mentions that complete the list: scorpions, wild beasts, livestock, sea creatures and dogs.",
+    "ru": "Краткие упоминания, завершающие список: скорпионы, дикие звери, скот, морские существа и псы."
+   },
+   "picture": {
+    "en": "A ruined city by a misty sea at dusk. In the foreground a white dove sits by a broken marble column, an ox grazes among the stones, a wolf stands on the shore, and a pearl lies on a rock.",
+    "ru": "Разрушенный город у туманного моря в сумерках. На переднем плане белый голубь сидит у обломка мраморной колонны, вол пасётся среди камней, на берегу стоит волк, на скале лежит жемчужина."
+   },
+   "parts": [
+    {
+     "at": [
+      112,
+      304
+     ],
+     "title": {
+      "en": "Scorpions",
+      "ru": "Скорпионы"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 9:3\">Rev 9:3</a>, <a data-ref=\"REV 9:5\">5</a>, <a data-ref=\"REV 9:10\">10</a>",
+      "ru": "<a data-ref=\"REV 9:3\">Откр. 9:3</a>, <a data-ref=\"REV 9:5\">5</a>, <a data-ref=\"REV 9:10\">10</a>"
+     },
+     "text": {
+      "en": "The locusts sting like scorpions. Jesus used the scorpion for the power of the enemy (<a data-ref=\"LUK 10:19\">Luke 10:19</a>). The desert of Israel’s wandering was full of them (<a data-ref=\"DEU 8:15\">Deut 8:15</a>).",
+      "ru": "Саранча жалит, как скорпионы. Иисус назвал скорпионов образом силы врага (<a data-ref=\"LUK 10:19\">Лк. 10:19</a>). Пустыня, по которой шёл Израиль, была полна ими (<a data-ref=\"DEU 8:15\">Втор. 8:15</a>)."
+     }
+    },
+    {
+     "at": [
+      596,
+      156
+     ],
+     "title": {
+      "en": "The beasts of the earth",
+      "ru": "Звери земные"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 6:8\">Rev 6:8</a>",
+      "ru": "<a data-ref=\"REV 6:8\">Откр. 6:8</a>"
+     },
+     "text": {
+      "en": "Wild animals are the fourth agent of death under the pale horse (<a data-ref=\"EZK 14:21\">Ezek 14:21</a>).",
+      "ru": "Дикие звери — четвёртое орудие смерти при бледном коне (<a data-ref=\"EZK 14:21\">Иез. 14:21</a>)."
+     }
+    },
+    {
+     "at": [
+      452,
+      170
+     ],
+     "title": {
+      "en": "Cattle, sheep and horses",
+      "ru": "Скот, овцы и кони"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 18:13\">Rev 18:13</a>",
+      "ru": "<a data-ref=\"REV 18:13\">Откр. 18:13</a>"
+     },
+     "text": {
+      "en": "Items in Babylon’s cargo list, which runs from gold down to “beasts, and sheep, and horses, and chariots, and slaves, and souls of men.”",
+      "ru": "Часть перечня товаров Вавилона, который начинается с золота и кончается словами: «и скота и овец, и коней и колесниц, и тел и душ человеческих»."
+     }
+    },
+    {
+     "at": [
+      340,
+      150
+     ],
+     "title": {
+      "en": "Creatures of the sea",
+      "ru": "Морские существа"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 8:9\">Rev 8:9</a>; <a data-ref=\"REV 16:3\">16:3</a>",
+      "ru": "<a data-ref=\"REV 8:9\">Откр. 8:9</a>; <a data-ref=\"REV 16:3\">16:3</a>"
+     },
+     "text": {
+      "en": "A third of them die at the second trumpet. Every living soul in the sea dies under the second plague.",
+      "ru": "Третья часть их умирает при второй трубе. При второй язве умирает всё одушевлённое в море."
+     }
+    },
+    {
+     "at": [
+      210,
+      104
+     ],
+     "title": {
+      "en": "Dogs",
+      "ru": "Псы"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 22:15\">Rev 22:15</a>",
+      "ru": "<a data-ref=\"REV 22:15\">Откр. 22:15</a>"
+     },
+     "text": {
+      "en": "Those shut outside the city. In Scripture “dog” is a name for the impure, the greedy and the false teacher (<a data-ref=\"DEU 23:18\">Deut 23:18</a>; <a data-ref=\"ISA 56:10-11\">Isa 56:10–11</a>; <a data-ref=\"PHP 3:2\">Phil 3:2</a>; <a data-ref=\"2PE 2:22\">2 Pet 2:22</a>).",
+      "ru": "Те, кто остался вне города. В Писании псами названы нечистые, алчные и лжеучители (<a data-ref=\"DEU 23:18\">Втор. 23:18</a>; <a data-ref=\"ISA 56:10-11\">Ис. 56:10–11</a>; <a data-ref=\"PHP 3:2\">Флп. 3:2</a>; <a data-ref=\"2PE 2:22\">2 Пет. 2:22</a>)."
+     }
+    },
+    {
+     "at": [
+      176,
+      280
+     ],
+     "title": {
+      "en": "Every creature",
+      "ru": "Всякое создание"
+     },
+     "refs": {
+      "en": "<a data-ref=\"REV 5:13\">Rev 5:13</a>",
+      "ru": "<a data-ref=\"REV 5:13\">Откр. 5:13</a>"
+     },
+     "text": {
+      "en": "Every creature in heaven, on earth, under the earth and in the sea joins the song to God and to the Lamb.",
+      "ru": "Всякое создание на небе, на земле, под землёй и на море присоединяется к песни Богу и Агнцу."
+     }
+    }
+   ],
+   "bible": [
+    {
+     "en": "The leopard, bear and lion of <a data-ref=\"REV 13:2\">13:2</a> come from Daniel 7. The same three animals appear together in <a data-ref=\"HOS 13:7-8\">Hos 13:7–8</a>.",
+     "ru": "Барс, медведь и лев из <a data-ref=\"REV 13:2\">13:2</a> взяты из 7-й главы Даниила. Те же три зверя стоят рядом в <a data-ref=\"HOS 13:7-8\">Ос. 13:7–8</a>."
+    },
+    {
+     "en": "Horses return in <a data-ref=\"REV 14:20\">14:20</a>, where the winepress runs with blood up to the horses’ bridles.",
+     "ru": "Кони появляются снова в <a data-ref=\"REV 14:20\">14:20</a>, где кровь из точила течёт до узд конских."
+    },
+    {
+     "en": "The last chapter shows the Lamb on the throne (<a data-ref=\"REV 22:1-3\">22:1–3</a>), with the dogs outside the gates (<a data-ref=\"REV 22:15\">22:15</a>).",
+     "ru": "В последней главе Агнец на престоле (<a data-ref=\"REV 22:1-3\">22:1–3</a>), а псы — вне города (<a data-ref=\"REV 22:15\">22:15</a>)."
+    }
+   ],
+   "white": [
+    {
+     "en": "White gives no separate explanation of these mentions.",
+     "ru": "Отдельного объяснения этих упоминаний у Уайт нет."
+    },
+    {
+     "en": "She does describe the second plague, when the sea becomes like the blood of a dead man. She adds that the plagues are not universal, or the people of the earth would be wholly cut off, yet they are the worst scourges ever known <span class=\"cite-ref\">GC 627–629</span>.",
+     "ru": "Она описывает вторую язву, когда море становится как кровь мертвеца. Она добавляет, что язвы не будут повсеместными, иначе жители земли были бы полностью истреблены, и всё же это самые страшные бедствия, какие знал мир <span class=\"cite-ref\">GC 627–629</span>."
+    },
+    {
+     "en": "She quotes Revelation 22:15 as part of the list of those left outside the city, without explaining the word “dogs” on its own.",
+     "ru": "Откровение 22:15 она цитирует как перечень тех, кто остался вне города, не объясняя отдельно слово «псы»."
+    }
+   ],
+   "image": {
+    "src": "img/revelation/in-passing.webp",
+    "thumb": "img/revelation/in-passing-thumb.webp",
+    "width": 1600,
+    "height": 893
+   }
+  }
+ ],
+ "key": {
+  "title": {
+   "en": "Symbol key",
+   "ru": "Ключ к символам"
+  },
+  "intro": {
+   "en": "Each meaning below is given by the Bible itself. These are the rules the explanations above rely on.",
+   "ru": "Каждое значение даёт сама Библия. На эти правила опираются объяснения выше."
+  },
+  "rows": [
+   {
+    "symbol": {
+     "en": "A beast",
+     "ru": "Зверь"
+    },
+    "meaning": {
+     "en": "a king or kingdom",
+     "ru": "царь или царство"
+    },
+    "refs": {
+     "en": "<a data-ref=\"DAN 7:17\">Dan 7:17</a>, <a data-ref=\"DAN 7:23\">23</a>",
+     "ru": "<a data-ref=\"DAN 7:17\">Дан. 7:17</a>, <a data-ref=\"DAN 7:23\">23</a>"
+    }
+   },
+   {
+    "symbol": {
+     "en": "A horn",
+     "ru": "Рог"
+    },
+    "meaning": {
+     "en": "a king or ruling power",
+     "ru": "царь или правящая власть"
+    },
+    "refs": {
+     "en": "<a data-ref=\"DAN 7:24\">Dan 7:24</a>; <a data-ref=\"DAN 8:20-22\">8:20–22</a>; <a data-ref=\"REV 17:12\">Rev 17:12</a>",
+     "ru": "<a data-ref=\"DAN 7:24\">Дан. 7:24</a>; <a data-ref=\"DAN 8:20-22\">8:20–22</a>; <a data-ref=\"REV 17:12\">Откр. 17:12</a>"
+    }
+   },
+   {
+    "symbol": {
+     "en": "A head",
+     "ru": "Голова"
+    },
+    "meaning": {
+     "en": "a mountain and a king",
+     "ru": "гора и царь"
+    },
+    "refs": {
+     "en": "<a data-ref=\"REV 17:9-10\">Rev 17:9–10</a>",
+     "ru": "<a data-ref=\"REV 17:9-10\">Откр. 17:9–10</a>"
+    }
+   },
+   {
+    "symbol": {
+     "en": "Sea, many waters",
+     "ru": "Море, воды многие"
+    },
+    "meaning": {
+     "en": "peoples, multitudes, nations and tongues",
+     "ru": "люди и народы, племена и языки"
+    },
+    "refs": {
+     "en": "<a data-ref=\"REV 17:15\">Rev 17:15</a>; <a data-ref=\"ISA 17:12-13\">Isa 17:12–13</a>",
+     "ru": "<a data-ref=\"REV 17:15\">Откр. 17:15</a>; <a data-ref=\"ISA 17:12-13\">Ис. 17:12–13</a>"
+    }
+   },
+   {
+    "symbol": {
+     "en": "The dragon, the old serpent",
+     "ru": "Дракон, древний змий"
+    },
+    "meaning": {
+     "en": "the Devil and Satan",
+     "ru": "диавол и сатана"
+    },
+    "refs": {
+     "en": "<a data-ref=\"REV 12:9\">Rev 12:9</a>; <a data-ref=\"REV 20:2\">20:2</a>",
+     "ru": "<a data-ref=\"REV 12:9\">Откр. 12:9</a>; <a data-ref=\"REV 20:2\">20:2</a>"
+    }
+   },
+   {
+    "symbol": {
+     "en": "The Lamb",
+     "ru": "Агнец"
+    },
+    "meaning": {
+     "en": "Jesus Christ",
+     "ru": "Иисус Христос"
+    },
+    "refs": {
+     "en": "<a data-ref=\"JHN 1:29\">John 1:29</a>; <a data-ref=\"REV 5:6\">Rev 5:6</a>, <a data-ref=\"REV 5:9\">9</a>",
+     "ru": "<a data-ref=\"JHN 1:29\">Ин. 1:29</a>; <a data-ref=\"REV 5:6\">Откр. 5:6</a>, <a data-ref=\"REV 5:9\">9</a>"
+    }
+   },
+   {
+    "symbol": {
+     "en": "A pure woman",
+     "ru": "Чистая жена"
+    },
+    "meaning": {
+     "en": "God’s faithful people",
+     "ru": "верный Богу народ"
+    },
+    "refs": {
+     "en": "<a data-ref=\"JER 6:2\">Jer 6:2</a>; <a data-ref=\"2CO 11:2\">2 Cor 11:2</a>; <a data-ref=\"EPH 5:25-27\">Eph 5:25–27</a>",
+     "ru": "<a data-ref=\"JER 6:2\">Иер. 6:2</a>; <a data-ref=\"2CO 11:2\">2 Кор. 11:2</a>; <a data-ref=\"EPH 5:25-27\">Еф. 5:25–27</a>"
+    }
+   },
+   {
+    "symbol": {
+     "en": "A harlot",
+     "ru": "Блудница"
+    },
+    "meaning": {
+     "en": "a people unfaithful to God",
+     "ru": "народ, неверный Богу"
+    },
+    "refs": {
+     "en": "<a data-ref=\"EZK 16:1\">Ezek 16</a>; <a data-ref=\"HOS 2:1\">Hos 2</a>; <a data-ref=\"REV 17:5\">Rev 17:5</a>",
+     "ru": "<a data-ref=\"EZK 16:1\">Иез. 16</a>; <a data-ref=\"HOS 2:1\">Ос. 2</a>; <a data-ref=\"REV 17:5\">Откр. 17:5</a>"
+    }
+   },
+   {
+    "symbol": {
+     "en": "Stars",
+     "ru": "Звёзды"
+    },
+    "meaning": {
+     "en": "angels",
+     "ru": "ангелы"
+    },
+    "refs": {
+     "en": "<a data-ref=\"REV 1:20\">Rev 1:20</a>; <a data-ref=\"REV 12:4\">12:4</a>, <a data-ref=\"REV 12:9\">9</a>; <a data-ref=\"JOB 38:7\">Job 38:7</a>",
+     "ru": "<a data-ref=\"REV 1:20\">Откр. 1:20</a>; <a data-ref=\"REV 12:4\">12:4</a>, <a data-ref=\"REV 12:9\">9</a>; <a data-ref=\"JOB 38:7\">Иов 38:7</a>"
+    }
+   },
+   {
+    "symbol": {
+     "en": "A day in time prophecy",
+     "ru": "День в пророческих сроках"
+    },
+    "meaning": {
+     "en": "a year",
+     "ru": "год"
+    },
+    "refs": {
+     "en": "<a data-ref=\"NUM 14:34\">Num 14:34</a>; <a data-ref=\"EZK 4:6\">Ezek 4:6</a>",
+     "ru": "<a data-ref=\"NUM 14:34\">Чис. 14:34</a>; <a data-ref=\"EZK 4:6\">Иез. 4:6</a>"
+    }
+   },
+   {
+    "symbol": {
+     "en": "3½ times, 42 months, 1,260 days",
+     "ru": "3½ времени, 42 месяца, 1260 дней"
+    },
+    "meaning": {
+     "en": "one and the same period",
+     "ru": "один и тот же срок"
+    },
+    "refs": {
+     "en": "<a data-ref=\"DAN 7:25\">Dan 7:25</a>; <a data-ref=\"REV 11:2-3\">Rev 11:2–3</a>; <a data-ref=\"REV 12:6\">12:6</a>, <a data-ref=\"REV 12:14\">14</a>; <a data-ref=\"REV 13:5\">13:5</a>",
+     "ru": "<a data-ref=\"DAN 7:25\">Дан. 7:25</a>; <a data-ref=\"REV 11:2-3\">Откр. 11:2–3</a>; <a data-ref=\"REV 12:6\">12:6</a>, <a data-ref=\"REV 12:14\">14</a>; <a data-ref=\"REV 13:5\">13:5</a>"
+    }
+   },
+   {
+    "symbol": {
+     "en": "A sword from the mouth",
+     "ru": "Меч из уст"
+    },
+    "meaning": {
+     "en": "the word of God",
+     "ru": "слово Божье"
+    },
+    "refs": {
+     "en": "<a data-ref=\"HEB 4:12\">Heb 4:12</a>; <a data-ref=\"EPH 6:17\">Eph 6:17</a>; <a data-ref=\"REV 19:15\">Rev 19:15</a>",
+     "ru": "<a data-ref=\"HEB 4:12\">Евр. 4:12</a>; <a data-ref=\"EPH 6:17\">Еф. 6:17</a>; <a data-ref=\"REV 19:15\">Откр. 19:15</a>"
+    }
+   },
+   {
+    "symbol": {
+     "en": "White clothing",
+     "ru": "Белая одежда"
+    },
+    "meaning": {
+     "en": "righteousness",
+     "ru": "праведность"
+    },
+    "refs": {
+     "en": "<a data-ref=\"REV 19:8\">Rev 19:8</a>; <a data-ref=\"REV 7:14\">7:14</a>",
+     "ru": "<a data-ref=\"REV 19:8\">Откр. 19:8</a>; <a data-ref=\"REV 7:14\">7:14</a>"
+    }
+   },
+   {
+    "symbol": {
+     "en": "Eagle’s wings",
+     "ru": "Орлиные крылья"
+    },
+    "meaning": {
+     "en": "God’s rescue of his people",
+     "ru": "избавление, которое Бог даёт Своему народу"
+    },
+    "refs": {
+     "en": "<a data-ref=\"EXO 19:4\">Exod 19:4</a>; <a data-ref=\"DEU 32:11-12\">Deut 32:11–12</a>",
+     "ru": "<a data-ref=\"EXO 19:4\">Исх. 19:4</a>; <a data-ref=\"DEU 32:11-12\">Втор. 32:11–12</a>"
+    }
+   }
+  ]
+ },
+ "chart": {
+  "title": {
+   "en": "Time chart",
+   "ru": "Шкала времени"
+  },
+  "intro": {
+   "en": "The dated periods Ellen White gives for these creatures, drawn to one scale.",
+   "ru": "Датированные периоды, которые Эллен Уайт связывает с этими образами, в одном масштабе."
+  },
+  "range": [
+   0,
+   2000
+  ],
+  "rows": [
+   {
+    "label": {
+     "en": "Revelation 12 and 13 · the 42 months",
+     "ru": "Откровение 12 и 13 · 42 месяца"
+    },
+    "bars": [
+     {
+      "from": 538,
+      "to": 1798,
+      "kind": "a",
+      "text": {
+       "en": "1,260 years",
+       "ru": "1260 лет"
+      }
+     }
+    ]
+   },
+   {
+    "label": {
+     "en": "Revelation 9 · the two trumpets",
+     "ru": "Откровение 9 · две трубы"
+    },
+    "bars": [
+     {
+      "from": 1299,
+      "to": 1449,
+      "kind": "b",
+      "text": {
+       "en": "150",
+       "ru": "150"
+      }
+     },
+     {
+      "from": 1449,
+      "to": 1840,
+      "kind": "c",
+      "text": {
+       "en": "391 years 15 days",
+       "ru": "391 год 15 дней"
+      }
+     }
+    ]
+   }
+  ],
+  "notes": [
+   {
+    "kind": "a",
+    "text": {
+     "en": "<b>538 to 1798.</b> The 42 months of the sea beast, the 1,260 days of the woman in the wilderness and the “time, and times, and half a time” are one period. It ends with the deadly wound, and the lamb-horned beast is then “coming up” <span class=\"cite-ref\">GC 266</span> <span class=\"cite-ref\">GC 439–441</span>.",
+     "ru": "<b>538–1798.</b> 42 месяца зверя из моря, 1260 дней жены в пустыне и «время, времена и полвремени» — один период. Он завершается смертельной раной; в это же время «выходит» зверь с рогами, как у агнца <span class=\"cite-ref\">GC 266</span> <span class=\"cite-ref\">GC 439–441</span>."
+    }
+   },
+   {
+    "kind": "b",
+    "text": {
+     "en": "<b>1299 to 1449.</b> The five months of the locusts, 150 years. The starting year is Josiah Litch’s. White quotes the lengths of the two periods and the closing date.",
+     "ru": "<b>1299–1449.</b> Пять месяцев саранчи, 150 лет. Год начала взят у Иосии Литча. Уайт приводит длительность обоих периодов и дату окончания."
+    }
+   },
+   {
+    "kind": "c",
+    "text": {
+     "en": "<b>1449 to 11 August 1840.</b> The hour, day, month and year of the sixth trumpet, 391 years and 15 days. White reports this calculation <span class=\"cite-ref\">GC 334–335</span>.",
+     "ru": "<b>1449 — 11 августа 1840.</b> Час, день, месяц и год шестой трубы: 391 год и 15 дней. Уайт приводит этот расчёт <span class=\"cite-ref\">GC 334–335</span>."
+    }
+   },
+   {
+    "kind": "d",
+    "text": {
+     "en": "<b>Still future.</b> The thousand years of Revelation 20, when the dragon is bound, are not on this scale <span class=\"cite-ref\">GC 658–660</span>.",
+     "ru": "<b>Ещё впереди.</b> Тысяча лет из 20-й главы Откровения, когда дракон скован, на эту шкалу не нанесена <span class=\"cite-ref\">GC 658–660</span>."
+    }
+   }
+  ]
+ },
+ "sources": {
+  "title": {
+   "en": "Sources",
+   "ru": "Источники"
+  },
+  "intro": {
+   "en": "Page numbers follow the standard English editions, as Ellen White’s books are normally cited. Chapter numbers are given so each passage can be found in any edition.",
+   "ru": "Страницы указаны по стандартным английским изданиям, как обычно цитируют книги Эллен Уайт. Номера глав даны, чтобы отрывок можно было найти в любом издании."
+  },
+  "groups": [
+   {
+    "title": {
+     "en": "Ellen G. White: books",
+     "ru": "Эллен Г. Уайт: книги"
+    },
+    "items": [
+     {
+      "en": "<b>GC</b> <cite>The Great Controversy</cite> (1911). Pages 54–55 (ch. 3), 61–78 (ch. 4), 266–267 (ch. 15), 334–335 (ch. 18), 382–383 and 390 (ch. 21), 426–427 (ch. 24), 438–449 (ch. 25), 553 (ch. 34), 578–579 (ch. 35), 588 (ch. 36), 603–604 (ch. 38), 624 and 627–629 (ch. 39), 640–641 and 648–649 (ch. 40), 656–660 (ch. 41).",
+      "ru": "<b>GC</b> <cite>The Great Controversy</cite> («Великая борьба», 1911). Стр. 54–55 (гл. 3), 61–78 (гл. 4), 266–267 (гл. 15), 334–335 (гл. 18), 382–383 и 390 (гл. 21), 426–427 (гл. 24), 438–449 (гл. 25), 553 (гл. 34), 578–579 (гл. 35), 588 (гл. 36), 603–604 (гл. 38), 624 и 627–629 (гл. 39), 640–641 и 648–649 (гл. 40), 656–660 (гл. 41)."
+     },
+     {
+      "en": "<b>AA</b> <cite>The Acts of the Apostles</cite> (1911), chapter 57, “The Revelation.” On this site: <a class=\"cite-ref\" data-work=\"acts-of-the-apostles\" data-part=\"57\">AA 589</a>.",
+      "ru": "<b>AA</b> <cite>The Acts of the Apostles</cite> («Деяния апостолов», 1911), глава 57, «Откровение». На этом сайте: <a class=\"cite-ref\" data-work=\"acts-of-the-apostles\" data-part=\"57\">AA 589</a>."
+     },
+     {
+      "en": "<b>PP</b> <cite>Patriarchs and Prophets</cite> (1890), chapters 3 and 24. On this site: <a class=\"cite-ref\" data-work=\"patriarchs-and-prophets\" data-part=\"3\">PP 53</a> <a class=\"cite-ref\" data-work=\"patriarchs-and-prophets\" data-part=\"24\">PP 277</a>.",
+      "ru": "<b>PP</b> <cite>Patriarchs and Prophets</cite> («Патриархи и пророки», 1890), главы 3 и 24. На этом сайте: <a class=\"cite-ref\" data-work=\"patriarchs-and-prophets\" data-part=\"3\">PP 53</a> <a class=\"cite-ref\" data-work=\"patriarchs-and-prophets\" data-part=\"24\">PP 277</a>."
+     },
+     {
+      "en": "<b>Ed</b> <cite>Education</cite> (1903), pages 177–178, in the chapter “History and Prophecy.”",
+      "ru": "<b>Ed</b> <cite>Education</cite> («Воспитание», 1903), стр. 177–178, глава «История и пророчество»."
+     },
+     {
+      "en": "<b>3T, 5T, 6T</b> <cite>Testimonies for the Church</cite>, volumes 3, 5 and 6.",
+      "ru": "<b>3T, 5T, 6T</b> <cite>Testimonies for the Church</cite> («Свидетельства для церкви»), тома 3, 5 и 6."
+     }
+    ]
+   },
+   {
+    "title": {
+     "en": "Ellen G. White: letters, manuscripts and compilations",
+     "ru": "Эллен Г. Уайт: письма, рукописи и сборники"
+    },
+    "items": [
+     {
+      "en": "<b>4BC, 7BC</b> Her comments printed in <cite>The Seventh-day Adventist Bible Commentary</cite>, volume 4, page 1161 (Manuscript 13, 1898), and volume 7, page 983.",
+      "ru": "<b>4BC, 7BC</b> Её комментарии в издании <cite>The Seventh-day Adventist Bible Commentary</cite>: том 4, стр. 1161 (рукопись 13, 1898), и том 7, стр. 983."
+     },
+     {
+      "en": "<b>CTr</b> <cite>Christ Triumphant</cite> (compiled 1999), page 315.",
+      "ru": "<b>CTr</b> <cite>Christ Triumphant</cite> (сборник, 1999), стр. 315."
+     },
+     {
+      "en": "<b>Mar</b> <cite>Maranatha</cite> (compiled 1976), page 190.",
+      "ru": "<b>Mar</b> <cite>Maranatha</cite> (сборник, 1976), стр. 190."
+     },
+     {
+      "en": "Letter 65, 1898, on Revelation 6:6–8.",
+      "ru": "Письмо 65, 1898 год, об Откровении 6:6–8."
+     }
+    ]
+   },
+   {
+    "title": {
+     "en": "Other writers named on this page",
+     "ru": "Другие авторы, упомянутые на странице"
+    },
+    "items": [
+     {
+      "en": "Josiah Litch, <cite>The Probability of the Second Coming of Christ About A.D. 1843</cite> (1838), and his article of 1 August 1840 in <cite>Signs of the Times</cite>.",
+      "ru": "Josiah Litch, <cite>The Probability of the Second Coming of Christ About A.D. 1843</cite> (1838), и его статья от 1 августа 1840 года в журнале <cite>Signs of the Times</cite>."
+     },
+     {
+      "en": "Uriah Smith, <cite>Thoughts on Daniel and the Revelation</cite> (combined edition, 1882).",
+      "ru": "Uriah Smith, <cite>Thoughts on Daniel and the Revelation</cite> (объединённое издание, 1882)."
+     },
+     {
+      "en": "Uriah Smith and James White, <cite>The Biblical Institute</cite> (1878).",
+      "ru": "Uriah Smith и James White, <cite>The Biblical Institute</cite> (1878)."
+     },
+     {
+      "en": "L. E. Froom, <cite>The Prophetic Faith of Our Fathers</cite>, volume 4 (1954).",
+      "ru": "L. E. Froom, <cite>The Prophetic Faith of Our Fathers</cite>, том 4 (1954)."
+     },
+     {
+      "en": "Robert W. Olson, <cite>101 Questions on the Sanctuary and on Ellen White</cite> (Ellen G. White Estate, 1981), on her reference to Revelation 9.",
+      "ru": "Robert W. Olson, <cite>101 Questions on the Sanctuary and on Ellen White</cite> (Центр наследия Эллен Уайт, 1981), о её упоминании 9-й главы Откровения."
+     },
+     {
+      "en": "Biblical Research Institute, “Ellen White’s Statements About the 5th and 6th Trumpets.”",
+      "ru": "Biblical Research Institute, «Ellen White’s Statements About the 5th and 6th Trumpets»."
+     }
+    ]
+   }
+  ]
+ },
+ "footer": [
+  {
+   "en": "The verse under each plate is quoted in the translation you are reading. Quotations within the text follow the King James Version, which is in the public domain. Chapter and verse numbers refer to Revelation unless another book is named.",
+   "ru": "Стих под каждым рисунком приводится в переводе, который вы читаете; цитаты в тексте — по Синодальному переводу. Номера глав и стихов относятся к Откровению, если не названа другая книга. Русский текст этой страницы — перевод с английского, выполненный для сайта искусственным интеллектом (Claude)."
+  },
+  {
+   "en": "Ellen White is paraphrased throughout; four short phrases are quoted and marked. Where no statement of hers could be found, the entry says so. Check a reference against the book before quoting it.",
+   "ru": "Мысли Эллен Уайт изложены в пересказе; дословно приведены четыре короткие фразы, они взяты в кавычки. Если её высказываний найти не удалось, это указано. Прежде чем цитировать, сверьте ссылку с книгой."
+  },
+  {
+   "en": "The pictures were made with an AI image generator. They are aids to memory, not reconstructions, and they do not follow the text in every detail: where a picture and the text differ, the text is right.",
+   "ru": "Рисунки созданы с помощью генератора изображений на основе искусственного интеллекта. Это памятки, а не реконструкции, и они не во всём следуют тексту: там, где рисунок расходится с текстом, верен текст."
+  }
+ ]
+}

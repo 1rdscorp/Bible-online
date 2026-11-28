@@ -20,6 +20,33 @@
     "DAN 2",
     "DAN 7"
    ]
+  },
+  {
+   "id": "revelation-animals",
+   "file": "explore/revelation-animals.json",
+   "icon": "creature",
+   "title": {
+    "en": "The Animals of Revelation",
+    "ru": "Животные и звери Откровения"
+   },
+   "summary": {
+    "en": "The Lamb, the dragon, the four horses and the beasts of Revelation 13 and 17: fifteen pictures with numbered points, what the Bible says about each, and Ellen G. White’s comments.",
+    "ru": "Агнец, дракон, четыре коня и звери из 13-й и 17-й глав Откровения: пятнадцать рисунков с пронумерованными деталями, слова Библии о каждом и комментарии Эллен Г. Уайт."
+   },
+   "books": [
+    "REV"
+   ],
+   "chapters": [
+    "REV 4",
+    "REV 5",
+    "REV 6",
+    "REV 9",
+    "REV 12",
+    "REV 13",
+    "REV 16",
+    "REV 17",
+    "REV 19"
+   ]
   }
  ]
 }
