@@ -11,11 +11,21 @@
  * Writings, the Ellen G. White Estate's free online library, whose search
  * goes straight to the page cited.
  *
+ * When the site is in Russian, a book with a Russian edition in EGW Writings
+ * opens in it, at the same page («ВБ 603» for GC 603: those editions are
+ * numbered by the English pages; js/research/egw-russian.js, made by
+ * tools/fetch-egw-russian.mjs). That includes the three books above, whose
+ * text here is mostly English. A book without one opens in English.
+ *
  * Only the abbreviations below count, in their exact capitals, and only
  * before a page number that isn't a chapter:verse, so "Col 1:13", "605 BC"
  * or "AD 70" are left alone. No DOM: tests/egw.test.js.
  */
+import { getLanguage } from '../i18n.js';
 import { commentaryHref } from '../router.js';
+import { RUSSIAN_EDITIONS } from './egw-russian.js';
+
+const EGW = 'https://m.egwwritings.org';
 
 /**
  * Abbreviation → title. Every one was checked against EGW Writings: its
@@ -171,15 +181,41 @@ function citation(index, length, abbr, page, para, endPage) {
 }
 
 /** Where a citation opens: this site's own copy, or EGW Writings. */
-export function egwHref({ abbr, page, para, number, year }) {
+/** A book's Russian edition in EGW Writings ({ ru: "ВБ", title }), when the site is in Russian. */
+const russianEdition = (abbr, lang) => (lang === 'ru' ? (RUSSIAN_EDITIONS[abbr] ?? null) : null);
+
+/**
+ * Where a citation opens, for the interface language `lang`: this site's own
+ * copy, or EGW Writings, in Russian where there is a Russian edition.
+ * (A paragraph number is left out in Russian: the paragraphs are divided
+ * differently there.)
+ */
+export function egwHref({ abbr, page, para, number, year }, lang = getLanguage()) {
+  const russian = number ? null : russianEdition(abbr, lang);
+  if (russian) return `${EGW}/ru/search?query=${encodeURIComponent(`${russian.ru} ${page + (russian.shift ?? 0)}`)}`;
   const work = SITE_WORKS[abbr];
   if (work) return commentaryHref(work, null, `p=${page}`);
   const query = number ? `${abbr} ${number}, ${year}` : `${abbr} ${page}${para ? `.${para}` : ''}`;
-  return `https://m.egwwritings.org/en/search?query=${encodeURIComponent(query)}`;
+  return `${EGW}/en/search?query=${encodeURIComponent(query)}`;
 }
 
-/** "The Great Controversy, p. 603" (or pp. 603–604), for a link's tooltip. */
-export function egwTitle({ abbr, page, endPage, number, year }) {
+/** Whether a link from egwHref opens EGW Writings in English. */
+export const isEnglishEgw = (href) => href.startsWith(`${EGW}/en/`);
+
+/**
+ * A link's tooltip: "The Great Controversy, p. 603" (or pp. 603–604); in
+ * Russian «Великая борьба, стр. 603», or the English title marked as
+ * English where there's no Russian edition.
+ */
+export function egwTitle({ abbr, page, endPage, number, year }, lang = getLanguage()) {
+  if (lang === 'ru') {
+    if (number) return `${abbr === 'Lt' ? 'Письмо' : 'Рукопись'} ${number}, ${year} (на английском)`;
+    const russian = russianEdition(abbr, lang);
+    // The Russian page, where the edition is numbered a little differently.
+    const shift = russian?.shift ?? 0;
+    const pages = endPage ? `стр. ${page + shift}–${endPage + shift}` : `стр. ${page + shift}`;
+    return russian ? `${russian.title}, ${pages}` : `${EGW_BOOKS[abbr] ?? CITATION_ONLY[abbr]}, ${pages} (на английском)`;
+  }
   if (number) return `${abbr === 'Lt' ? 'Letter' : 'Manuscript'} ${number}, ${year}`;
   return `${EGW_BOOKS[abbr] ?? CITATION_ONLY[abbr]}, ${endPage ? `pp. ${page}–${endPage}` : `p. ${page}`}`;
 }
