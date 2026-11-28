@@ -16,7 +16,7 @@
  * No other address gets through.
  */
 import { getBook } from '../../canon.js';
-import { egwHref, egwTitle, findEgwCitations, SITE_WORKS } from '../../research/egw.js';
+import { egwHref, egwTitle, findEgwCitations, isEnglishEgw } from '../../research/egw.js';
 import { parseRef } from '../../research/refs.js';
 import { chapterHref, commentaryHref } from '../../router.js';
 
@@ -83,11 +83,19 @@ function rebuild(source, doc) {
   if (tag === 'span' && classes.includes('cite-ref')) return citationLabel(source.textContent, doc);
   if (tag === 'a') {
     let href = source.hasAttribute('data-work') ? workHref(source.getAttribute('data-work'), source.getAttribute('data-part')) : verseHref(source.getAttribute('data-ref') ?? '');
-    // "AA 589": straight to the page, when the site has the book's pages.
+    // A citation of a book the site has ("AA 589"): straight to the page where
+    // the site has the book's pages, or (site in Russian) the Russian edition
+    // in EGW Writings; not to English EGW Writings, since the chapter is here.
     const cite = href && classes.includes('cite-ref') ? findEgwCitations(source.textContent, { labels: true })[0] : null;
-    if (cite && SITE_WORKS[cite.abbr]) href = egwHref(cite);
+    const better = cite ? egwHref(cite) : null;
+    if (better && !isEnglishEgw(better)) href = better;
     const node = href ? doc.createElement('a') : doc.createElement('span');
     if (href) node.href = href;
+    if (href && !href.startsWith('#')) {
+      node.target = '_blank';
+      node.rel = 'noopener noreferrer';
+      node.title = egwTitle(cite);
+    }
     if (classes.length) node.className = classes.join(' ');
     node.append(...children);
     return node;
