@@ -275,75 +275,14 @@
   display: block;
   width: auto;
   height: clamp(20rem, calc(100vh - var(--header-height) - 14rem), 32.5rem);
-  aspect-ratio: 1050 / 2000;
   overflow: hidden;
   border-radius: 3px;
   box-shadow: 0 0 0 1px rgb(255 255 255 / 0.18), 0 10px 26px -14px rgb(0 0 0 / 0.7);
 }
 
-/* The picture (js/views/explore/statue-figure.js): the parts' outlines lie
-   over it and can be clicked; the chosen part stays lit, the rest dims. */
-.statue-part {
-  fill: transparent;
-  cursor: pointer;
-}
-
-.statue-dim {
-  fill: #050a18;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-}
-
-.statue.has-selection .statue-dim {
-  opacity: 0.55;
-}
-
-.statue-glow {
-  fill: none;
-  stroke: rgb(255 226 150 / 0.75);
-  stroke-width: 9;
-  stroke-linejoin: round;
-  pointer-events: none;
-}
-
-.statue-glow--hover {
-  stroke: rgb(255 255 255 / 0.45);
-}
-
-/* Releasing the stone: the picture gives way to the statue alone over the
-   empty hall, then to its shards; at the end the stone is the mountain. */
-.statue-whole,
-.statue-stone {
-  visibility: hidden;
-}
-
-.statue.is-busy .statue-picture,
-.statue.is-fallen .statue-picture {
-  visibility: hidden;
-}
-
-.statue.is-busy .statue-whole,
-.statue.is-busy .statue-stone,
-.statue.is-fallen .statue-stone {
-  visibility: visible;
-}
-
-/* Once it breaks, only the shards. */
-.statue.is-busy.is-breaking .statue-whole {
-  visibility: hidden;
-}
-
-.statue:is(.is-busy, .is-fallen) :is(.statue-dim, .statue-glow) {
-  display: none;
-}
-
-.statue:is(.is-busy, .is-fallen) .statue-hits {
-  pointer-events: none;
-}
-
-.statue.is-fallen .statue-stone {
-  filter: saturate(0.85) brightness(1.05);
+/* The picture and its full-screen button (css/pictures.css). */
+.statue-picture {
+  position: relative;
 }
 
 /* The parts' buttons, each level with its part of the figure. */
@@ -377,9 +316,9 @@
 
 .statue-rail-button {
   display: grid;
-  grid-template-columns: 0.5rem 1fr;
-  align-items: stretch;
-  column-gap: 0.55rem;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 0.5rem;
   width: 100%;
   min-height: 2.75rem;
   padding: 0.3rem 0.5rem 0.3rem 0.4rem;
@@ -391,11 +330,27 @@
   cursor: pointer;
 }
 
-.statue-rail-button .statue-swatch {
+/* The part's number, as on the picture, ringed in its metal. */
+.statue-rail-number {
+  display: grid;
   grid-row: 1 / 3;
-  border-radius: 1px;
-  background: var(--metal-fill);
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.25);
+  place-items: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  border: 2px solid var(--metal);
+  border-radius: 50%;
+  background: #fff;
+  color: #1b1c20;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.statue-rail-button[aria-pressed="true"] .statue-rail-number {
+  border-color: #f2c744;
+  background: #1b1c20;
+  color: #fff;
 }
 
 .statue-rail-part {
@@ -424,34 +379,12 @@
 
 .statue-stage-foot {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr;
   align-items: center;
   gap: 0.6rem;
   margin-top: 0.6rem;
   padding-top: 0.6rem;
   border-top: 1px solid var(--stage-rule);
-}
-
-.statue-release {
-  min-height: 2.75rem;
-  padding: 0.5rem 0.9rem;
-  border: 1px solid #e9c659;
-  border-radius: var(--radius-sm);
-  background: linear-gradient(#f2d36d, #d4a017);
-  color: #1a1404;
-  font-size: 0.88rem;
-  font-weight: 600;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.statue-release:hover {
-  filter: brightness(1.07);
-}
-
-.statue-release:disabled {
-  opacity: 0.6;
-  cursor: default;
 }
 
 .statue-frieze {
@@ -1432,10 +1365,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .statue-dim {
-    transition: none;
-  }
-
   .is-flashing {
     animation-duration: 0.01s;
   }

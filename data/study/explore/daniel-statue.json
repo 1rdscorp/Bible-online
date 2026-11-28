@@ -40,17 +40,24 @@
  ],
  "stage": {
   "start": {
-   "en": "<b><a data-ref=\"DAN 2:31-35\">Daniel 2:31–35</a>.</b> Select a part of the statue, or let the stone go.",
-   "ru": "<b><a data-ref=\"DAN 2:31-35\">Дан. 2:31–35</a>.</b> Выберите часть истукана или отпустите камень."
-  },
-  "fallen": {
-   "en": "<b><a data-ref=\"DAN 2:35\">2:35</a>.</b> “The stone that struck the image became a great mountain, and filled the whole earth.”",
-   "ru": "<b><a data-ref=\"DAN 2:35\">2:35</a>.</b> «Камень, разбивший истукан, сделался великою горою и наполнил всю землю»."
+   "en": "<b><a data-ref=\"DAN 2:31-35\">Daniel 2:31–35</a>.</b> Choose a number on the picture or a part beside it.",
+   "ru": "<b><a data-ref=\"DAN 2:31-35\">Дан. 2:31–35</a>.</b> Выберите номер на рисунке или часть рядом с ним."
   },
   "figure": {
-   "en": "A statue with a head of gold, chest and arms of silver, belly and thighs of bronze, legs of iron, and feet of iron and clay. A rough stone hangs beside it.",
-   "ru": "Истукан с золотой головой, серебряными грудью и руками, медными чревом и бёдрами, железными голенями и ногами из железа и глины. Рядом с ним висит необработанный камень."
-  }
+   "en": "A great statue in the ruins of an ancient city, under a cloudy sky: a head of gold, chest and arms of silver, belly and thighs of bronze, legs of iron, and feet of iron and clay. A rough stone flies toward it.",
+   "ru": "Огромный истукан среди руин древнего города под облачным небом: золотая голова, серебряные грудь и руки, медные чрево и бёдра, железные голени и ноги из железа и глины. К нему летит необработанный камень."
+  },
+  "image": {
+   "src": "img/daniel-statue/statue.webp",
+   "width": 1493,
+   "height": 2000
+  },
+  "crop": [
+   380,
+   50,
+   980,
+   1880
+  ]
  },
  "parts": [
   {
@@ -75,6 +82,10 @@
    "verses": [
     "DAN 2:32",
     "DAN 2:37-38"
+   ],
+   "at": [
+    650,
+    250
    ],
    "kingdom": {
     "name": {
@@ -207,6 +218,10 @@
    "verses": [
     "DAN 2:32",
     "DAN 2:39"
+   ],
+   "at": [
+    590,
+    520
    ],
    "kingdoms": {
     "traditional": {
@@ -442,6 +457,10 @@
     "DAN 2:32",
     "DAN 2:39"
    ],
+   "at": [
+    650,
+    880
+   ],
    "kingdoms": {
     "traditional": {
      "name": {
@@ -673,6 +692,10 @@
    "verses": [
     "DAN 2:33",
     "DAN 2:40"
+   ],
+   "at": [
+    622,
+    1400
    ],
    "kingdoms": {
     "traditional": {
@@ -911,6 +934,10 @@
     "DAN 2:33",
     "DAN 2:41-43"
    ],
+   "at": [
+    624,
+    1712
+   ],
    "kingdoms": {
     "traditional": {
      "name": {
@@ -1143,6 +1170,10 @@
    "verses": [
     "DAN 2:34-35",
     "DAN 2:44"
+   ],
+   "at": [
+    1180,
+    520
    ],
    "kingdoms": {
     "traditional": {

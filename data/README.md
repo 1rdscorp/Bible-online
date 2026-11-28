@@ -285,9 +285,9 @@ The basemap is Natural Earth's land, natural lakes and Bible rivers, clipped to 
 
 - **`explore.json`:** the interactive studies, each `{ id, file, icon, title, summary, books, chapters }`. `books` lists the introductions that link to it, and `chapters` (`"DAN 2"`) the chapters that do.
 - **`explore/daniel-statue.json`:** the statue of Daniel 2 (`formatVersion` 2). Text is `{ "en": …, "ru": … }`. Longer text is *rich*: a small subset of HTML (`p`, `b`, `i`, `cite`, `sup`, `ul`/`li`, `h4`, simple tables, `div.cols`), where a verse is `<a data-ref="DAN 2:35">2:35</a>`. The page rebuilds it element by element (`js/views/templates/rich-html.js`), so nothing else gets through. Its fields are:
-  - `title`, `eyebrow`, `summary`, `passage`, and `stage` (the captions before and after the stone falls, and the figure's description).
+  - `title`, `eyebrow`, `summary`, `passage`, and `stage`: its caption, the picture's description, `image` (`{ src, width, height }`, in the picture's own pixels) and `crop` (`[x, y, width, height]`: what the page shows; full screen shows the whole picture).
   - `readings`: `traditional` (the Roman sequence) and `scholarly` (the Greek sequence), each with a title and a note.
-  - `parts`: head, chest, belly, legs, feet, stone. Each has a `metal`, `title`, `short` and `label` (the list beside the figure), `refs` (shown), `verses` (quoted), and either one `kingdom` (Babylon) or `kingdoms` per reading.
+  - `parts`: head, chest, belly, legs, feet, stone. Each has a `metal`, `title`, `short` and `label` (the list beside the figure), `refs` (shown), `verses` (quoted), `at` (where its number sits on the picture, `[x, y]` in the picture's pixels), and either one `kingdom` (Babylon) or `kingdoms` per reading.
   - Each kingdom: `name`, `rail` (its name in the list), `full`, `dates`, `agree` (both readings say so), `summary`, `stats` (`[label, value]` pairs), `facts`, `differ`, `evidence` (ids), and for the map `regions` (ids), `places` (OpenBible ids) and `landmarks` (ids). The stone's kingdom also has `regionMetals` (it shows all four kingdoms) and a `mapNote`.
   - `regions`: approximate extents. Each has a title, a date, a label point, and rings of `[lon, lat, …]`. The rings may run out to sea, since the map clips them to the coastline.
   - `landmarks`: historical sites the Bible doesn't name, each with a note.

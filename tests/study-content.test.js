@@ -226,7 +226,9 @@ describe('explore pages (data/study/explore.json)', () => {
 
     problems.push(...plain(statue.title, 'title'), ...plain(statue.eyebrow, 'eyebrow'), ...rich(statue.summary, 'summary'), ...refProblems(statue.passage, 'passage'));
     for (const reading of statue.readings) problems.push(...plain(reading.title, `reading ${reading.id}`), ...rich(reading.note, `reading ${reading.id}.note`));
-    problems.push(...rich(statue.stage.start, 'stage.start'), ...rich(statue.stage.fallen, 'stage.fallen'), ...plain(statue.stage.figure, 'stage.figure'));
+    problems.push(...rich(statue.stage.start, 'stage.start'), ...plain(statue.stage.figure, 'stage.figure'));
+    if (!/^img\/[a-z0-9-]+\/[a-z0-9-]+\.webp$/.test(statue.stage.image?.src ?? '')) problems.push('stage.image: a WebP in img/');
+    if (!(statue.stage.crop?.length === 4)) problems.push('stage.crop: [x, y, width, height]');
 
     const evidenceIds = new Set(statue.evidence.items.map((item) => item.id));
     const checkKingdom = (part, kingdom, label) => {
@@ -248,6 +250,7 @@ describe('explore pages (data/study/explore.json)', () => {
       for (const key of ['title', 'short', 'label', 'refs']) problems.push(...plain(part[key], `${part.id}.${key}`));
       if (!['gold', 'silver', 'bronze', 'iron', 'mix', 'stone'].includes(part.metal)) problems.push(`${part.id}: unknown metal ${part.metal}`);
       if (!part.verses?.length) problems.push(`${part.id}: no verses`);
+      if (!(Array.isArray(part.at) && part.at.length === 2 && part.at.every(Number.isFinite))) problems.push(`${part.id}: its number's place on the picture, "at": [x, y]`);
       for (const ref of part.verses ?? []) problems.push(...refProblems(ref, `${part.id}.verses`));
       if (part.kingdom) checkKingdom(part, part.kingdom, part.id);
       else for (const reading of readings) part.kingdoms?.[reading] ? checkKingdom(part, part.kingdoms[reading], `${part.id}.${reading}`) : problems.push(`${part.id}: no kingdom for ${reading}`);
