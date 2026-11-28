@@ -67,3 +67,32 @@ test('notes turn citations into links, beside web addresses', () => {
   );
   assert.equal(runs.map((run) => run.text).join(''), 'See GC 603–604 and https://example.org, also DA 44.');
 });
+
+test('letters and manuscripts by number and year, in English and Russian', () => {
+  const text = 'Letter 65, 1898; Lt 30, 1888; Ms 140, 1902; Письмо 65, 1898; Рукопись 140, 1902.';
+  const found = findEgwCitations(text);
+  assert.deepEqual(found.map(({ abbr, number, year }) => [abbr, number, year]), [['Lt', '65', 1898], ['Lt', '30', 1888], ['Ms', '140', 1902], ['Lt', '65', 1898], ['Ms', '140', 1902]]);
+  assert.equal(egwHref(found[0]), 'https://m.egwwritings.org/en/search?query=Lt%2065%2C%201898');
+  assert.equal(egwTitle(found[2]), 'Manuscript 140, 1902');
+  assert.deepEqual(findEgwCitations('Letter 65 is lost; a letter, 1898'), [], 'needs a number and a year');
+});
+
+test('"Mar" (Maranatha) counts only in a citation label, not in free text', () => {
+  assert.deepEqual(findEgwCitations('Mar 190'), []);
+  const [cite] = findEgwCitations('Mar 190', { labels: true });
+  assert.equal(egwHref(cite), 'https://m.egwwritings.org/en/search?query=Mar%20190');
+  assert.equal(egwTitle(cite), 'Maranatha, p. 190');
+});
+
+test('every citation label in the study pages is a citation the site can link', () => {
+  for (const file of ['revelation-animals']) {
+    const text = readFileSync(new URL(`../data/study/explore/${file}.json`, import.meta.url), 'utf8');
+    const labels = [...text.matchAll(/class=\\"cite-ref\\"[^>]*>([^<]+)</g)].map((m) => m[1]);
+    assert.ok(labels.length > 50, file);
+    const unlinked = labels.filter((label) => {
+      const cites = findEgwCitations(label, { labels: true });
+      return cites.length !== 1 || cites[0].length !== label.length;
+    });
+    assert.deepEqual([...new Set(unlinked)], [], file);
+  }
+});
