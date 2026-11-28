@@ -193,6 +193,24 @@
   vertical-align: 0.25em;
 }
 
+/* The paragraph a citation such as "DA 44" opens at (?p=44): flashes once,
+   like a verse jumped to (css/reader.css). */
+.commentary-page-target:focus {
+  outline: none;
+}
+
+.commentary-page-target.is-flash {
+  border-radius: 2px;
+  animation: verse-flash 2s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .commentary-page-target.is-flash {
+    animation: none;
+    background-color: var(--color-highlight);
+  }
+}
+
 .note-mark {
   text-decoration: none;
 }

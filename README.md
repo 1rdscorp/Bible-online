@@ -64,7 +64,7 @@ In the repository, go to **Settings → Pages → Build and deployment**. Set **
 | `#/explore` | Interactive studies; `#/explore/daniel-statue?part=legs&reading=traditional` opens the statue of Daniel 2 at a part; `#/explore/revelation-animals?part=dragon` opens the animals of Revelation at a plate |
 | `#/topics` | Topics (`?q=prayer` fills the search box); `#/topics/faith` one topic (`?s=12` opens at its 13th statement, with its verses shown) |
 | `#/plans` | Reading plans; `#/plans/bible-year` one plan: start it, today's reading, progress, every day |
-| `#/commentary` | Adventist commentary: the books; `#/commentary/desire-of-ages` one book's contents (`?book=daniel` only its chapters on Daniel); `#/commentary/desire-of-ages/17` a chapter (`?v=3` scrolls to where verse 3 is discussed, in a verse-by-verse commentary) |
+| `#/commentary` | Adventist commentary: the books; `#/commentary/desire-of-ages` one book's contents (`?book=daniel` only its chapters on Daniel); `#/commentary/desire-of-ages/17` a chapter (`?v=3` scrolls to where verse 3 is discussed, in a verse-by-verse commentary); `?p=44` on a book or chapter opens at that printed page |
 
 A link without `?t=` opens in the translations you used last. Abbreviations redirect to the canonical URL (`#/jn/3` → `#/john/3?t=…`). Opening the site with no `#…` resumes the last chapter read.
 
@@ -121,6 +121,11 @@ Tap or click a verse to select it (tap more to add them, or Shift+click for a ra
 - **The panel** (docked on the right on wide screens, a sheet from the bottom on phones) shows the chapter's notes and searches all of them. It opens from the action bar, from a note's marker after its verse, or from "Notes" under the chapter.
 - **The editor** has bold, italic and bullet lists (also Ctrl/⌘+B and Ctrl/⌘+I), plus tags. **Ctrl/⌘+Enter** saves.
 - **Stored as simple markup** (`**bold**`, `*italic*`, `- item`). Notes are displayed by building the page element by element, never as raw HTML, and pasted text comes in as plain text. So a note, or an imported backup, can't inject anything into the page.
+- **Links:** web addresses, and Ellen G. White citations by their standard abbreviation and page: `GC 603–604`, `5T 751–754`, `4BC 1161`, `DA 44.2`, `COL 69, 70` (`js/research/egw.js`).
+  - The Desire of Ages, Prophets and Kings and The Acts of the Apostles open on this site, at that printed page (`#/commentary/desire-of-ages?p=44`), offline too.
+  - Every other book opens in [EGW Writings](https://m.egwwritings.org/en), the Ellen G. White Estate's free library, at the page cited. That includes Patriarchs and Prophets, whose text here has no page numbers.
+  - About 120 abbreviations count: Testimonies (`1T`–`9T`), the Bible Commentary's Ellen G. White comments (`1BC`–`7BC`), Selected Messages (`1SM`–`3SM`), Manuscript Releases, and the books. Each was checked to open in EGW Writings.
+  - Only exact abbreviations before a page number count, so `Col 1:13`, `605 BC` and `AD 70` stay text. Left out: `Mar` (Maranatha; "Mar 12" is usually a date) and `Pr` (also Proverbs).
 
 **My Study** (the bookmark icon in the header, "My Study" under each chapter, or the home page) lists everything:
 - **Grouped:** by book in Bible order, or as one list of recent changes.

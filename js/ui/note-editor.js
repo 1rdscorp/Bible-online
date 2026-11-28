@@ -16,7 +16,12 @@ import { el, icon, ICONS } from './dom.js';
 
 function runNodes(runs) {
   return runs.map((run) => {
-    let node = run.href ? el('a', { href: run.href, target: '_blank', rel: 'noopener noreferrer nofollow' }, run.text) : document.createTextNode(run.text);
+    // A link into the site (an Ellen G. White book it has) opens here; others in a new tab.
+    let node = !run.href
+      ? document.createTextNode(run.text)
+      : run.href.startsWith('#')
+        ? el('a', { href: run.href, title: run.title }, run.text)
+        : el('a', { href: run.href, target: '_blank', rel: 'noopener noreferrer nofollow', title: run.title }, run.text);
     if (run.italic) node = el('em', {}, node);
     if (run.bold) node = el('strong', {}, node);
     return node;
