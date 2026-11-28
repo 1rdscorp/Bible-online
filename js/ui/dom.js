@@ -90,6 +90,8 @@ export const ICONS = Object.freeze({
   play: 'M8 5v14l11-7z',
   // A standing figure (the statue of Daniel 2; interactive studies).
   statue: 'M12 2.5l1.5 1.5-1.5 1.5-1.5-1.5zM12 6.5a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM8.5 11.5h7l-.8 5h-5.4zM10 16.5l-.5 5M14 16.5l.5 5M8 21.5h8',
+  // A four-legged animal with a horn (the animals of Revelation; interactive studies).
+  creature: 'M4 12c0-2 1.6-3.5 4-3.5h6l2.5-3 .6 2.6L19.5 9l1 2.5-2.5 1V20M15 13v7M8 13.5V20M5 13v7M4 12l-1.5-2.5M17.2 5.2L18.5 3',
   timeline: 'M4 12h16M7 8v8M12 6v12M17 9v6',
   // An open book with lines of text: commentary.
   commentary: 'M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5C17 4 14 4.5 12 6zM12 6v14.5M6.5 8.5c1.2-.2 2.3 0 3.3.4M6.5 12c1.2-.2 2.3 0 3.3.4M14.2 8.9c1-.4 2.1-.6 3.3-.4M14.2 12.4c1-.4 2.1-.6 3.3-.4',

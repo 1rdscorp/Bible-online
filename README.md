@@ -61,7 +61,7 @@ In the repository, go to **Settings → Pages → Build and deployment**. Set **
 | `#/john/intro` | Introduction to John: author, date, themes, outline, key verses, places, timeline events |
 | `#/timeline` | The Bible timeline (`?event=crucifixion` brings one event into view) |
 | `#/maps` | The maps; `#/maps/paul?place=a5feb15` opens one with a place selected |
-| `#/explore` | Interactive studies; `#/explore/daniel-statue?part=legs&reading=traditional` opens the statue of Daniel 2 at a part |
+| `#/explore` | Interactive studies; `#/explore/daniel-statue?part=legs&reading=traditional` opens the statue of Daniel 2 at a part; `#/explore/revelation-animals?part=dragon` opens the animals of Revelation at a plate |
 | `#/topics` | Topics (`?q=prayer` fills the search box); `#/topics/faith` one topic (`?s=12` opens at its 13th statement, with its verses shown) |
 | `#/plans` | Reading plans; `#/plans/bible-year` one plan: start it, today's reading, progress, every day |
 | `#/commentary` | Adventist commentary: the books; `#/commentary/desire-of-ages` one book's contents (`?book=daniel` only its chapters on Daniel); `#/commentary/desire-of-ages/17` a chapter (`?v=3` scrolls to where verse 3 is discussed, in a verse-by-verse commentary) |
@@ -196,7 +196,7 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
   - **Show all places** adds every place OpenBible.info locates (about 1,300), each selectable.
   - **Full screen** gives the map the whole window, with the selected place's details underneath; Escape leaves it.
 
-- **Interactive studies** (`#/explore`). The first is **the statue of Nebuchadnezzar's dream** (Daniel 2), linked from Daniel 2 and 7, the Daniel introduction and the book list.
+- **Interactive studies** (`#/explore`). There are two. The first is **the statue of Nebuchadnezzar's dream** (Daniel 2), linked from Daniel 2 and 7, the Daniel introduction and the book list.
   - **The stage:** the statue stands on a lapis glazed-brick wall, as on Babylon's Ishtar Gate, and stays in view while you read. Choose a part on the figure or in the list beside it: head of gold, chest and arms of silver, belly and thighs of bronze, legs of iron, feet of iron and clay, or the stone.
   - **The part's dossier:** its verses (quoted in the translation you are reading), the kingdom it stands for, dates, key facts and figures, the kingdom on a zoomable map (shaded in the part's metal, with its cities and historical sites), notes on the material, where readers differ, and the evidence for it.
   - **Two readings:** a switch compares the Roman sequence (Babylon, Medo-Persia, Greece, Rome) with the Greek sequence many modern scholars hold (Babylon, Media, Persia, Greece). The dossier, the list and the timeline change with it.
@@ -204,6 +204,15 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
   - **Below:** a timeline of eleven centuries whose bars move with the reading, with 36 events; "What survives", 19 tablets, cylinders, scrolls and early readers that bear on the chapter; research notes (when Daniel was written, the two sequences side by side, Daniel 2 beside Daniel 7, and more); the chapters to read; and sources.
   - Every Bible reference in the text is a link into the reader. The page is in English and Russian; the Russian text is an AI translation (Claude) made for the site.
   - **The drawing** is `tools/art/daniel-statue.svg`, one named group per part (`Head_gold`, `Chest_and_arms_silver`, `Belly_and_thighs_bronze`, `Legs_iron`, `Feet_iron_and_clay`, `Stone`) plus `Plinth` and `Mountain_hidden`. To change it, replace the SVG, keep those names, and run `node tools/build-statue.mjs` (`npm run build-statue`), which writes `js/views/explore/statue-drawing.js` and refuses anything that could run or load (scripts, images, outside links).
+  - The second is **the animals of Revelation** (`#/explore/revelation-animals`), linked from Revelation 4, 5, 6, 9, 12, 13, 16, 17 and 19, the Revelation introduction and the book list.
+    - **Fifteen plates**, in the order the book brings them in: the four living creatures, the Lion of Judah, the Lamb, the four horses, the eagle, the locusts, the horses with lions' heads, the dragon, the beast from the sea, the beast from the earth, the three frogs, the scarlet beast, the birds, the white horse, and the animals named in passing. Choose one in the gallery or step through with Previous and Next; the address keeps the plate (`?part=lamb`).
+    - **Numbered points:** each plate has four to nine numbered points (91 in all). Choose a number on the plate or in the list beside it, by mouse, touch or keyboard, to read what that detail is and where the Bible explains it.
+    - **Two columns under each plate:** what the Bible itself says about the symbol, and what Ellen G. White wrote about it, paraphrased with page references. A label on every plate says how far her comment goes: she explains it in detail, she touches on it, or no direct comment was found, so her silence is never filled in.
+    - **Below:** a key to the symbols (14 rows, each with the verse that gives the meaning), a time chart of the 1260 years and of the fifth and sixth trumpets as *The Great Controversy* gives them, and the sources.
+    - Every Bible reference is a link into the reader, the verse under each plate is quoted in the translation you are reading, and references to *The Acts of the Apostles* and *Patriarchs and Prophets* open that chapter in the commentary. *The Great Controversy* is cited by page only, because the site doesn't hold it yet. English and Russian; the Russian text is an AI translation (Claude) made for the site.
+    - **The plates are pictures** made with an AI image generator, each shown whole at its own shape. They don't follow the text in every detail (a count of heads, horns or seals, or something the picture leaves out); the points' text follows the Bible, and the page's footer says so. A plate is a picture when its creature has an `image` in the content.
+    - **A plate can be a drawing instead** (none is at present): an SVG at `tools/art/revelation/<id>.svg`, drawn on a 640 × 400 grid with no words in it, for a creature that has no `image`. `node tools/build-revelation.mjs` (`npm run build-revelation`) writes the drawings into `js/views/explore/revelation-plates.js` and refuses anything that could run or load; the page loads that file only when a plate needs it. Each point's position is its `at` in `data/study/explore/revelation-animals.json`.
+    - **To use a picture for a plate:** save it as WebP in `img/revelation/`, about 1600 pixels wide (under 400 KB), with a small copy for the gallery (about 480 wide). In `data/study/explore/revelation-animals.json` give the creature an `"image": { "src", "thumb", "width", "height" }` (the larger file's size in pixels), describe the picture in `"picture"`, and place each point's `"at"` on a grid 640 wide and as high as the picture's shape makes it (a 1600 × 900 picture: 640 × 360). Delete the plate's SVG if it had one, then run `npm run build-revelation`, `node tools/build-study.mjs` and `npm run build-offline`. The picture is shown whole, at its own shape; `npm test` checks the files against the content.
 
 - **Adventist commentary** (`#/commentary`), linked next to Interactive studies on the book list. It holds classic Seventh-day Adventist books that are now in the public domain:
   - Ellen G. White's **Conflict of the Ages**, which retells the Bible story chapter by chapter: *Patriarchs and Prophets* (1890; the 1913 edition), *Prophets and Kings* (1917), *The Desire of Ages* (1898) and *The Acts of the Apostles* (1911).
@@ -322,9 +331,10 @@ To add another interface language:
 index.html            App shell: header, settings panel, <main> where views render
 sw.js                 Service worker: the offline copy of the site (file list by tools/build-offline.mjs)
 manifest.webmanifest  The installed app's name, icons and look; icons/ holds the PNG icons
+img/                  Pictures a page shows: revelation/ holds the picture plates of the animals of Revelation
 css/                  themes.css (colour tokens), base, layout, picker, reader, parallel, translate,
                       search, study, research (the Research panel), pages (study pages, maps),
-                      explore (the statue), commentary, audio (the player), formatting (a formatted
+                      explore (the statue), revelation (the animals of Revelation), commentary, audio (the player), formatting (a formatted
                       text's headings, poetry, footnotes), plans (reading plans), topics
 js/
   main.js             Entry point: routes → views, translation choice, keyboard, last-read
@@ -356,7 +366,7 @@ js/
   views/              Book/chapter picker, reader (single + parallel), verse alignment,
                       search page, My Study, Translations page, book introductions, timeline,
                       maps, commentary, reading plans, topics, messages; templates/ holds the study-page building blocks;
-                      explore/ holds the interactive studies (the statue of Daniel 2)
+                      explore/ holds the interactive studies (the statue of Daniel 2, the animals of Revelation)
 data/                 translations.json + one JSON file per translation; research.json lists the
                       research data: xref/ (cross-references), strongs/ (dictionaries), geo/
                       (places, basemap), study/ (introductions, timeline, maps), commentary/, audio/.
@@ -367,7 +377,8 @@ tools/                serve, build-data (download → convert → validate), bui
                       build-offline (sw.js's file list), build-icons (app icons), build-plans (reading
                       plans), build-topics (the topical index; Russian titles in topics-ru.json),
                       translate-topics (Russian statements in topics-ru/), build-statue (the
-                      statue drawing, from art/daniel-statue.svg), converters, validator
+                      statue drawing, from art/daniel-statue.svg), build-revelation (any drawn plates of the
+                      animals of Revelation, from art/revelation/), converters, validator
 tests/                node --test suites
 ```
 
@@ -387,7 +398,7 @@ tests/                node --test suites
 - [x] **Stage 4:** personal study tools: tap or select verses for an action bar (5 highlight colours, notes, bookmarks, two copy formats, share), a Notes panel with a rich-ish editor, tags and search, a My Study page with filters, highlights kept by verse reference across translations, and JSON backup export/import
   - Added later: word-level highlights (in the translation they were made in), and searching for selected words
 - [x] **Stage 5:** research and study pages: a Research side panel with cross-references (OpenBible.info) and Strong's word study in KJV+ (Hebrew/Greek word, transliteration, definition, every verse using it); book introductions for all 66 books, a timeline and SVG maps of key places, built as reusable page templates; English and Russian
-  - Added later: zoomable, interactive maps; the interactive statue of Daniel 2 (`#/explore`); public-domain Adventist commentary (`#/commentary`): Ellen G. White's Conflict of the Ages, with links to the official Russian editions and the site's own Russian translation of the chapters on Daniel and the Revelation
+  - Added later: zoomable, interactive maps; the interactive statue of Daniel 2 and the animals of Revelation (`#/explore`); public-domain Adventist commentary (`#/commentary`): Ellen G. White's Conflict of the Ages, with links to the official Russian editions and the site's own Russian translation of the chapters on Daniel and the Revelation
 - [x] **Licensed translation:** the modern Russian translation of the Institute for Bible Translation named after M. P. Kulakov (BTI), with its headings, footnotes, italics, small capitals and poetry lines
 - [x] **Audio:** the Russian Synodal read aloud (Alexander Bondarenko, from predanie.ru), in a player that follows the reader from chapter to chapter
 - [x] **Offline support:** the site opens and works without a connection (everything already opened on the device), installs as an app on phones and computers, and offers new versions with a Reload message

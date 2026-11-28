@@ -14,7 +14,8 @@
     "build-offline": "node tools/build-offline.mjs",
     "build-plans": "node tools/build-plans.mjs",
     "build-topics": "node tools/build-topics.mjs",
-    "build-statue": "node tools/build-statue.mjs"
+    "build-statue": "node tools/build-statue.mjs",
+    "build-revelation": "node tools/build-revelation.mjs"
   },
   "engines": {
     "node": ">=20"
