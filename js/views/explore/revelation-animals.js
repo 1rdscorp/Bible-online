@@ -28,6 +28,7 @@ import { chapterTitle, t } from '../../i18n.js';
 import { formatRef, parseRef } from '../../research/refs.js';
 import { pageHref, PAGES } from '../../router.js';
 import { el } from '../../ui/dom.js';
+import { fullScreenButton, openPictureViewer } from '../../ui/picture-viewer.js';
 import { localize } from '../maps.js';
 import { richHtml, verseHref } from '../templates/rich-html.js';
 
@@ -241,6 +242,26 @@ export function renderRevelationAnimals({ data, partId, onChange, passageText })
     }
   }
 
+  /** The plate full screen: choosing a number there shows its point (js/ui/picture-viewer.js). */
+  function openFullScreen() {
+    const shown = creature;
+    const { width, height } = plateSize(shown);
+    openPictureViewer({
+      title: localize(shown.title),
+      label: localize(shown.picture),
+      image: { src: shown.image.src, width, height },
+      points: shown.parts.map((part) => ({ at: part.at, title: localize(part.title) })),
+      selected: point,
+      info: (n) => {
+        const part = shown.parts[n - 1];
+        return [el('p', { class: 'pic-refs' }, richHtml(localize(part.refs))), el('div', { class: 'pic-text' }, richHtml(localize(part.text)))];
+      },
+      onSelect: (n) => {
+        if (shown === creature) showPoint(n);
+      },
+    });
+  }
+
   function renderDetail() {
     const index = data.creatures.indexOf(creature);
     const prev = data.creatures[index - 1];
@@ -252,6 +273,8 @@ export function renderRevelationAnimals({ data, partId, onChange, passageText })
     // A picture needs nothing but itself; a drawing waits for the drawings.
     plateFrame = el('div', { class: 'rv-plate' }, creature.image || plates ? stagePlate() : el('p', { class: 'rv-plate-wait' }, t(drawingsFailed ? 'revelation.noDrawing' : 'revelation.loading')));
     plateFrame.style.aspectRatio = `${width} / ${height}`;
+    // A picture opens full screen, where each number brings up its point.
+    if (creature.image) plateFrame.append(fullScreenButton(() => openFullScreen()));
     readout = el('figcaption', { class: 'rv-readout', 'aria-live': 'polite' });
     partItems = creature.parts.map((part, i) => {
       const n = i + 1;

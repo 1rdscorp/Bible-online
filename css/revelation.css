@@ -276,6 +276,7 @@
 }
 
 .rv-plate {
+  position: relative; /* for its full-screen button (css/pictures.css) */
   aspect-ratio: 8 / 5; /* a drawing; a picture sets its own shape (revelation-animals.js) */
   background: var(--rv-paper);
 }

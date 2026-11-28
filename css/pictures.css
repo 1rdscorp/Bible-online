@@ -1,0 +1,278 @@
+/* ---------- Pictures with numbered points, and full screen ----------
+   js/ui/picture-viewer.js: the statue of Daniel 2 and the animals of
+   Revelation. The points keep one size on screen (the script scales them);
+   the full-screen view is dark in every theme, as pictures are best seen. */
+
+/* Numbered points: white on ink, gold when chosen. */
+.pic-pin {
+  outline: none;
+  cursor: pointer;
+}
+
+.pic-pin-hit {
+  fill: transparent;
+}
+
+.pic-pin-dot {
+  fill: #fff;
+  stroke: #1b1c20;
+  stroke-width: 2;
+}
+
+.pic-pin text {
+  fill: #1b1c20;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+.pic-pin-mark {
+  transition: transform 0.14s ease-out;
+}
+
+.pic-pin:hover .pic-pin-mark {
+  transform: scale(1.14);
+}
+
+.pic-pin.is-selected .pic-pin-mark {
+  transform: scale(1.28);
+}
+
+.pic-pin.is-selected .pic-pin-dot {
+  fill: #1b1c20;
+  stroke: #f2c744;
+  stroke-width: 3;
+}
+
+.pic-pin.is-selected text {
+  fill: #fff;
+}
+
+.pic-pin:focus-visible .pic-pin-dot {
+  stroke: #f2c744;
+  stroke-width: 4.5;
+}
+
+/* The full-screen button, over a picture's top right corner. */
+.pic-full-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 0.55);
+  border-radius: 50%;
+  background: rgb(14 18 28 / 0.62);
+  color: #fff;
+  cursor: pointer;
+}
+
+.pic-full-button:hover {
+  background: rgb(14 18 28 / 0.85);
+}
+
+.pic-full-button:focus-visible {
+  outline: 3px solid #ffd966;
+  outline-offset: 2px;
+}
+
+/* ---------- the full-screen view ---------- */
+
+html.has-picture-viewer,
+html.has-picture-viewer body {
+  overflow: hidden;
+}
+
+.pic-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  background: #0b0d12;
+  color: #eef2fa;
+}
+
+.pic-viewer :focus-visible {
+  outline-color: #ffd966;
+}
+
+.pic-viewer a {
+  color: #9cc7ff;
+}
+
+.pic-viewer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.4rem 0.5rem 0.4rem 1rem;
+  border-bottom: 1px solid rgb(255 255 255 / 0.14);
+}
+
+.pic-viewer-title {
+  overflow: hidden;
+  font-family: var(--font-scripture);
+  font-size: 1.1rem;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pic-close {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #eef2fa;
+  cursor: pointer;
+}
+
+.pic-close:hover {
+  background: rgb(255 255 255 / 0.1);
+}
+
+.pic-viewer-main {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-height: 0;
+}
+
+.pic-viewer-stage {
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  padding: 0.5rem;
+}
+
+.pic-viewer-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* What's behind the chosen number: under the picture, or beside it on a wide screen. */
+.pic-panel {
+  max-height: 42vh;
+  overflow-y: auto;
+  padding: 0.85rem 1rem 0.75rem;
+  border-top: 1px solid rgb(255 255 255 / 0.14);
+  background: #151923;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+@media (min-width: 60rem) {
+  .pic-viewer-main {
+    grid-template-columns: minmax(0, 1fr) 24rem;
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .pic-panel {
+    max-height: none;
+    border-top: 0;
+    border-left: 1px solid rgb(255 255 255 / 0.14);
+  }
+}
+
+.pic-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.pic-number {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 2px solid #f2c744;
+  border-radius: 50%;
+  background: #1b1c20;
+  color: #fff;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.pic-panel-title {
+  margin: 0;
+  font-family: var(--font-scripture);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.pic-panel-body {
+  margin-top: 0.6rem;
+}
+
+.pic-panel-body > * + * {
+  margin-top: 0.5rem;
+}
+
+.pic-refs {
+  color: #b4c2de;
+  font-size: 0.88rem;
+}
+
+.pic-text {
+  font-family: var(--font-scripture);
+}
+
+.pic-text p + p {
+  margin-top: 0.5rem;
+}
+
+.pic-panel-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.pic-counter {
+  color: #b4c2de;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.pic-step {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  border: 1px solid rgb(255 255 255 / 0.35);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: #eef2fa;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.pic-step:hover:not(:disabled) {
+  background: rgb(255 255 255 / 0.1);
+}
+
+.pic-step:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pic-pin-mark {
+    transition: none;
+  }
+}

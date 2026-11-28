@@ -203,13 +203,13 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
   - **Full screen** gives the map the whole window, with the selected place's details underneath; Escape leaves it.
 
 - **Interactive studies** (`#/explore`). There are two. The first is **the statue of Nebuchadnezzar's dream** (Daniel 2), linked from Daniel 2 and 7, the Daniel introduction and the book list.
-  - **The stage:** the statue stands on a lapis glazed-brick wall, as on Babylon's Ishtar Gate, and stays in view while you read. Choose a part on the figure or in the list beside it: head of gold, chest and arms of silver, belly and thighs of bronze, legs of iron, feet of iron and clay, or the stone.
+  - **The stage:** a picture of the statue, on a lapis glazed-brick wall as on Babylon's Ishtar Gate, stays in view while you read. Its parts are numbered, as the animals of Revelation are: 1 head of gold, 2 chest and arms of silver, 3 belly and thighs of bronze, 4 legs of iron, 5 feet of iron and clay, 6 the stone. Choose a number on the picture or a part in the list beside it.
   - **The part's dossier:** its verses (quoted in the translation you are reading), the kingdom it stands for, dates, key facts and figures, the kingdom on a zoomable map (shaded in the part's metal, with its cities and historical sites), notes on the material, where readers differ, and the evidence for it.
   - **Two readings:** a switch compares the Roman sequence (Babylon, Medo-Persia, Greece, Rome) with the Greek sequence many modern scholars hold (Babylon, Media, Persia, Greece). The dossier, the list and the timeline change with it.
-  - **Release the stone:** the stone strikes the feet, the statue breaks into chaff that the wind carries away, and the stone grows into a mountain (Daniel 2:34–35). With reduced motion it goes straight to the end.
+  - **Full screen:** the button on the picture's corner shows the whole picture, ruins and sky included, full screen. Choose a number there to bring up what's behind it: the part's verses, the kingdom it stands for in the chosen reading, and the kingdom in brief. ← and → step through the numbers; Escape closes. The plates of the animals of Revelation open full screen the same way (`js/ui/picture-viewer.js`, `css/pictures.css`).
   - **Below:** a timeline of eleven centuries whose bars move with the reading, with 36 events; "What survives", 19 tablets, cylinders, scrolls and early readers that bear on the chapter; research notes (when Daniel was written, the two sequences side by side, Daniel 2 beside Daniel 7, and more); the chapters to read; and sources.
   - Every Bible reference in the text is a link into the reader. The page is in English and Russian; the Russian text is an AI translation (Claude) made for the site.
-  - **The picture** is `tools/art/daniel-statue.jpg`. Each part's outline is traced over it in `tools/build-statue.py`: pointing at a part lights it, clicking chooses it, and the chosen part stays lit while the rest of the picture dims. Releasing the stone breaks the statue into shards of the picture, which the wind carries away, and the stone itself grows into the mountain. `python3 tools/build-statue.py` (`npm run build-statue`, needs Pillow and NumPy) writes three pictures into `img/daniel-statue/`: the statue, the hall without it (filled in from around it) and the stone alone. It also writes the outlines, shards and label positions into `js/views/explore/statue-photo.js`.
+  - **The picture** is `tools/art/daniel-statue.jpg`. `python3 tools/build-statue.py` (`npm run build-statue`, needs Pillow) resizes it into `img/daniel-statue/statue.webp`. The crop the page shows and each number's place are in the content (`stage.crop`, each part's `at`), in the picture's own pixels.
   - The second is **the animals of Revelation** (`#/explore/revelation-animals`), linked from Revelation 4, 5, 6, 9, 12, 13, 16, 17 and 19, the Revelation introduction and the book list.
     - **Fifteen plates**, in the order the book brings them in: the four living creatures, the Lion of Judah, the Lamb, the four horses, the eagle, the locusts, the horses with lions' heads, the dragon, the beast from the sea, the beast from the earth, the three frogs, the scarlet beast, the birds, the white horse, and the animals named in passing. Choose one in the gallery or step through with Previous and Next; the address keeps the plate (`?part=lamb`).
     - **Numbered points:** each plate has four to nine numbered points (91 in all). Choose a number on the plate or in the list beside it, by mouse, touch or keyboard, to read what that detail is and where the Bible explains it.
@@ -337,7 +337,7 @@ To add another interface language:
 index.html            App shell: header, settings panel, <main> where views render
 sw.js                 Service worker: the offline copy of the site (file list by tools/build-offline.mjs)
 manifest.webmanifest  The installed app's name, icons and look; icons/ holds the PNG icons
-img/                  Pictures a page shows: revelation/ holds the picture plates of the animals of Revelation
+img/                  Pictures a page shows: daniel-statue/ the statue of Daniel 2, revelation/ the picture plates of the animals of Revelation
 css/                  themes.css (colour tokens), base, layout, picker, reader, parallel, translate,
                       search, study, research (the Research panel), pages (study pages, maps),
                       explore (the statue), revelation (the animals of Revelation), commentary, audio (the player), formatting (a formatted
@@ -383,7 +383,7 @@ tools/                serve, build-data (download → convert → validate), bui
                       build-offline (sw.js's file list), build-icons (app icons), build-plans (reading
                       plans), build-topics (the topical index; Russian titles in topics-ru.json),
                       translate-topics (Russian statements in topics-ru/), build-statue.py (the
-                      statue's picture and outlines, from art/daniel-statue.jpg), build-revelation (any drawn plates of the
+                      statue's picture, from art/daniel-statue.jpg), build-revelation (any drawn plates of the
                       animals of Revelation, from art/revelation/), converters, validator
 tests/                node --test suites
 ```

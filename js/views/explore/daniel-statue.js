@@ -1,13 +1,17 @@
 /**
  * #/explore/daniel-statue: the statue of Nebuchadnezzar's dream (Daniel 2).
  *
- * At the top, the statue on a glazed-brick wall (as on Babylon's Ishtar
- * Gate) stays in view beside the selected part's dossier: its verses (in
- * the translation being read), the kingdom it stands for in the chosen
- * reading, facts and figures, the kingdom on the map, the material, where
- * readers differ, and the evidence for it. "Release the stone" acts out
- * Daniel 2:34–35. Below: a timeline whose bars move with the reading, the
- * evidence that survives, research notes, the chapters to read, sources.
+ * At the top, a picture of the statue on a glazed-brick wall (as on
+ * Babylon's Ishtar Gate) stays in view beside the selected part's dossier.
+ * The picture's parts are numbered, 1 to 6, as are the parts listed beside
+ * it, the way the animals of Revelation are; choosing a number or a part
+ * opens its dossier: its verses (in the translation being read), the
+ * kingdom it stands for in the chosen reading, facts and figures, the
+ * kingdom on the map, the material, where readers differ, and the evidence
+ * for it. The picture opens full screen, the whole of it, where choosing a
+ * number shows what's behind it (js/ui/picture-viewer.js). Below: a
+ * timeline whose bars move with the reading, the evidence that survives,
+ * research notes, the chapters to read, sources.
  *
  * Two readings are offered, because the text names only the first kingdom:
  * the Roman sequence (Babylon, Medo-Persia, Greece, Rome; reading id
@@ -21,16 +25,13 @@ import { createMapView } from '../../geo/map.js';
 import { formatRef, parseRef } from '../../research/refs.js';
 import { pageHref, PAGES } from '../../router.js';
 import { el } from '../../ui/dom.js';
+import { fullScreenButton, numberPins, openPictureViewer, pictureSvg } from '../../ui/picture-viewer.js';
 import { localize, placeName } from '../maps.js';
 import { refHref, richHtml, verseHref } from '../templates/rich-html.js';
 import { createStatueEvidence } from './statue-evidence.js';
-import { createStatueFigure, PART_LEVELS } from './statue-figure.js';
 import { createStatueTimeline } from './statue-timeline.js';
 
 const WHOLE_MAP = [-10, 18, 76, 50];
-// Where each part's button sits beside the figure, as a share of its height
-// (level with the part in the picture).
-const RAIL_AT = PART_LEVELS;
 
 const reducedMotion = () => globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 const refLabel = (ref) => formatRef(ref, chapterTitle);
@@ -102,18 +103,25 @@ export function renderDanielStatue({ data, places, basemap, partId, readingId, o
     mapPlaces[id] = { name: landmark.name.en, ru: landmark.name.ru, lon: landmark.lon, lat: landmark.lat, type: 'landmark', score: 500, verses: [], note: landmark.note };
   }
 
-  /* -------- the stage: the statue, its parts, the stone -------- */
+  /* -------- the stage: the picture of the statue, its numbered parts -------- */
 
-  const figure = createStatueFigure({ label: localize(data.stage.figure), onSelect: (id) => choose(id) });
-  const caption = el('p', { class: 'statue-caption', 'aria-live': 'polite' });
-  const releaseButton = el('button', { type: 'button', class: 'statue-release' }, t('statue.release'));
+  // The picture, in its own pixels; the stage shows the crop round the statue and the stone.
+  const { image, crop } = data.stage;
+  const pictureLabel = localize(data.stage.figure);
+  const points = () => data.parts.map((p) => ({ at: p.at, title: localize(p.title) }));
+  const picture = pictureSvg({ image, view: crop, className: 'statue', label: pictureLabel });
+  picture.style.aspectRatio = `${crop[2]} / ${crop[3]}`;
+  const pins = numberPins(picture, points(), { onChoose: (n) => choose(data.parts[n - 1].id) });
+  const caption = el('p', { class: 'statue-caption' }, richHtml(localize(data.stage.start)));
   const railButtons = new Map();
+  // Each part's button beside the picture sits level with its number.
+  const levelOf = (p) => (((p.at[1] - crop[1]) / crop[3]) * 100).toFixed(1);
 
   function railButton(p) {
     const button = el(
       'button',
       { type: 'button', class: 'statue-rail-button', 'data-metal': p.metal, 'aria-pressed': 'false' },
-      el('span', { class: 'statue-swatch', 'aria-hidden': 'true' }),
+      el('span', { class: 'statue-rail-number', 'aria-hidden': 'true' }, String(data.parts.indexOf(p) + 1)),
       el('span', { class: 'statue-rail-part' }, localize(p.label)),
       el('span', { class: 'statue-rail-kingdom' }),
     );
@@ -125,9 +133,9 @@ export function renderDanielStatue({ data, places, basemap, partId, readingId, o
   const rail = el(
     'ul',
     { class: 'statue-rail', role: 'list', 'aria-label': t('statue.parts') },
-    data.parts.filter((p) => RAIL_AT[p.id] !== undefined).map((p) => el('li', { style: `top:${RAIL_AT[p.id]}%`, 'data-at': String(RAIL_AT[p.id]) }, railButton(p))),
+    data.parts.filter((p) => p.id !== 'stone').map((p) => el('li', { style: `top:${levelOf(p)}%`, 'data-at': levelOf(p) }, railButton(p))),
   );
-  // Lay the buttons out again when the figure's size or their names change.
+  // Lay the buttons out again when the picture's size or their names change.
   function layoutRail() {
     const height = rail.clientHeight;
     if (!height) return;
@@ -142,22 +150,26 @@ export function renderDanielStatue({ data, places, basemap, partId, readingId, o
   railObserver?.observe(rail);
   const stoneButton = railButton(data.parts.find((p) => p.id === 'stone'));
 
-  releaseButton.addEventListener('click', async () => {
-    if (figure.fallen) {
-      figure.raise();
-      showCaption();
-      return;
-    }
-    choose('stone');
-    releaseButton.disabled = true;
-    await figure.release();
-    releaseButton.disabled = false;
-    showCaption();
-  });
+  /** What's behind a number in full screen: the part's verses, its kingdom, the kingdom in brief. */
+  function partInfo(p) {
+    const kingdom = kingdomOf(p, reading);
+    return [
+      el('p', { class: 'pic-refs' }, p.verses.flatMap((text, i) => [i ? ', ' : '', el('a', { href: verseHref(text) }, refLabel(parseRef(text)))])),
+      el('p', { class: 'pic-lead' }, el('b', {}, localize(kingdom.name)), ` · ${localize(kingdom.dates)}`),
+      el('div', { class: 'pic-text' }, richHtml(localize(kingdom.summary))),
+    ];
+  }
 
-  function showCaption() {
-    caption.replaceChildren(richHtml(localize(figure.fallen ? data.stage.fallen : data.stage.start)));
-    releaseButton.textContent = figure.fallen ? t('statue.raise') : t('statue.release');
+  function openFullScreen() {
+    openPictureViewer({
+      title: localize(data.title),
+      label: pictureLabel,
+      image,
+      points: points(),
+      selected: data.parts.indexOf(part) + 1,
+      info: (n) => partInfo(data.parts[n - 1]),
+      onSelect: (n) => choose(data.parts[n - 1].id),
+    });
   }
 
   const stage = el(
@@ -167,8 +179,8 @@ export function renderDanielStatue({ data, places, basemap, partId, readingId, o
       'div',
       { class: 'statue-stage-inner' },
       caption,
-      el('div', { class: 'statue-figure-row' }, figure.element, rail),
-      el('div', { class: 'statue-stage-foot' }, stoneButton, releaseButton),
+      el('div', { class: 'statue-figure-row' }, el('div', { class: 'statue-picture' }, picture, fullScreenButton(openFullScreen)), rail),
+      el('div', { class: 'statue-stage-foot' }, stoneButton),
     ),
     frieze(),
   );
@@ -428,14 +440,8 @@ export function renderDanielStatue({ data, places, basemap, partId, readingId, o
    *   view and focus its title (chosen from the timeline or the pager)
    */
   function choose(id, { reveal = false } = {}) {
-    if (figure.busy) return;
     const next = data.parts.find((p) => p.id === id);
     if (!next) return;
-    // Choosing a part of the statue after the stone fell brings it back.
-    if (figure.fallen && id !== 'stone') {
-      figure.raise();
-      showCaption();
-    }
     part = next;
     update();
     if (reveal) {
@@ -447,7 +453,7 @@ export function renderDanielStatue({ data, places, basemap, partId, readingId, o
 
   function update() {
     onChange({ part: part.id, reading });
-    figure.select(part.id);
+    pins.select(data.parts.indexOf(part) + 1);
     for (const [id, button] of railButtons) {
       button.setAttribute('aria-pressed', String(id === part.id));
       button.querySelector('.statue-rail-kingdom').textContent = localize(kingdomOf(data.parts.find((p) => p.id === id), reading).rail);
@@ -459,14 +465,13 @@ export function renderDanielStatue({ data, places, basemap, partId, readingId, o
     timeline.update({ reading, part: part.id });
   }
 
-  showCaption();
   update();
 
   return {
     element,
     destroy() {
       railObserver?.disconnect();
-      figure.destroy();
+      pins.destroy();
       map.destroy();
     },
   };
