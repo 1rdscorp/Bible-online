@@ -209,7 +209,7 @@ Word highlights work in KJV+ as elsewhere, and the words stay tappable.
   - **Release the stone:** the stone strikes the feet, the statue breaks into chaff that the wind carries away, and the stone grows into a mountain (Daniel 2:34–35). With reduced motion it goes straight to the end.
   - **Below:** a timeline of eleven centuries whose bars move with the reading, with 36 events; "What survives", 19 tablets, cylinders, scrolls and early readers that bear on the chapter; research notes (when Daniel was written, the two sequences side by side, Daniel 2 beside Daniel 7, and more); the chapters to read; and sources.
   - Every Bible reference in the text is a link into the reader. The page is in English and Russian; the Russian text is an AI translation (Claude) made for the site.
-  - **The drawing** is `tools/art/daniel-statue.svg`, one named group per part (`Head_gold`, `Chest_and_arms_silver`, `Belly_and_thighs_bronze`, `Legs_iron`, `Feet_iron_and_clay`, `Stone`) plus `Plinth` and `Mountain_hidden`. To change it, replace the SVG, keep those names, and run `node tools/build-statue.mjs` (`npm run build-statue`), which writes `js/views/explore/statue-drawing.js` and refuses anything that could run or load (scripts, images, outside links).
+  - **The picture** is `tools/art/daniel-statue.jpg`. Each part's outline is traced over it in `tools/build-statue.py`: pointing at a part lights it, clicking chooses it, and the chosen part stays lit while the rest of the picture dims. Releasing the stone breaks the statue into shards of the picture, which the wind carries away, and the stone itself grows into the mountain. `python3 tools/build-statue.py` (`npm run build-statue`, needs Pillow and NumPy) writes three pictures into `img/daniel-statue/`: the statue, the hall without it (filled in from around it) and the stone alone. It also writes the outlines, shards and label positions into `js/views/explore/statue-photo.js`.
   - The second is **the animals of Revelation** (`#/explore/revelation-animals`), linked from Revelation 4, 5, 6, 9, 12, 13, 16, 17 and 19, the Revelation introduction and the book list.
     - **Fifteen plates**, in the order the book brings them in: the four living creatures, the Lion of Judah, the Lamb, the four horses, the eagle, the locusts, the horses with lions' heads, the dragon, the beast from the sea, the beast from the earth, the three frogs, the scarlet beast, the birds, the white horse, and the animals named in passing. Choose one in the gallery or step through with Previous and Next; the address keeps the plate (`?part=lamb`).
     - **Numbered points:** each plate has four to nine numbered points (91 in all). Choose a number on the plate or in the list beside it, by mouse, touch or keyboard, to read what that detail is and where the Bible explains it.
@@ -382,8 +382,8 @@ tools/                serve, build-data (download → convert → validate), bui
                       BTI text, from the Institute's Word files: lib/docx.mjs, lib/bti.mjs),
                       build-offline (sw.js's file list), build-icons (app icons), build-plans (reading
                       plans), build-topics (the topical index; Russian titles in topics-ru.json),
-                      translate-topics (Russian statements in topics-ru/), build-statue (the
-                      statue drawing, from art/daniel-statue.svg), build-revelation (any drawn plates of the
+                      translate-topics (Russian statements in topics-ru/), build-statue.py (the
+                      statue's picture and outlines, from art/daniel-statue.jpg), build-revelation (any drawn plates of the
                       animals of Revelation, from art/revelation/), converters, validator
 tests/                node --test suites
 ```

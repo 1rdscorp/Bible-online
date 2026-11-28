@@ -14,7 +14,7 @@
     "build-offline": "node tools/build-offline.mjs",
     "build-plans": "node tools/build-plans.mjs",
     "build-topics": "node tools/build-topics.mjs",
-    "build-statue": "node tools/build-statue.mjs",
+    "build-statue": "python3 tools/build-statue.py",
     "build-revelation": "node tools/build-revelation.mjs"
   },
   "engines": {

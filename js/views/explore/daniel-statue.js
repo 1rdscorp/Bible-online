@@ -24,13 +24,13 @@ import { el } from '../../ui/dom.js';
 import { localize, placeName } from '../maps.js';
 import { refHref, richHtml, verseHref } from '../templates/rich-html.js';
 import { createStatueEvidence } from './statue-evidence.js';
-import { createStatueFigure } from './statue-figure.js';
+import { createStatueFigure, PART_LEVELS } from './statue-figure.js';
 import { createStatueTimeline } from './statue-timeline.js';
 
 const WHOLE_MAP = [-10, 18, 76, 50];
 // Where each part's button sits beside the figure, as a share of its height
-// (level with the part in tools/art/daniel-statue.svg).
-const RAIL_AT = { head: 16, chest: 31, belly: 50, legs: 78, feet: 91 };
+// (level with the part in the picture).
+const RAIL_AT = PART_LEVELS;
 
 const reducedMotion = () => globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 const refLabel = (ref) => formatRef(ref, chapterTitle);

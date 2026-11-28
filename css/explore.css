@@ -275,66 +275,75 @@
   display: block;
   width: auto;
   height: clamp(20rem, calc(100vh - var(--header-height) - 14rem), 32.5rem);
-  aspect-ratio: 400 / 750;
-  overflow: visible;
+  aspect-ratio: 1050 / 2000;
+  overflow: hidden;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.18), 0 10px 26px -14px rgb(0 0 0 / 0.7);
 }
 
+/* The picture (js/views/explore/statue-figure.js): the parts' outlines lie
+   over it and can be clicked; the chosen part stays lit, the rest dims. */
 .statue-part {
+  fill: transparent;
   cursor: pointer;
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: opacity 0.25s, filter 0.25s;
 }
 
-.statue.has-selection .statue-part:not(.is-selected) {
-  filter: brightness(0.6) saturate(0.8);
-}
-
-.statue.has-selection .statue-part:not(.is-selected):hover {
-  filter: brightness(0.95);
-}
-
-.statue-part.is-selected {
-  filter: drop-shadow(0 0 7px rgb(255 236 170 / 0.55));
-}
-
-.statue-part[data-part="stone"] {
-  animation: statue-bob 4.5s ease-in-out infinite;
-}
-
-@keyframes statue-bob {
-  0%,
-  100% { translate: 0 0; }
-  50% { translate: 0 -6px; }
-}
-
-.statue-mountain {
-  transform: scale(0);
-  transform-origin: 180px 694px;
+.statue-dim {
+  fill: #050a18;
   opacity: 0;
   pointer-events: none;
+  transition: opacity 0.3s;
 }
 
-.statue.is-fallen .statue-mountain {
-  transform: none;
-  opacity: 1;
+.statue.has-selection .statue-dim {
+  opacity: 0.55;
 }
 
-.statue.is-fallen :is(.statue-part, .statue-plinth) {
-  opacity: 0 !important;
+.statue-glow {
+  fill: none;
+  stroke: rgb(255 226 150 / 0.75);
+  stroke-width: 9;
+  stroke-linejoin: round;
   pointer-events: none;
 }
 
-.statue.is-busy .statue-part {
+.statue-glow--hover {
+  stroke: rgb(255 255 255 / 0.45);
+}
+
+/* Releasing the stone: the picture gives way to the statue alone over the
+   empty hall, then to its shards; at the end the stone is the mountain. */
+.statue-whole,
+.statue-stone {
+  visibility: hidden;
+}
+
+.statue.is-busy .statue-picture,
+.statue.is-fallen .statue-picture {
+  visibility: hidden;
+}
+
+.statue.is-busy .statue-whole,
+.statue.is-busy .statue-stone,
+.statue.is-fallen .statue-stone {
+  visibility: visible;
+}
+
+/* Once it breaks, only the shards. */
+.statue.is-busy.is-breaking .statue-whole {
+  visibility: hidden;
+}
+
+.statue:is(.is-busy, .is-fallen) :is(.statue-dim, .statue-glow) {
+  display: none;
+}
+
+.statue:is(.is-busy, .is-fallen) .statue-hits {
   pointer-events: none;
 }
 
-.statue:is(.is-busy, .is-fallen) .statue-part[data-part="stone"] {
-  animation: none;
-}
-
-.statue.is-busy.has-selection .statue-part {
-  filter: none;
+.statue.is-fallen .statue-stone {
+  filter: saturate(0.85) brightness(1.05);
 }
 
 /* The parts' buttons, each level with its part of the figure. */
@@ -1423,11 +1432,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .statue-part[data-part="stone"] {
-    animation: none;
-  }
-
-  .statue-part {
+  .statue-dim {
     transition: none;
   }
 
